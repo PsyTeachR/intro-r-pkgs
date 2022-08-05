@@ -1,0 +1,63 @@
+project:
+  type: book
+  output-dir: docs
+  
+book:
+  title: 'Coding Club: Creating an R Package'
+  author: Lisa DeBruine
+  #description: "Creating an R Package"
+  cover-image: images/logos/logo.png
+  image: images/logos/logo.png
+  fav-icon: images/logos/favicon.ico
+  #cookie-consent: true
+  google-analytics: "G-6NP3MF25W3"
+  page-navigation: true
+  search: true
+  comments: 
+    hypothesis:
+      theme: clean
+      openSidebar: false
+  repo-url: https://github.com/psyteachr/coding-club-r-packages/
+  repo-branch: master
+  repo-actions: [edit, issue, source]
+#  downloads: [pdf, epub]
+  sharing: [twitter, facebook, linkedin]
+  # sidebar:
+  #   style: docked
+  #   background: light
+  page-footer: 
+    left: "CC-BY 2022, Lisa DeBruine" 
+    right: 
+      - icon: github
+        href: https://github.com/psyteachr/coding-club-r-packages
+      - icon: twitter 
+        href: https://twitter.com/psyteachr
+  chapters:
+  - index.qmd
+  - references.qmd
+  
+bibliography: include/references.bib
+csl: include/apa.csl
+nocite: |
+  @*
+
+format:
+  html:
+    theme:
+      dark:
+      - darkly
+      - include/dark.scss
+      light:
+      - flatly
+      - include/light.scss
+    css: include/style.css
+    code-link: true
+    code-fold: true
+    code-line-numbers: true
+    code-overflow: wrap
+    code-copy: true
+    # code-block-border-left: "#4864DB"
+    highlight-style: a11y
+    # monofont: Fira Code
+    # mainfont: Open Sans
+    include-after-body: include/script.js

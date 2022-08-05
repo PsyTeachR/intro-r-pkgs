@@ -1,0 +1,43 @@
+# Overview {.unnumbered}
+
+## Tentative Schedule
+
+1. Setting up a package project (2022-10-05)
+
+    Create a package project and edit the default files. We’ll start using the most helpful package, usethis.
+
+2. Adding Data (2022-10-12)
+
+    Add datasets to your package and document them with a codebook. You can use our demo data or your own.
+
+3. Custom Functions (2022-10-19)
+
+    Learn to write custom functions and include them in your package.
+
+4. Documentation (2022-10-26)
+
+    Write function documentation using the roxygen format. This is what creates the help documentation for functions.
+
+5. Analysis Vignette (2022-11-02)
+
+    Include your study analysis code as a package vignette.
+
+6. Pkgdown Websites (2022-11-09)
+
+    Create a package website using pkgdown.
+
+7. Unit Tests (2022-11-16)
+
+    Write unit tests for your custom functions using testthat.
+
+8. Package Maintenance (2022-11-22)
+
+    How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.
+
+9. Sharing your package (2022-11-30)
+
+    Set up a github account and make a package repository to share your package and pkgdown website.
+
+10. Review and next steps (2022-12-07)
+
+    Whatever we didn’t get to. We’ll also discuss how to continue your learning.
