@@ -2,45 +2,13 @@
 
 img { max-width: 100%; }
 
-:root {
-  --pink: #983E82;   /* hsl(315, 42%, 42%) */
-  --orange: #E2A458; /* hsl( 33, 70%, 62%) */
-  --yellow: #F5DC70; /* hsl( 49, 87%, 70%) */
-  --green: #59935B;  /* hsl(122, 25%, 46%) */
-  --blue: #467AAC;   /* hsl(209, 42%, 47%) */
-  --purple: #61589C; /* hsl(248, 28%, 48%) */
-}
-
-/* rainbow borders */
-body {
-  margin-top: 24px;
-  box-shadow: 0 -4px 0 0px var(--purple),
-              0 -8px 0 0px var(--blue),
-              0 -12px 0 0px var(--green),
-              0 -16px 0 0px var(--yellow),
-              0 -20px 0 0px var(--orange),
-              0 -24px 0 0px var(--pink);
-}
-
-
-/* colour-coded sction headers */
-.sidebar-item-section > .sidebar-item.container .sidebar-item-text {
-  font-weight: bold; font-variant: small-caps;
-}
-
-.sidebar-item-text[data-bs-target="#quarto-sidebar-section-comparisons"] { color: var(--comp); }
-.sidebar-item-text[data-bs-target="#quarto-sidebar-section-distributions"] { color: var(--dist); }
-.sidebar-item-text[data-bs-target="#quarto-sidebar-section-relationships"] { color: var(--rels); }
-.sidebar-item-text[data-bs-target="#quarto-sidebar-section-timeseries"] { color: var(--time); }
-.sidebar-item-text[data-bs-target="#quarto-sidebar-section-uncertainties"] { color: var(--cert); }
 
 /* fix code wrap with line numbers */
 pre > code.sourceCode > span {
-  text-indent: -50px; 
+  text-indent: -50px;
   padding-left: 50px;
 }
 
-svg { width: 100%; }
 .inline-figure { border: none; }
 .quarto-cover-image { display: none; }
 
@@ -60,8 +28,15 @@ svg { width: 100%; }
   text-indent: -2em ;
 }
 
-.package { font-weight: 600; color: inherit; background-color: inherit !important; }
-.package::before { content: "{"; }
-.package::after { content: "}"; }
+.cell-output code {
+  white-space: pre-wrap;
+  border: 1px solid grey;
+  padding: 1em;
+}
 
-
+.terminal {
+  background-color: #88888811;
+  border: 5px solid #D6DADC;
+  padding: 0.5em 1em 0 1em;
+  margin-bottom: 0.5em;
+}

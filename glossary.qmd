@@ -1,0 +1,7 @@
+# Glossary
+
+```{r, echo = FALSE}
+glossary::glossary_table()
+```
+
+

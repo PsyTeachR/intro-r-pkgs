@@ -1,0 +1,331 @@
+# Custom Functions {#sec-functions}
+
+```{r, include = FALSE}
+source("R/setup.R")
+```
+
+Learn to write custom functions and include them in your package.
+
+```{r}
+library(usethis)
+```
+
+## Function Overview
+
+First, let's create a very basic `r glossary("function")` to learn about custom functions. Functions need a name (like any R `r glossary("object")`). They are created with the `function()` function.
+
+```{r}
+fullname <- function() {
+  # function code goes here
+}
+```
+
+Most functions have `r glossary("argument", "arguments")` that set inputs to the function or options for how the function can work. These arguments can be required for the function to work, or have `r glossary("default value", "default values")`. In the example below, the argument `reverse` defaults to FALSE unless you change it.
+
+```{r}
+fullname <- function(first, last, reverse = FALSE) {
+  # function code goes here
+}
+```
+
+Functions use these arguments in their code to produce some kind of output (or side effect). Here, if the value of `reverse` is TRUE, then we paste together the value of `last`, a comma, and the value of `first` and assign this to the object `name`. If the value of `reverse` is FALSE, then we paste together the value of `first` and the value of `last` and assign this to `name`. Finally, we use the `return()` function to return the value of `name`.
+
+```{r}
+fullname <- function(first, last, reverse = FALSE) {
+  if (reverse) {
+    name <- paste0(last, ", ", first)
+  } else {
+    name <- paste(first, last)
+  }
+  
+  return(name)
+}
+```
+
+:::{.info}
+You technically don't have to use the `return()` function. The last object created in the function code will be automatically returned. Most people don't use `return()`, but that can sometimes make it hard to figure out exactly what is being returned if you have a lot of if/else logic.
+:::
+
+Run the code above to define the function. After it's defined, if you type the function name into the console, it will show you the code for the function.
+
+```{r}
+fullname
+```
+
+:::{.info}
+You can do this for any function; try a few! Many of the base R functions, like `mean` have unsatisfying code like `UseMethod("mean")`, which you can lean about in the [S3 Chapter of Advanced R](https://adv-r.hadley.nz/s3.html), but other functions like `sd` will show you the code they use.
+:::
+
+Use your function like any other R function.
+
+```{r}
+fullname("Lisa", "DeBruine")
+fullname("Lisa", "DeBruine", TRUE)
+```
+
+
+
+## Function Development
+
+We're going to create a function that produces the APA-formatted text for the results of a paired-samples t-test. Here's an example of APA format.
+
+> A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.
+
+### Specific Instance
+
+The first step is to sort out a specific instance of your code. We'll load in the data we added last week and compare preferences for self-resembling female faces (`f_self`) to others' preferences for those same faces `f_non`.
+
+```{r}
+data("self_res_att", package = "demopkg")
+
+t_results <- t.test(
+  x = self_res_att$f_self, 
+  y = self_res_att$f_non,
+  paired = TRUE)
+
+t_results
+```
+
+Now we set up the text template with variables where we want to insert values from the analysis.
+
+```{r}
+template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
+```
+
+The object `t_results` prints out like above, but the object is actually a list, Use the `str()` function to see the structure of the list.
+
+```{r}
+str(t_results)
+```
+
+Now we can set the value of each variable from the `t_results` object. You can't get the sample size and standard deviations from the `t_results` object, so we'll calculate those from `a` and `b`.
+
+```{r}
+glue::glue(template,
+           dv      = "preferences for female faces",
+           level1  = "participants who resembled those faces",
+           level2  = "non-self participants",
+           mean1   = mean(self_res_att$f_self) |> round(1), 
+           sd1     = sd(self_res_att$f_self) |> round(1),
+           mean2   = mean(self_res_att$f_non) |> round(1),
+           sd2     = sd(self_res_att$f_non) |> round(1),
+           non     = ifelse(t_results$p.value < .05, "", "non-"),
+           df      = t_results$parameter |> round(1),
+           t_value = t_results$statistic |> round(2),
+           p_value = t_results$p.value |> round(3)
+           )
+
+
+```
+
+### Set up Function
+
+Now we're ready to abstract this into a function. The function will need a name. This function will (for now) only give you the APA-style text for a paired-samples t-test, so let's call it `apa_t_pair`.
+
+You can create an R script in the `R` directory called `apa_t_pair.R`, but the code below does this for you.
+
+```{r, eval = FALSE}
+usethis::use_r("apa_t_pair")
+```
+
+We'll develop our function in this file. To start, wrap all of the code above in the curly brackets after the `function()` function.
+
+```{r}
+apa_t_pair <- function() {
+  t_results <- t.test(self_res_att$f_self, 
+                      self_res_att$f_non,
+                      paired = TRUE)
+  
+  template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
+  
+  glue::glue(template,
+             dv      = "preferences for female faces",
+             level1  = "participants who resembled those faces",
+             level2  = "non-self participants",
+             mean1   = mean(self_res_att$f_self) |> round(1), 
+             sd1     = sd(self_res_att$f_self) |> round(1),
+             mean2   = mean(self_res_att$f_non) |> round(1),
+             sd2     = sd(self_res_att$f_non) |> round(1),
+             non     = ifelse(t_results$p.value < .05, "", "non-"),
+             df      = t_results$parameter |> round(1),
+             t_value = t_results$statistic |> round(2),
+             p_value = t_results$p.value |> round(3)
+             )
+}
+```
+
+Run the code above and test that the function works by running it once in the console.
+
+```{r}
+# run in the console
+apa_t_pair()
+```
+
+### Add Arguments
+
+We probably want this function to work for any pair of vectors we give it, not just the value of `f_self` and `f_non`. So we need to add `r glossary("argument", "arguments")` to the function. Add arguments `x` and `y` to the function and replace `self_res_att$f_self` with `x` and `self_res_att$f_self` with `y` everywhere in the function.
+
+```{r}
+apa_t_pair <- function(x, y) {
+  t_results <- t.test(x, y, paired = TRUE)
+  
+  template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
+  
+  glue::glue(template,
+             dv      = "preferences for female faces",
+             level1  = "participants who resembled those faces",
+             level2  = "non-self participants",
+             mean1   = mean(self_res_att$f_self) |> round(1), 
+             sd1     = sd(self_res_att$f_self) |> round(1),
+             mean2   = mean(self_res_att$f_non) |> round(1),
+             sd2     = sd(self_res_att$f_non) |> round(1),
+             non     = ifelse(t_results$p.value < .05, "", "non-"),
+             df      = t_results$parameter |> round(1),
+             t_value = t_results$statistic |> round(2),
+             p_value = t_results$p.value |> round(3)
+             )
+}
+```
+
+Now, if you try to run the function without any arguments, you'll get an error message. This is because there are no default values for `x` and `y`. 
+
+```{r, error = TRUE}
+apa_t_pair()
+```
+
+This also won't work. 
+
+```{r, error = TRUE}
+x <- self_res_att$f_self
+y <- self_res_att$f_non
+apa_t_pair()
+```
+
+This is because the `x` and `y` inside of the function are in a different `r glossary("environment")` to any `x` and `y` outside of the function. This can seem confusing at first, but it's good that you don't need to worry about objects that exist outside of your function.
+
+You can specify the vectors as arguments.
+
+```{r}
+# run in the console or another file
+apa_t_pair(x = self_res_att$f_self, 
+           y = self_res_att$f_non)
+```
+
+### Further Arguments
+
+Now we can further customise our function. You probably won't always be comparing "preferences for female faces" between "participants who resembled those faces" and "non-self participants", so let's add three new arguments to the function. We can set generic `r glossary("default value", "default values")` for these new arguments so that you don't have to specify them if the defaults are OK. 
+
+Since the values are defined with the variable names used in the glue template, we don't need to specify those in the `glue()` function anymore.
+
+```{r}
+apa_t_pair <- function(x, y, 
+                       dv = "the DV", 
+                       level1 = "level 1", 
+                       level2 = "level 2") {
+  t_results <- t.test(x, y, paired = TRUE)
+  
+  template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
+  
+  glue::glue(template,
+             mean1   = mean(x) |> round(1), 
+             sd1     = sd(x) |> round(1),
+             mean2   = mean(y) |> round(1),
+             sd2     = sd(y) |> round(1),
+             non     = ifelse(t_results$p.value < .05, "", "non-"),
+             df      = t_results$parameter |> round(1),
+             t_value = t_results$statistic |> round(2),
+             p_value = t_results$p.value |> round(3)
+             )
+}
+```
+
+Try running the function both with and without the new arguments. 
+
+```{r}
+apa_t_pair(x = self_res_att$f_self, 
+           y = self_res_att$f_non)
+```
+
+
+```{r}
+apa_t_pair(x = self_res_att$f_self, 
+           y = self_res_att$f_non,
+           dv = "preferences for female faces",
+           level1 = "participants who resembled those faces",
+           level2 = "non-self participants")
+```
+
+::: {.warning}
+If the output doesn't change, this usually means that you forgot to run the code that re-defined `apa_t_pair`. 
+:::
+
+## Load in package
+
+### Import dependencies
+
+You need to "import" any non-base packages that you use in a function. These are called "dependencies" because your function depends on them. Our function above uses `glue()` from the glue package. The function below is a quick way to do this.
+
+```{r, eval = FALSE}
+usethis::use_package("glue")
+```
+
+You should see this output: 
+
+```
+✔ Setting active project to '/Users/lisad/rproj/demopkg'
+✔ Adding 'glue' to Imports field in DESCRIPTION
+• Refer to functions with `glue::fun()`
+```
+
+This means that you should always use the full form `glue::glue()`, rather than loading a package with the `library()` function and using just the function name `glue()`. 
+
+You can open the `DESCRIPTION` file to see what has changed. You can alternatively just add dependencies to this file under "Imports:".
+
+
+### Load 
+
+Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).
+
+```{r, eval = FALSE}
+devtools::load_all(".")
+```
+
+The function should now be available.
+
+```{r}
+apa_t_pair(x = self_res_att$f_self, 
+           y = self_res_att$f_non,
+           dv = "preferences for female faces",
+           level1 = "participants who resembled those faces",
+           level2 = "non-self participants")
+```
+
+And it should be easy to adapt for other pairs of values, such as the equivalent analysis for male faces.
+
+```{r}
+apa_t_pair(x = self_res_att$m_self, 
+           y = self_res_att$m_non,
+           dv = "preferences for male faces",
+           level1 = "participants who resembled those faces",
+           level2 = "non-self participants")
+```
+
+
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table(as_kable = FALSE) |> 
+  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
+  unclass() |> cat()
+```
+
+
+## Further Practice
+
+1. Edit the function to handle p-values < .001.
+
+1. Add 95% confidence intervals to the output.
+
+1. Allow the user to set a custom confidence interval.
+
+1. Create another function to produce the text for a different analysis you're familiar with, such as an ANOVA.

@@ -1,0 +1,14 @@
+# Package Maintenance {#sec-maintenance}
+
+```{r, include = FALSE}
+source("R/setup.R")
+```
+
+How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.
+
+```{r}
+library(usethis)
+library(devtools)
+```
+
+

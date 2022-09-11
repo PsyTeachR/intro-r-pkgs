@@ -1,0 +1,117 @@
+# Documentation {#sec-documentation}
+
+```{r, include = FALSE}
+source("R/setup.R")
+```
+
+Write function documentation using the roxygen format. This is what creates the help documentation for functions.
+
+```{r}
+library(usethis)
+```
+
+## Roxygen
+
+Go to the `R/apa_t_pair.R` file we created last week. Put your cursor anywhere inside that function and choose **`Insert Roxygen Skeleton`** from the **`Code`** menu. It should generate documentation code in roxygen format like this:
+
+```
+#' Title
+#'
+#' @param x
+#' @param y
+#' @param dv
+#' @param level1
+#' @param level2
+#'
+#' @return
+#' @export
+#'
+#' @examples
+```
+
+This creates the help files you can see for any function. For example, type `?mean` in the console. 
+
+
+### Title and Description
+
+The first line of the roxygen documentation is the title and the lines under that are the description. Update your documentation like this:
+
+```
+#' APA text for Paired-Samples T-Test
+#'
+#' Create APA-formatted text for the results of an independent-samples t-test in the following format:
+#'
+#' A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.
+
+```
+
+### Arguments
+
+The "Arguments" section is created from the lines that start with `@param`. They should define each argument in the function.
+
+```
+#' @param x A vector of the values for level 1.
+#' @param y A vector of the values for level 2.
+#' @param dv The text describing the DV in the output statement.
+#' @param level1 The text describing level 1 in the output statement.
+#' @param level2 The text describing level 2 in the output statement.
+```
+
+### Return Value
+
+The line starting with `@return` creates the "Value" section. This tells the user what kind of object is returned from the function. The line `@export` tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.
+
+```
+#' @return A character string.
+#' @export
+```
+
+### Examples
+
+Add at least one example that shows how the function works. Make sure to create any objects you need to run the function. 
+
+```
+#' @examples
+#' # use generic text
+#' apa_t_pair(x = self_res_att$f_self,
+#'            y = self_res_att$f_non)
+#'
+#' # specify the text for dv and levels
+#' apa_t_pair(x = self_res_att$f_self,
+#'            y = self_res_att$f_non,
+#'            dv = "preferences for female faces",
+#'            level1 = "participants who resembled those faces",
+#'            level2 = "non-self participants")
+```
+
+## Document
+
+Now, you need to run a documentation function to add your function to the package documentation and export it for use.
+
+```{r, eval = FALSE}
+devtools::document()
+```
+
+You should see output like this.
+
+```
+ℹ Updating demopkg documentation
+ℹ Loading demopkg
+Writing NAMESPACE
+Writing apa_t_pair.Rd
+```
+
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table(as_kable = FALSE) |> 
+  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
+  unclass() |> cat()
+```
+
+## Further Practice
+
+1. Add another example to the documentation.
+
+1. Document any other functions you've created.
+

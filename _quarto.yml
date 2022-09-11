@@ -1,7 +1,7 @@
 project:
   type: book
   output-dir: docs
-  
+
 book:
   title: 'Coding Club: Creating an R Package'
   author: Lisa DeBruine
@@ -13,7 +13,7 @@ book:
   google-analytics: "G-6NP3MF25W3"
   page-navigation: true
   search: true
-  comments: 
+  comments:
     hypothesis:
       theme: clean
       openSidebar: false
@@ -25,17 +25,28 @@ book:
   # sidebar:
   #   style: docked
   #   background: light
-  page-footer: 
-    left: "CC-BY 2022, Lisa DeBruine" 
-    right: 
+  page-footer:
+    left: "CC-BY 2022, Lisa DeBruine"
+    right:
       - icon: github
         href: https://github.com/psyteachr/coding-club-r-packages
-      - icon: twitter 
+      - icon: twitter
         href: https://twitter.com/psyteachr
   chapters:
   - index.qmd
+  - 01-setup.qmd
+  - 02-data.qmd
+  - 03-functions.qmd
+  - 04-documentation.qmd
+  - 05-unit-tests.qmd
+  - 06-vignettes.qmd
+  - 07-pkgdown.qmd
+  - 08-maintenance.qmd
+  - 09-sharing.qmd
+  - 10-next-steps.qmd
+  appendices:
   - references.qmd
-  
+
 bibliography: include/references.bib
 csl: include/apa.csl
 nocite: |
@@ -50,12 +61,13 @@ format:
       light:
       - flatly
       - include/light.scss
-    css: include/style.css
+    css: [include/psyteachr.css, include/style.css]
+    df-print: kable
     code-link: true
-    code-fold: true
+    #code-fold: false
     code-line-numbers: true
     code-overflow: wrap
-    code-copy: true
+    code-copy: hover
     # code-block-border-left: "#4864DB"
     highlight-style: a11y
     # monofont: Fira Code

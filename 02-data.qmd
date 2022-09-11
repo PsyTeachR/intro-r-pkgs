@@ -1,0 +1,241 @@
+# Adding Data {#sec-data}
+
+```{r, include = FALSE}
+source("R/setup.R")
+```
+
+Add datasets to your package and document them with a codebook. You can use our demo data or your own.
+
+```{r}
+library(usethis)
+```
+
+## Set up Raw Data
+
+We're going to document some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces. 
+
+Run the code below.
+
+```{r}
+usethis::use_data_raw("self_res_att")
+```
+
+This will create a directory called "data-raw" and open a file called `self_res_att.R` with the following contents.
+
+``` r
+## code to prepare `self_res_att` dataset goes here
+
+usethis::use_data(self_res_att, overwrite = TRUE)
+```
+
+Download the data file called "DeBruine_2004_PRSLB_att.csv" from <https://osf.io/2ud56/> and save it in `data-raw`. The code below will also do this.
+
+```{r, eval = FALSE}
+download.file(url = "https://osf.io/download/3c5s4/",
+              destfile = "data-raw/DeBruine_2004_PRSLB_att.csv")
+```
+
+
+Now, load the data in this script, using the object name `self_res_att`; this will be the name of the data object in your package.
+
+```{r}
+library(readr)
+self_res_att <- read_csv("data-raw/DeBruine_2004_PRSLB_att.csv")
+```
+
+Have a quick look at the data and make sure the columns import as the right data types. You might want to make sure that categorical factors are imported as factors with their levels in a sensible order. Use `readr::spec(self_res_att)` to get the default column types, copy and paste this to your script, and edit them.
+
+```{r}
+spec(self_res_att)
+```
+
+
+```{r}
+ct <- cols(
+  id = col_character(),
+  sex = col_factor(levels = c("female", "male")),
+  ethgroup = col_factor(),
+  age = col_double(),
+  m_non = col_double(),
+  f_non = col_double(),
+  m_self = col_double(),
+  f_self = col_double(),
+  grpsize = col_double(),
+  group = col_double(),
+  mascpref = col_double(),
+  obro = col_double(),
+  osis = col_double(),
+  ybro = col_double(),
+  ysis = col_double(),
+  birthorder = col_factor(levels = c("only", "firstborn", "middleborn", "lastborn"))
+)
+
+self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv", col_types = ct)
+```
+
+Once you're satisfied that the data are in the right form, you can run this code to add the data to your package. 
+
+```{r, eval = FALSE}
+usethis::use_data(self_res_att, overwrite = TRUE)
+```
+
+```
+✔ Adding 'R' to \033[32mDepends\033[39m field in DESCRIPTION
+✔ Setting \033[32mLazyData\033[39m to 'true' in 'DESCRIPTION'
+✔ Saving 'self_res_att' to 'data/self_res_att.rda'
+• Document your data (see 'https://r-pkgs.org/data.html')
+```
+
+## Documentation
+
+Data need to be documented to be included in a package. The documentation looks like this:
+
+``` r
+#' Title.
+#'
+#' Description of the dataset.
+#'
+#' @format A data frame with {nrow} rows and {ncol} variables:
+#' \describe{
+#'   \item{col1}{col1 description}
+#'   \item{col2}{col2 description}
+#' }
+#' @source \url{data_URL}
+"dataname"
+```
+
+Create a new script called "R/self_res_att.R".
+
+```{r, eval = FALSE}
+usethis::use_r("self_res_att")
+```
+Copy the template above and edit the title, description, format, source, and data name. 
+
+```{r}
+glue::glue("A data frame with {nrow} rows and {ncol} variables:",
+           nrow = nrow(self_res_att),
+           ncol = ncol(self_res_att))
+```
+
+``` r
+#' Attractiveness of Self-Resembling Faces.
+#'
+#' Attractiveness judgements of same-sex and other-sex self-resembling faces from DeBruine (2004).
+#'
+#' @format A data frame with 108 rows and 16 variables:
+#' \describe{
+#'   \item{col1}{col1 description}
+#'   \item{col2}{col2 description}
+#' }
+#' @source \url{https://osf.io/3c5s4/}
+"self_res_att"
+```
+
+Use the following code to get a list of the column names in the data set. 
+
+```{r}
+names(self_res_att) |> dput()
+```
+
+Copy and paste this into your script and assign this to an object called `vars`.
+
+```{r}
+vars <- c("id", "sex", "ethgroup", "age", "m_non", "f_non", "m_self", "f_self", "grpsize", "group", "mascpref", "obro", "osis", "ybro", "ysis", "birthorder")
+```
+
+Next, define each of these columns.
+
+```{r}
+vars <- c(
+  "id" = "participant unique ID",
+  "sex" = "sex of the participant (male/female)",
+  "ethgroup" = "ethnic group of the participant (east_asian/west_asian/white)",
+  "age" = "age of the participant in years",
+  "m_non" = "mean number of times the other group members chose that male face as more attractive",
+  "f_non" = "mean number of times the other group members chose that female face as more attractive",
+  "m_self" = "number of times out of a possible 6 chose their male self-res face as more attractive",
+  "f_self" = "number of times out of a possible 6 chose their female self-res face as more attractive",
+  "grpsize" = "size of the group",
+  "group" = "unique group ID",
+  "mascpref" = "masculinity preference on an unrelated face preference task",
+  "obro" = "number of older brothers",
+  "osis" = "number of older sisters",
+  "ybro" = "number of younger brothers",
+  "ysis" = "number of younger sisters",
+  "birthorder" = "birth order (only/firstborn/middleborn/lastborn) as calculated from number of younger and older brothers and sisters"
+)
+```
+
+Now we can format this for the description file. Because the format uses curly brackets, we're going to set the opening and closing symbols for glue to square brackets. Copy and paste these lines into the items section.
+
+```{r}
+glue::glue("#'   \\item{[colname]}{[coldesc]}",
+           colname = names(vars),
+           coldesc = vars,
+           .open = "[",
+           .close = "]")
+```
+
+Now save this file and add the documentation to your package with the following code:
+
+```{r, eval = FALSE}
+devtools::document()
+```
+
+You should see the following output. 
+
+```
+ℹ Updating demopkg documentation
+ℹ Loading demopkg
+Writing NAMESPACE
+Writing self_res_att.Rd
+```
+
+## Load in package
+
+Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).
+
+```{r, eval = FALSE}
+devtools::load_all(".")
+```
+
+You should be able to access the data now.
+
+```{r, eval = FALSE}
+# load as self_res_att
+data("self_res_att", package = "demopkg")
+
+# load as d1
+d1 <- demopkg::self_res_att
+```
+
+You should also be able to see the documentation in the Help pane.
+
+```{r, eval = FALSE}
+?demopkg::self_res_att
+```
+
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table(as_kable = FALSE) |> 
+  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
+  unclass() |> cat()
+```
+
+
+## Further Practice
+
+1. Add the dataset "DeBruine_2004_PRSLB_avg.csv" from <https://osf.io/2ud56/>. This is a separate sample of participants who judged the *averageness* of male and female self- and non-self-resembling faces, rather than their *attractiveness*. 
+
+    * id: participant unique ID
+    * sex: sex of the participant (male/female)
+    * group: unique group ID
+    * m_avg: number of times out of a possible 6 chose a male composite face as more attractive
+    * f_avg: number of times out of a possible 6 chose a female composite face as more attractive
+    * m_self: number of times out of a possible 6 chose their male self-res face as more attractive
+    * f_self: number of times out of a possible 6 chose their female self-res face as more attractive
+    * m_non: mean number of times the other group members chose that male face as more attractive
+    * f_non: mean number of times the other group members chose that female face as more attractive
+
+2. Add datasets of your own to this package or your personal package.

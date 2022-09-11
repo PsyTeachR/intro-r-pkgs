@@ -1,4 +1,6 @@
 /*-- scss:defaults --*/
+$link-color: #248CFC;
+$code-color: #bb8acf;
 
 /*-- scss:rules --*/
 .dark-mode,
@@ -10,3 +12,12 @@
 .dark-light .cell-output-display + .cell-output-display figure ,
 .dark-light .cell-output-display + .cell-output-display img
 { display: none; }
+
+a.glossary, a:visited.glossary {
+  color: var(--yellow) !important;
+}
+
+.terminal {
+  border-color: #324C63;
+}
+

@@ -1,0 +1,142 @@
+# Setting up {#sec-setup}
+
+```{r, include = FALSE}
+source("R/setup.R")
+```
+
+
+Create a package project and edit the default files. We'll start using the most helpful package, usethis.
+
+You will need to install the following `r glossary("package", "packages")`:
+
+```{r install, eval = FALSE}
+install.packages(c("devtools", "roxygen2", "testthat", 
+                   "usethis", "knitr", "renv"))
+```
+
+
+## Create your R package
+
+Use the following command to create the framework for a new package called `demopkg`. Set the path `r glossary("argument")` to the path where you want to save your package. The last section of the path should be the name of the package: `demopkg`.
+
+```{r create-package, eval = FALSE}
+usethis::create_package(path = "~/rproj/demopkg")
+```
+
+```{block type="warning"}
+Package names can only be letters, numbers, and full stops.
+```
+
+You'll see the following output, and a new RStudio `r glossary("project")` will open up. You can close the old window now and just work in this project.
+
+```
+✔ Creating '/Users/lisad/rproj/demopkg/'
+✔ Setting active project to '/Users/lisad/rproj/demopkg'
+✔ Creating 'R/'
+✔ Writing 'DESCRIPTION'
+Package: demopkg
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+✔ Writing 'NAMESPACE'
+✔ Writing 'demopkg.Rproj'
+✔ Adding '^demopkg\\.Rproj$' to '.Rbuildignore'
+✔ Adding '.Rproj.user' to '.gitignore'
+✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
+✔ Opening '/Users/lisad/rproj/demopkg/' in new RStudio session
+✔ Setting active project to '<no active project>'
+```
+
+
+
+### Edit the DESCRIPTION file
+
+Open the `DESCRIPTION` file. It should look like this:
+
+```
+Package: demopkg
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+```
+
+Change the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your [ORCiD](https://orcid.org/).
+
+```
+Authors@R: c(
+    person(given = "Lisa",
+           family = "DeBruine",
+           role = c("aut", "cre"),
+           email = "debruine@gmail.com",
+           comment = c(ORCID = "0000-0002-7523-5539")),
+    person(given = "Firstname",
+           family = "Lastname",
+           role = c("aut"),
+           email = "person@gmail.com",
+           comment = c(ORCID = "0000-0000-0000-000X")))
+```
+
+
+### Create a LICENSE
+
+Make sure you've saved any changes to the `DESCRIPTION` file first, as adding a license will modify that file. Add a license using one of the following options:
+
+```{r license, eval = FALSE}
+# more common for study or data packages
+usethis::use_ccby_license() # reusable with citation
+usethis::use_cc0_license()  # public domain
+
+# more common for function packages
+usethis::use_mit_license()  # permissive sharing
+usethis::use_gpl3_license() # derivatives must be open
+```
+
+See <https://choosealicense.com> for more details and other options.
+
+### Create a README
+
+Use the following code to set up a `r glossary("README")` document that will explain how to install and use your package.
+
+```{r readme, eval = FALSE}
+usethis::use_readme_rmd() 
+```
+
+We'll eventually put this on `r glossary("github")`, so change the installation instructions to the following (change `yourusername` to your github username). 
+
+<pre><code>You can install demopkg from [GitHub](https://github.com) with:
+
+&#96;&#96;&#96; r
+devtools::install_github("yourusername/demopkg")
+&#96;&#96;&#96;</code></pre>
+
+Delete the example for now.
+
+Make sure you knit your README.Rmd file when you update it and never edit the README.md file (that's just for github).
+
+We'll make a full-featured pkgdown website in @sec-pkgdown, so we don't need too many details here.
+
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table(as_kable = FALSE) |> 
+  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
+  unclass() |> cat()
+```
+
+## Further Practice
+
+1. Set up another package for your own data and analysis. 

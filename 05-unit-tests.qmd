@@ -1,0 +1,254 @@
+# Unit Tests {#sec-unit-tests}
+
+```{r, include = FALSE}
+source("R/setup.R")
+```
+
+Write unit tests for your custom functions using testthat.
+
+```{r}
+library(usethis)
+library(testthat)
+```
+
+```{r, include = FALSE}
+# define apa_t_pair from last chapter
+apa_t_pair <- function(x, y,
+                       dv = "the DV",
+                       level1 = "level 1",
+                       level2 = "level 2") {
+  t_results <- t.test(x, y, paired = TRUE)
+
+  template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
+
+  glue::glue(template,
+             mean1   = mean(x) |> round(1),
+             sd1     = sd(x) |> round(1),
+             mean2   = mean(y) |> round(1),
+             sd2     = sd(y) |> round(1),
+             non     = ifelse(t_results$p.value < .05, "", "non-"),
+             df      = t_results$parameter |> round(1),
+             t_value = t_results$statistic |> round(2),
+             p_value = t_results$p.value |> round(3)
+  )
+}
+```
+
+## Set up testhat
+
+Use the following code to set up testing for your package. this makes a directory called `tests` that contains a file called `testthat.R` and a directory called `testthat` where you will keep your testing scripts. It will also add some lines to the `DESCRIPTION` file, so make sure that file doesn't have unsaved changes before you run this.
+
+```{r, eval = FALSE}
+usethis::use_testthat()
+```
+
+## Set up test
+
+Next, we'll follow the directions from the output text and call `use_test()` to initialise a basic test file and open it for editing.
+
+```{r, eval = FALSE}
+usethis::use_test("apa_t_pair")
+```
+
+A new file will open with the following text. It you run it, you should get a message saying it passed.
+
+```{r}
+test_that("multiplication works", {
+  expect_equal(2 * 2, 4)
+})
+```
+
+Change the default label for this test. You can label these whatever you want (it *really* doesn't matter); I usually start with "defaults" and test the most basic example to make sure the function defaults work as expected. Delete the demo code between the curly brackets.
+
+```{r, eval = FALSE}
+test_that("defaults", {
+
+})
+```
+
+Set `x` and `y` as two small static vectors (don't use `rnorm()` or anything that makes random numbers). Then assign the value of `apa_t_pair(x, y)` to `result` and the expected result to `expected`. Finally, use the function `expect_equal()` to compare the obtained and expected result.
+
+
+```{r}
+test_that("defaults", {
+  x <- c(1,2,3,4,5)
+  y <- c(2,3,2,5,6)
+  
+  result <- apa_t_pair(x, y)
+  expected <- "A paired-samples t-test was conducted to compare the DV between level 1 (M = 3, SD = 1.6) and level 2 (M = 3.6, SD = 1.8). There was a non-significant difference; t(4) = -1.5, p = 0.208."
+  expect_equal(result, expected)
+})
+```
+
+That particular example was non-significant. Let's add a version that does show a significant difference and make sure the text changes appropriately.
+
+
+```{r}
+test_that("defaults-sig", {
+  x <- c(1,2,1,3,1)
+  y <- c(5,3,2,5,6)
+  
+  result <- apa_t_pair(x, y)
+  expected <- "A paired-samples t-test was conducted to compare the DV between level 1 (M = 1.6, SD = 0.9) and level 2 (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.2, p = 0.033."
+  expect_equal(result, expected)
+})
+```
+
+No let's add some non-default labels.
+
+```{r}
+test_that("non-defaults", {
+  x <- c(1,2,1,3,1)
+  y <- c(5,3,2,5,6)
+  
+  result <- apa_t_pair(x, y, dv = "the score", "Group A", "Group B")
+  expected <- "A paired-samples t-test was conducted to compare the score between Group A (M = 1.6, SD = 0.9) and Group B (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.2, p = 0.033."
+  expect_equal(result, expected)
+})
+```
+
+## Test-driven development
+
+You can use tests to help you develop your package. First, think of something you want to add or change. Then write a test that checks if your function is doing that new thing. It will, of course, fail, but then your task is to alter the function code until the test passes. 
+
+For example, it would be nice to give a warning if x and y are identical, since this is almost always a mistake. The first step is to write a test that fails. Wrap the code `apa_t_pair(x, x)` inside the function `expect_warning()`, which will pass if the code produces a warning and fail if it doesn't. 
+
+```{r, error = TRUE}
+test_that("same x and y", {
+  x <- c(1,2,1,4,1)
+  
+  expect_warning( apa_t_pair(x, x) )
+})
+```
+
+Now we can edit the function `apa_t_pair()` until the test passes. Add a few lines of code at the start of the function to check if all of the values in `x` are the same as all of the values in `y`, and display a warning if they are.
+
+```{r}
+apa_t_pair <- function(x, y,
+                       dv = "the DV",
+                       level1 = "level 1",
+                       level2 = "level 2") {
+  # warn about identical values
+  if (all(x == y)) {
+    warning("The values for x and y should probably not be identical.")
+  }
+  
+  t_results <- t.test(x, y, paired = TRUE)
+
+  template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
+
+  glue::glue(template,
+             mean1   = mean(x) |> round(1),
+             sd1     = sd(x) |> round(1),
+             mean2   = mean(y) |> round(1),
+             sd2     = sd(y) |> round(1),
+             non     = ifelse(t_results$p.value < .05, "", "non-"),
+             df      = t_results$parameter |> round(1),
+             t_value = t_results$statistic |> round(2),
+             p_value = t_results$p.value |> round(3)
+  )
+}
+```
+
+Now the test should pass.
+
+```{r, error = TRUE}
+test_that("same x and y", {
+  x <- c(1,2,1,4,1)
+  y <- c(5,3,2,5,6)
+  
+  expect_warning( apa_t_pair(x, x) )
+})
+```
+
+Now that we have 5 tests for this function, we can run them all by clicking on **`Run Tests`** in the upper right corner of the source pane. If all goes well, you'll see the following in the Build tab:
+
+```
+==> Testing R file using 'testthat'
+
+ℹ Loading demopkg
+
+══ Testing test-apa_t_pair.R ═════
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 5 ] Done!
+
+Test complete
+```
+
+## Testing data
+
+You can also set up tests for a data object.
+
+```{r, eval = FALSE}
+usethis::use_test("self_res_att")
+```
+
+Let's check that the `data()` function can load this data set and that it has the expected dimensions. We can also check if the column `sex` is a factor.
+
+```{r, eval = FALSE}
+test_that("data available", {
+  data("self_res_att")
+
+  expect_true( exists("self_res_att") )
+  expect_equal(ncol(self_res_att), 16)
+  expect_equal(nrow(self_res_att), 108)
+  expect_true(is.factor(self_res_att$sex))
+})
+```
+
+## Multiple tests
+
+You can run all of the tests for all of the functions in your package by clicking on **`Test`** in the Build Tab or typing `` in the console. Here, you'll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).
+
+```
+==> devtools::test()
+
+ℹ Testing demopkg
+✔ | F W S  OK | Context
+✔ |         4 | apa_t_pair        
+✔ |         3 | self_res_att      
+
+══ Results ═══════════════════════
+Duration: 0.1 s
+
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 7 ]
+```
+
+Sometimes you want to set tests to skip because they take too long or cause problems when you submit a package to CRAN. Testthat has a number of functions that start with `skip` that allow you to skip any following tests under different circumstances.
+
+You can also set up tests for a data object.
+
+```{r, eval = FALSE}
+usethis::use_test("self_res_att")
+```
+
+Let's check that the `data()` function can load this data set and that it has the expected dimensions.
+
+```{r, eval = FALSE}
+test_that("data available", {
+  data("self_res_att")
+
+  expect_true( exists("self_res_att") )
+  expect_equal(ncol(self_res_att), 16)
+  expect_equal(nrow(self_res_att), 108)
+})
+```
+
+
+
+
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table(as_kable = FALSE) |> 
+  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
+  unclass() |> cat()
+```
+
+
+## Further Practice
+
+1. Use test-driven development to add a custom error message if the length of `x` and `y` are not the same.
+
+1. Add further sense checks that the column types are as expected for `self_res_att`.
+
+1. Add unit tests for any other functions you've created.

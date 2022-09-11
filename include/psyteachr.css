@@ -152,7 +152,5 @@ a.glossary::after, code a::after {
   margin: 0 !important;
 }
 
-a.glossary, a:visited.glossary {
-  color: var(--purple) !important;
-}
+
 
