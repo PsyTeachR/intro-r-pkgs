@@ -1,0 +1,296 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Coding Club: Creating an R Package",
+    "section": "",
+    "text": "This book will serve as a record of the activities of the 2022 PsyTeachR Coding Club at the University of Glasgow School of Psychology & Neuroscience. It is in progress and will be updated regularly.\nMaking an R package develops generic coding skills and gives you valuable insight to how R works. We’ll cover setting up a package project, creating functions, documenting them with roxygen, creating vignettes, unit testing, package testing, version control with git, and distribution with github.\nYou will need only very basic R skills and a willingness to learn. The only people this would not be suitable for are those with zero previous experience in R (unless you know you pick up coding languages quickly). If you can install packages and have written an analysis script, you’ll be fine.\nRegister for free at EventBrite to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don’t worry if you can’t make all of the dates. We’ll record the sessions and make them public ASAP so you can catch up if you miss the live session.\n\n\n\nSetting up a package project (2022-10-05)\nCreate a package project and edit the default files. Well start using the most helpful package, usethis.\n\n\nAdding Data (2022-10-12)\nAdd datasets to your package and document them with a codebook. You can use our demo data or your own.\n\n\nCustom Functions (2022-10-19)\nLearn to write custom functions and include them in your package.\n\n\nDocumentation (2022-10-26)\nWrite function documentation using the roxygen format. This is what creates the help documentation for functions.\n\n\nUnit Tests (2022-11-02)\nWrite unit tests for your custom functions using testthat.\n\n\nAnalysis Vignette (2022-11-09)\nInclude your study analysis code as a package vignette.\n\n\nPkgdown Websites (2022-11-16)\nCreate a package website using pkgdown.\n\n\nPackage Maintenance (2022-11-23)\nHow to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.\n\n\nSharing your package (2022-11-30)\nSet up a github account and make a package repository to share your package and pkgdown website.\n\n\nReview and next steps (2022-12-07)\nWhatever we didn’t get to. We’ll also discuss how to continue your learning.\n\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "01-setup.html",
+    "href": "01-setup.html",
+    "title": "1  Setting up",
+    "section": "",
+    "text": "Create a package project and edit the default files. We’ll start using the most helpful package, usethis.\nYou will need to install the following packages:"
+  },
+  {
+    "objectID": "01-setup.html#create-your-r-package",
+    "href": "01-setup.html#create-your-r-package",
+    "title": "1  Setting up",
+    "section": "\n1.1 Create your R package",
+    "text": "1.1 Create your R package\nUse the following command to create the framework for a new package called demopkg. Set the path argument to the path where you want to save your package. The last section of the path should be the name of the package: demopkg.\n\nusethis::create_package(path = \"~/rproj/demopkg\")\n\n\n\n\nPackage names can only be letters, numbers, and full stops.\n\n\n\nYou’ll see the following output, and a new RStudio project will open up. You can close the old window now and just work in this project.\n✔ Creating '/Users/lisad/rproj/demopkg/'\n✔ Setting active project to '/Users/lisad/rproj/demopkg'\n✔ Creating 'R/'\n✔ Writing 'DESCRIPTION'\nPackage: demopkg\nTitle: What the Package Does (One Line, Title Case)\nVersion: 0.0.0.9000\nAuthors@R (parsed):\n    * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)\nDescription: What the package does (one paragraph).\nLicense: `use_mit_license()`, `use_gpl3_license()` or friends to\n    pick a license\nEncoding: UTF-8\nRoxygen: list(markdown = TRUE)\nRoxygenNote: 7.2.0\n✔ Writing 'NAMESPACE'\n✔ Writing 'demopkg.Rproj'\n✔ Adding '^demopkg\\\\.Rproj$' to '.Rbuildignore'\n✔ Adding '.Rproj.user' to '.gitignore'\n✔ Adding '^\\\\.Rproj\\\\.user$' to '.Rbuildignore'\n✔ Opening '/Users/lisad/rproj/demopkg/' in new RStudio session\n✔ Setting active project to '<no active project>'\n\n1.1.1 Edit the DESCRIPTION file\nOpen the DESCRIPTION file. It should look like this:\nPackage: demopkg\nTitle: What the Package Does (One Line, Title Case)\nVersion: 0.0.0.9000\nAuthors@R: \n    person(\"First\", \"Last\", , \"first.last@example.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"YOUR-ORCID-ID\"))\nDescription: What the package does (one paragraph).\nLicense: `use_mit_license()`, `use_gpl3_license()` or friends to pick a license\nEncoding: UTF-8\nRoxygen: list(markdown = TRUE)\nRoxygenNote: 7.2.0\nChange the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your ORCiD.\nAuthors@R: c(\n    person(given = \"Lisa\",\n           family = \"DeBruine\",\n           role = c(\"aut\", \"cre\"),\n           email = \"debruine@gmail.com\",\n           comment = c(ORCID = \"0000-0002-7523-5539\")),\n    person(given = \"Firstname\",\n           family = \"Lastname\",\n           role = c(\"aut\"),\n           email = \"person@gmail.com\",\n           comment = c(ORCID = \"0000-0000-0000-000X\")))\n\n1.1.2 Create a LICENSE\nMake sure you’ve saved any changes to the DESCRIPTION file first, as adding a license will modify that file. Add a license using one of the following options:\n\n# more common for study or data packages\nusethis::use_ccby_license() # reusable with citation\nusethis::use_cc0_license()  # public domain\n\n# more common for function packages\nusethis::use_mit_license()  # permissive sharing\nusethis::use_gpl3_license() # derivatives must be open\n\nSee https://choosealicense.com for more details and other options.\n\n1.1.3 Create a README\nUse the following code to set up a README document that will explain how to install and use your package.\n\nusethis::use_readme_rmd() \n\nWe’ll eventually put this on github, so change the installation instructions to the following (change yourusername to your github username).\nYou can install demopkg from [GitHub](https://github.com) with:\n\n``` r\ndevtools::install_github(\"yourusername/demopkg\")\n```\nDelete the example for now.\nMake sure you knit your README.Rmd file when you update it and never edit the README.md file (that’s just for github).\nWe’ll make a full-featured pkgdown website in Chapter 7, so we don’t need too many details here."
+  },
+  {
+    "objectID": "01-setup.html#glossary",
+    "href": "01-setup.html#glossary",
+    "title": "1  Setting up",
+    "section": "\n1.2 Glossary",
+    "text": "1.2 Glossary\n\n\n\n\n\nterm\n\n\ndefinition\n\n\n\n\n\nargument\n\n\nA variable that provides input to a function.\n\n\n\n\ngithub\n\n\nA cloud-based service for storing and sharing your version controlled files.\n\n\n\n\npackage\n\n\nA group of R functions.\n\n\n\n\nproject\n\n\nA way to organise related files in RStudio\n\n\n\n\nreadme\n\n\nA text file in the base directory of a project that describes the project."
+  },
+  {
+    "objectID": "01-setup.html#further-practice",
+    "href": "01-setup.html#further-practice",
+    "title": "1  Setting up",
+    "section": "\n1.3 Further Practice",
+    "text": "1.3 Further Practice\n\nSet up another package for your own data and analysis.\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "02-data.html",
+    "href": "02-data.html",
+    "title": "2  Adding Data",
+    "section": "",
+    "text": "Add datasets to your package and document them with a codebook. You can use our demo data or your own."
+  },
+  {
+    "objectID": "02-data.html#set-up-raw-data",
+    "href": "02-data.html#set-up-raw-data",
+    "title": "2  Adding Data",
+    "section": "\n2.1 Set up Raw Data",
+    "text": "2.1 Set up Raw Data\nWe’re going to document some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces.\nRun the code below.\n\nusethis::use_data_raw(\"self_res_att\")\n\nThis will create a directory called “data-raw” and open a file called self_res_att.R with the following contents.\n## code to prepare `self_res_att` dataset goes here\n\nusethis::use_data(self_res_att, overwrite = TRUE)\nDownload the data file called “DeBruine_2004_PRSLB_att.csv” from https://osf.io/2ud56/ and save it in data-raw. The code below will also do this.\n\ndownload.file(url = \"https://osf.io/download/3c5s4/\",\n              destfile = \"data-raw/DeBruine_2004_PRSLB_att.csv\")\n\nNow, load the data in this script, using the object name self_res_att; this will be the name of the data object in your package.\n\nlibrary(readr)\nself_res_att <- read_csv(\"data-raw/DeBruine_2004_PRSLB_att.csv\")\n\nHave a quick look at the data and make sure the columns import as the right data types. You might want to make sure that categorical factors are imported as factors with their levels in a sensible order. Use readr::spec(self_res_att) to get the default column types, copy and paste this to your script, and edit them.\n\nspec(self_res_att)\n\ncols(\n  id = col_character(),\n  sex = col_character(),\n  ethgroup = col_character(),\n  age = col_double(),\n  m_non = col_double(),\n  f_non = col_double(),\n  m_self = col_double(),\n  f_self = col_double(),\n  grpsize = col_double(),\n  group = col_double(),\n  mascpref = col_double(),\n  obro = col_double(),\n  osis = col_double(),\n  ybro = col_double(),\n  ysis = col_double(),\n  birthorder = col_character()\n)\n\n\n\nct <- cols(\n  id = col_character(),\n  sex = col_factor(levels = c(\"female\", \"male\")),\n  ethgroup = col_factor(),\n  age = col_double(),\n  m_non = col_double(),\n  f_non = col_double(),\n  m_self = col_double(),\n  f_self = col_double(),\n  grpsize = col_double(),\n  group = col_double(),\n  mascpref = col_double(),\n  obro = col_double(),\n  osis = col_double(),\n  ybro = col_double(),\n  ysis = col_double(),\n  birthorder = col_factor(levels = c(\"only\", \"firstborn\", \"middleborn\", \"lastborn\"))\n)\n\nself_res_att <- readr::read_csv(\"data-raw/DeBruine_2004_PRSLB_att.csv\", col_types = ct)\n\nOnce you’re satisfied that the data are in the right form, you can run this code to add the data to your package.\n\nusethis::use_data(self_res_att, overwrite = TRUE)\n\n✔ Adding 'R' to \\033[32mDepends\\033[39m field in DESCRIPTION\n✔ Setting \\033[32mLazyData\\033[39m to 'true' in 'DESCRIPTION'\n✔ Saving 'self_res_att' to 'data/self_res_att.rda'\n• Document your data (see 'https://r-pkgs.org/data.html')"
+  },
+  {
+    "objectID": "02-data.html#documentation",
+    "href": "02-data.html#documentation",
+    "title": "2  Adding Data",
+    "section": "\n2.2 Documentation",
+    "text": "2.2 Documentation\nData need to be documented to be included in a package. The documentation looks like this:\n#' Title.\n#'\n#' Description of the dataset.\n#'\n#' @format A data frame with {nrow} rows and {ncol} variables:\n#' \\describe{\n#'   \\item{col1}{col1 description}\n#'   \\item{col2}{col2 description}\n#' }\n#' @source \\url{data_URL}\n\"dataname\"\nCreate a new script called “R/self_res_att.R”.\n\nusethis::use_r(\"self_res_att\")\n\nCopy the template above and edit the title, description, format, source, and data name.\n\nglue::glue(\"A data frame with {nrow} rows and {ncol} variables:\",\n           nrow = nrow(self_res_att),\n           ncol = ncol(self_res_att))\n\nA data frame with 108 rows and 16 variables:\n\n\n#' Attractiveness of Self-Resembling Faces.\n#'\n#' Attractiveness judgements of same-sex and other-sex self-resembling faces from DeBruine (2004).\n#'\n#' @format A data frame with 108 rows and 16 variables:\n#' \\describe{\n#'   \\item{col1}{col1 description}\n#'   \\item{col2}{col2 description}\n#' }\n#' @source \\url{https://osf.io/3c5s4/}\n\"self_res_att\"\nUse the following code to get a list of the column names in the data set.\n\nnames(self_res_att) |> dput()\n\nc(\"id\", \"sex\", \"ethgroup\", \"age\", \"m_non\", \"f_non\", \"m_self\", \n\"f_self\", \"grpsize\", \"group\", \"mascpref\", \"obro\", \"osis\", \"ybro\", \n\"ysis\", \"birthorder\")\n\n\nCopy and paste this into your script and assign this to an object called vars.\n\nvars <- c(\"id\", \"sex\", \"ethgroup\", \"age\", \"m_non\", \"f_non\", \"m_self\", \"f_self\", \"grpsize\", \"group\", \"mascpref\", \"obro\", \"osis\", \"ybro\", \"ysis\", \"birthorder\")\n\nNext, define each of these columns.\n\nvars <- c(\n  \"id\" = \"participant unique ID\",\n  \"sex\" = \"sex of the participant (male/female)\",\n  \"ethgroup\" = \"ethnic group of the participant (east_asian/west_asian/white)\",\n  \"age\" = \"age of the participant in years\",\n  \"m_non\" = \"mean number of times the other group members chose that male face as more attractive\",\n  \"f_non\" = \"mean number of times the other group members chose that female face as more attractive\",\n  \"m_self\" = \"number of times out of a possible 6 chose their male self-res face as more attractive\",\n  \"f_self\" = \"number of times out of a possible 6 chose their female self-res face as more attractive\",\n  \"grpsize\" = \"size of the group\",\n  \"group\" = \"unique group ID\",\n  \"mascpref\" = \"masculinity preference on an unrelated face preference task\",\n  \"obro\" = \"number of older brothers\",\n  \"osis\" = \"number of older sisters\",\n  \"ybro\" = \"number of younger brothers\",\n  \"ysis\" = \"number of younger sisters\",\n  \"birthorder\" = \"birth order (only/firstborn/middleborn/lastborn) as calculated from number of younger and older brothers and sisters\"\n)\n\nNow we can format this for the description file. Because the format uses curly brackets, we’re going to set the opening and closing symbols for glue to square brackets. Copy and paste these lines into the items section.\n\nglue::glue(\"#'   \\\\item{[colname]}{[coldesc]}\",\n           colname = names(vars),\n           coldesc = vars,\n           .open = \"[\",\n           .close = \"]\")\n\n#'   \\item{id}{participant unique ID}\n#'   \\item{sex}{sex of the participant (male/female)}\n#'   \\item{ethgroup}{ethnic group of the participant (east_asian/west_asian/white)}\n#'   \\item{age}{age of the participant in years}\n#'   \\item{m_non}{mean number of times the other group members chose that male face as more attractive}\n#'   \\item{f_non}{mean number of times the other group members chose that female face as more attractive}\n#'   \\item{m_self}{number of times out of a possible 6 chose their male self-res face as more attractive}\n#'   \\item{f_self}{number of times out of a possible 6 chose their female self-res face as more attractive}\n#'   \\item{grpsize}{size of the group}\n#'   \\item{group}{unique group ID}\n#'   \\item{mascpref}{masculinity preference on an unrelated face preference task}\n#'   \\item{obro}{number of older brothers}\n#'   \\item{osis}{number of older sisters}\n#'   \\item{ybro}{number of younger brothers}\n#'   \\item{ysis}{number of younger sisters}\n#'   \\item{birthorder}{birth order (only/firstborn/middleborn/lastborn) as calculated from number of younger and older brothers and sisters}\n\n\nNow save this file and add the documentation to your package with the following code:\n\ndevtools::document()\n\nYou should see the following output.\nℹ Updating demopkg documentation\nℹ Loading demopkg\nWriting NAMESPACE\nWriting self_res_att.Rd"
+  },
+  {
+    "objectID": "02-data.html#load-in-package",
+    "href": "02-data.html#load-in-package",
+    "title": "2  Adding Data",
+    "section": "\n2.3 Load in package",
+    "text": "2.3 Load in package\nNow restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).\n\ndevtools::load_all(\".\")\n\nYou should be able to access the data now.\n\n# load as self_res_att\ndata(\"self_res_att\", package = \"demopkg\")\n\n# load as d1\nd1 <- demopkg::self_res_att\n\nYou should also be able to see the documentation in the Help pane.\n\n?demopkg::self_res_att"
+  },
+  {
+    "objectID": "02-data.html#glossary",
+    "href": "02-data.html#glossary",
+    "title": "2  Adding Data",
+    "section": "\n2.4 Glossary",
+    "text": "2.4 Glossary"
+  },
+  {
+    "objectID": "02-data.html#further-practice",
+    "href": "02-data.html#further-practice",
+    "title": "2  Adding Data",
+    "section": "\n2.5 Further Practice",
+    "text": "2.5 Further Practice\n\n\nAdd the dataset “DeBruine_2004_PRSLB_avg.csv” from https://osf.io/2ud56/. This is a separate sample of participants who judged the averageness of male and female self- and non-self-resembling faces, rather than their attractiveness.\n\nid: participant unique ID\nsex: sex of the participant (male/female)\ngroup: unique group ID\nm_avg: number of times out of a possible 6 chose a male composite face as more attractive\nf_avg: number of times out of a possible 6 chose a female composite face as more attractive\nm_self: number of times out of a possible 6 chose their male self-res face as more attractive\nf_self: number of times out of a possible 6 chose their female self-res face as more attractive\nm_non: mean number of times the other group members chose that male face as more attractive\nf_non: mean number of times the other group members chose that female face as more attractive\n\n\nAdd datasets of your own to this package or your personal package.\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "03-functions.html",
+    "href": "03-functions.html",
+    "title": "3  Custom Functions",
+    "section": "",
+    "text": "Learn to write custom functions and include them in your package."
+  },
+  {
+    "objectID": "03-functions.html#function-overview",
+    "href": "03-functions.html#function-overview",
+    "title": "3  Custom Functions",
+    "section": "\n3.1 Function Overview",
+    "text": "3.1 Function Overview\nFirst, let’s create a very basic function to learn about custom functions. Functions need a name (like any R object). They are created with the function() function.\n\nfullname <- function() {\n  # function code goes here\n}\n\nMost functions have arguments that set inputs to the function or options for how the function can work. These arguments can be required for the function to work, or have default values. In the example below, the argument reverse defaults to FALSE unless you change it.\n\nfullname <- function(first, last, reverse = FALSE) {\n  # function code goes here\n}\n\nFunctions use these arguments in their code to produce some kind of output (or side effect). Here, if the value of reverse is TRUE, then we paste together the value of last, a comma, and the value of first and assign this to the object name. If the value of reverse is FALSE, then we paste together the value of first and the value of last and assign this to name. Finally, we use the return() function to return the value of name.\n\nfullname <- function(first, last, reverse = FALSE) {\n  if (reverse) {\n    name <- paste0(last, \", \", first)\n  } else {\n    name <- paste(first, last)\n  }\n  \n  return(name)\n}\n\n\nYou technically don’t have to use the return() function. The last object created in the function code will be automatically returned. Most people don’t use return(), but that can sometimes make it hard to figure out exactly what is being returned if you have a lot of if/else logic.\n\nRun the code above to define the function. After it’s defined, if you type the function name into the console, it will show you the code for the function.\n\nfullname\n\nfunction(first, last, reverse = FALSE) {\n  if (reverse) {\n    name <- paste0(last, \", \", first)\n  } else {\n    name <- paste(first, last)\n  }\n  \n  return(name)\n}\n\n\n\nYou can do this for any function; try a few! Many of the base R functions, like mean have unsatisfying code like UseMethod(\"mean\"), which you can lean about in the S3 Chapter of Advanced R, but other functions like sd will show you the code they use.\n\nUse your function like any other R function.\n\nfullname(\"Lisa\", \"DeBruine\")\nfullname(\"Lisa\", \"DeBruine\", TRUE)\n\n[1] \"Lisa DeBruine\"\n[1] \"DeBruine, Lisa\""
+  },
+  {
+    "objectID": "03-functions.html#function-development",
+    "href": "03-functions.html#function-development",
+    "title": "3  Custom Functions",
+    "section": "\n3.2 Function Development",
+    "text": "3.2 Function Development\nWe’re going to create a function that produces the APA-formatted text for the results of a paired-samples t-test. Here’s an example of APA format.\n\nA paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.\n\n\n3.2.1 Specific Instance\nThe first step is to sort out a specific instance of your code. We’ll load in the data we added last week and compare preferences for self-resembling female faces (f_self) to others’ preferences for those same faces f_non.\n\ndata(\"self_res_att\", package = \"demopkg\")\n\nt_results <- t.test(\n  x = self_res_att$f_self, \n  y = self_res_att$f_non,\n  paired = TRUE)\n\nt_results\n\n\n    Paired t-test\n\ndata:  self_res_att$f_self and self_res_att$f_non\nt = 3.5996, df = 107, p-value = 0.0004845\nalternative hypothesis: true mean difference is not equal to 0\n95 percent confidence interval:\n 0.2557008 0.8825708\nsample estimates:\nmean difference \n      0.5691358 \n\n\nNow we set up the text template with variables where we want to insert values from the analysis.\n\ntemplate <- \"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.\"\n\nThe object t_results prints out like above, but the object is actually a list, Use the str() function to see the structure of the list.\n\nstr(t_results)\n\nList of 10\n $ statistic  : Named num 3.6\n  ..- attr(*, \"names\")= chr \"t\"\n $ parameter  : Named num 107\n  ..- attr(*, \"names\")= chr \"df\"\n $ p.value    : num 0.000485\n $ conf.int   : num [1:2] 0.256 0.883\n  ..- attr(*, \"conf.level\")= num 0.95\n $ estimate   : Named num 0.569\n  ..- attr(*, \"names\")= chr \"mean difference\"\n $ null.value : Named num 0\n  ..- attr(*, \"names\")= chr \"mean difference\"\n $ stderr     : num 0.158\n $ alternative: chr \"two.sided\"\n $ method     : chr \"Paired t-test\"\n $ data.name  : chr \"self_res_att$f_self and self_res_att$f_non\"\n - attr(*, \"class\")= chr \"htest\"\n\n\nNow we can set the value of each variable from the t_results object. You can’t get the sample size and standard deviations from the t_results object, so we’ll calculate those from a and b.\n\nglue::glue(template,\n           dv      = \"preferences for female faces\",\n           level1  = \"participants who resembled those faces\",\n           level2  = \"non-self participants\",\n           mean1   = mean(self_res_att$f_self) |> round(1), \n           sd1     = sd(self_res_att$f_self) |> round(1),\n           mean2   = mean(self_res_att$f_non) |> round(1),\n           sd2     = sd(self_res_att$f_non) |> round(1),\n           non     = ifelse(t_results$p.value < .05, \"\", \"non-\"),\n           df      = t_results$parameter |> round(1),\n           t_value = t_results$statistic |> round(2),\n           p_value = t_results$p.value |> round(3)\n           )\n\nA paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.\n\n\n\n3.2.2 Set up Function\nNow we’re ready to abstract this into a function. The function will need a name. This function will (for now) only give you the APA-style text for a paired-samples t-test, so let’s call it apa_t_pair.\nYou can create an R script in the R directory called apa_t_pair.R, but the code below does this for you.\n\nusethis::use_r(\"apa_t_pair\")\n\nWe’ll develop our function in this file. To start, wrap all of the code above in the curly brackets after the function() function.\n\napa_t_pair <- function() {\n  t_results <- t.test(self_res_att$f_self, \n                      self_res_att$f_non,\n                      paired = TRUE)\n  \n  template <- \"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.\"\n  \n  glue::glue(template,\n             dv      = \"preferences for female faces\",\n             level1  = \"participants who resembled those faces\",\n             level2  = \"non-self participants\",\n             mean1   = mean(self_res_att$f_self) |> round(1), \n             sd1     = sd(self_res_att$f_self) |> round(1),\n             mean2   = mean(self_res_att$f_non) |> round(1),\n             sd2     = sd(self_res_att$f_non) |> round(1),\n             non     = ifelse(t_results$p.value < .05, \"\", \"non-\"),\n             df      = t_results$parameter |> round(1),\n             t_value = t_results$statistic |> round(2),\n             p_value = t_results$p.value |> round(3)\n             )\n}\n\nRun the code above and test that the function works by running it once in the console.\n\n# run in the console\napa_t_pair()\n\nA paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.\n\n\n\n3.2.3 Add Arguments\nWe probably want this function to work for any pair of vectors we give it, not just the value of f_self and f_non. So we need to add arguments to the function. Add arguments x and y to the function and replace self_res_att$f_self with x and self_res_att$f_self with y everywhere in the function.\n\napa_t_pair <- function(x, y) {\n  t_results <- t.test(x, y, paired = TRUE)\n  \n  template <- \"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.\"\n  \n  glue::glue(template,\n             dv      = \"preferences for female faces\",\n             level1  = \"participants who resembled those faces\",\n             level2  = \"non-self participants\",\n             mean1   = mean(self_res_att$f_self) |> round(1), \n             sd1     = sd(self_res_att$f_self) |> round(1),\n             mean2   = mean(self_res_att$f_non) |> round(1),\n             sd2     = sd(self_res_att$f_non) |> round(1),\n             non     = ifelse(t_results$p.value < .05, \"\", \"non-\"),\n             df      = t_results$parameter |> round(1),\n             t_value = t_results$statistic |> round(2),\n             p_value = t_results$p.value |> round(3)\n             )\n}\n\nNow, if you try to run the function without any arguments, you’ll get an error message. This is because there are no default values for x and y.\n\napa_t_pair()\n\nError in t.test(x, y, paired = TRUE): argument \"x\" is missing, with no default\n\n\nThis also won’t work.\n\nx <- self_res_att$f_self\ny <- self_res_att$f_non\napa_t_pair()\n\nError in t.test(x, y, paired = TRUE): argument \"x\" is missing, with no default\n\n\nThis is because the x and y inside of the function are in a different environment to any x and y outside of the function. This can seem confusing at first, but it’s good that you don’t need to worry about objects that exist outside of your function.\nYou can specify the vectors as arguments.\n\n# run in the console or another file\napa_t_pair(x = self_res_att$f_self, \n           y = self_res_att$f_non)\n\nA paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.\n\n\n\n3.2.4 Further Arguments\nNow we can further customise our function. You probably won’t always be comparing “preferences for female faces” between “participants who resembled those faces” and “non-self participants”, so let’s add three new arguments to the function. We can set generic default values for these new arguments so that you don’t have to specify them if the defaults are OK.\nSince the values are defined with the variable names used in the glue template, we don’t need to specify those in the glue() function anymore.\n\napa_t_pair <- function(x, y, \n                       dv = \"the DV\", \n                       level1 = \"level 1\", \n                       level2 = \"level 2\") {\n  t_results <- t.test(x, y, paired = TRUE)\n  \n  template <- \"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.\"\n  \n  glue::glue(template,\n             mean1   = mean(x) |> round(1), \n             sd1     = sd(x) |> round(1),\n             mean2   = mean(y) |> round(1),\n             sd2     = sd(y) |> round(1),\n             non     = ifelse(t_results$p.value < .05, \"\", \"non-\"),\n             df      = t_results$parameter |> round(1),\n             t_value = t_results$statistic |> round(2),\n             p_value = t_results$p.value |> round(3)\n             )\n}\n\nTry running the function both with and without the new arguments.\n\napa_t_pair(x = self_res_att$f_self, \n           y = self_res_att$f_non)\n\nA paired-samples t-test was conducted to compare the DV between level 1 (M = 3.5, SD = 1.6) and level 2 (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.\n\n\n\napa_t_pair(x = self_res_att$f_self, \n           y = self_res_att$f_non,\n           dv = \"preferences for female faces\",\n           level1 = \"participants who resembled those faces\",\n           level2 = \"non-self participants\")\n\nA paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.\n\n\n\nIf the output doesn’t change, this usually means that you forgot to run the code that re-defined apa_t_pair."
+  },
+  {
+    "objectID": "03-functions.html#load-in-package",
+    "href": "03-functions.html#load-in-package",
+    "title": "3  Custom Functions",
+    "section": "\n3.3 Load in package",
+    "text": "3.3 Load in package\n\n3.3.1 Import dependencies\nYou need to “import” any non-base packages that you use in a function. These are called “dependencies” because your function depends on them. Our function above uses glue() from the glue package. The function below is a quick way to do this.\n\nusethis::use_package(\"glue\")\n\nYou should see this output:\n✔ Setting active project to '/Users/lisad/rproj/demopkg'\n✔ Adding 'glue' to Imports field in DESCRIPTION\n• Refer to functions with `glue::fun()`\nThis means that you should always use the full form glue::glue(), rather than loading a package with the library() function and using just the function name glue().\nYou can open the DESCRIPTION file to see what has changed. You can alternatively just add dependencies to this file under “Imports:”.\n\n3.3.2 Load\nNow restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).\n\ndevtools::load_all(\".\")\n\nThe function should now be available.\n\napa_t_pair(x = self_res_att$f_self, \n           y = self_res_att$f_non,\n           dv = \"preferences for female faces\",\n           level1 = \"participants who resembled those faces\",\n           level2 = \"non-self participants\")\n\nA paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.\n\n\nAnd it should be easy to adapt for other pairs of values, such as the equivalent analysis for male faces.\n\napa_t_pair(x = self_res_att$m_self, \n           y = self_res_att$m_non,\n           dv = \"preferences for male faces\",\n           level1 = \"participants who resembled those faces\",\n           level2 = \"non-self participants\")\n\nA paired-samples t-test was conducted to compare preferences for male faces between participants who resembled those faces (M = 3.5, SD = 1.4) and non-self participants (M = 2.9, SD = 1). There was a significant difference; t(107) = 3.89, p = 0."
+  },
+  {
+    "objectID": "03-functions.html#glossary",
+    "href": "03-functions.html#glossary",
+    "title": "3  Custom Functions",
+    "section": "\n3.4 Glossary",
+    "text": "3.4 Glossary\n\n\n\n\n\nterm\n\n\ndefinition\n\n\n\n\n\nargument\n\n\nA variable that provides input to a function.\n\n\n\n\ndefault value\n\n\nA value that a function uses for an argument if it is skipped.\n\n\n\n\nenvironment\n\n\nA data structure that contains R objects such as variables and functions\n\n\n\n\nfunction\n\n\nA named section of code that can be reused.\n\n\n\n\nobject\n\n\nA word that identifies and stores the value of some data for later use."
+  },
+  {
+    "objectID": "03-functions.html#further-practice",
+    "href": "03-functions.html#further-practice",
+    "title": "3  Custom Functions",
+    "section": "\n3.5 Further Practice",
+    "text": "3.5 Further Practice\n\nEdit the function to handle p-values < .001.\nAdd 95% confidence intervals to the output.\nAllow the user to set a custom confidence interval.\nCreate another function to produce the text for a different analysis you’re familiar with, such as an ANOVA.\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "04-documentation.html",
+    "href": "04-documentation.html",
+    "title": "4  Documentation",
+    "section": "",
+    "text": "Write function documentation using the roxygen format. This is what creates the help documentation for functions."
+  },
+  {
+    "objectID": "04-documentation.html#roxygen",
+    "href": "04-documentation.html#roxygen",
+    "title": "4  Documentation",
+    "section": "\n4.1 Roxygen",
+    "text": "4.1 Roxygen\nGo to the R/apa_t_pair.R file we created last week. Put your cursor anywhere inside that function and choose Insert Roxygen Skeleton from the Code menu. It should generate documentation code in roxygen format like this:\n#' Title\n#'\n#' @param x\n#' @param y\n#' @param dv\n#' @param level1\n#' @param level2\n#'\n#' @return\n#' @export\n#'\n#' @examples\nThis creates the help files you can see for any function. For example, type ?mean in the console.\n\n4.1.1 Title and Description\nThe first line of the roxygen documentation is the title and the lines under that are the description. Update your documentation like this:\n#' APA text for Paired-Samples T-Test\n#'\n#' Create APA-formatted text for the results of an independent-samples t-test in the following format:\n#'\n#' A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.\n\n\n4.1.2 Arguments\nThe “Arguments” section is created from the lines that start with @param. They should define each argument in the function.\n#' @param x A vector of the values for level 1.\n#' @param y A vector of the values for level 2.\n#' @param dv The text describing the DV in the output statement.\n#' @param level1 The text describing level 1 in the output statement.\n#' @param level2 The text describing level 2 in the output statement.\n\n4.1.3 Return Value\nThe line starting with @return creates the “Value” section. This tells the user what kind of object is returned from the function. The line @export tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.\n#' @return A character string.\n#' @export\n\n4.1.4 Examples\nAdd at least one example that shows how the function works. Make sure to create any objects you need to run the function.\n#' @examples\n#' # use generic text\n#' apa_t_pair(x = self_res_att$f_self,\n#'            y = self_res_att$f_non)\n#'\n#' # specify the text for dv and levels\n#' apa_t_pair(x = self_res_att$f_self,\n#'            y = self_res_att$f_non,\n#'            dv = \"preferences for female faces\",\n#'            level1 = \"participants who resembled those faces\",\n#'            level2 = \"non-self participants\")"
+  },
+  {
+    "objectID": "04-documentation.html#document",
+    "href": "04-documentation.html#document",
+    "title": "4  Documentation",
+    "section": "\n4.2 Document",
+    "text": "4.2 Document\nNow, you need to run a documentation function to add your function to the package documentation and export it for use.\n\ndevtools::document()\n\nYou should see output like this.\nℹ Updating demopkg documentation\nℹ Loading demopkg\nWriting NAMESPACE\nWriting apa_t_pair.Rd"
+  },
+  {
+    "objectID": "04-documentation.html#glossary",
+    "href": "04-documentation.html#glossary",
+    "title": "4  Documentation",
+    "section": "\n4.3 Glossary",
+    "text": "4.3 Glossary"
+  },
+  {
+    "objectID": "04-documentation.html#further-practice",
+    "href": "04-documentation.html#further-practice",
+    "title": "4  Documentation",
+    "section": "\n4.4 Further Practice",
+    "text": "4.4 Further Practice\n\nAdd another example to the documentation.\nDocument any other functions you’ve created.\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "05-unit-tests.html",
+    "href": "05-unit-tests.html",
+    "title": "5  Unit Tests",
+    "section": "",
+    "text": "Write unit tests for your custom functions using testthat."
+  },
+  {
+    "objectID": "05-unit-tests.html#set-up-testhat",
+    "href": "05-unit-tests.html#set-up-testhat",
+    "title": "5  Unit Tests",
+    "section": "\n5.1 Set up testhat",
+    "text": "5.1 Set up testhat\nUse the following code to set up testing for your package. this makes a directory called tests that contains a file called testthat.R and a directory called testthat where you will keep your testing scripts. It will also add some lines to the DESCRIPTION file, so make sure that file doesn’t have unsaved changes before you run this.\n\nusethis::use_testthat()"
+  },
+  {
+    "objectID": "05-unit-tests.html#set-up-test",
+    "href": "05-unit-tests.html#set-up-test",
+    "title": "5  Unit Tests",
+    "section": "\n5.2 Set up test",
+    "text": "5.2 Set up test\nNext, we’ll follow the directions from the output text and call use_test() to initialise a basic test file and open it for editing.\n\nusethis::use_test(\"apa_t_pair\")\n\nA new file will open with the following text. It you run it, you should get a message saying it passed.\n\ntest_that(\"multiplication works\", {\n  expect_equal(2 * 2, 4)\n})\n\nTest passed 😀\n\n\nChange the default label for this test. You can label these whatever you want (it really doesn’t matter); I usually start with “defaults” and test the most basic example to make sure the function defaults work as expected. Delete the demo code between the curly brackets.\n\ntest_that(\"defaults\", {\n\n})\n\nSet x and y as two small static vectors (don’t use rnorm() or anything that makes random numbers). Then assign the value of apa_t_pair(x, y) to result and the expected result to expected. Finally, use the function expect_equal() to compare the obtained and expected result.\n\ntest_that(\"defaults\", {\n  x <- c(1,2,3,4,5)\n  y <- c(2,3,2,5,6)\n  \n  result <- apa_t_pair(x, y)\n  expected <- \"A paired-samples t-test was conducted to compare the DV between level 1 (M = 3, SD = 1.6) and level 2 (M = 3.6, SD = 1.8). There was a non-significant difference; t(4) = -1.5, p = 0.208.\"\n  expect_equal(result, expected)\n})\n\nTest passed 😀\n\n\nThat particular example was non-significant. Let’s add a version that does show a significant difference and make sure the text changes appropriately.\n\ntest_that(\"defaults-sig\", {\n  x <- c(1,2,1,3,1)\n  y <- c(5,3,2,5,6)\n  \n  result <- apa_t_pair(x, y)\n  expected <- \"A paired-samples t-test was conducted to compare the DV between level 1 (M = 1.6, SD = 0.9) and level 2 (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.2, p = 0.033.\"\n  expect_equal(result, expected)\n})\n\nTest passed 🥳\n\n\nNo let’s add some non-default labels.\n\ntest_that(\"non-defaults\", {\n  x <- c(1,2,1,3,1)\n  y <- c(5,3,2,5,6)\n  \n  result <- apa_t_pair(x, y, dv = \"the score\", \"Group A\", \"Group B\")\n  expected <- \"A paired-samples t-test was conducted to compare the score between Group A (M = 1.6, SD = 0.9) and Group B (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.2, p = 0.033.\"\n  expect_equal(result, expected)\n})\n\nTest passed 😀"
+  },
+  {
+    "objectID": "05-unit-tests.html#test-driven-development",
+    "href": "05-unit-tests.html#test-driven-development",
+    "title": "5  Unit Tests",
+    "section": "\n5.3 Test-driven development",
+    "text": "5.3 Test-driven development\nYou can use tests to help you develop your package. First, think of something you want to add or change. Then write a test that checks if your function is doing that new thing. It will, of course, fail, but then your task is to alter the function code until the test passes.\nFor example, it would be nice to give a warning if x and y are identical, since this is almost always a mistake. The first step is to write a test that fails. Wrap the code apa_t_pair(x, x) inside the function expect_warning(), which will pass if the code produces a warning and fail if it doesn’t.\n\ntest_that(\"same x and y\", {\n  x <- c(1,2,1,4,1)\n  \n  expect_warning( apa_t_pair(x, x) )\n})\n\nError in `reporter$stop_if_needed()`:\n! Test failed\n\n\n── Failure (<text>:4:3): same x and y ──────────────────────────────────────────\n`apa_t_pair(x, x)` did not produce any warnings.\n\n\nNow we can edit the function apa_t_pair() until the test passes. Add a few lines of code at the start of the function to check if all of the values in x are the same as all of the values in y, and display a warning if they are.\n\napa_t_pair <- function(x, y,\n                       dv = \"the DV\",\n                       level1 = \"level 1\",\n                       level2 = \"level 2\") {\n  # warn about identical values\n  if (all(x == y)) {\n    warning(\"The values for x and y should probably not be identical.\")\n  }\n  \n  t_results <- t.test(x, y, paired = TRUE)\n\n  template <- \"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.\"\n\n  glue::glue(template,\n             mean1   = mean(x) |> round(1),\n             sd1     = sd(x) |> round(1),\n             mean2   = mean(y) |> round(1),\n             sd2     = sd(y) |> round(1),\n             non     = ifelse(t_results$p.value < .05, \"\", \"non-\"),\n             df      = t_results$parameter |> round(1),\n             t_value = t_results$statistic |> round(2),\n             p_value = t_results$p.value |> round(3)\n  )\n}\n\nNow the test should pass.\n\ntest_that(\"same x and y\", {\n  x <- c(1,2,1,4,1)\n  y <- c(5,3,2,5,6)\n  \n  expect_warning( apa_t_pair(x, x) )\n})\n\nTest passed 😀\n\n\nNow that we have 5 tests for this function, we can run them all by clicking on Run Tests in the upper right corner of the source pane. If all goes well, you’ll see the following in the Build tab:\n==> Testing R file using 'testthat'\n\nℹ Loading demopkg\n\n══ Testing test-apa_t_pair.R ═════\n[ FAIL 0 | WARN 0 | SKIP 0 | PASS 5 ] Done!\n\nTest complete"
+  },
+  {
+    "objectID": "05-unit-tests.html#testing-data",
+    "href": "05-unit-tests.html#testing-data",
+    "title": "5  Unit Tests",
+    "section": "\n5.4 Testing data",
+    "text": "5.4 Testing data\nYou can also set up tests for a data object.\n\nusethis::use_test(\"self_res_att\")\n\nLet’s check that the data() function can load this data set and that it has the expected dimensions. We can also check if the column sex is a factor.\n\ntest_that(\"data available\", {\n  data(\"self_res_att\")\n\n  expect_true( exists(\"self_res_att\") )\n  expect_equal(ncol(self_res_att), 16)\n  expect_equal(nrow(self_res_att), 108)\n  expect_true(is.factor(self_res_att$sex))\n})"
+  },
+  {
+    "objectID": "05-unit-tests.html#multiple-tests",
+    "href": "05-unit-tests.html#multiple-tests",
+    "title": "5  Unit Tests",
+    "section": "\n5.5 Multiple tests",
+    "text": "5.5 Multiple tests\nYou can run all of the tests for all of the functions in your package by clicking on Test in the Build Tab or typing `` in the console. Here, you’ll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).\n==> devtools::test()\n\nℹ Testing demopkg\n✔ | F W S  OK | Context\n✔ |         4 | apa_t_pair        \n✔ |         3 | self_res_att      \n\n══ Results ═══════════════════════\nDuration: 0.1 s\n\n[ FAIL 0 | WARN 0 | SKIP 0 | PASS 7 ]\nSometimes you want to set tests to skip because they take too long or cause problems when you submit a package to CRAN. Testthat has a number of functions that start with skip that allow you to skip any following tests under different circumstances.\nYou can also set up tests for a data object.\n\nusethis::use_test(\"self_res_att\")\n\nLet’s check that the data() function can load this data set and that it has the expected dimensions.\n\ntest_that(\"data available\", {\n  data(\"self_res_att\")\n\n  expect_true( exists(\"self_res_att\") )\n  expect_equal(ncol(self_res_att), 16)\n  expect_equal(nrow(self_res_att), 108)\n})"
+  },
+  {
+    "objectID": "05-unit-tests.html#glossary",
+    "href": "05-unit-tests.html#glossary",
+    "title": "5  Unit Tests",
+    "section": "\n5.6 Glossary",
+    "text": "5.6 Glossary"
+  },
+  {
+    "objectID": "05-unit-tests.html#further-practice",
+    "href": "05-unit-tests.html#further-practice",
+    "title": "5  Unit Tests",
+    "section": "\n5.7 Further Practice",
+    "text": "5.7 Further Practice\n\nUse test-driven development to add a custom error message if the length of x and y are not the same.\nAdd further sense checks that the column types are as expected for self_res_att.\nAdd unit tests for any other functions you’ve created.\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "06-vignettes.html",
+    "href": "06-vignettes.html",
+    "title": "6  Analysis Vignette",
+    "section": "",
+    "text": "library(usethis)\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "07-pkgdown.html",
+    "href": "07-pkgdown.html",
+    "title": "7  Pkgdown Websites",
+    "section": "",
+    "text": "library(usethis)\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "08-maintenance.html",
+    "href": "08-maintenance.html",
+    "title": "8  Package Maintenance",
+    "section": "",
+    "text": "library(usethis)\nlibrary(devtools)\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "09-sharing.html",
+    "href": "09-sharing.html",
+    "title": "9  Sharing your package",
+    "section": "",
+    "text": "Set up a github account and make a package repository to share your package and pkgdown website."
+  },
+  {
+    "objectID": "09-sharing.html#set-up-git",
+    "href": "09-sharing.html#set-up-git",
+    "title": "9  Sharing your package",
+    "section": "\n9.1 Set up git",
+    "text": "9.1 Set up git\nIf your project doesn’t already use git, set it up with this function:\n\nusethis::use_git()\n\nIt will list all of your files and ask if it’s OK to commit them. Choose the affirmative option (e.g., “Yes”, “Absolutely”, “Yeah”).\nIt will than ask “• A restart of RStudio is required to activate the Git pane Restart now?”. Choose the affirmative option and wait for the restart."
+  },
+  {
+    "objectID": "09-sharing.html#set-up-github",
+    "href": "09-sharing.html#set-up-github",
+    "title": "9  Sharing your package",
+    "section": "\n9.2 Set up GitHub",
+    "text": "9.2 Set up GitHub\nNow, set up your github repository. If you don’t already have a github account, you need to make one first. Then enter this function into the console.\n\n# paste into the console\nusethis::create_github_token()\n\nIt will open up a wesbite where you can set the name of the computer you’re using this token on. You’re meant to set it to expire for security purposes, but you can also set it up without an expiry date.\n\n\n\n\n\n\nAfter you set up your token, make sure to copy the value (if you forget and close the window, you can just make another token). Type the following code into the console and follow the instructions to set your token.\n\n# enter into the console and follow instructions\ngitcreds::gitcreds_set()\n\nIf you think you’ve already done this in the past, or have just set it up, double check with this function:\n\nusethis::gh_token_help()"
+  },
+  {
+    "objectID": "09-sharing.html#add-repository",
+    "href": "09-sharing.html#add-repository",
+    "title": "9  Sharing your package",
+    "section": "\n9.3 Add Repository",
+    "text": "9.3 Add Repository\nNow we can add this project to your github repositories.\n\nusethis::use_github()\n\nℹ Defaulting to 'https' Git protocol\n✔ Setting active project to '/Users/lisad/rproj/demopkg'\n✔ Creating GitHub repository 'debruine/demopkg'\n✔ Setting remote 'origin' to 'https://github.com/debruine/demopkg.git'\n✔ Setting URL field in DESCRIPTION to 'https://github.com/debruine/demopkg'\n✔ Setting BugReports field in DESCRIPTION to 'https://github.com/debruine/demopkg/issues'\nThere is 1 uncommitted file:\n* 'DESCRIPTION'\nIs it ok to commit it?\nAllow usethis to commit any uncommitted files.\n✔ Adding files\n✔ Making a commit with message 'Add GitHub links to DESCRIPTION'\n✔ Pushing 'main' branch to GitHub and setting 'origin/main' as upstream branch\n✔ Opening URL 'https://github.com/debruine/demopkg'\nYour web browser should open up the page https://github.com/yourusername/demopkg"
+  },
+  {
+    "objectID": "09-sharing.html#add-a-readme",
+    "href": "09-sharing.html#add-a-readme",
+    "title": "9  Sharing your package",
+    "section": "\n9.4 Add a README",
+    "text": "9.4 Add a README\nAll repositories need a README. R package repositories tend to follow a pattern that the following function will set up.\n\nusethis::use_readme_rmd()\n\nEdit the goal of the package. You can use text from the DESCRIPTION file.\nThe goal of demopkg is to provide data and analysis code for the paper \"Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces\" (DeBruine, 2004).\nDelete everything under the Example heading and add some example code, such as showing an analysis with apa_t_pair().\nNow save and knit the .Rmd file, which will create a file called README.md. Don’t ever edit this file, just create it with the .Rmd file."
+  },
+  {
+    "objectID": "09-sharing.html#commit-and-push-changes",
+    "href": "09-sharing.html#commit-and-push-changes",
+    "title": "9  Sharing your package",
+    "section": "\n9.5 Commit and push changes",
+    "text": "9.5 Commit and push changes\nGo into the Git tab in the upper right pane. You should see a list of files that have changes, including the README files.\nSelect them all and click on the staged checkboxes, then click “Commit”.\n\n\n\n\n\n\nWrite a commit statement like “added README” and click the Commit button. You should see a popup that end with text like this:\n\n>>> /usr/local/git/bin/git commit -F /var/folders/6w/y3tyzgs1403cz7tgw8k4lk600000gq/T/Rtmpi8M1q2/git-commit-message-45a77cb49a7b.txt\n[main 19dfbb3] added README\n 3 files changed, 111 insertions(+)\n create mode 100644 README.Rmd\n create mode 100644 README.md\n\nIf there were no errors, you can close this box and the review changes interface.\nA “commit” creates a snapshot of your project on your computer, so you can always go back to this version, but it doesn’t update the version on the web. For that, you need to “push”. Click the green up arrow in the git pane.\nYou’ll see a popup with text like this:\n\n>>> /usr/local/git/bin/git push origin HEAD:refs/heads/main\nTo https://github.com/debruine/demopkg.git\n   4cbc523..19dfbb3  HEAD -> main\n\nIf there were no error message, go ahead and close this."
+  },
+  {
+    "objectID": "09-sharing.html#terminal",
+    "href": "09-sharing.html#terminal",
+    "title": "9  Sharing your package",
+    "section": "\n9.6 Terminal",
+    "text": "9.6 Terminal\nYou may prefer interacting with git via the command line. If not, you can skip this section.\nAdd something to the README and re-knit to create changes. Then go to the Terminal in the console pane and type git status. You should see output like this, with the changed files in red.\n\n(base) ~/rproj/demopkg > git status\nOn branch main\nYour branch is up-to-date with 'origin/main'.\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git checkout -- <file>...\" to discard changes in working directory)\n\n        modified:   README.Rmd\n        modified:   README.md\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n\nThis shows you a list of what files have changes. Stage all of the files for committing with git add *. Now if you run git status, the changed files will be green, which means they’re ready to commit.\nCommit them to your local machine with git commit -m \"Updates to README\". The -m signals that the next thing in quotes will be the commit message.\n\n(base) ~/rproj/demopkg > git commit -m \"Updates to README\"\n[main 5ae4e39] Updates to README\n 2 files changed, 2 insertions(+), 2 deletions(-)\n\nSend the commit to the web version with git push.\n\n(base) ~/rproj/demopkg > git push\nCounting objects: 4, done.\nDelta compression using up to 8 threads.\nCompressing objects: 100% (4/4), done.\nWriting objects: 100% (4/4), 437 bytes | 0 bytes/s, done.\nTotal 4 (delta 3), reused 0 (delta 0)\nremote: Resolving deltas: 100% (3/3), completed with 3 local objects.\nTo https://github.com/debruine/demopkg.git\n   19dfbb3..5ae4e39  main -> main\n\nTL;DR:\ngit status\ngit add *\ngit commit -m \"README updates\"\ngit push\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "10-next-steps.html",
+    "href": "10-next-steps.html",
+    "title": "10  Next Steps",
+    "section": "",
+    "text": "library(usethis)\n\n\n\n\n\nKnuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, D. E. (1984). Literate programming. Comput. J., 27(2), 97–111. https://doi.org/10.1093/comjnl/27.2.97\n\n\nWickham, H. (2015). R packages: Organize, test, document, and share your code. \" O’Reilly Media, Inc.\"."
+  }
+]
