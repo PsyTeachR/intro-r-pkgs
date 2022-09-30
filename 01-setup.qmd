@@ -23,12 +23,13 @@ Use the following command to create the framework for a new package called `demo
 usethis::create_package(path = "~/rproj/demopkg")
 ```
 
-```{block type="warning"}
+::: {.warning}
 Package names can only be letters, numbers, and full stops.
-```
+:::
 
 You'll see the following output, and a new RStudio `r glossary("project")` will open up. You can close the old window now and just work in this project.
 
+::: {.cell-output}
 ```
 ✔ Creating '/Users/lisad/rproj/demopkg/'
 ✔ Setting active project to '/Users/lisad/rproj/demopkg'
@@ -53,14 +54,14 @@ RoxygenNote: 7.2.0
 ✔ Opening '/Users/lisad/rproj/demopkg/' in new RStudio session
 ✔ Setting active project to '<no active project>'
 ```
-
+:::
 
 
 ### Edit the DESCRIPTION file
 
 Open the `DESCRIPTION` file. It should look like this:
 
-```
+``` yaml
 Package: demopkg
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
@@ -76,7 +77,7 @@ RoxygenNote: 7.2.0
 
 Change the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your [ORCiD](https://orcid.org/).
 
-```
+``` yaml
 Authors@R: c(
     person(given = "Lisa",
            family = "DeBruine",
@@ -117,15 +118,19 @@ usethis::use_readme_rmd()
 
 We'll eventually put this on `r glossary("github")`, so change the installation instructions to the following (change `yourusername` to your github username). 
 
-<pre><code>You can install demopkg from [GitHub](https://github.com) with:
+```` r
+You can install demopkg from [GitHub](https://github.com) with:
 
-&#96;&#96;&#96; r
+``` r
 devtools::install_github("yourusername/demopkg")
-&#96;&#96;&#96;</code></pre>
+```
+````
 
 Delete the example for now.
 
+::: {.warning}
 Make sure you knit your README.Rmd file when you update it and never edit the README.md file (that's just for github).
+:::
 
 We'll make a full-featured pkgdown website in @sec-pkgdown, so we don't need too many details here.
 

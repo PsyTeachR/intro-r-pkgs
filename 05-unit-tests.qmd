@@ -163,6 +163,7 @@ test_that("same x and y", {
 
 Now that we have 5 tests for this function, we can run them all by clicking on **`Run Tests`** in the upper right corner of the source pane. If all goes well, you'll see the following in the Build tab:
 
+::: {.cell-output}
 ```
 ==> Testing R file using 'testthat'
 
@@ -173,6 +174,7 @@ Now that we have 5 tests for this function, we can run them all by clicking on *
 
 Test complete
 ```
+:::
 
 ## Testing data
 
@@ -199,6 +201,7 @@ test_that("data available", {
 
 You can run all of the tests for all of the functions in your package by clicking on **`Test`** in the Build Tab or typing `` in the console. Here, you'll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).
 
+::: {.cell-output}
 ```
 ==> devtools::test()
 
@@ -212,6 +215,7 @@ Duration: 0.1 s
 
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 7 ]
 ```
+:::
 
 Sometimes you want to set tests to skip because they take too long or cause problems when you submit a package to CRAN. Testthat has a number of functions that start with `skip` that allow you to skip any following tests under different circumstances.
 

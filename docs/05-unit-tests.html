@@ -317,7 +317,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">expect_equal</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😀</code></pre>
+<pre><code>Test passed 🌈</code></pre>
 </div>
 </div>
 <p>Change the default label for this test. You can label these whatever you want (it <em>really</em> doesn’t matter); I usually start with “defaults” and test the most basic example to make sure the function defaults work as expected. Delete the demo code between the curly brackets.</p>
@@ -337,7 +337,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb7-8"><a href="#cb7-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😀</code></pre>
+<pre><code>Test passed 🎊</code></pre>
 </div>
 </div>
 <p>That particular example was non-significant. Let’s add a version that does show a significant difference and make sure the text changes appropriately.</p>
@@ -351,7 +351,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb9-8"><a href="#cb9-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🥳</code></pre>
+<pre><code>Test passed 🌈</code></pre>
 </div>
 </div>
 <p>No let’s add some non-default labels.</p>
@@ -365,7 +365,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb11-8"><a href="#cb11-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😀</code></pre>
+<pre><code>Test passed 😸</code></pre>
 </div>
 </div>
 </section><section id="test-driven-development" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="test-driven-development">
@@ -423,10 +423,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">expect_warning</span>( <span class="fu">apa_t_pair</span>(x, x) )</span>
 <span id="cb17-6"><a href="#cb17-6"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😀</code></pre>
+<pre><code>Test passed 🎉</code></pre>
 </div>
 </div>
 <p>Now that we have 5 tests for this function, we can run them all by clicking on <strong><code>Run Tests</code></strong> in the upper right corner of the source pane. If all goes well, you’ll see the following in the Build tab:</p>
+<div class="cell-output">
 <pre><code>==&gt; Testing R file using 'testthat'
 
 ℹ Loading demopkg
@@ -435,6 +436,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 5 ] Done!
 
 Test complete</code></pre>
+</div>
 </section><section id="testing-data" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="testing-data">
 <span class="header-section-number">5.4</span> Testing data</h2>
 <p>You can also set up tests for a data object.</p>
@@ -455,6 +457,7 @@ Test complete</code></pre>
 </section><section id="multiple-tests" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="multiple-tests">
 <span class="header-section-number">5.5</span> Multiple tests</h2>
 <p>You can run all of the tests for all of the functions in your package by clicking on <strong><code>Test</code></strong> in the Build Tab or typing `` in the console. Here, you’ll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).</p>
+<div class="cell-output">
 <pre><code>==&gt; devtools::test()
 
 ℹ Testing demopkg
@@ -466,6 +469,7 @@ Test complete</code></pre>
 Duration: 0.1 s
 
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 7 ]</code></pre>
+</div>
 <p>Sometimes you want to set tests to skip because they take too long or cause problems when you submit a package to CRAN. Testthat has a number of functions that start with <code>skip</code> that allow you to skip any following tests under different circumstances.</p>
 <p>You can also set up tests for a data object.</p>
 <div class="cell" data-layout-align="center">

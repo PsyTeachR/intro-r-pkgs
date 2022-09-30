@@ -31,7 +31,7 @@ Now, set up your github repository. If you don't already have a github account, 
 usethis::create_github_token()
 ```
 
-It will open up a wesbite where you can set the name of the computer you're using this token on. You're meant to set it to expire for security purposes, but you can also set it up without an expiry date. 
+It will open up a website where you can set the name of the computer you're using this token on. You're meant to set it to expire for security purposes, but you can also set it up without an expiry date. 
 
 ::: {.light-mode}
 ![](images/github-token.png)
@@ -62,6 +62,7 @@ Now we can add this project to your github repositories.
 usethis::use_github()
 ```
 
+::: {.cell-output}
 ```
 ℹ Defaulting to 'https' Git protocol
 ✔ Setting active project to '/Users/lisad/rproj/demopkg'
@@ -73,15 +74,18 @@ There is 1 uncommitted file:
 * 'DESCRIPTION'
 Is it ok to commit it?
 ```
+:::
 
 Allow usethis to commit any uncommitted files.
 
+::: {.cell-output}
 ```
 ✔ Adding files
 ✔ Making a commit with message 'Add GitHub links to DESCRIPTION'
 ✔ Pushing 'main' branch to GitHub and setting 'origin/main' as upstream branch
 ✔ Opening URL 'https://github.com/debruine/demopkg'
 ```
+:::
 
 Your web browser should open up the page <https://github.com/yourusername/demopkg>
 

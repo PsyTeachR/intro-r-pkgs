@@ -312,7 +312,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># paste into the console</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>It will open up a wesbite where you can set the name of the computer you’re using this token on. You’re meant to set it to expire for security purposes, but you can also set it up without an expiry date.</p>
+<p>It will open up a website where you can set the name of the computer you’re using this token on. You’re meant to set it to expire for security purposes, but you can also set it up without an expiry date.</p>
 <div class="light-mode">
 <p><img src="images/github-token.png" class="img-fluid"></p>
 </div>
@@ -334,6 +334,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>usethis<span class="sc">::</span><span class="fu">use_github</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell-output">
 <pre><code>ℹ Defaulting to 'https' Git protocol
 ✔ Setting active project to '/Users/lisad/rproj/demopkg'
 ✔ Creating GitHub repository 'debruine/demopkg'
@@ -343,11 +344,14 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 There is 1 uncommitted file:
 * 'DESCRIPTION'
 Is it ok to commit it?</code></pre>
+</div>
 <p>Allow usethis to commit any uncommitted files.</p>
+<div class="cell-output">
 <pre><code>✔ Adding files
 ✔ Making a commit with message 'Add GitHub links to DESCRIPTION'
 ✔ Pushing 'main' branch to GitHub and setting 'origin/main' as upstream branch
 ✔ Opening URL 'https://github.com/debruine/demopkg'</code></pre>
+</div>
 <p>Your web browser should open up the page <a href="https://github.com/yourusername/demopkg" class="uri">https://github.com/yourusername/demopkg</a></p>
 </section><section id="add-a-readme" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="add-a-readme">
 <span class="header-section-number">9.4</span> Add a README</h2>

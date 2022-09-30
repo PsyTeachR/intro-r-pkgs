@@ -55,3 +55,11 @@ You will need only very basic R skills and a willingness to learn. The only peop
 10. Review and next steps (2022-12-07)
 
     Whatever we didn’t get to. We'll also discuss how to continue your learning.
+    
+## Resources
+
+* [R Packages](https://r-pkgs.org/) by Hadley Wickham and Jenny Bryan
+* [usethis](https://usethis.r-lib.org/)
+* [testthat](https://testthat.r-lib.org/)
+* [pkgdown](https://pkgdown.r-lib.org/)
+* [vertical](https://crumplab.com/vertical/)

@@ -20,7 +20,7 @@ Run the code below.
 usethis::use_data_raw("self_res_att")
 ```
 
-This will create a directory called "data-raw" and open a file called `self_res_att.R` with the following contents.
+This will create a directory called `data-raw` and open a file called `self_res_att.R` with the following contents.
 
 ``` r
 ## code to prepare `self_res_att` dataset goes here
@@ -28,7 +28,7 @@ This will create a directory called "data-raw" and open a file called `self_res_
 usethis::use_data(self_res_att, overwrite = TRUE)
 ```
 
-Download the data file called "DeBruine_2004_PRSLB_att.csv" from <https://osf.io/2ud56/> and save it in `data-raw`. The code below will also do this.
+Download the data file called `DeBruine_2004_PRSLB_att.csv` from <https://osf.io/2ud56/> and save it in `data-raw`. The code below will also do this.
 
 ```{r, eval = FALSE}
 download.file(url = "https://osf.io/download/3c5s4/",
@@ -78,13 +78,14 @@ Once you're satisfied that the data are in the right form, you can run this code
 ```{r, eval = FALSE}
 usethis::use_data(self_res_att, overwrite = TRUE)
 ```
-
+::: {.cell-output}
 ```
 ✔ Adding 'R' to \033[32mDepends\033[39m field in DESCRIPTION
 ✔ Setting \033[32mLazyData\033[39m to 'true' in 'DESCRIPTION'
 ✔ Saving 'self_res_att' to 'data/self_res_att.rda'
 • Document your data (see 'https://r-pkgs.org/data.html')
 ```
+:::
 
 ## Documentation
 
@@ -226,7 +227,7 @@ glossary_table(as_kable = FALSE) |>
 
 ## Further Practice
 
-1. Add the dataset "DeBruine_2004_PRSLB_avg.csv" from <https://osf.io/2ud56/>. This is a separate sample of participants who judged the *averageness* of male and female self- and non-self-resembling faces, rather than their *attractiveness*. 
+1. Add the dataset `DeBruine_2004_PRSLB_avg.csv` from <https://osf.io/2ud56/>. This is a separate sample of participants who judged the *averageness* of male and female self- and non-self-resembling faces, rather than their *attractiveness*. 
 
     * id: participant unique ID
     * sex: sex of the participant (male/female)

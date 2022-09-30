@@ -306,55 +306,54 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <section id="roxygen" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="roxygen">
 <span class="header-section-number">4.1</span> Roxygen</h2>
 <p>Go to the <code>R/apa_t_pair.R</code> file we created last week. Put your cursor anywhere inside that function and choose <strong><code>Insert Roxygen Skeleton</code></strong> from the <strong><code>Code</code></strong> menu. It should generate documentation code in roxygen format like this:</p>
-<pre><code>#' Title
-#'
-#' @param x
-#' @param y
-#' @param dv
-#' @param level1
-#' @param level2
-#'
-#' @return
-#' @export
-#'
-#' @examples</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>#' Title</span>
+<span id="cb2-2"><a href="#cb2-2"></a>#'</span>
+<span id="cb2-3"><a href="#cb2-3"></a>#' @param x</span>
+<span id="cb2-4"><a href="#cb2-4"></a>#' @param y</span>
+<span id="cb2-5"><a href="#cb2-5"></a>#' @param dv</span>
+<span id="cb2-6"><a href="#cb2-6"></a>#' @param level1</span>
+<span id="cb2-7"><a href="#cb2-7"></a>#' @param level2</span>
+<span id="cb2-8"><a href="#cb2-8"></a>#'</span>
+<span id="cb2-9"><a href="#cb2-9"></a>#' @return</span>
+<span id="cb2-10"><a href="#cb2-10"></a>#' @export</span>
+<span id="cb2-11"><a href="#cb2-11"></a>#'</span>
+<span id="cb2-12"><a href="#cb2-12"></a>#' @examples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This creates the help files you can see for any function. For example, type <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> in the console.</p>
 <section id="title-and-description" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="title-and-description">
 <span class="header-section-number">4.1.1</span> Title and Description</h3>
 <p>The first line of the roxygen documentation is the title and the lines under that are the description. Update your documentation like this:</p>
-<pre><code>#' APA text for Paired-Samples T-Test
-#'
-#' Create APA-formatted text for the results of an independent-samples t-test in the following format:
-#'
-#' A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.
-</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>#' APA text for Paired-Samples T-Test</span>
+<span id="cb3-2"><a href="#cb3-2"></a>#'</span>
+<span id="cb3-3"><a href="#cb3-3"></a>#' Create APA-formatted text for the results of an independent-samples t-test in the following format:</span>
+<span id="cb3-4"><a href="#cb3-4"></a>#'</span>
+<span id="cb3-5"><a href="#cb3-5"></a>#' A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="arguments">
 <span class="header-section-number">4.1.2</span> Arguments</h3>
 <p>The “Arguments” section is created from the lines that start with <code>@param</code>. They should define each argument in the function.</p>
-<pre><code>#' @param x A vector of the values for level 1.
-#' @param y A vector of the values for level 2.
-#' @param dv The text describing the DV in the output statement.
-#' @param level1 The text describing level 1 in the output statement.
-#' @param level2 The text describing level 2 in the output statement.</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>#' @param x A vector of the values for level 1.</span>
+<span id="cb4-2"><a href="#cb4-2"></a>#' @param y A vector of the values for level 2.</span>
+<span id="cb4-3"><a href="#cb4-3"></a>#' @param dv The text describing the DV in the output statement.</span>
+<span id="cb4-4"><a href="#cb4-4"></a>#' @param level1 The text describing level 1 in the output statement.</span>
+<span id="cb4-5"><a href="#cb4-5"></a>#' @param level2 The text describing level 2 in the output statement.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="return-value" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="return-value">
 <span class="header-section-number">4.1.3</span> Return Value</h3>
 <p>The line starting with <code>@return</code> creates the “Value” section. This tells the user what kind of object is returned from the function. The line <code>@export</code> tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.</p>
-<pre><code>#' @return A character string.
-#' @export</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>#' @return A character string.</span>
+<span id="cb5-2"><a href="#cb5-2"></a>#' @export</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="examples" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="examples">
 <span class="header-section-number">4.1.4</span> Examples</h3>
-<p>Add at least one example that shows how the function works. Make sure to create any objects you need to run the function.</p>
-<pre><code>#' @examples
-#' # use generic text
-#' apa_t_pair(x = self_res_att$f_self,
-#'            y = self_res_att$f_non)
-#'
-#' # specify the text for dv and levels
-#' apa_t_pair(x = self_res_att$f_self,
-#'            y = self_res_att$f_non,
-#'            dv = "preferences for female faces",
-#'            level1 = "participants who resembled those faces",
-#'            level2 = "non-self participants")</code></pre>
+<p>Add at least one example that shows how the function works. Make sure to create any objects you need to run the function. Here, we can use the data object <code>self_res_att</code> because we added it to our package in <a href="02-data.html"><span>Chapter&nbsp;2</span></a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>#' @examples</span>
+<span id="cb6-2"><a href="#cb6-2"></a>#' # use generic text</span>
+<span id="cb6-3"><a href="#cb6-3"></a>#' apa_t_pair(x = self_res_att$f_self,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>#'            y = self_res_att$f_non)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>#'</span>
+<span id="cb6-6"><a href="#cb6-6"></a>#' # specify the text for dv and levels</span>
+<span id="cb6-7"><a href="#cb6-7"></a>#' apa_t_pair(x = self_res_att$f_self,</span>
+<span id="cb6-8"><a href="#cb6-8"></a>#'            y = self_res_att$f_non,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>#'            dv = "preferences for female faces",</span>
+<span id="cb6-10"><a href="#cb6-10"></a>#'            level1 = "participants who resembled those faces",</span>
+<span id="cb6-11"><a href="#cb6-11"></a>#'            level2 = "non-self participants")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section><section id="document" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="document">
 <span class="header-section-number">4.2</span> Document</h2>
 <p>Now, you need to run a documentation function to add your function to the package documentation and export it for use.</p>
@@ -362,10 +361,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should see output like this.</p>
+<div class="cell-output">
 <pre><code>ℹ Updating demopkg documentation
 ℹ Loading demopkg
 Writing NAMESPACE
 Writing apa_t_pair.Rd</code></pre>
+</div>
 </section><section id="glossary" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">4.3</span> Glossary</h2>
 <div class="cell" data-layout-align="center">

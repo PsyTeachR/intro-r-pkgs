@@ -309,14 +309,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="at">path =</span> <span class="st">"~/rproj/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-layout-align="center" type="warning">
 <div class="warning">
-<p>
-Package names can only be letters, numbers, and full stops.
-</p>
-</div>
+<p>Package names can only be letters, numbers, and full stops.</p>
 </div>
 <p>You’ll see the following output, and a new RStudio <a class="glossary" target="_blank" title="A way to organise related files in RStudio" href="https://psyteachr.github.io/glossary/p#project">project</a> will open up. You can close the old window now and just work in this project.</p>
+<div class="cell-output">
 <pre><code>✔ Creating '/Users/lisad/rproj/demopkg/'
 ✔ Setting active project to '/Users/lisad/rproj/demopkg'
 ✔ Creating 'R/'
@@ -339,32 +336,33 @@ RoxygenNote: 7.2.0
 ✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
 ✔ Opening '/Users/lisad/rproj/demopkg/' in new RStudio session
 ✔ Setting active project to '&lt;no active project&gt;'</code></pre>
+</div>
 <section id="edit-the-description-file" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="edit-the-description-file">
 <span class="header-section-number">1.1.1</span> Edit the DESCRIPTION file</h3>
 <p>Open the <code>DESCRIPTION</code> file. It should look like this:</p>
-<pre><code>Package: demopkg
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a license
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">Title</span><span class="kw">:</span><span class="at"> What the Package Does (One Line, Title Case)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">Version</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.0.0.9000</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="at">    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="at">           comment = c(ORCID = "YOUR-ORCID-ID"))</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="fu">Description</span><span class="kw">:</span><span class="at"> What the package does (one paragraph).</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">License</span><span class="kw">:</span><span class="at"> `use_mit_license()`, `use_gpl3_license()` or friends to pick a license</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">Encoding</span><span class="kw">:</span><span class="at"> UTF-8</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="fu">Roxygen</span><span class="kw">:</span><span class="at"> list(markdown = TRUE)</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">RoxygenNote</span><span class="kw">:</span><span class="at"> </span><span class="fl">7.2.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Change the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your <a href="https://orcid.org/">ORCiD</a>.</p>
-<pre><code>Authors@R: c(
-    person(given = "Lisa",
-           family = "DeBruine",
-           role = c("aut", "cre"),
-           email = "debruine@gmail.com",
-           comment = c(ORCID = "0000-0002-7523-5539")),
-    person(given = "Firstname",
-           family = "Lastname",
-           role = c("aut"),
-           email = "person@gmail.com",
-           comment = c(ORCID = "0000-0000-0000-000X")))</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> c(</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="at">    person(given = "Lisa",</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="at">           family = "DeBruine",</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="at">           role = c("aut", "cre"),</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="at">           email = "debruine@gmail.com",</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="at">           comment = c(ORCID = "0000-0002-7523-5539")),</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="at">    person(given = "Firstname",</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="at">           family = "Lastname",</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="at">           role = c("aut"),</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="at">           email = "person@gmail.com",</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="at">           comment = c(ORCID = "0000-0000-0000-000X")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="create-a-license" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="create-a-license">
 <span class="header-section-number">1.1.2</span> Create a LICENSE</h3>
 <p>Make sure you’ve saved any changes to the <code>DESCRIPTION</code> file first, as adding a license will modify that file. Add a license using one of the following options:</p>
@@ -385,13 +383,15 @@ RoxygenNote: 7.2.0</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We’ll eventually put this on <a class="glossary" target="_blank" title="A cloud-based service for storing and sharing your version controlled files." href="https://psyteachr.github.io/glossary/g#github">github</a>, so change the installation instructions to the following (change <code>yourusername</code> to your github username).</p>
-<pre><code>You can install demopkg from [GitHub](https://github.com) with:
-
-``` r
-devtools::install_github("yourusername/demopkg")
-```</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>You can install demopkg from [GitHub](https<span class="sc">:</span><span class="er">//</span>github.com) with<span class="sc">:</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">```</span><span class="at"> r</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="at">devtools::install_github("yourusername/demopkg")</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Delete the example for now.</p>
+<div class="warning">
 <p>Make sure you knit your README.Rmd file when you update it and never edit the README.md file (that’s just for github).</p>
+</div>
 <p>We’ll make a full-featured pkgdown website in <a href="07-pkgdown.html"><span>Chapter&nbsp;7</span></a>, so we don’t need too many details here.</p>
 </section></section><section id="glossary" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">1.2</span> Glossary</h2>

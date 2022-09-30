@@ -303,11 +303,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This will create a directory called “data-raw” and open a file called <code>self_res_att.R</code> with the following contents.</p>
+<p>This will create a directory called <code>data-raw</code> and open a file called <code>self_res_att.R</code> with the following contents.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="do">## code to prepare `self_res_att` dataset goes here</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(self_res_att, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Download the data file called “DeBruine_2004_PRSLB_att.csv” from <a href="https://osf.io/2ud56/" class="uri">https://osf.io/2ud56/</a> and save it in <code>data-raw</code>. The code below will also do this.</p>
+<p>Download the data file called <code>DeBruine_2004_PRSLB_att.csv</code> from <a href="https://osf.io/2ud56/" class="uri">https://osf.io/2ud56/</a> and save it in <code>data-raw</code>. The code below will also do this.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://osf.io/download/3c5s4/"</span>,</span>
 <span id="cb4-2"><a href="#cb4-2"></a>              <span class="at">destfile =</span> <span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -367,10 +367,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(self_res_att, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell-output">
 <pre><code>✔ Adding 'R' to \033[32mDepends\033[39m field in DESCRIPTION
 ✔ Setting \033[32mLazyData\033[39m to 'true' in 'DESCRIPTION'
 ✔ Saving 'self_res_att' to 'data/self_res_att.rda'
 • Document your data (see 'https://r-pkgs.org/data.html')</code></pre>
+</div>
 </section><section id="documentation" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="documentation">
 <span class="header-section-number">2.2</span> Documentation</h2>
 <p>Data need to be documented to be included in a package. The documentation looks like this:</p>
@@ -506,7 +508,7 @@ Writing self_res_att.Rd</code></pre>
 <span class="header-section-number">2.5</span> Further Practice</h2>
 <ol type="1">
 <li>
-<p>Add the dataset “DeBruine_2004_PRSLB_avg.csv” from <a href="https://osf.io/2ud56/" class="uri">https://osf.io/2ud56/</a>. This is a separate sample of participants who judged the <em>averageness</em> of male and female self- and non-self-resembling faces, rather than their <em>attractiveness</em>.</p>
+<p>Add the dataset <code>DeBruine_2004_PRSLB_avg.csv</code> from <a href="https://osf.io/2ud56/" class="uri">https://osf.io/2ud56/</a>. This is a separate sample of participants who judged the <em>averageness</em> of male and female self- and non-self-resembling faces, rather than their <em>attractiveness</em>.</p>
 <ul>
 <li>id: participant unique ID</li>
 <li>sex: sex of the participant (male/female)</li>
