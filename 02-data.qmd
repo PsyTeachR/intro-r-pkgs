@@ -185,12 +185,14 @@ devtools::document()
 
 You should see the following output. 
 
+::: {.cell-output}
 ```
 ℹ Updating demopkg documentation
 ℹ Loading demopkg
 Writing NAMESPACE
 Writing self_res_att.Rd
 ```
+:::
 
 ## Load in package
 

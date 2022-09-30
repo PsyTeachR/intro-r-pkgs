@@ -12,7 +12,9 @@ Making an R package develops generic coding skills and gives you valuable insigh
 
 You will need only very basic R skills and a willingness to learn. The only people this would not be suitable for are those with zero previous experience in R (unless you know you pick up coding languages quickly). If you can install packages and have written an analysis script, you'll be fine.
 
+::: {.try}
 [Register for free at EventBrite](https://coding-club-packages.eventbrite.co.uk) to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don't worry if you can't make all of the dates. We'll record the sessions and make them public ASAP so you can catch up if you miss the live session.
+:::
 
 ## Tentative Schedule
 
