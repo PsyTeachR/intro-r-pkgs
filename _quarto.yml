@@ -13,10 +13,10 @@ book:
   google-analytics: "G-6NP3MF25W3"
   page-navigation: true
   search: true
-  comments:
-    hypothesis:
-      theme: clean
-      openSidebar: false
+  # comments:
+  #   hypothesis:
+  #     theme: clean
+  #     openSidebar: false
   repo-url: https://github.com/psyteachr/coding-club-r-packages/
   repo-branch: master
   repo-actions: [edit, issue, source]

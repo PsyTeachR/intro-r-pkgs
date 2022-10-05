@@ -91,6 +91,13 @@ Authors@R: c(
            comment = c(ORCID = "0000-0000-0000-000X")))
 ```
 
+Also add the date like this. The date is used to create an automatic citation for your package.
+
+``` yaml
+Package: demopkg
+Date: 2022-10-05
+```
+
 
 ### Create a LICENSE
 
@@ -133,6 +140,33 @@ Make sure you knit your README.Rmd file when you update it and never edit the RE
 :::
 
 We'll make a full-featured pkgdown website in @sec-pkgdown, so we don't need too many details here.
+
+## Install the package
+
+This package doesn't do much yet, but you can install it. Go to the Build tab of the upper right pane and click the install button (or type `devtools::install()` in the console). You should get some output that looks like this:
+
+::: {.cell-output}
+```
+* installing to library ‘/Library/Frameworks/R.framework/Versions/4.2/Resources/library’
+* installing *source* package ‘demopkg’ ...
+** using staged installation
+No man pages found in package  ‘demopkg’ 
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (demopkg)
+```
+:::
+
+Now you should be able to see `demopkg` in your Packages tab, load it with the `library()` function, and get a citation.
+
+```{r}
+citation("demopkg")
+```
+
 
 ## Glossary
 
