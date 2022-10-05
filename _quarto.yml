@@ -55,12 +55,12 @@ nocite: |
 format:
   html:
     theme:
-      dark:
-      - darkly
-      - include/dark.scss
       light:
       - flatly
       - include/light.scss
+      dark:
+      - darkly
+      - include/dark.scss
     css: [include/psyteachr.css, include/style.css]
     df-print: kable
     code-link: true
