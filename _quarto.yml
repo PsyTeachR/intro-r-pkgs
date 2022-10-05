@@ -17,7 +17,7 @@ book:
   #   hypothesis:
   #     theme: clean
   #     openSidebar: false
-  repo-url: https://github.com/psyteachr/coding-club-r-packages/
+  repo-url: https://github.com/psyteachr/intro-r-pkgs/
   repo-branch: master
   repo-actions: [edit, issue, source]
 #  downloads: [pdf, epub]
@@ -29,7 +29,7 @@ book:
     left: "CC-BY 2022, Lisa DeBruine"
     right:
       - icon: github
-        href: https://github.com/psyteachr/coding-club-r-packages
+        href: https://github.com/psyteachr/intro-r-pkgs
       - icon: twitter
         href: https://twitter.com/psyteachr
   chapters:

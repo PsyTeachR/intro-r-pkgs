@@ -157,7 +157,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Coding Club: Creating an R Package</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/psyteachr/coding-club-r-packages/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
 <li>
@@ -273,7 +273,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#multiple-tests" id="toc-multiple-tests" class="nav-link" data-scroll-target="#multiple-tests"> <span class="header-section-number">5.5</span> Multiple tests</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"> <span class="header-section-number">5.6</span> Glossary</a></li>
   <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"> <span class="header-section-number">5.7</span> Further Practice</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/coding-club-r-packages/edit/master/05-unit-tests.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/coding-club-r-packages/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/coding-club-r-packages/blob/master/05-unit-tests.qmd" class="toc-action">View source</a></p></div></div></nav>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/05-unit-tests.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/05-unit-tests.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -312,7 +312,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">expect_equal</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 🥇</code></pre>
 </div>
 </div>
 <p>Change the default label for this test. You can label these whatever you want (it <em>really</em> doesn’t matter); I usually start with “defaults” and test the most basic example to make sure the function defaults work as expected. Delete the demo code between the curly brackets.</p>
@@ -332,7 +332,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb7-8"><a href="#cb7-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 🎊</code></pre>
 </div>
 </div>
 <p>That particular example was non-significant. Let’s add a version that does show a significant difference and make sure the text changes appropriately.</p>
@@ -346,7 +346,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb9-8"><a href="#cb9-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎊</code></pre>
+<pre><code>Test passed 🎉</code></pre>
 </div>
 </div>
 <p>No let’s add some non-default labels.</p>
@@ -360,7 +360,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb11-8"><a href="#cb11-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎊</code></pre>
+<pre><code>Test passed 😸</code></pre>
 </div>
 </div>
 </section><section id="test-driven-development" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="test-driven-development">
@@ -418,7 +418,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">expect_warning</span>( <span class="fu">apa_t_pair</span>(x, x) )</span>
 <span id="cb17-6"><a href="#cb17-6"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😀</code></pre>
+<pre><code>Test passed 🌈</code></pre>
 </div>
 </div>
 <p>Now that we have 5 tests for this function, we can run them all by clicking on <strong><code>Run Tests</code></strong> in the upper right corner of the source pane. If all goes well, you’ll see the following in the Build tab:</p>
@@ -746,7 +746,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
 <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/psyteachr/coding-club-r-packages">
+    <a class="nav-link" href="https://github.com/psyteachr/intro-r-pkgs">
       <i class="bi bi-github" role="img">
 </i> 
     </a>
