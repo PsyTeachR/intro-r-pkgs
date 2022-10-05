@@ -7,11 +7,11 @@ source("R/setup.R")
 
 Create a package project and edit the default files. We'll start using the most helpful package, usethis.
 
-You will need to install the following `r glossary("package", "packages")`:
+Today we'll be using the following `r glossary("package", "packages")`, so install them if necessary:
 
 ```{r install, eval = FALSE}
-install.packages(c("devtools", "roxygen2", "testthat", 
-                   "usethis", "knitr", "renv"))
+library(usethis)
+library(devtools)
 ```
 
 
