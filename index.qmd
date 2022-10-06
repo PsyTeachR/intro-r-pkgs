@@ -18,7 +18,9 @@ You will need only very basic R skills and a willingness to learn. The only peop
 
 ## Tentative Schedule
 
-1. Setting up a package project (2022-10-05)
+The passcode for all recordings will be `codingclub22!`
+
+1. Setting up a package project (2022-10-05) [Recording](https://uofglasgow.zoom.us/rec/share/mxeupKeSgQ7ZekH86RV1UQ-4ROAv6xQoJRB7G2Z7lnLovcTGdVVs39mRb1q7cvZn.UYy6h6E6Sc6xOCOr)
 
     Create a package project and edit the default files. Well start using the most helpful package, usethis.
 

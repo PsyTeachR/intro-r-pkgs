@@ -4,6 +4,7 @@
 source("R/setup.R")
 ```
 
+[Recording](https://uofglasgow.zoom.us/rec/share/mxeupKeSgQ7ZekH86RV1UQ-4ROAv6xQoJRB7G2Z7lnLovcTGdVVs39mRb1q7cvZn.UYy6h6E6Sc6xOCOr) (passcode: `codingclub22!`)
 
 Create a package project and edit the default files. We'll start using the most helpful package, usethis.
 
@@ -12,6 +13,16 @@ Today we'll be using the following `r glossary("package", "packages")`, so insta
 ```{r install, eval = FALSE}
 library(usethis)
 library(devtools)
+```
+
+You may need to download some other files to allow you to compile packages if you've never installed a package "from source" before. If you're a Windows user, you'll need [RTools](https://cran.r-project.org/bin/windows/Rtools); download and install the recommended version. If you're a Mac user, you'll need [XCode Tools](https://www.freecodecamp.org/news/install-xcode-command-line-tools/), which you can install by opening the Terminal tab in RStudio (or opening the Terminal application) and typing the following at the command line: `xcode-select --install`.
+
+Additionally, you may need to install LaTeX to make PDF versions of the code documentation. The tinytex package is usually the easiest way to do this.
+
+```{r, eval = FALSE}
+# run this in the console
+install.packages("tinytex")
+tinytex::install_tinytex()
 ```
 
 

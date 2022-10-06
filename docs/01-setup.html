@@ -293,17 +293,25 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
-</header><p>Create a package project and edit the default files. We’ll start using the most helpful package, usethis.</p>
+</header><p><a href="https://uofglasgow.zoom.us/rec/share/mxeupKeSgQ7ZekH86RV1UQ-4ROAv6xQoJRB7G2Z7lnLovcTGdVVs39mRb1q7cvZn.UYy6h6E6Sc6xOCOr">Recording</a> (passcode: <code>codingclub22!</code>)</p>
+<p>Create a package project and edit the default files. We’ll start using the most helpful package, usethis.</p>
 <p>Today we’ll be using the following <a class="glossary" target="_blank" title="A group of R functions." href="https://psyteachr.github.io/glossary/p#package">packages</a>, so install them if necessary:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>You may need to download some other files to allow you to compile packages if you’ve never installed a package “from source” before. If you’re a Windows user, you’ll need <a href="https://cran.r-project.org/bin/windows/Rtools">RTools</a>; download and install the recommended version. If you’re a Mac user, you’ll need <a href="https://www.freecodecamp.org/news/install-xcode-command-line-tools/">XCode Tools</a>, which you can install by opening the Terminal tab in RStudio (or opening the Terminal application) and typing the following at the command line: <code>xcode-select --install</code>.</p>
+<p>Additionally, you may need to install LaTeX to make PDF versions of the code documentation. The tinytex package is usually the easiest way to do this.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># run this in the console</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">install.packages</span>(<span class="st">"tinytex"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="create-your-r-package" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="create-your-r-package">
 <span class="header-section-number">1.1</span> Create your R package</h2>
 <p>Use the following command to create the framework for a new package called <code>demopkg</code>. Set the path <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">argument</a> to the path where you want to save your package. The last section of the path should be the name of the package: <code>demopkg</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="at">path =</span> <span class="st">"~/rproj/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="at">path =</span> <span class="st">"~/rproj/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="warning">
 <p>Package names can only be letters, numbers, and full stops.</p>
@@ -336,57 +344,57 @@ RoxygenNote: 7.2.0
 <section id="edit-the-description-file" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="edit-the-description-file">
 <span class="header-section-number">1.1.1</span> Edit the DESCRIPTION file</h3>
 <p>Open the <code>DESCRIPTION</code> file. It should look like this:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">Title</span><span class="kw">:</span><span class="at"> What the Package Does (One Line, Title Case)</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">Version</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.0.0.9000</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="at">    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="at">           comment = c(ORCID = "YOUR-ORCID-ID"))</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="fu">Description</span><span class="kw">:</span><span class="at"> What the package does (one paragraph).</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">License</span><span class="kw">:</span><span class="at"> `use_mit_license()`, `use_gpl3_license()` or friends to pick a license</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">Encoding</span><span class="kw">:</span><span class="at"> UTF-8</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="fu">Roxygen</span><span class="kw">:</span><span class="at"> list(markdown = TRUE)</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">RoxygenNote</span><span class="kw">:</span><span class="at"> </span><span class="fl">7.2.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">Title</span><span class="kw">:</span><span class="at"> What the Package Does (One Line, Title Case)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">Version</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.0.0.9000</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="at">    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="at">           comment = c(ORCID = "YOUR-ORCID-ID"))</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="fu">Description</span><span class="kw">:</span><span class="at"> What the package does (one paragraph).</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">License</span><span class="kw">:</span><span class="at"> `use_mit_license()`, `use_gpl3_license()` or friends to pick a license</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="fu">Encoding</span><span class="kw">:</span><span class="at"> UTF-8</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="fu">Roxygen</span><span class="kw">:</span><span class="at"> list(markdown = TRUE)</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="fu">RoxygenNote</span><span class="kw">:</span><span class="at"> </span><span class="fl">7.2.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Change the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your <a href="https://orcid.org/">ORCiD</a>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> c(</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="at">    person(given = "Lisa",</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="at">           family = "DeBruine",</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="at">           role = c("aut", "cre"),</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="at">           email = "debruine@gmail.com",</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="at">           comment = c(ORCID = "0000-0002-7523-5539")),</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="at">    person(given = "Firstname",</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="at">           family = "Lastname",</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="at">           role = c("aut"),</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="at">           email = "person@gmail.com",</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="at">           comment = c(ORCID = "0000-0000-0000-000X")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> c(</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="at">    person(given = "Lisa",</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="at">           family = "DeBruine",</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="at">           role = c("aut", "cre"),</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="at">           email = "debruine@gmail.com",</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="at">           comment = c(ORCID = "0000-0002-7523-5539")),</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="at">    person(given = "Firstname",</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="at">           family = "Lastname",</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="at">           role = c("aut"),</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="at">           email = "person@gmail.com",</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="at">           comment = c(ORCID = "0000-0000-0000-000X")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Also add the date like this. The date is used to create an automatic citation for your package.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">Date</span><span class="kw">:</span><span class="at"> 2022-10-05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">Date</span><span class="kw">:</span><span class="at"> 2022-10-05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="create-a-license" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="create-a-license">
 <span class="header-section-number">1.1.2</span> Create a LICENSE</h3>
 <p>Make sure you’ve saved any changes to the <code>DESCRIPTION</code> file first, as adding a license will modify that file. Add a license using one of the following options:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># more common for study or data packages</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>usethis<span class="sc">::</span><span class="fu">use_ccby_license</span>() <span class="co"># reusable with citation</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>usethis<span class="sc">::</span><span class="fu">use_cc0_license</span>()  <span class="co"># public domain</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># more common for function packages</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()  <span class="co"># permissive sharing</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>usethis<span class="sc">::</span><span class="fu">use_gpl3_license</span>() <span class="co"># derivatives must be open</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># more common for study or data packages</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>usethis<span class="sc">::</span><span class="fu">use_ccby_license</span>() <span class="co"># reusable with citation</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>usethis<span class="sc">::</span><span class="fu">use_cc0_license</span>()  <span class="co"># public domain</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># more common for function packages</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()  <span class="co"># permissive sharing</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>usethis<span class="sc">::</span><span class="fu">use_gpl3_license</span>() <span class="co"># derivatives must be open</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>See <a href="https://choosealicense.com" class="uri">https://choosealicense.com</a> for more details and other options.</p>
 </section><section id="create-a-readme" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="create-a-readme">
 <span class="header-section-number">1.1.3</span> Create a README</h3>
 <p>Use the following code to set up a <a class="glossary" target="_blank" title="A text file in the base directory of a project that describes the project." href="https://psyteachr.github.io/glossary/r#readme">README</a> document that will explain how to install and use your package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We’ll eventually put this on <a class="glossary" target="_blank" title="A cloud-based service for storing and sharing your version controlled files." href="https://psyteachr.github.io/glossary/g#github">github</a>, so change the installation instructions to the following (change <code>yourusername</code> to your github username).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>You can install demopkg from [GitHub](https<span class="sc">:</span><span class="er">//</span>github.com) with<span class="sc">:</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">```</span><span class="at"> r</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="at">devtools::install_github("yourusername/demopkg")</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="st">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>You can install demopkg from [GitHub](https<span class="sc">:</span><span class="er">//</span>github.com) with<span class="sc">:</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">```</span><span class="at"> r</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="at">devtools::install_github("yourusername/demopkg")</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Delete the example for now.</p>
 <div class="warning">
 <p>Make sure you knit your README.Rmd file when you update it and never edit the README.md file (that’s just for github).</p>
@@ -410,7 +418,7 @@ No man pages found in package  ‘demopkg’
 </div>
 <p>Now you should be able to see <code>demopkg</code> in your Packages tab, load it with the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function, and get a citation.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 To cite package 'demopkg' in publications use:
