@@ -7,7 +7,12 @@ source("R/setup.R")
 Add datasets to your package and document them with a codebook. You can use our demo data or your own.
 
 ```{r}
-library(usethis)
+# packages required for this chapter
+
+library(usethis)  # for setting up data sets in a package
+library(readr)    # for reading in CSV data
+library(glue)     # for text joining
+library(devtools) # for loading your package
 ```
 
 ## Set up Raw Data
@@ -39,11 +44,15 @@ download.file(url = "https://osf.io/download/3c5s4/",
 Now, load the data in this script, using the object name `self_res_att`; this will be the name of the data object in your package.
 
 ```{r}
-library(readr)
-self_res_att <- read_csv("data-raw/DeBruine_2004_PRSLB_att.csv")
+self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
 
-Have a quick look at the data and make sure the columns import as the right data types. You might want to make sure that categorical factors are imported as factors with their levels in a sensible order. Use `readr::spec(self_res_att)` to get the default column types, copy and paste this to your script, and edit them.
+Have a quick look at the data and make sure the columns import as the right data types. You might want to make sure that categorical factors are imported as factors with their levels in a sensible order. 
+
+1. use `readr::spec(self_res_att)` to get the default column types, 
+2. copy and paste this to your script, 
+3. assign them to an object (here called `ct`), and 
+4. edit them to set factors with levels in a sensible order
 
 ```{r}
 spec(self_res_att)
@@ -78,6 +87,7 @@ Once you're satisfied that the data are in the right form, you can run this code
 ```{r, eval = FALSE}
 usethis::use_data(self_res_att, overwrite = TRUE)
 ```
+
 ::: {.cell-output}
 ```
 ✔ Adding 'R' to \033[32mDepends\033[39m field in DESCRIPTION
@@ -110,13 +120,8 @@ Create a new script called "R/self_res_att.R".
 ```{r, eval = FALSE}
 usethis::use_r("self_res_att")
 ```
-Copy the template above and edit the title, description, format, source, and data name. 
 
-```{r}
-glue::glue("A data frame with {nrow} rows and {ncol} variables:",
-           nrow = nrow(self_res_att),
-           ncol = ncol(self_res_att))
-```
+Copy the template above and edit the title, description, format, source, and dataname. 
 
 ``` r
 #' Attractiveness of Self-Resembling Faces.
@@ -176,6 +181,10 @@ glue::glue("#'   \\item{[colname]}{[coldesc]}",
            .open = "[",
            .close = "]")
 ```
+
+::: {.info}
+I've written [a function](https://github.com/PsyTeachR/intro-r-pkgs/blob/main/R/data_doc.R) that you can use to set up a data documentation file for a data object. This could be useful if you are adding many data tables to a package.
+:::
 
 Now save this file and add the documentation to your package with the following code:
 
