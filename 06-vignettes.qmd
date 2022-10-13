@@ -8,4 +8,10 @@ Include your study analysis code as a package vignette.
 
 ```{r}
 library(usethis)
+library(pkgdown) 
 ```
+
+
+## Further Reading
+
+* [Vignettes](https://r-pkgs.org/vignettes.html) from @r-packages

@@ -4,6 +4,7 @@ Create a package website using pkgdown.
 
 ```{r}
 library(usethis)
+library(pkgdown)
 ```
 
 

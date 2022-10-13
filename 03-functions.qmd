@@ -16,33 +16,32 @@ library(devtools) # for loading your package
 
 ## Function Overview
 
-First, let's create a very basic `r glossary("function")` to learn about custom functions. Functions need a name (like any R `r glossary("object")`). They are created with the `function()` function.
+First, let's create a very basic `r glossary("function")` to learn about custom functions. Functions need a name (like any R `r glossary("object")`). They are created with the `function()` function. We're going to make a function that rounds numbers and keeps the trailing zeroes, so let's call it `round0`.
 
 ```{r}
-fullname <- function() {
+round0 <- function() {
   # function code goes here
 }
 ```
 
-Most functions have `r glossary("argument", "arguments")` that set inputs to the function or options for how the function can work. These arguments can be required for the function to work, or have `r glossary("default value", "default values")`. In the example below, the argument `reverse` defaults to FALSE unless you change it.
+Most functions have `r glossary("argument", "arguments")` that set inputs to the function or options for how the function can work. These arguments can be required for the function to work, or have `r glossary("default value", "default values")`. 
+
+Check the help for the `round` function; we want our function to work almost the same, so it will be easier for users if the arguments have the same names in the same order, with the same default values. In the example below, the argument `digits` defaults to 0 unless you change it.
 
 ```{r}
-fullname <- function(first, last, reverse = FALSE) {
+round0 <- function(x, digits = 0) {
   # function code goes here
 }
 ```
 
-Functions use these arguments in their code to produce some kind of output (or side effect). Here, if the value of `reverse` is TRUE, then we paste together the value of `last`, a comma, and the value of `first` and assign this to the object `name`. If the value of `reverse` is FALSE, then we paste together the value of `first` and the value of `last` and assign this to `name`. Finally, we use the `return()` function to return the value of `name`.
+Functions use these arguments in their code to produce some kind of output (or side effect). Here, we use the value of `digits` to create a formatting string, and format the value of `x` with it using `sprintf()`.  Finally, we use the `return()` function to return the value.
 
 ```{r}
-fullname <- function(first, last, reverse = FALSE) {
-  if (reverse) {
-    name <- paste0(last, ", ", first)
-  } else {
-    name <- paste(first, last)
-  }
+round0 <- function(x, digits = 0) {
+  fmt <- paste0("%.", digits, "f")
+  x0 <- sprintf(fmt, x)
   
-  return(name)
+  return(x0)
 }
 ```
 
@@ -55,7 +54,7 @@ The `return()` function also stops all subsequent code from being run.
 Run the code above to define the function. After it's defined, if you type the function name into the console, without parentheses, it will show you the code for the function.
 
 ```{r}
-fullname
+round0
 ```
 
 :::{.info}
@@ -65,10 +64,11 @@ You can do this for any function; try a few! Many of the base R functions, like 
 Use your function like any other R function.
 
 ```{r}
-fullname("Lisa", "DeBruine")
-fullname("Lisa", "DeBruine", reverse = TRUE)
+round0(7/3, 3)
+round0(1.9999, 2)
 ```
 
+However, you'll have to define it at the top of any script that uses it, unless you add it to a package.
 
 
 ## Function Development
@@ -79,11 +79,21 @@ For `demopkg`, we're going to create a function that produces the APA-formatted 
 
 ### Specific Instance
 
-The first step is to sort out a specific instance of your code. We'll load in the data we added last week and compare preferences for self-resembling female faces (`f_self`) to others' preferences for those same faces `f_non`.
+The first step is to sort out a specific instance of your code. We'll load in the data we added to demopkg in @sec-load-data.
 
 ```{r}
 data("self_res_att", package = "demopkg")
+```
 
+If you haven't added the data to your package yet, use this code:
+
+```{r, eval = FALSE}
+self_res_att <- read.csv("https://raw.githubusercontent.com/PsyTeachR/intro-r-pkgs/main/data-raw/DeBruine_2004_PRSLB_att.csv")
+```
+
+Next, compare preferences for self-resembling female faces (`f_self`) to others' preferences for those same faces `f_non` using a paired-samples t-test.
+
+```{r}
 t_results <- t.test(
   x = self_res_att$f_self, 
   y = self_res_att$f_non,
@@ -92,7 +102,7 @@ t_results <- t.test(
 t_results
 ```
 
-Now we set up the text template with variables where we want to insert values from the analysis.
+Now we set up the text template with variables inside curly brackets where we want to insert values from the analysis. Just make up the variable names, keeping them short but meaningful.
 
 ```{r}
 template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
@@ -104,7 +114,7 @@ The object `t_results` prints out like above, but the object is actually a list,
 str(t_results)
 ```
 
-Now we can set the value of each variable from the `t_results` object. You can't get the means and standard deviations from the `t_results` object, so we'll calculate those from the data.
+Now we can set the value of each variable from the `t_results` object. You can't get the means and standard deviations from the `t_results` object, so we'll calculate those from the data. Round each numeric value to the appropriate level using the `round0` function we created above.
 
 ```{r}
 glue::glue(
@@ -112,14 +122,14 @@ glue::glue(
   dv      = "preferences for female faces",
   level1  = "participants who resembled those faces",
   level2  = "non-self participants",
-  mean1   = round(mean(self_res_att$f_self), 1), 
-  sd1     = round(sd(self_res_att$f_self), 1),
-  mean2   = round(mean(self_res_att$f_non), 1),
-  sd2     = round(sd(self_res_att$f_non), 1),
+  mean1   = round0(mean(self_res_att$f_self), 1), 
+  sd1     = round0(sd(self_res_att$f_self), 1),
+  mean2   = round0(mean(self_res_att$f_non), 1),
+  sd2     = round0(sd(self_res_att$f_non), 1),
   non     = ifelse(t_results$p.value < .05, "", "non-"),
-  df      = round(t_results$parameter, 1),
-  t_value = round(t_results$statistic, 2),
-  p_value = round(t_results$p.value, 3)
+  df      = round0(t_results$parameter, 0),
+  t_value = round0(t_results$statistic, 2),
+  p_value = round0(t_results$p.value, 3)
 )
 ```
 
@@ -160,19 +170,19 @@ apa_t_pair <- function() {
     dv      = "preferences for female faces",
     level1  = "participants who resembled those faces",
     level2  = "non-self participants",
-    mean1   = round(mean(self_res_att$f_self), 1), 
-    sd1     = round(sd(self_res_att$f_self), 1),
-    mean2   = round(mean(self_res_att$f_non), 1),
-    sd2     = round(sd(self_res_att$f_non), 1),
+    mean1   = round0(mean(self_res_att$f_self), 1), 
+    sd1     = round0(sd(self_res_att$f_self), 1),
+    mean2   = round0(mean(self_res_att$f_non), 1),
+    sd2     = round0(sd(self_res_att$f_non), 1),
     non     = ifelse(t_results$p.value < .05, "", "non-"),
-    df      = round(t_results$parameter, 1),
-    t_value = round(t_results$statistic, 2),
-    p_value = round(t_results$p.value, 3)
+    df      = round0(t_results$parameter, 0),
+    t_value = round0(t_results$statistic, 2),
+    p_value = round0(t_results$p.value, 3)
   )
 }
 ```
 
-Run the code above and test that the function works by running it once in the console.
+Skip a few lines and copy the `round0` function definition below this one. You don't have to define functions in any particular order, as long as all function definitions are run before you try to use them. Run all the code in this file and test that the function works by running it once in the console.
 
 ```{r}
 # run in the console
@@ -198,14 +208,14 @@ apa_t_pair <- function(x, y) {
     dv      = "preferences for female faces",
     level1  = "participants who resembled those faces",
     level2  = "non-self participants",
-    mean1   = round(mean(x), 1), 
-    sd1     = round(sd(x), 1),
-    mean2   = round(mean(y), 1),
-    sd2     = round(sd(y), 1),
+    mean1   = round0(mean(x), 1), 
+    sd1     = round0(sd(x), 1),
+    mean2   = round0(mean(y), 1),
+    sd2     = round0(sd(y), 1),
     non     = ifelse(t_results$p.value < .05, "", "non-"),
-    df      = round(t_results$parameter, 1),
-    t_value = round(t_results$statistic,2),
-    p_value = round(t_results$p.value, 3)
+    df      = round0(t_results$parameter, 0),
+    t_value = round0(t_results$statistic,2),
+    p_value = round0(t_results$p.value, 3)
   )
 }
 ```
@@ -251,14 +261,14 @@ apa_t_pair <- function(x, y,
   
   glue::glue(
     template,
-    mean1   = round(mean(x), 1), 
-    sd1     = round(sd(x), 1),
-    mean2   = round(mean(y), 1),
-    sd2     = round(sd(y), 1),
+    mean1   = round0(mean(x), 1), 
+    sd1     = round0(sd(x), 1),
+    mean2   = round0(mean(y), 1),
+    sd2     = round0(sd(y), 1),
     non     = ifelse(t_results$p.value < .05, "", "non-"),
-    df      = round(t_results$parameter, 1),
-    t_value = round(t_results$statistic,2),
-    p_value = round(t_results$p.value, 3)
+    df      = round0(t_results$parameter, 0),
+    t_value = round0(t_results$statistic,2),
+    p_value = round0(t_results$p.value, 3)
   )
 }
 ```
@@ -334,6 +344,30 @@ apa_t_pair(x = self_res_att$m_self,
            level2 = "non-self participants")
 ```
 
+### Install
+
+When you're developing a package, you usually "load" it using `devtools::load_all(".")` to be able to access all of the functions in the package for testing and development. This way, the development package is only available during the current session in this project. You will load it every time you make some changes to the package.
+
+If you want your package to be available outside of project sessions where you've explicitly loaded it, you need to **install** the package using `devtools::install()` or the Install button in the Build pane.
+
+After your package is installed, make sure the environment is clear, and try the following code:
+
+```{r, include=FALSE}
+rm(round0)
+```
+
+
+```{r, error = TRUE}
+round0(1, 3)
+```
+
+This is because `round0` is an internal, non-exported function, so only the developer (you) is supposed to be able to use it. Technically, you can also access internal functions using the triple-colon.
+
+```{r}
+demopkg:::round0(1, 3)
+```
+
+
 
 ## Glossary
 
@@ -343,13 +377,18 @@ glossary_table(as_kable = FALSE) |>
   unclass() |> cat()
 ```
 
+## Further Resources
+
+* [Functions](https://adv-r.hadley.nz/functions.html) from @advanced-r
 
 ## Further Practice
+
+1. Add an argument called `alpha` that allows the user to set an alpha criterion for determining significance. Make the default value 0.05. 
 
 1. Edit the function to handle p-values < .001.
 
 1. Add 95% confidence intervals to the output.
 
-1. Allow the user to set a custom confidence interval.
+1. Allow the user to set a custom confidence interval. Give this a sensible default value.
 
 1. Create another function to produce the text for a different analysis you're familiar with in R, such as an ANOVA or correlation.

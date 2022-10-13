@@ -20,7 +20,7 @@ library(devtools) # for loading your package
 
 ## Process Data
 
-We're going to add some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces. Follow the directions below for each data set you want to add to your package.
+We're going to add some data from @debruine2004 looking at attractiveness judgements of same-sex and other-sex self-resembling faces. Follow the directions below for each data set you want to add to your package.
 
 ### Raw Data Directory
 
@@ -53,7 +53,7 @@ download.file(url = "https://osf.io/download/3c5s4/",
               destfile = "data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
 
-### Load Data
+### Load Data {#sec-load-data}
 
 Now, load the data in this script, using the object name `self_res_att`; this will be the name of the data object in your package. You will see some message text about the data.
 
@@ -286,12 +286,6 @@ You should also be able to see the documentation in the Help pane.
 ?demopkg::self_res_att
 ```
 
-::: {.info}
-When you're developing a package, you usually "load" it using `devtools::load_all(".")` to be able to access all of the functions in the package for testing and development. This way, the development package is only available during the current session in this project. You will load it every time you make some changes to the package.
-
-If you want your package to be available outside of project sessions where you've explicitly loaded it, you need to **install** the package using `devtools::install()` or the Install button in the Build pane.
-:::
-
 ## Glossary
 
 ```{r, echo = FALSE, results='asis'}
@@ -300,6 +294,9 @@ glossary_table(as_kable = FALSE) |>
   unclass() |> cat()
 ```
 
+## Further Resources
+
+* [Data](https://r-pkgs.org/Data.html) from @r-packages
 
 ## Further Practice
 

@@ -89,6 +89,24 @@ Add at least one example that shows how the function works. Make sure to create 
 #'            level2 = "non-self participants")
 ```
 
+## Helper Functions
+
+Not everyone documents helper functions like `round0`, but I think it's good practice. Repeat the steps above with `round0`, but omit the line with `@export`. Annoyingly, non-exported functions can't have examples, so you can also delete those. Try to do this yourself before you look at the answer below, but have a look at the help file for `round` for inspiration.
+
+`r hide()`
+The title is so descriptive here that I skipped a description.
+
+``` roxygen
+#' Round with Trailing Zeroes
+#'
+#' @param x a numeric vector
+#' @param digits integer indicating the number of decimal places to be used.
+#'
+#' @return character string of formatted number
+```
+
+`r unhide()`
+
 ## Document and Load
 
 Now, you need to run a documentation function to add your function to the package documentation and export it for use.
@@ -105,6 +123,7 @@ You should see output like this.
 ℹ Loading demopkg
 Writing NAMESPACE
 Writing apa_t_pair.Rd
+Writing round0.Rd
 ```
 :::
 
@@ -112,6 +131,7 @@ Now restart R and make sure that your environment is clear. Run the following co
 
 ```{r, eval = FALSE}
 devtools::load_all(".")
+?round0
 ?apa_t_pair
 ```
 
@@ -123,6 +143,10 @@ glossary_table(as_kable = FALSE) |>
   kableExtra::kable(row.names = FALSE, escape = FALSE) |>
   unclass() |> cat()
 ```
+
+## Further Resources
+
+* [Function Documentation](https://r-pkgs.org/man.html) from @r-packages
 
 ## Further Practice
 

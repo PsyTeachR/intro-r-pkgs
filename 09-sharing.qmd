@@ -208,3 +208,6 @@ git commit -m "README updates"
 git push
 ```
 
+## Further Resources
+
+* [Happy Git with R]() @happy-git

@@ -62,7 +62,7 @@ The passcode for all recordings will be `codingclub22!`
     
 ## Resources
 
-* [R Packages](https://r-pkgs.org/) by Hadley Wickham and Jenny Bryan
+* [R Packages](https://r-pkgs.org/) @r-packages
 * [usethis](https://usethis.r-lib.org/)
 * [testthat](https://testthat.r-lib.org/)
 * [pkgdown](https://pkgdown.r-lib.org/)

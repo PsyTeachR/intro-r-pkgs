@@ -12,26 +12,46 @@ library(testthat)
 ```
 
 ```{r, include = FALSE}
-# define apa_t_pair from last chapter
+# define apa_t_pair and round0 from last chapter
 apa_t_pair <- function(x, y,
                        dv = "the DV",
                        level1 = "level 1",
                        level2 = "level 2") {
+  # warn about identical values
+  if (all(x == y)) {
+    warning("The values for x and y should probably not be identical.")
+  }
+
   t_results <- t.test(x, y, paired = TRUE)
 
   template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
 
-  glue::glue(template,
-             mean1   = mean(x) |> round(1),
-             sd1     = sd(x) |> round(1),
-             mean2   = mean(y) |> round(1),
-             sd2     = sd(y) |> round(1),
-             non     = ifelse(t_results$p.value < .05, "", "non-"),
-             df      = t_results$parameter |> round(1),
-             t_value = t_results$statistic |> round(2),
-             p_value = t_results$p.value |> round(3)
+  # p <- if (t_results$p.value < .001) {
+  #   "p < .001"
+  # } else {
+  #   paste("p =", round0(t_results$p.value, 3))
+  # }
+
+  glue::glue(
+    template,
+    mean1   = round0(mean(x), 1),
+    sd1     = round0(sd(x), 1),
+    mean2   = round0(mean(y), 1),
+    sd2     = round0(sd(y), 1),
+    non     = ifelse(t_results$p.value < .05, "", "non-"),
+    df      = round0(t_results$parameter, 0),
+    t_value = round0(t_results$statistic, 2),
+    p_value = round0(t_results$p.value, 3)
   )
 }
+
+round0 <- function(x, digits = 0) {
+  fmt <- paste0("%.", digits, "f")
+  x0 <- sprintf(fmt, x)
+
+  return(x0)
+}
+
 ```
 
 ## Set up testhat
@@ -248,10 +268,16 @@ glossary_table(as_kable = FALSE) |>
   unclass() |> cat()
 ```
 
+## Further Resources
+
+* [Testing Basics](https://r-pkgs.org/testing-basics.html) from @r-packages
+* [testthat](https://testthat.r-lib.org/)
 
 ## Further Practice
 
-1. Use test-driven development to add a custom error message if the length of `x` and `y` are not the same.
+1. Set up tests for `round0`. Make sure that this function gives the expected result for different values of `digits` and rounds values appropriately. Remember that the results you're trying to match is a character data type, not a numeric value.
+
+1. Use test-driven development to add a custom error message to `apa_t_pair()` if the length of `x` and `y` are not the same.
 
 1. Add further sense checks that the column types are as expected for `self_res_att`.
 
