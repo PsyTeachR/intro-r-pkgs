@@ -7,7 +7,11 @@ source("R/setup.R")
 Learn to write custom functions and include them in your package.
 
 ```{r}
-library(usethis)
+# packages required for this chapter
+
+library(usethis)  # for setting up data sets in a package
+library(glue)     # for text joining
+library(devtools) # for loading your package
 ```
 
 ## Function Overview
@@ -44,9 +48,11 @@ fullname <- function(first, last, reverse = FALSE) {
 
 :::{.info}
 You technically don't have to use the `return()` function. The last object created in the function code will be automatically returned. Most people don't use `return()`, but that can sometimes make it hard to figure out exactly what is being returned if you have a lot of if/else logic.
+
+The `return()` function also stops all subsequent code from being run.
 :::
 
-Run the code above to define the function. After it's defined, if you type the function name into the console, it will show you the code for the function.
+Run the code above to define the function. After it's defined, if you type the function name into the console, without parentheses, it will show you the code for the function.
 
 ```{r}
 fullname
@@ -60,14 +66,14 @@ Use your function like any other R function.
 
 ```{r}
 fullname("Lisa", "DeBruine")
-fullname("Lisa", "DeBruine", TRUE)
+fullname("Lisa", "DeBruine", reverse = TRUE)
 ```
 
 
 
 ## Function Development
 
-We're going to create a function that produces the APA-formatted text for the results of a paired-samples t-test. Here's an example of APA format.
+For `demopkg`, we're going to create a function that produces the APA-formatted text for the results of a paired-samples t-test. Here's an example of APA format.
 
 > A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.
 
@@ -98,25 +104,28 @@ The object `t_results` prints out like above, but the object is actually a list,
 str(t_results)
 ```
 
-Now we can set the value of each variable from the `t_results` object. You can't get the sample size and standard deviations from the `t_results` object, so we'll calculate those from `a` and `b`.
+Now we can set the value of each variable from the `t_results` object. You can't get the means and standard deviations from the `t_results` object, so we'll calculate those from the data.
 
 ```{r}
-glue::glue(template,
-           dv      = "preferences for female faces",
-           level1  = "participants who resembled those faces",
-           level2  = "non-self participants",
-           mean1   = mean(self_res_att$f_self) |> round(1), 
-           sd1     = sd(self_res_att$f_self) |> round(1),
-           mean2   = mean(self_res_att$f_non) |> round(1),
-           sd2     = sd(self_res_att$f_non) |> round(1),
-           non     = ifelse(t_results$p.value < .05, "", "non-"),
-           df      = t_results$parameter |> round(1),
-           t_value = t_results$statistic |> round(2),
-           p_value = t_results$p.value |> round(3)
-           )
-
-
+glue::glue(
+  template,
+  dv      = "preferences for female faces",
+  level1  = "participants who resembled those faces",
+  level2  = "non-self participants",
+  mean1   = round(mean(self_res_att$f_self), 1), 
+  sd1     = round(sd(self_res_att$f_self), 1),
+  mean2   = round(mean(self_res_att$f_non), 1),
+  sd2     = round(sd(self_res_att$f_non), 1),
+  non     = ifelse(t_results$p.value < .05, "", "non-"),
+  df      = round(t_results$parameter, 1),
+  t_value = round(t_results$statistic, 2),
+  p_value = round(t_results$p.value, 3)
+)
 ```
+
+::: {.info}
+Don't worry about `p = 0` just now. A further practice exercise is for you to add code to the function to change it to `p < .001` where appropriate.
+:::
 
 ### Set up Function
 
@@ -128,7 +137,15 @@ You can create an R script in the `R` directory called `apa_t_pair.R`, but the c
 usethis::use_r("apa_t_pair")
 ```
 
-We'll develop our function in this file. To start, wrap all of the code above in the curly brackets after the `function()` function.
+We'll develop our function in this file. To start, set up a blank function definition.
+
+```{r}
+apa_t_pair <- function() {
+  
+}
+```
+
+Then add the code above inside the curly brackets.
 
 ```{r}
 apa_t_pair <- function() {
@@ -138,19 +155,20 @@ apa_t_pair <- function() {
   
   template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
   
-  glue::glue(template,
-             dv      = "preferences for female faces",
-             level1  = "participants who resembled those faces",
-             level2  = "non-self participants",
-             mean1   = mean(self_res_att$f_self) |> round(1), 
-             sd1     = sd(self_res_att$f_self) |> round(1),
-             mean2   = mean(self_res_att$f_non) |> round(1),
-             sd2     = sd(self_res_att$f_non) |> round(1),
-             non     = ifelse(t_results$p.value < .05, "", "non-"),
-             df      = t_results$parameter |> round(1),
-             t_value = t_results$statistic |> round(2),
-             p_value = t_results$p.value |> round(3)
-             )
+  glue::glue(
+    template,
+    dv      = "preferences for female faces",
+    level1  = "participants who resembled those faces",
+    level2  = "non-self participants",
+    mean1   = round(mean(self_res_att$f_self), 1), 
+    sd1     = round(sd(self_res_att$f_self), 1),
+    mean2   = round(mean(self_res_att$f_non), 1),
+    sd2     = round(sd(self_res_att$f_non), 1),
+    non     = ifelse(t_results$p.value < .05, "", "non-"),
+    df      = round(t_results$parameter, 1),
+    t_value = round(t_results$statistic, 2),
+    p_value = round(t_results$p.value, 3)
+  )
 }
 ```
 
@@ -160,6 +178,10 @@ Run the code above and test that the function works by running it once in the co
 # run in the console
 apa_t_pair()
 ```
+
+::: {.warning}
+If you get the message: `Error in apa_t_pair() : could not find function "apa_t_pair"`, this means you didn't run the code that created the function. 
+:::
 
 ### Add Arguments
 
@@ -171,19 +193,20 @@ apa_t_pair <- function(x, y) {
   
   template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
   
-  glue::glue(template,
-             dv      = "preferences for female faces",
-             level1  = "participants who resembled those faces",
-             level2  = "non-self participants",
-             mean1   = mean(self_res_att$f_self) |> round(1), 
-             sd1     = sd(self_res_att$f_self) |> round(1),
-             mean2   = mean(self_res_att$f_non) |> round(1),
-             sd2     = sd(self_res_att$f_non) |> round(1),
-             non     = ifelse(t_results$p.value < .05, "", "non-"),
-             df      = t_results$parameter |> round(1),
-             t_value = t_results$statistic |> round(2),
-             p_value = t_results$p.value |> round(3)
-             )
+  glue::glue(
+    template,
+    dv      = "preferences for female faces",
+    level1  = "participants who resembled those faces",
+    level2  = "non-self participants",
+    mean1   = round(mean(x), 1), 
+    sd1     = round(sd(x), 1),
+    mean2   = round(mean(y), 1),
+    sd2     = round(sd(y), 1),
+    non     = ifelse(t_results$p.value < .05, "", "non-"),
+    df      = round(t_results$parameter, 1),
+    t_value = round(t_results$statistic,2),
+    p_value = round(t_results$p.value, 3)
+  )
 }
 ```
 
@@ -226,16 +249,17 @@ apa_t_pair <- function(x, y,
   
   template <- "A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."
   
-  glue::glue(template,
-             mean1   = mean(x) |> round(1), 
-             sd1     = sd(x) |> round(1),
-             mean2   = mean(y) |> round(1),
-             sd2     = sd(y) |> round(1),
-             non     = ifelse(t_results$p.value < .05, "", "non-"),
-             df      = t_results$parameter |> round(1),
-             t_value = t_results$statistic |> round(2),
-             p_value = t_results$p.value |> round(3)
-             )
+  glue::glue(
+    template,
+    mean1   = round(mean(x), 1), 
+    sd1     = round(sd(x), 1),
+    mean2   = round(mean(y), 1),
+    sd2     = round(sd(y), 1),
+    non     = ifelse(t_results$p.value < .05, "", "non-"),
+    df      = round(t_results$parameter, 1),
+    t_value = round(t_results$statistic,2),
+    p_value = round(t_results$p.value, 3)
+  )
 }
 ```
 
@@ -263,7 +287,7 @@ If the output doesn't change, this usually means that you forgot to run the code
 
 ### Import dependencies
 
-You need to "import" any non-base packages that you use in a function. These are called "dependencies" because your function depends on them. Our function above uses `glue()` from the glue package. The function below is a quick way to do this.
+You need to "import" any non-base packages that you use in a function. These are called "dependencies" because your function depends on them. Our function above uses `glue()` from the glue package. The function below is a quick way to add a dependency.
 
 ```{r, eval = FALSE}
 usethis::use_package("glue")
@@ -279,7 +303,7 @@ You should see this output:
 
 This means that you should always use the full form `glue::glue()`, rather than loading a package with the `library()` function and using just the function name `glue()`. 
 
-You can open the `DESCRIPTION` file to see what has changed. You can alternatively just add dependencies to this file under "Imports:".
+You can open the `DESCRIPTION` file to see what has changed. Alternatively, you can manually add dependencies to this file under "Imports:".
 
 
 ### Load 
@@ -328,4 +352,4 @@ glossary_table(as_kable = FALSE) |>
 
 1. Allow the user to set a custom confidence interval.
 
-1. Create another function to produce the text for a different analysis you're familiar with, such as an ANOVA.
+1. Create another function to produce the text for a different analysis you're familiar with in R, such as an ANOVA or correlation.
