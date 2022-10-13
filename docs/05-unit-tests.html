@@ -277,7 +277,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#testing-data" id="toc-testing-data" class="nav-link" data-scroll-target="#testing-data"><span class="toc-section-number">5.4</span>  Testing data</a></li>
   <li><a href="#multiple-tests" id="toc-multiple-tests" class="nav-link" data-scroll-target="#multiple-tests"><span class="toc-section-number">5.5</span>  Multiple tests</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">5.6</span>  Glossary</a></li>
-  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">5.7</span>  Further Practice</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">5.7</span>  Further Resources</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">5.8</span>  Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/05-unit-tests.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/05-unit-tests.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -317,7 +318,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">expect_equal</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😸</code></pre>
+<pre><code>Test passed 🥇</code></pre>
 </div>
 </div>
 <p>Change the default label for this test. You can label these whatever you want (it <em>really</em> doesn’t matter); I usually start with “defaults” and test the most basic example to make sure the function defaults work as expected. Delete the demo code between the curly brackets.</p>
@@ -333,7 +334,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb7-3"><a href="#cb7-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
 <span id="cb7-4"><a href="#cb7-4"></a>  </span>
 <span id="cb7-5"><a href="#cb7-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y)</span>
-<span id="cb7-6"><a href="#cb7-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 3, SD = 1.6) and level 2 (M = 3.6, SD = 1.8). There was a non-significant difference; t(4) = -1.5, p = 0.208."</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 3.0, SD = 1.6) and level 2 (M = 3.6, SD = 1.8). There was a non-significant difference; t(4) = -1.50, p = 0.208."</span></span>
 <span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb7-8"><a href="#cb7-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -347,11 +348,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb9-3"><a href="#cb9-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
 <span id="cb9-4"><a href="#cb9-4"></a>  </span>
 <span id="cb9-5"><a href="#cb9-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y)</span>
-<span id="cb9-6"><a href="#cb9-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 1.6, SD = 0.9) and level 2 (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.2, p = 0.033."</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 1.6, SD = 0.9) and level 2 (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.20, p = 0.033."</span></span>
 <span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb9-8"><a href="#cb9-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🥳</code></pre>
+<pre><code>Test passed 😸</code></pre>
 </div>
 </div>
 <p>No let’s add some non-default labels.</p>
@@ -361,11 +362,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb11-3"><a href="#cb11-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
 <span id="cb11-4"><a href="#cb11-4"></a>  </span>
 <span id="cb11-5"><a href="#cb11-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y, <span class="at">dv =</span> <span class="st">"the score"</span>, <span class="st">"Group A"</span>, <span class="st">"Group B"</span>)</span>
-<span id="cb11-6"><a href="#cb11-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the score between Group A (M = 1.6, SD = 0.9) and Group B (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.2, p = 0.033."</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the score between Group A (M = 1.6, SD = 0.9) and Group B (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.20, p = 0.033."</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
 <span id="cb11-8"><a href="#cb11-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😸</code></pre>
+<pre><code>Test passed 🎉</code></pre>
 </div>
 </div>
 </section><section id="test-driven-development" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="test-driven-development">
@@ -378,52 +379,48 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb13-3"><a href="#cb13-3"></a>  </span>
 <span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">expect_warning</span>( <span class="fu">apa_t_pair</span>(x, x) )</span>
 <span id="cb13-5"><a href="#cb13-5"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `reporter$stop_if_needed()`:
-! Test failed</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>── Failure (&lt;text&gt;:4:3): same x and y ──────────────────────────────────────────
-`apa_t_pair(x, x)` did not produce any warnings.</code></pre>
+<pre><code>Test passed 🥇</code></pre>
 </div>
 </div>
 <p>Now we can edit the function <code>apa_t_pair()</code> until the test passes. Add a few lines of code at the start of the function to check if all of the values in <code>x</code> are the same as all of the values in <code>y</code>, and display a warning if they are.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y,</span>
-<span id="cb16-2"><a href="#cb16-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>,</span>
-<span id="cb16-3"><a href="#cb16-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>,</span>
-<span id="cb16-4"><a href="#cb16-4"></a>                       <span class="at">level2 =</span> <span class="st">"level 2"</span>) {</span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="co"># warn about identical values</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a>  <span class="cf">if</span> (<span class="fu">all</span>(x <span class="sc">==</span> y)) {</span>
-<span id="cb16-7"><a href="#cb16-7"></a>    <span class="fu">warning</span>(<span class="st">"The values for x and y should probably not be identical."</span>)</span>
-<span id="cb16-8"><a href="#cb16-8"></a>  }</span>
-<span id="cb16-9"><a href="#cb16-9"></a>  </span>
-<span id="cb16-10"><a href="#cb16-10"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-11"><a href="#cb16-11"></a></span>
-<span id="cb16-12"><a href="#cb16-12"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a></span>
-<span id="cb16-14"><a href="#cb16-14"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(template,</span>
-<span id="cb16-15"><a href="#cb16-15"></a>             <span class="at">mean1   =</span> <span class="fu">mean</span>(x) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb16-16"><a href="#cb16-16"></a>             <span class="at">sd1     =</span> <span class="fu">sd</span>(x) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb16-17"><a href="#cb16-17"></a>             <span class="at">mean2   =</span> <span class="fu">mean</span>(y) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb16-18"><a href="#cb16-18"></a>             <span class="at">sd2     =</span> <span class="fu">sd</span>(y) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb16-19"><a href="#cb16-19"></a>             <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
-<span id="cb16-20"><a href="#cb16-20"></a>             <span class="at">df      =</span> t_results<span class="sc">$</span>parameter <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb16-21"><a href="#cb16-21"></a>             <span class="at">t_value =</span> t_results<span class="sc">$</span>statistic <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
-<span id="cb16-22"><a href="#cb16-22"></a>             <span class="at">p_value =</span> t_results<span class="sc">$</span>p.value <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb16-23"><a href="#cb16-23"></a>  )</span>
-<span id="cb16-24"><a href="#cb16-24"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y,</span>
+<span id="cb15-2"><a href="#cb15-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4"></a>                       <span class="at">level2 =</span> <span class="st">"level 2"</span>) {</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="co"># warn about identical values</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="cf">if</span> (<span class="fu">all</span>(x <span class="sc">==</span> y)) {</span>
+<span id="cb15-7"><a href="#cb15-7"></a>    <span class="fu">warning</span>(<span class="st">"The values for x and y should probably not be identical."</span>)</span>
+<span id="cb15-8"><a href="#cb15-8"></a>  }</span>
+<span id="cb15-9"><a href="#cb15-9"></a>  </span>
+<span id="cb15-10"><a href="#cb15-10"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-11"><a href="#cb15-11"></a></span>
+<span id="cb15-12"><a href="#cb15-12"></a>    template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a></span>
+<span id="cb15-14"><a href="#cb15-14"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb15-15"><a href="#cb15-15"></a>    template,</span>
+<span id="cb15-16"><a href="#cb15-16"></a>    <span class="at">mean1   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(x), <span class="dv">1</span>),</span>
+<span id="cb15-17"><a href="#cb15-17"></a>    <span class="at">sd1     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(x), <span class="dv">1</span>),</span>
+<span id="cb15-18"><a href="#cb15-18"></a>    <span class="at">mean2   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(y), <span class="dv">1</span>),</span>
+<span id="cb15-19"><a href="#cb15-19"></a>    <span class="at">sd2     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(y), <span class="dv">1</span>),</span>
+<span id="cb15-20"><a href="#cb15-20"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb15-21"><a href="#cb15-21"></a>    <span class="at">df      =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>parameter, <span class="dv">0</span>),</span>
+<span id="cb15-22"><a href="#cb15-22"></a>    <span class="at">t_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>statistic, <span class="dv">2</span>),</span>
+<span id="cb15-23"><a href="#cb15-23"></a>    <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb15-24"><a href="#cb15-24"></a>  )</span>
+<span id="cb15-25"><a href="#cb15-25"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now the test should pass.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">test_that</span>(<span class="st">"same x and y"</span>, {</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
-<span id="cb17-3"><a href="#cb17-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb17-4"><a href="#cb17-4"></a>  </span>
-<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">expect_warning</span>( <span class="fu">apa_t_pair</span>(x, x) )</span>
-<span id="cb17-6"><a href="#cb17-6"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">test_that</span>(<span class="st">"same x and y"</span>, {</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>  </span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">expect_warning</span>( <span class="fu">apa_t_pair</span>(x, x) )</span>
+<span id="cb16-6"><a href="#cb16-6"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 🎊</code></pre>
 </div>
 </div>
 <p>Now that we have 5 tests for this function, we can run them all by clicking on <strong><code>Run Tests</code></strong> in the upper right corner of the source pane. If all goes well, you’ll see the following in the Build tab:</p>
@@ -441,18 +438,18 @@ Test complete</code></pre>
 <span class="header-section-number">5.4</span> Testing data</h2>
 <p>You can also set up tests for a data object.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s check that the <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code> function can load this data set and that it has the expected dimensions. We can also check if the column <code>sex</code> is a factor.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
-<span id="cb21-3"><a href="#cb21-3"></a></span>
-<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
-<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
-<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
-<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">expect_true</span>(<span class="fu">is.factor</span>(self_res_att<span class="sc">$</span>sex))</span>
-<span id="cb21-8"><a href="#cb21-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a></span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
+<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">expect_true</span>(<span class="fu">is.factor</span>(self_res_att<span class="sc">$</span>sex))</span>
+<span id="cb20-8"><a href="#cb20-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="multiple-tests" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="multiple-tests">
 <span class="header-section-number">5.5</span> Multiple tests</h2>
@@ -473,17 +470,17 @@ Duration: 0.1 s
 <p>Sometimes you want to set tests to skip because they take too long or cause problems when you submit a package to CRAN. Testthat has a number of functions that start with <code>skip</code> that allow you to skip any following tests under different circumstances.</p>
 <p>You can also set up tests for a data object.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s check that the <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code> function can load this data set and that it has the expected dimensions.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3"></a></span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
-<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
-<span id="cb24-7"><a href="#cb24-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
+<span id="cb23-7"><a href="#cb23-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="glossary" class="level2" data-number="5.6"><h2 data-number="5.6" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">5.6</span> Glossary</h2>
@@ -491,21 +488,38 @@ Duration: 0.1 s
 
 <table><tbody><tr></tr></tbody></table>
 </div>
-</section><section id="further-practice" class="level2" data-number="5.7"><h2 data-number="5.7" class="anchored" data-anchor-id="further-practice">
-<span class="header-section-number">5.7</span> Further Practice</h2>
+</section><section id="further-resources" class="level2" data-number="5.7"><h2 data-number="5.7" class="anchored" data-anchor-id="further-resources">
+<span class="header-section-number">5.7</span> Further Resources</h2>
+<ul>
+<li>
+<a href="https://r-pkgs.org/testing-basics.html">Testing Basics</a> from <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span>
+</li>
+<li><a href="https://testthat.r-lib.org/">testthat</a></li>
+</ul></section><section id="further-practice" class="level2" data-number="5.8"><h2 data-number="5.8" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">5.8</span> Further Practice</h2>
 <ol type="1">
-<li><p>Use test-driven development to add a custom error message if the length of <code>x</code> and <code>y</code> are not the same.</p></li>
+<li><p>Set up tests for <code>round0</code>. Make sure that this function gives the expected result for different values of <code>digits</code> and rounds values appropriately. Remember that the results you’re trying to match is a character data type, not a numeric value.</p></li>
+<li><p>Use test-driven development to add a custom error message to <code>apa_t_pair()</code> if the length of <code>x</code> and <code>y</code> are not the same.</p></li>
 <li><p>Add further sense checks that the column types are as expected for <code>self_res_att</code>.</p></li>
 <li><p>Add unit tests for any other functions you’ve created.</p></li>
 </ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
+</div>
+<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
+</div>
 <div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
 Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
 </div>
-<div id="ref-wickham2015r" class="csl-entry" role="doc-biblioentry">
-Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. " O’Reilly Media, Inc.".
+<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
+</div>
+<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
 </section></main><!-- /main --><script>

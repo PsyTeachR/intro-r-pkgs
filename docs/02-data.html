@@ -276,7 +276,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <ul class="collapse">
 <li><a href="#raw-data-directory" id="toc-raw-data-directory" class="nav-link" data-scroll-target="#raw-data-directory"><span class="toc-section-number">2.1.1</span>  Raw Data Directory</a></li>
   <li><a href="#add-raw-data" id="toc-add-raw-data" class="nav-link" data-scroll-target="#add-raw-data"><span class="toc-section-number">2.1.2</span>  Add Raw Data</a></li>
-  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="toc-section-number">2.1.3</span>  Load Data</a></li>
+  <li><a href="#sec-load-data" id="toc-sec-load-data" class="nav-link" data-scroll-target="#sec-load-data"><span class="toc-section-number">2.1.3</span>  Load Data</a></li>
   <li><a href="#check-column-types" id="toc-check-column-types" class="nav-link" data-scroll-target="#check-column-types"><span class="toc-section-number">2.1.4</span>  Check Column Types</a></li>
   <li><a href="#add-processed-data" id="toc-add-processed-data" class="nav-link" data-scroll-target="#add-processed-data"><span class="toc-section-number">2.1.5</span>  Add Processed Data</a></li>
   </ul>
@@ -291,7 +291,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
   <li><a href="#load-in-package" id="toc-load-in-package" class="nav-link" data-scroll-target="#load-in-package"><span class="toc-section-number">2.3</span>  Load in package</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">2.4</span>  Glossary</a></li>
-  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">2.5</span>  Further Practice</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">2.5</span>  Further Resources</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">2.6</span>  Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/02-data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/02-data.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -320,7 +321,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <section id="process-data" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="process-data">
 <span class="header-section-number">2.1</span> Process Data</h2>
-<p>We’re going to add some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces. Follow the directions below for each data set you want to add to your package.</p>
+<p>We’re going to add some data from <span class="citation" data-cites="debruine2004">DeBruine (<a href="references.html#ref-debruine2004" role="doc-biblioref">2004</a>)</span> looking at attractiveness judgements of same-sex and other-sex self-resembling faces. Follow the directions below for each data set you want to add to your package.</p>
 <section id="raw-data-directory" class="level3" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="raw-data-directory">
 <span class="header-section-number">2.1.1</span> Raw Data Directory</h3>
 <p>Run the code below.</p>
@@ -345,7 +346,7 @@ Data Privacy
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://osf.io/download/3c5s4/"</span>,</span>
 <span id="cb4-2"><a href="#cb4-2"></a>              <span class="at">destfile =</span> <span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="load-data" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="load-data">
+</section><section id="sec-load-data" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="sec-load-data">
 <span class="header-section-number">2.1.3</span> Load Data</h3>
 <p>Now, load the data in this script, using the object name <code>self_res_att</code>; this will be the name of the data object in your package. You will see some message text about the data.</p>
 <div class="cell" data-layout-align="center">
@@ -575,18 +576,20 @@ Writing self_res_att.Rd</code></pre>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>?demopkg<span class="sc">::</span>self_res_att</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="info">
-<p>When you’re developing a package, you usually “load” it using <code>devtools::load_all(".")</code> to be able to access all of the functions in the package for testing and development. This way, the development package is only available during the current session in this project. You will load it every time you make some changes to the package.</p>
-<p>If you want your package to be available outside of project sessions where you’ve explicitly loaded it, you need to <strong>install</strong> the package using <code><a href="https://devtools.r-lib.org/reference/install.html">devtools::install()</a></code> or the Install button in the Build pane.</p>
-</div>
 </section><section id="glossary" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">2.4</span> Glossary</h2>
 <div class="cell" data-layout-align="center">
 
 <table><tbody><tr></tr></tbody></table>
 </div>
-</section><section id="further-practice" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="further-practice">
-<span class="header-section-number">2.5</span> Further Practice</h2>
+</section><section id="further-resources" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="further-resources">
+<span class="header-section-number">2.5</span> Further Resources</h2>
+<ul>
+<li>
+<a href="https://r-pkgs.org/Data.html">Data</a> from <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span>
+</li>
+</ul></section><section id="further-practice" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">2.6</span> Further Practice</h2>
 <ol type="1">
 <li>
 <p>Add the dataset <code>DeBruine_2004_PRSLB_avg.csv</code> from <a href="https://osf.io/2ud56/" class="uri">https://osf.io/2ud56/</a>. This is a separate sample of participants who judged the <em>averageness</em> of male and female self- and non-self-resembling faces, rather than their <em>attractiveness</em>.</p>
@@ -607,11 +610,20 @@ Writing self_res_att.Rd</code></pre>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
+</div>
+<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
+</div>
 <div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
 Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
 </div>
-<div id="ref-wickham2015r" class="csl-entry" role="doc-biblioentry">
-Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. " O’Reilly Media, Inc.".
+<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
+</div>
+<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
 </section></main><!-- /main --><script>

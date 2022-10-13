@@ -280,9 +280,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="toc-section-number">4.1.4</span>  Examples</a></li>
   </ul>
 </li>
-  <li><a href="#document-and-load" id="toc-document-and-load" class="nav-link" data-scroll-target="#document-and-load"><span class="toc-section-number">4.2</span>  Document and Load</a></li>
-  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">4.3</span>  Glossary</a></li>
-  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">4.4</span>  Further Practice</a></li>
+  <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link" data-scroll-target="#helper-functions"><span class="toc-section-number">4.2</span>  Helper Functions</a></li>
+  <li><a href="#document-and-load" id="toc-document-and-load" class="nav-link" data-scroll-target="#document-and-load"><span class="toc-section-number">4.3</span>  Document and Load</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">4.4</span>  Glossary</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">4.5</span>  Further Resources</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">4.6</span>  Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/04-documentation.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/04-documentation.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -301,7 +303,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 </header><p>Write function documentation using the roxygen format. This is what creates the help documentation for functions.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(devtools) <span class="co"># for rendering documentation and loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="roxygen" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="roxygen">
 <span class="header-section-number">4.1</span> Roxygen</h2>
@@ -358,32 +360,55 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb6-9"><a href="#cb6-9"></a>#'            dv = "preferences for female faces",</span>
 <span id="cb6-10"><a href="#cb6-10"></a>#'            level1 = "participants who resembled those faces",</span>
 <span id="cb6-11"><a href="#cb6-11"></a>#'            level2 = "non-self participants")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section></section><section id="document-and-load" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="document-and-load">
-<span class="header-section-number">4.2</span> Document and Load</h2>
+</section></section><section id="helper-functions" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="helper-functions">
+<span class="header-section-number">4.2</span> Helper Functions</h2>
+<p>Not everyone documents helper functions like <code>round0</code>, but I think it’s good practice. Repeat the steps above with <code>round0</code>, but omit the line with <code>@export</code>. Annoyingly, non-exported functions can’t have examples, so you can also delete those. Try to do this yourself before you look at the answer below, but have a look at the help file for <code>round</code> for inspiration.</p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>The title is so descriptive here that I skipped a description.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>#' Round with Trailing Zeroes</span>
+<span id="cb7-2"><a href="#cb7-2"></a>#'</span>
+<span id="cb7-3"><a href="#cb7-3"></a>#' @param x a numeric vector</span>
+<span id="cb7-4"><a href="#cb7-4"></a>#' @param digits integer indicating the number of decimal places to be used.</span>
+<span id="cb7-5"><a href="#cb7-5"></a>#'</span>
+<span id="cb7-6"><a href="#cb7-6"></a>#' @return character string of formatted number</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="document-and-load" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="document-and-load">
+<span class="header-section-number">4.3</span> Document and Load</h2>
 <p>Now, you need to run a documentation function to add your function to the package documentation and export it for use.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should see output like this.</p>
 <div class="cell-output">
 <pre><code>ℹ Updating demopkg documentation
 ℹ Loading demopkg
 Writing NAMESPACE
-Writing apa_t_pair.Rd</code></pre>
+Writing apa_t_pair.Rd
+Writing round0.Rd</code></pre>
 </div>
 <p>Now restart R and make sure that your environment is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>?apa_t_pair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>?round0</span>
+<span id="cb10-3"><a href="#cb10-3"></a>?apa_t_pair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="glossary" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="glossary">
-<span class="header-section-number">4.3</span> Glossary</h2>
+</section><section id="glossary" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="glossary">
+<span class="header-section-number">4.4</span> Glossary</h2>
 <div class="cell" data-layout-align="center">
 
 <table><tbody><tr></tr></tbody></table>
 </div>
-</section><section id="further-practice" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="further-practice">
-<span class="header-section-number">4.4</span> Further Practice</h2>
+</section><section id="further-resources" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="further-resources">
+<span class="header-section-number">4.5</span> Further Resources</h2>
+<ul>
+<li>
+<a href="https://r-pkgs.org/man.html">Function Documentation</a> from <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span>
+</li>
+</ul></section><section id="further-practice" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">4.6</span> Further Practice</h2>
 <ol type="1">
 <li><p>Add another example to the documentation.</p></li>
 <li><p>Document any other functions you’ve created.</p></li>
@@ -391,11 +416,20 @@ Writing apa_t_pair.Rd</code></pre>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
+</div>
+<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
+</div>
 <div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
 Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
 </div>
-<div id="ref-wickham2015r" class="csl-entry" role="doc-biblioentry">
-Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. " O’Reilly Media, Inc.".
+<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
+</div>
+<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
 </section></main><!-- /main --><script>
