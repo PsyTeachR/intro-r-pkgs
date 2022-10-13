@@ -18,9 +18,11 @@ library(glue)     # for text joining
 library(devtools) # for loading your package
 ```
 
-## Set up Raw Data
+## Process Data
 
-We're going to document some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces. 
+We're going to add some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces. Follow the directions below for each data set you want to add to your package.
+
+### Raw Data Directory
 
 Run the code below.
 
@@ -28,13 +30,21 @@ Run the code below.
 usethis::use_data_raw("self_res_att")
 ```
 
-This will create a directory called `data-raw` and open a file called `self_res_att.R` with the following contents.
+The first time you run this function in a new package project, it will create a directory called `data-raw` and add this directory to the `.Rbuildignore` file so it isn't included in your package. 
+
+`r hide("Data Privacy")`
+Any processed data you include in an R package is viewable by anyone who downloads the package. Anything in the `data-raw` directory is not included in the **package**, but if you share your whole project publicly on GitHub, people will be able see the raw data and processing code. You can prevent this by adding this directory to `.gitignore` (which we will discuss in @sec-sharing), but it's pretty easy to make errors that accidentally share everything, so the safest way is to process your data outside the package project if you really can't share the raw data.
+`r unhide()`
+
+It will also open a file in that directory called `self_res_att.R` with the following contents.
 
 ``` r
 ## code to prepare `self_res_att` dataset goes here
 
 usethis::use_data(self_res_att, overwrite = TRUE)
 ```
+
+### Add Raw Data
 
 Download the data file called `DeBruine_2004_PRSLB_att.csv` from <https://osf.io/2ud56/> and save it in `data-raw`. The code below will also do this.
 
@@ -43,12 +53,19 @@ download.file(url = "https://osf.io/download/3c5s4/",
               destfile = "data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
 
+### Load Data
 
-Now, load the data in this script, using the object name `self_res_att`; this will be the name of the data object in your package.
+Now, load the data in this script, using the object name `self_res_att`; this will be the name of the data object in your package. You will see some message text about the data.
 
 ```{r}
 self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
+
+::: {.info}
+I use `readr::read_csv()` so we can fix the column types, but you're free to use any way you're comfortable with to load and process the data.
+:::
+
+### Check Column Types
 
 Have a quick look at the data and make sure the columns import as the right data types. You might want to make sure that categorical factors are imported as factors with their levels in a sensible order. 
 
@@ -85,6 +102,8 @@ ct <- cols(
 self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv", col_types = ct)
 ```
 
+### Add Processed Data
+
 Once you're satisfied that the data are in the right form, you can run this code to add the data to your package. 
 
 ```{r, eval = FALSE}
@@ -118,13 +137,19 @@ Data need to be documented to be included in a package. The documentation looks 
 "dataname"
 ```
 
-Create a new script called "R/self_res_att.R".
+### Data Decsription
+
+Create a new script called "self_res_att". The function `use_r()` will save it in the right directory as `R/self_res_att.R`"` and open it in the source pane. 
 
 ```{r, eval = FALSE}
 usethis::use_r("self_res_att")
 ```
 
-Copy the template above and edit the title, description, format, source, and dataname. 
+::: {.warning}
+Make sure you don't confuse this file with the processing script at `data-raw/self_res_att.R`.
+:::
+
+Edit the title, description, format, source, and dataname from the template above (or just copy the text below).
 
 ``` r
 #' Attractiveness of Self-Resembling Faces.
@@ -140,17 +165,44 @@ Copy the template above and edit the title, description, format, source, and dat
 "self_res_att"
 ```
 
-Use the following code to get a list of the column names in the data set. 
+### Column Descriptions
+
+You can manually edit the column `\item` descriptions, but this can be pretty tedious for longer data sets. I'll show you how to make the process a little easier.
+
+Use the following code to get a list of the column names in the data set. The function `dput()` gives you the code needed to create an object.
 
 ```{r}
-names(self_res_att) |> dput()
+coldesc <- rep("", ncol(self_res_att))
+names(coldesc) <- names(self_res_att)
+dput(coldesc)
 ```
 
-Copy and paste this into your script and assign this to an object called `vars`.
+Copy and paste the output into your script and assign this to an object called `vars`.
 
 ```{r}
-vars <- c("id", "sex", "ethgroup", "age", "m_non", "f_non", "m_self", "f_self", "grpsize", "group", "mascpref", "obro", "osis", "ybro", "ysis", "birthorder")
+vars <- c(
+    id = "",
+    sex = "",
+    ethgroup = "",
+    age = "",
+    m_non = "",
+    f_non = "",
+    m_self = "",
+    f_self = "",
+    grpsize = "",
+    group = "",
+    mascpref = "",
+    obro = "",
+    osis = "",
+    ybro = "",
+    ysis = "",
+    birthorder = ""
+  )
 ```
+
+::: {.info}
+The lines breaks will probably be ugly, but you can select the code and choose **`Reformat Code`** (cmd-shift-A) from the **`Code`** menu to fix it.
+:::
 
 Next, define each of these columns.
 
@@ -189,6 +241,8 @@ glue::glue("#'   \\item{[colname]}{[coldesc]}",
 I've written [a function](https://github.com/PsyTeachR/intro-r-pkgs/blob/main/R/data_doc.R) that you can use to set up a data documentation file for a data object. This could be useful if you are adding many data tables to a package.
 :::
 
+### Add to Package
+
 Now save this file and add the documentation to your package with the following code:
 
 ```{r, eval = FALSE}
@@ -205,6 +259,8 @@ Writing NAMESPACE
 Writing self_res_att.Rd
 ```
 :::
+
+You need to run this function any time you make changes to the documentation in the script. If you just see the first two lines of the output, nothing changed. The third line will show only if you have added a new data set or function to the package, and the fourth line will show if the help documentation was updated. 
 
 ## Load in package
 
@@ -229,6 +285,12 @@ You should also be able to see the documentation in the Help pane.
 ```{r, eval = FALSE}
 ?demopkg::self_res_att
 ```
+
+::: {.info}
+When you're developing a package, you usually "load" it using `devtools::load_all(".")` to be able to access all of the functions in the package for testing and development. This way, the development package is only available during the current session in this project. You will load it every time you make some changes to the package.
+
+If you want your package to be available outside of project sessions where you've explicitly loaded it, you need to **install** the package using `devtools::install()` or the Install button in the Build pane.
+:::
 
 ## Glossary
 
