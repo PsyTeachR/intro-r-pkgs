@@ -4,6 +4,9 @@
 source("R/setup.R")
 ```
 
+[Recording](https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ)
+(passcode: codingclub22!)
+
 Add datasets to your package and document them with a codebook. You can use our demo data or your own.
 
 ```{r}

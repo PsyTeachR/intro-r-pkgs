@@ -24,7 +24,7 @@ The passcode for all recordings will be `codingclub22!`
 
     Create a package project and edit the default files. Well start using the most helpful package, usethis.
 
-2. Adding Data (2022-10-12)
+2. Adding Data (2022-10-12) [Recording](https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ)
 
     Add datasets to your package and document them with a codebook. You can use our demo data or your own.
 
