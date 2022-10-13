@@ -280,7 +280,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="toc-section-number">4.1.4</span>  Examples</a></li>
   </ul>
 </li>
-  <li><a href="#document" id="toc-document" class="nav-link" data-scroll-target="#document"><span class="toc-section-number">4.2</span>  Document</a></li>
+  <li><a href="#document-and-load" id="toc-document-and-load" class="nav-link" data-scroll-target="#document-and-load"><span class="toc-section-number">4.2</span>  Document and Load</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">4.3</span>  Glossary</a></li>
   <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">4.4</span>  Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/04-documentation.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/04-documentation.qmd" class="toc-action">View source</a></p></div></div></nav>
@@ -321,12 +321,16 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <p>This creates the help files you can see for any function. For example, type <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> in the console.</p>
 <section id="title-and-description" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="title-and-description">
 <span class="header-section-number">4.1.1</span> Title and Description</h3>
-<p>The first line of the roxygen documentation is the title and the lines under that are the description. Update your documentation like this:</p>
+<p>The first line of the roxygen documentation is the title and the paragraph under that is the description. If you have more than one paragraph of description, you need to add the <code>@description</code> tag. Update your documentation like this:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>#' APA text for Paired-Samples T-Test</span>
-<span id="cb3-2"><a href="#cb3-2"></a>#'</span>
-<span id="cb3-3"><a href="#cb3-3"></a>#' Create APA-formatted text for the results of an independent-samples t-test in the following format:</span>
-<span id="cb3-4"><a href="#cb3-4"></a>#'</span>
-<span id="cb3-5"><a href="#cb3-5"></a>#' A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a>#' </span>
+<span id="cb3-3"><a href="#cb3-3"></a>#' @description</span>
+<span id="cb3-4"><a href="#cb3-4"></a>#' Create APA-formatted text for the results of an independent-samples t-test in the following format:</span>
+<span id="cb3-5"><a href="#cb3-5"></a>#'</span>
+<span id="cb3-6"><a href="#cb3-6"></a>#' A paired-samples t-test was conducted to compare \{dv\} between \{level1\} (M = \{mean1\}, SD = \{sd1\}) and \{level2\} (M = \{mean2\}, SD = \{sd2\}). There was a \{non\}significant difference; t(\{df\}) = \{t_value\}, p = \{p_value\}.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="info">
+<p>The curly brackets need to be prefaced by a backslash so they will show as literal curly brackets in the Help files, rather than be interpreted as markdown syntax.</p>
+</div>
 </section><section id="arguments" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="arguments">
 <span class="header-section-number">4.1.2</span> Arguments</h3>
 <p>The “Arguments” section is created from the lines that start with <code>@param</code>. They should define each argument in the function.</p>
@@ -354,8 +358,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb6-9"><a href="#cb6-9"></a>#'            dv = "preferences for female faces",</span>
 <span id="cb6-10"><a href="#cb6-10"></a>#'            level1 = "participants who resembled those faces",</span>
 <span id="cb6-11"><a href="#cb6-11"></a>#'            level2 = "non-self participants")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section></section><section id="document" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="document">
-<span class="header-section-number">4.2</span> Document</h2>
+</section></section><section id="document-and-load" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="document-and-load">
+<span class="header-section-number">4.2</span> Document and Load</h2>
 <p>Now, you need to run a documentation function to add your function to the package documentation and export it for use.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -366,6 +370,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 ℹ Loading demopkg
 Writing NAMESPACE
 Writing apa_t_pair.Rd</code></pre>
+</div>
+<p>Now restart R and make sure that your environment is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>?apa_t_pair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="glossary" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">4.3</span> Glossary</h2>

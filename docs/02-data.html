@@ -271,8 +271,24 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#set-up-raw-data" id="toc-set-up-raw-data" class="nav-link active" data-scroll-target="#set-up-raw-data"><span class="toc-section-number">2.1</span>  Set up Raw Data</a></li>
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation"><span class="toc-section-number">2.2</span>  Documentation</a></li>
+<li>
+<a href="#process-data" id="toc-process-data" class="nav-link active" data-scroll-target="#process-data"><span class="toc-section-number">2.1</span>  Process Data</a>
+  <ul class="collapse">
+<li><a href="#raw-data-directory" id="toc-raw-data-directory" class="nav-link" data-scroll-target="#raw-data-directory"><span class="toc-section-number">2.1.1</span>  Raw Data Directory</a></li>
+  <li><a href="#add-raw-data" id="toc-add-raw-data" class="nav-link" data-scroll-target="#add-raw-data"><span class="toc-section-number">2.1.2</span>  Add Raw Data</a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="toc-section-number">2.1.3</span>  Load Data</a></li>
+  <li><a href="#check-column-types" id="toc-check-column-types" class="nav-link" data-scroll-target="#check-column-types"><span class="toc-section-number">2.1.4</span>  Check Column Types</a></li>
+  <li><a href="#add-processed-data" id="toc-add-processed-data" class="nav-link" data-scroll-target="#add-processed-data"><span class="toc-section-number">2.1.5</span>  Add Processed Data</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation"><span class="toc-section-number">2.2</span>  Documentation</a>
+  <ul class="collapse">
+<li><a href="#data-decsription" id="toc-data-decsription" class="nav-link" data-scroll-target="#data-decsription"><span class="toc-section-number">2.2.1</span>  Data Decsription</a></li>
+  <li><a href="#column-descriptions" id="toc-column-descriptions" class="nav-link" data-scroll-target="#column-descriptions"><span class="toc-section-number">2.2.2</span>  Column Descriptions</a></li>
+  <li><a href="#add-to-package" id="toc-add-to-package" class="nav-link" data-scroll-target="#add-to-package"><span class="toc-section-number">2.2.3</span>  Add to Package</a></li>
+  </ul>
+</li>
   <li><a href="#load-in-package" id="toc-load-in-package" class="nav-link" data-scroll-target="#load-in-package"><span class="toc-section-number">2.3</span>  Load in package</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">2.4</span>  Glossary</a></li>
   <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">2.5</span>  Further Practice</a></li>
@@ -302,26 +318,44 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(glue)     <span class="co"># for text joining</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(devtools) <span class="co"># for loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="set-up-raw-data" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="set-up-raw-data">
-<span class="header-section-number">2.1</span> Set up Raw Data</h2>
-<p>We’re going to document some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces.</p>
+<section id="process-data" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="process-data">
+<span class="header-section-number">2.1</span> Process Data</h2>
+<p>We’re going to add some data from DeBruine (2004) looking at attractiveness judgements of same-sex and other-sex self-resembling faces. Follow the directions below for each data set you want to add to your package.</p>
+<section id="raw-data-directory" class="level3" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="raw-data-directory">
+<span class="header-section-number">2.1.1</span> Raw Data Directory</h3>
 <p>Run the code below.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This will create a directory called <code>data-raw</code> and open a file called <code>self_res_att.R</code> with the following contents.</p>
+<p>The first time you run this function in a new package project, it will create a directory called <code>data-raw</code> and add this directory to the <code>.Rbuildignore</code> file so it isn’t included in your package.</p>
+<div class="webex-solution">
+<button>
+Data Privacy
+</button>
+<p>Any processed data you include in an R package is viewable by anyone who downloads the package. Anything in the <code>data-raw</code> directory is not included in the <strong>package</strong>, but if you share your whole project publicly on GitHub, people will be able see the raw data and processing code. You can prevent this by adding this directory to <code>.gitignore</code> (which we will discuss in <a href="09-sharing.html"><span>Chapter&nbsp;9</span></a>), but it’s pretty easy to make errors that accidentally share everything, so the safest way is to process your data outside the package project if you really can’t share the raw data.</p>
+</div>
+<p>It will also open a file in that directory called <code>self_res_att.R</code> with the following contents.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="do">## code to prepare `self_res_att` dataset goes here</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(self_res_att, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="add-raw-data" class="level3" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="add-raw-data">
+<span class="header-section-number">2.1.2</span> Add Raw Data</h3>
 <p>Download the data file called <code>DeBruine_2004_PRSLB_att.csv</code> from <a href="https://osf.io/2ud56/" class="uri">https://osf.io/2ud56/</a> and save it in <code>data-raw</code>. The code below will also do this.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://osf.io/download/3c5s4/"</span>,</span>
 <span id="cb4-2"><a href="#cb4-2"></a>              <span class="at">destfile =</span> <span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, load the data in this script, using the object name <code>self_res_att</code>; this will be the name of the data object in your package.</p>
+</section><section id="load-data" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="load-data">
+<span class="header-section-number">2.1.3</span> Load Data</h3>
+<p>Now, load the data in this script, using the object name <code>self_res_att</code>; this will be the name of the data object in your package. You will see some message text about the data.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>self_res_att <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="info">
+<p>I use <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> so we can fix the column types, but you’re free to use any way you’re comfortable with to load and process the data.</p>
+</div>
+</section><section id="check-column-types" class="level3" data-number="2.1.4"><h3 data-number="2.1.4" class="anchored" data-anchor-id="check-column-types">
+<span class="header-section-number">2.1.4</span> Check Column Types</h3>
 <p>Have a quick look at the data and make sure the columns import as the right data types. You might want to make sure that categorical factors are imported as factors with their levels in a sensible order.</p>
 <ol type="1">
 <li>use <code>readr::spec(self_res_att)</code> to get the default column types,</li>
@@ -374,6 +408,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb8-19"><a href="#cb8-19"></a></span>
 <span id="cb8-20"><a href="#cb8-20"></a>self_res_att <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>, <span class="at">col_types =</span> ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section><section id="add-processed-data" class="level3" data-number="2.1.5"><h3 data-number="2.1.5" class="anchored" data-anchor-id="add-processed-data">
+<span class="header-section-number">2.1.5</span> Add Processed Data</h3>
 <p>Once you’re satisfied that the data are in the right form, you can run this code to add the data to your package.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(self_res_att, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -384,7 +420,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 ✔ Saving 'self_res_att' to 'data/self_res_att.rda'
 • Document your data (see 'https://r-pkgs.org/data.html')</code></pre>
 </div>
-</section><section id="documentation" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="documentation">
+</section></section><section id="documentation" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="documentation">
 <span class="header-section-number">2.2</span> Documentation</h2>
 <p>Data need to be documented to be included in a package. The documentation looks like this:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#' Title.</span></span>
@@ -398,11 +434,16 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb11-9"><a href="#cb11-9"></a><span class="co">#' }</span></span>
 <span id="cb11-10"><a href="#cb11-10"></a><span class="co">#' @source \url{data_URL}</span></span>
 <span id="cb11-11"><a href="#cb11-11"></a><span class="st">"dataname"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Create a new script called “R/self_res_att.R”.</p>
+<section id="data-decsription" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="data-decsription">
+<span class="header-section-number">2.2.1</span> Data Decsription</h3>
+<p>Create a new script called “self_res_att”. The function <code>use_r()</code> will save it in the right directory as <code>R/self_res_att.R</code>“` and open it in the source pane.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Copy the template above and edit the title, description, format, source, and dataname.</p>
+<div class="warning">
+<p>Make sure you don’t confuse this file with the processing script at <code>data-raw/self_res_att.R</code>.</p>
+</div>
+<p>Edit the title, description, format, source, and dataname from the template above (or just copy the text below).</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#' Attractiveness of Self-Resembling Faces.</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="co">#'</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="co">#' Attractiveness judgements of same-sex and other-sex self-resembling faces from DeBruine (2004).</span></span>
@@ -414,18 +455,43 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb13-9"><a href="#cb13-9"></a><span class="co">#' }</span></span>
 <span id="cb13-10"><a href="#cb13-10"></a><span class="co">#' @source \url{https://osf.io/3c5s4/}</span></span>
 <span id="cb13-11"><a href="#cb13-11"></a><span class="st">"self_res_att"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Use the following code to get a list of the column names in the data set.</p>
+</section><section id="column-descriptions" class="level3" data-number="2.2.2"><h3 data-number="2.2.2" class="anchored" data-anchor-id="column-descriptions">
+<span class="header-section-number">2.2.2</span> Column Descriptions</h3>
+<p>You can manually edit the column <code>\item</code> descriptions, but this can be pretty tedious for longer data sets. I’ll show you how to make the process a little easier.</p>
+<p>Use the following code to get a list of the column names in the data set. The function <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> gives you the code needed to create an object.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">names</span>(self_res_att) <span class="sc">|&gt;</span> <span class="fu">dput</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>coldesc <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">""</span>, <span class="fu">ncol</span>(self_res_att))</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">names</span>(coldesc) <span class="ot">&lt;-</span> <span class="fu">names</span>(self_res_att)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">dput</span>(coldesc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>c("id", "sex", "ethgroup", "age", "m_non", "f_non", "m_self", 
-"f_self", "grpsize", "group", "mascpref", "obro", "osis", "ybro", 
-"ysis", "birthorder")</code></pre>
+<pre><code>c(id = "", sex = "", ethgroup = "", age = "", m_non = "", f_non = "", 
+m_self = "", f_self = "", grpsize = "", group = "", mascpref = "", 
+obro = "", osis = "", ybro = "", ysis = "", birthorder = "")</code></pre>
 </div>
 </div>
-<p>Copy and paste this into your script and assign this to an object called <code>vars</code>.</p>
+<p>Copy and paste the output into your script and assign this to an object called <code>vars</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"sex"</span>, <span class="st">"ethgroup"</span>, <span class="st">"age"</span>, <span class="st">"m_non"</span>, <span class="st">"f_non"</span>, <span class="st">"m_self"</span>, <span class="st">"f_self"</span>, <span class="st">"grpsize"</span>, <span class="st">"group"</span>, <span class="st">"mascpref"</span>, <span class="st">"obro"</span>, <span class="st">"osis"</span>, <span class="st">"ybro"</span>, <span class="st">"ysis"</span>, <span class="st">"birthorder"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>    <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="at">sex =</span> <span class="st">""</span>,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="at">ethgroup =</span> <span class="st">""</span>,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="at">age =</span> <span class="st">""</span>,</span>
+<span id="cb16-6"><a href="#cb16-6"></a>    <span class="at">m_non =</span> <span class="st">""</span>,</span>
+<span id="cb16-7"><a href="#cb16-7"></a>    <span class="at">f_non =</span> <span class="st">""</span>,</span>
+<span id="cb16-8"><a href="#cb16-8"></a>    <span class="at">m_self =</span> <span class="st">""</span>,</span>
+<span id="cb16-9"><a href="#cb16-9"></a>    <span class="at">f_self =</span> <span class="st">""</span>,</span>
+<span id="cb16-10"><a href="#cb16-10"></a>    <span class="at">grpsize =</span> <span class="st">""</span>,</span>
+<span id="cb16-11"><a href="#cb16-11"></a>    <span class="at">group =</span> <span class="st">""</span>,</span>
+<span id="cb16-12"><a href="#cb16-12"></a>    <span class="at">mascpref =</span> <span class="st">""</span>,</span>
+<span id="cb16-13"><a href="#cb16-13"></a>    <span class="at">obro =</span> <span class="st">""</span>,</span>
+<span id="cb16-14"><a href="#cb16-14"></a>    <span class="at">osis =</span> <span class="st">""</span>,</span>
+<span id="cb16-15"><a href="#cb16-15"></a>    <span class="at">ybro =</span> <span class="st">""</span>,</span>
+<span id="cb16-16"><a href="#cb16-16"></a>    <span class="at">ysis =</span> <span class="st">""</span>,</span>
+<span id="cb16-17"><a href="#cb16-17"></a>    <span class="at">birthorder =</span> <span class="st">""</span></span>
+<span id="cb16-18"><a href="#cb16-18"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="info">
+<p>The lines breaks will probably be ugly, but you can select the code and choose <strong><code>Reformat Code</code></strong> (cmd-shift-A) from the <strong><code>Code</code></strong> menu to fix it.</p>
 </div>
 <p>Next, define each of these columns.</p>
 <div class="cell" data-layout-align="center">
@@ -477,6 +543,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="info">
 <p>I’ve written <a href="https://github.com/PsyTeachR/intro-r-pkgs/blob/main/R/data_doc.R">a function</a> that you can use to set up a data documentation file for a data object. This could be useful if you are adding many data tables to a package.</p>
 </div>
+</section><section id="add-to-package" class="level3" data-number="2.2.3"><h3 data-number="2.2.3" class="anchored" data-anchor-id="add-to-package">
+<span class="header-section-number">2.2.3</span> Add to Package</h3>
 <p>Now save this file and add the documentation to your package with the following code:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -488,7 +556,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 Writing NAMESPACE
 Writing self_res_att.Rd</code></pre>
 </div>
-</section><section id="load-in-package" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="load-in-package">
+<p>You need to run this function any time you make changes to the documentation in the script. If you just see the first two lines of the output, nothing changed. The third line will show only if you have added a new data set or function to the package, and the fourth line will show if the help documentation was updated.</p>
+</section></section><section id="load-in-package" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="load-in-package">
 <span class="header-section-number">2.3</span> Load in package</h2>
 <p>Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).</p>
 <div class="cell" data-layout-align="center">
@@ -505,6 +574,10 @@ Writing self_res_att.Rd</code></pre>
 <p>You should also be able to see the documentation in the Help pane.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>?demopkg<span class="sc">::</span>self_res_att</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="info">
+<p>When you’re developing a package, you usually “load” it using <code>devtools::load_all(".")</code> to be able to access all of the functions in the package for testing and development. This way, the development package is only available during the current session in this project. You will load it every time you make some changes to the package.</p>
+<p>If you want your package to be available outside of project sessions where you’ve explicitly loaded it, you need to <strong>install</strong> the package using <code><a href="https://devtools.r-lib.org/reference/install.html">devtools::install()</a></code> or the Install button in the Build pane.</p>
 </div>
 </section><section id="glossary" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">2.4</span> Glossary</h2>

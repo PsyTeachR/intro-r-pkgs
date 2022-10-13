@@ -7,7 +7,7 @@ source("R/setup.R")
 Write function documentation using the roxygen format. This is what creates the help documentation for functions.
 
 ```{r}
-library(usethis)
+library(devtools) # for rendering documentation and loading your package
 ```
 
 ## Roxygen
@@ -34,16 +34,21 @@ This creates the help files you can see for any function. For example, type `?me
 
 ### Title and Description
 
-The first line of the roxygen documentation is the title and the lines under that are the description. Update your documentation like this:
+The first line of the roxygen documentation is the title and the paragraph under that is the description. If you have more than one paragraph of description, you need to add the `@description` tag. Update your documentation like this:
 
 ``` roxygen
 #' APA text for Paired-Samples T-Test
-#'
+#' 
+#' @description
 #' Create APA-formatted text for the results of an independent-samples t-test in the following format:
 #'
-#' A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.
+#' A paired-samples t-test was conducted to compare \{dv\} between \{level1\} (M = \{mean1\}, SD = \{sd1\}) and \{level2\} (M = \{mean2\}, SD = \{sd2\}). There was a \{non\}significant difference; t(\{df\}) = \{t_value\}, p = \{p_value\}.
 
 ```
+
+::: {.info} 
+The curly brackets need to be prefaced by a backslash so they will show as literal curly brackets in the Help files, rather than be interpreted as markdown syntax.
+:::
 
 ### Arguments
 
@@ -84,7 +89,7 @@ Add at least one example that shows how the function works. Make sure to create 
 #'            level2 = "non-self participants")
 ```
 
-## Document
+## Document and Load
 
 Now, you need to run a documentation function to add your function to the package documentation and export it for use.
 
@@ -103,6 +108,14 @@ Writing apa_t_pair.Rd
 ```
 :::
 
+Now restart R and make sure that your environment is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.
+
+```{r, eval = FALSE}
+devtools::load_all(".")
+?apa_t_pair
+```
+
+
 ## Glossary
 
 ```{r, echo = FALSE, results='asis'}
@@ -116,4 +129,5 @@ glossary_table(as_kable = FALSE) |>
 1. Add another example to the documentation.
 
 1. Document any other functions you've created.
+
 

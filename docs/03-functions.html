@@ -308,7 +308,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 </header><p>Learn to write custom functions and include them in your package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(usethis)  <span class="co"># for setting up data sets in a package</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(glue)     <span class="co"># for text joining</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(devtools) <span class="co"># for loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="function-overview" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="function-overview">
 <span class="header-section-number">3.1</span> Function Overview</h2>
@@ -338,8 +342,9 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <div class="info">
 <p>You technically don’t have to use the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function. The last object created in the function code will be automatically returned. Most people don’t use <code><a href="https://rdrr.io/r/base/function.html">return()</a></code>, but that can sometimes make it hard to figure out exactly what is being returned if you have a lot of if/else logic.</p>
+<p>The <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function also stops all subsequent code from being run.</p>
 </div>
-<p>Run the code above to define the function. After it’s defined, if you type the function name into the console, it will show you the code for the function.</p>
+<p>Run the code above to define the function. After it’s defined, if you type the function name into the console, without parentheses, it will show you the code for the function.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fullname</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -360,7 +365,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <p>Use your function like any other R function.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">fullname</span>(<span class="st">"Lisa"</span>, <span class="st">"DeBruine"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">fullname</span>(<span class="st">"Lisa"</span>, <span class="st">"DeBruine"</span>, <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">fullname</span>(<span class="st">"Lisa"</span>, <span class="st">"DeBruine"</span>, <span class="at">reverse =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Lisa DeBruine"
 [1] "DeBruine, Lisa"</code></pre>
@@ -368,7 +373,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 </section><section id="function-development" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="function-development">
 <span class="header-section-number">3.2</span> Function Development</h2>
-<p>We’re going to create a function that produces the APA-formatted text for the results of a paired-samples t-test. Here’s an example of APA format.</p>
+<p>For <code>demopkg</code>, we’re going to create a function that produces the APA-formatted text for the results of a paired-samples t-test. Here’s an example of APA format.</p>
 <blockquote class="blockquote">
 <p>A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.</p>
 </blockquote>
@@ -425,24 +430,28 @@ mean difference
  - attr(*, "class")= chr "htest"</code></pre>
 </div>
 </div>
-<p>Now we can set the value of each variable from the <code>t_results</code> object. You can’t get the sample size and standard deviations from the <code>t_results</code> object, so we’ll calculate those from <code>a</code> and <code>b</code>.</p>
+<p>Now we can set the value of each variable from the <code>t_results</code> object. You can’t get the means and standard deviations from the <code>t_results</code> object, so we’ll calculate those from the data.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>glue<span class="sc">::</span><span class="fu">glue</span>(template,</span>
-<span id="cb14-2"><a href="#cb14-2"></a>           <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
-<span id="cb14-3"><a href="#cb14-3"></a>           <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
-<span id="cb14-4"><a href="#cb14-4"></a>           <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5"></a>           <span class="at">mean1   =</span> <span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_self) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>), </span>
-<span id="cb14-6"><a href="#cb14-6"></a>           <span class="at">sd1     =</span> <span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_self) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb14-7"><a href="#cb14-7"></a>           <span class="at">mean2   =</span> <span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_non) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb14-8"><a href="#cb14-8"></a>           <span class="at">sd2     =</span> <span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_non) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb14-9"><a href="#cb14-9"></a>           <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
-<span id="cb14-10"><a href="#cb14-10"></a>           <span class="at">df      =</span> t_results<span class="sc">$</span>parameter <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb14-11"><a href="#cb14-11"></a>           <span class="at">t_value =</span> t_results<span class="sc">$</span>statistic <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
-<span id="cb14-12"><a href="#cb14-12"></a>           <span class="at">p_value =</span> t_results<span class="sc">$</span>p.value <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb14-13"><a href="#cb14-13"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb14-2"><a href="#cb14-2"></a>  template,</span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6"></a>  <span class="at">mean1   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>), </span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="at">sd1     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>),</span>
+<span id="cb14-8"><a href="#cb14-8"></a>  <span class="at">mean2   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb14-9"><a href="#cb14-9"></a>  <span class="at">sd2     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb14-10"><a href="#cb14-10"></a>  <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb14-11"><a href="#cb14-11"></a>  <span class="at">df      =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>parameter, <span class="dv">1</span>),</span>
+<span id="cb14-12"><a href="#cb14-12"></a>  <span class="at">t_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>statistic, <span class="dv">2</span>),</span>
+<span id="cb14-13"><a href="#cb14-13"></a>  <span class="at">p_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb14-14"><a href="#cb14-14"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.</code></pre>
 </div>
+</div>
+<div class="info">
+<p>Don’t worry about <code>p = 0</code> just now. A further practice exercise is for you to add code to the function to change it to <code>p &lt; .001</code> where appropriate.</p>
 </div>
 </section><section id="set-up-function" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="set-up-function">
 <span class="header-section-number">3.2.2</span> Set up Function</h3>
@@ -451,74 +460,85 @@ mean difference
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">"apa_t_pair"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We’ll develop our function in this file. To start, wrap all of the code above in the curly brackets after the <code>function()</code> function.</p>
+<p>We’ll develop our function in this file. To start, set up a blank function definition.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(self_res_att<span class="sc">$</span>f_self, </span>
-<span id="cb17-3"><a href="#cb17-3"></a>                      self_res_att<span class="sc">$</span>f_non,</span>
-<span id="cb17-4"><a href="#cb17-4"></a>                      <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-5"><a href="#cb17-5"></a>  </span>
-<span id="cb17-6"><a href="#cb17-6"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a>  </span>
-<span id="cb17-8"><a href="#cb17-8"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(template,</span>
-<span id="cb17-9"><a href="#cb17-9"></a>             <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
-<span id="cb17-10"><a href="#cb17-10"></a>             <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
-<span id="cb17-11"><a href="#cb17-11"></a>             <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
-<span id="cb17-12"><a href="#cb17-12"></a>             <span class="at">mean1   =</span> <span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_self) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>), </span>
-<span id="cb17-13"><a href="#cb17-13"></a>             <span class="at">sd1     =</span> <span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_self) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb17-14"><a href="#cb17-14"></a>             <span class="at">mean2   =</span> <span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_non) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb17-15"><a href="#cb17-15"></a>             <span class="at">sd2     =</span> <span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_non) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb17-16"><a href="#cb17-16"></a>             <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
-<span id="cb17-17"><a href="#cb17-17"></a>             <span class="at">df      =</span> t_results<span class="sc">$</span>parameter <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb17-18"><a href="#cb17-18"></a>             <span class="at">t_value =</span> t_results<span class="sc">$</span>statistic <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
-<span id="cb17-19"><a href="#cb17-19"></a>             <span class="at">p_value =</span> t_results<span class="sc">$</span>p.value <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb17-20"><a href="#cb17-20"></a>             )</span>
-<span id="cb17-21"><a href="#cb17-21"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-2"><a href="#cb17-2"></a>  </span>
+<span id="cb17-3"><a href="#cb17-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then add the code above inside the curly brackets.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb18-2"><a href="#cb18-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb18-3"><a href="#cb18-3"></a>                      self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb18-4"><a href="#cb18-4"></a>                      <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a>  </span>
+<span id="cb18-6"><a href="#cb18-6"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a>  </span>
+<span id="cb18-8"><a href="#cb18-8"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb18-9"><a href="#cb18-9"></a>    template,</span>
+<span id="cb18-10"><a href="#cb18-10"></a>    <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11"></a>    <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb18-12"><a href="#cb18-12"></a>    <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
+<span id="cb18-13"><a href="#cb18-13"></a>    <span class="at">mean1   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>), </span>
+<span id="cb18-14"><a href="#cb18-14"></a>    <span class="at">sd1     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>),</span>
+<span id="cb18-15"><a href="#cb18-15"></a>    <span class="at">mean2   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb18-16"><a href="#cb18-16"></a>    <span class="at">sd2     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb18-17"><a href="#cb18-17"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb18-18"><a href="#cb18-18"></a>    <span class="at">df      =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>parameter, <span class="dv">1</span>),</span>
+<span id="cb18-19"><a href="#cb18-19"></a>    <span class="at">t_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>statistic, <span class="dv">2</span>),</span>
+<span id="cb18-20"><a href="#cb18-20"></a>    <span class="at">p_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb18-21"><a href="#cb18-21"></a>  )</span>
+<span id="cb18-22"><a href="#cb18-22"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Run the code above and test that the function works by running it once in the console.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># run in the console</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># run in the console</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.</code></pre>
 </div>
+</div>
+<div class="warning">
+<p>If you get the message: <code>Error in apa_t_pair() : could not find function "apa_t_pair"</code>, this means you didn’t run the code that created the function.</p>
 </div>
 </section><section id="add-arguments" class="level3" data-number="3.2.3"><h3 data-number="3.2.3" class="anchored" data-anchor-id="add-arguments">
 <span class="header-section-number">3.2.3</span> Add Arguments</h3>
 <p>We probably want this function to work for any pair of vectors we give it, not just the value of <code>f_self</code> and <code>f_non</code>. So we need to add <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">arguments</a> to the function. Add arguments <code>x</code> and <code>y</code> to the function and replace <code>self_res_att$f_self</code> with <code>x</code> and <code>self_res_att$f_self</code> with <code>y</code> everywhere in the function.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb20-2"><a href="#cb20-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-3"><a href="#cb20-3"></a>  </span>
-<span id="cb20-4"><a href="#cb20-4"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>  </span>
-<span id="cb20-6"><a href="#cb20-6"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(template,</span>
-<span id="cb20-7"><a href="#cb20-7"></a>             <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
-<span id="cb20-8"><a href="#cb20-8"></a>             <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
-<span id="cb20-9"><a href="#cb20-9"></a>             <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
-<span id="cb20-10"><a href="#cb20-10"></a>             <span class="at">mean1   =</span> <span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_self) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>), </span>
-<span id="cb20-11"><a href="#cb20-11"></a>             <span class="at">sd1     =</span> <span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_self) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb20-12"><a href="#cb20-12"></a>             <span class="at">mean2   =</span> <span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_non) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb20-13"><a href="#cb20-13"></a>             <span class="at">sd2     =</span> <span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_non) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb20-14"><a href="#cb20-14"></a>             <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
-<span id="cb20-15"><a href="#cb20-15"></a>             <span class="at">df      =</span> t_results<span class="sc">$</span>parameter <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb20-16"><a href="#cb20-16"></a>             <span class="at">t_value =</span> t_results<span class="sc">$</span>statistic <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
-<span id="cb20-17"><a href="#cb20-17"></a>             <span class="at">p_value =</span> t_results<span class="sc">$</span>p.value <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb20-18"><a href="#cb20-18"></a>             )</span>
-<span id="cb20-19"><a href="#cb20-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb21-2"><a href="#cb21-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-3"><a href="#cb21-3"></a>  </span>
+<span id="cb21-4"><a href="#cb21-4"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>  </span>
+<span id="cb21-6"><a href="#cb21-6"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb21-7"><a href="#cb21-7"></a>    template,</span>
+<span id="cb21-8"><a href="#cb21-8"></a>    <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9"></a>    <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10"></a>    <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11"></a>    <span class="at">mean1   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="dv">1</span>), </span>
+<span id="cb21-12"><a href="#cb21-12"></a>    <span class="at">sd1     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(x), <span class="dv">1</span>),</span>
+<span id="cb21-13"><a href="#cb21-13"></a>    <span class="at">mean2   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(y), <span class="dv">1</span>),</span>
+<span id="cb21-14"><a href="#cb21-14"></a>    <span class="at">sd2     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(y), <span class="dv">1</span>),</span>
+<span id="cb21-15"><a href="#cb21-15"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb21-16"><a href="#cb21-16"></a>    <span class="at">df      =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>parameter, <span class="dv">1</span>),</span>
+<span id="cb21-17"><a href="#cb21-17"></a>    <span class="at">t_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb21-18"><a href="#cb21-18"></a>    <span class="at">p_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb21-19"><a href="#cb21-19"></a>  )</span>
+<span id="cb21-20"><a href="#cb21-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, if you try to run the function without any arguments, you’ll get an error message. This is because there are no default values for <code>x</code> and <code>y</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in t.test(x, y, paired = TRUE): argument "x" is missing, with no default</code></pre>
 </div>
 </div>
 <p>This also won’t work.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>x <span class="ot">&lt;-</span> self_res_att<span class="sc">$</span>f_self</span>
-<span id="cb23-2"><a href="#cb23-2"></a>y <span class="ot">&lt;-</span> self_res_att<span class="sc">$</span>f_non</span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>x <span class="ot">&lt;-</span> self_res_att<span class="sc">$</span>f_self</span>
+<span id="cb24-2"><a href="#cb24-2"></a>y <span class="ot">&lt;-</span> self_res_att<span class="sc">$</span>f_non</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in t.test(x, y, paired = TRUE): argument "x" is missing, with no default</code></pre>
 </div>
@@ -526,9 +546,9 @@ mean difference
 <p>This is because the <code>x</code> and <code>y</code> inside of the function are in a different <a class="glossary" target="_blank" title="A data structure that contains R objects such as variables and functions" href="https://psyteachr.github.io/glossary/e#environment">environment</a> to any <code>x</code> and <code>y</code> outside of the function. This can seem confusing at first, but it’s good that you don’t need to worry about objects that exist outside of your function.</p>
 <p>You can specify the vectors as arguments.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># run in the console or another file</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
-<span id="cb25-3"><a href="#cb25-3"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># run in the console or another file</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb26-3"><a href="#cb26-3"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.</code></pre>
 </div>
@@ -538,40 +558,41 @@ mean difference
 <p>Now we can further customise our function. You probably won’t always be comparing “preferences for female faces” between “participants who resembled those faces” and “non-self participants”, so let’s add three new arguments to the function. We can set generic <a class="glossary" target="_blank" title="A value that a function uses for an argument if it is skipped." href="https://psyteachr.github.io/glossary/d#default-value">default values</a> for these new arguments so that you don’t have to specify them if the defaults are OK.</p>
 <p>Since the values are defined with the variable names used in the glue template, we don’t need to specify those in the <code>glue()</code> function anymore.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, </span>
-<span id="cb27-2"><a href="#cb27-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>, </span>
-<span id="cb27-3"><a href="#cb27-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>, </span>
-<span id="cb27-4"><a href="#cb27-4"></a>                       <span class="at">level2 =</span> <span class="st">"level 2"</span>) {</span>
-<span id="cb27-5"><a href="#cb27-5"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb27-6"><a href="#cb27-6"></a>  </span>
-<span id="cb27-7"><a href="#cb27-7"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
-<span id="cb27-8"><a href="#cb27-8"></a>  </span>
-<span id="cb27-9"><a href="#cb27-9"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(template,</span>
-<span id="cb27-10"><a href="#cb27-10"></a>             <span class="at">mean1   =</span> <span class="fu">mean</span>(x) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>), </span>
-<span id="cb27-11"><a href="#cb27-11"></a>             <span class="at">sd1     =</span> <span class="fu">sd</span>(x) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb27-12"><a href="#cb27-12"></a>             <span class="at">mean2   =</span> <span class="fu">mean</span>(y) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb27-13"><a href="#cb27-13"></a>             <span class="at">sd2     =</span> <span class="fu">sd</span>(y) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb27-14"><a href="#cb27-14"></a>             <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
-<span id="cb27-15"><a href="#cb27-15"></a>             <span class="at">df      =</span> t_results<span class="sc">$</span>parameter <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
-<span id="cb27-16"><a href="#cb27-16"></a>             <span class="at">t_value =</span> t_results<span class="sc">$</span>statistic <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
-<span id="cb27-17"><a href="#cb27-17"></a>             <span class="at">p_value =</span> t_results<span class="sc">$</span>p.value <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb27-18"><a href="#cb27-18"></a>             )</span>
-<span id="cb27-19"><a href="#cb27-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, </span>
+<span id="cb28-2"><a href="#cb28-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>, </span>
+<span id="cb28-3"><a href="#cb28-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>, </span>
+<span id="cb28-4"><a href="#cb28-4"></a>                       <span class="at">level2 =</span> <span class="st">"level 2"</span>) {</span>
+<span id="cb28-5"><a href="#cb28-5"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-6"><a href="#cb28-6"></a>  </span>
+<span id="cb28-7"><a href="#cb28-7"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a>  </span>
+<span id="cb28-9"><a href="#cb28-9"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb28-10"><a href="#cb28-10"></a>    template,</span>
+<span id="cb28-11"><a href="#cb28-11"></a>    <span class="at">mean1   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="dv">1</span>), </span>
+<span id="cb28-12"><a href="#cb28-12"></a>    <span class="at">sd1     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(x), <span class="dv">1</span>),</span>
+<span id="cb28-13"><a href="#cb28-13"></a>    <span class="at">mean2   =</span> <span class="fu">round</span>(<span class="fu">mean</span>(y), <span class="dv">1</span>),</span>
+<span id="cb28-14"><a href="#cb28-14"></a>    <span class="at">sd2     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(y), <span class="dv">1</span>),</span>
+<span id="cb28-15"><a href="#cb28-15"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb28-16"><a href="#cb28-16"></a>    <span class="at">df      =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>parameter, <span class="dv">1</span>),</span>
+<span id="cb28-17"><a href="#cb28-17"></a>    <span class="at">t_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb28-18"><a href="#cb28-18"></a>    <span class="at">p_value =</span> <span class="fu">round</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb28-19"><a href="#cb28-19"></a>  )</span>
+<span id="cb28-20"><a href="#cb28-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Try running the function both with and without the new arguments.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
-<span id="cb28-2"><a href="#cb28-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb29-2"><a href="#cb29-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare the DV between level 1 (M = 3.5, SD = 1.6) and level 2 (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
-<span id="cb30-2"><a href="#cb30-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
-<span id="cb30-3"><a href="#cb30-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for female faces"</span>,</span>
-<span id="cb30-4"><a href="#cb30-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
-<span id="cb30-5"><a href="#cb30-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb31-2"><a href="#cb31-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb31-3"><a href="#cb31-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.</code></pre>
 </div>
@@ -583,40 +604,40 @@ mean difference
 <span class="header-section-number">3.3</span> Load in package</h2>
 <section id="import-dependencies" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="import-dependencies">
 <span class="header-section-number">3.3.1</span> Import dependencies</h3>
-<p>You need to “import” any non-base packages that you use in a function. These are called “dependencies” because your function depends on them. Our function above uses <code>glue()</code> from the glue package. The function below is a quick way to do this.</p>
+<p>You need to “import” any non-base packages that you use in a function. These are called “dependencies” because your function depends on them. Our function above uses <code>glue()</code> from the glue package. The function below is a quick way to add a dependency.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"glue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"glue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should see this output:</p>
 <pre><code>✔ Setting active project to '/Users/lisad/rproj/demopkg'
 ✔ Adding 'glue' to Imports field in DESCRIPTION
 • Refer to functions with `glue::fun()`</code></pre>
 <p>This means that you should always use the full form <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code>, rather than loading a package with the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function and using just the function name <code>glue()</code>.</p>
-<p>You can open the <code>DESCRIPTION</code> file to see what has changed. You can alternatively just add dependencies to this file under “Imports:”.</p>
+<p>You can open the <code>DESCRIPTION</code> file to see what has changed. Alternatively, you can manually add dependencies to this file under “Imports:”.</p>
 </section><section id="load" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="load">
 <span class="header-section-number">3.3.2</span> Load</h3>
 <p>Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function should now be available.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
-<span id="cb35-2"><a href="#cb35-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
-<span id="cb35-3"><a href="#cb35-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for female faces"</span>,</span>
-<span id="cb35-4"><a href="#cb35-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
-<span id="cb35-5"><a href="#cb35-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb36-2"><a href="#cb36-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb36-3"><a href="#cb36-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3, SD = 1.2). There was a significant difference; t(107) = 3.6, p = 0.</code></pre>
 </div>
 </div>
 <p>And it should be easy to adapt for other pairs of values, such as the equivalent analysis for male faces.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>m_self, </span>
-<span id="cb37-2"><a href="#cb37-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>m_non,</span>
-<span id="cb37-3"><a href="#cb37-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for male faces"</span>,</span>
-<span id="cb37-4"><a href="#cb37-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
-<span id="cb37-5"><a href="#cb37-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>m_self, </span>
+<span id="cb38-2"><a href="#cb38-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>m_non,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for male faces"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for male faces between participants who resembled those faces (M = 3.5, SD = 1.4) and non-self participants (M = 2.9, SD = 1). There was a significant difference; t(107) = 3.89, p = 0.</code></pre>
 </div>
@@ -684,7 +705,7 @@ A word that identifies and stores the value of some data for later use.
 <li><p>Edit the function to handle p-values &lt; .001.</p></li>
 <li><p>Add 95% confidence intervals to the output.</p></li>
 <li><p>Allow the user to set a custom confidence interval.</p></li>
-<li><p>Create another function to produce the text for a different analysis you’re familiar with, such as an ANOVA.</p></li>
+<li><p>Create another function to produce the text for a different analysis you’re familiar with in R, such as an ANOVA or correlation.</p></li>
 </ol>
 
 
