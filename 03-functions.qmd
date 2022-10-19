@@ -4,6 +4,9 @@
 source("R/setup.R")
 ```
 
+[Recording](https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3)
+(Passcode: codingclub22!)
+
 Learn to write custom functions and include them in your package.
 
 ```{r}

@@ -16,6 +16,10 @@ You will need only very basic R skills and a willingness to learn. The only peop
 [Register for free at EventBrite](https://coding-club-packages.eventbrite.co.uk) to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don't worry if you can't make all of the dates. We'll record the sessions and make them public ASAP so you can catch up if you miss the live session.
 :::
 
+## Demo Package
+
+This book contains all of the instructions to create your first R package. But if you fall behind and need to download the most recent version of the demopkg, visit <https://github.com/psyteachr/demopkg> and check the README for download instructions. 
+
 ## Tentative Schedule
 
 The passcode for all recordings will be `codingclub22!`
@@ -28,7 +32,7 @@ The passcode for all recordings will be `codingclub22!`
 
     Add datasets to your package and document them with a codebook. You can use our demo data or your own.
 
-3. Custom Functions (2022-10-19)
+3. Custom Functions (2022-10-19) [Recording](https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3)
 
     Learn to write custom functions and include them in your package.
 
