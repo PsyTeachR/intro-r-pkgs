@@ -12,7 +12,7 @@ library(devtools) # for rendering documentation and loading your package
 
 ## Roxygen
 
-Go to the `R/apa_t_pair.R` file we created last week. Put your cursor anywhere inside that function and choose **`Insert Roxygen Skeleton`** from the **`Code`** menu. It should generate documentation code in roxygen format like this:
+Go to the `R/apa_t_pair.R` file we created last week. Put your cursor anywhere inside that `r glossary("function")` and choose **`Insert Roxygen Skeleton`** from the **`Code`** menu. It should generate documentation code in roxygen format like this:
 
 ``` roxygen
 #' Title
@@ -29,7 +29,7 @@ Go to the `R/apa_t_pair.R` file we created last week. Put your cursor anywhere i
 #' @examples
 ```
 
-This creates the help files you can see for any function. For example, type `?mean` in the console. 
+This creates the help files you can see for any function. For example, type `?mean` in the `r glossary("console")`.
 
 
 ### Title and Description
@@ -47,12 +47,12 @@ The first line of the roxygen documentation is the title and the paragraph under
 ```
 
 ::: {.info} 
-The curly brackets need to be prefaced by a backslash so they will show as literal curly brackets in the Help files, rather than be interpreted as markdown syntax.
+The curly brackets need to be prefaced by a backslash so they will show as `r glossary("literal")` curly brackets in the Help files, rather than be interpreted as `r glossary("markdown")` syntax.
 :::
 
 ### Arguments
 
-The "Arguments" section is created from the lines that start with `@param`. They should define each argument in the function.
+The "Arguments" section is created from the lines that start with `@param`. They should define each `r glossary("argument")` in the function.
 
 ``` roxygen
 #' @param x A vector of the values for level 1.
@@ -64,7 +64,7 @@ The "Arguments" section is created from the lines that start with `@param`. They
 
 ### Return Value
 
-The line starting with `@return` creates the "Value" section. This tells the user what kind of object is returned from the function. The line `@export` tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.
+The line starting with `@return` creates the "Value" section. This tells the user what kind of `r glossary("object")` is returned from the function. The line `@export` tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.
 
 ``` roxygen
 #' @return A character string.
@@ -127,7 +127,7 @@ Writing round0.Rd
 ```
 :::
 
-Now restart R and make sure that your environment is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.
+Now restart R and make sure that your `r glossary("environment")` is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.
 
 ```{r, eval = FALSE}
 devtools::load_all(".")
