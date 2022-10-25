@@ -61,7 +61,7 @@ format:
       dark:
       - darkly
       - include/dark.scss
-    css: [include/psyteachr.css, include/style.css]
+    css: [include/psyteachr.css, include/webex.css, include/style.css]
     df-print: kable
     code-link: true
     #code-fold: false
@@ -72,4 +72,4 @@ format:
     highlight-style: a11y
     # monofont: Fira Code
     # mainfont: Open Sans
-    include-after-body: include/script.js
+    include-after-body: [include/webex.js, include/script.js]
