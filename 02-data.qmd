@@ -5,7 +5,7 @@ source("R/setup.R")
 ```
 
 [Recording](https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ)
-(passcode: codingclub22!)
+(passcode: `codingclub22!`)
 
 Add datasets to your package and document them with a codebook. You can use our demo data or your own.
 
@@ -27,6 +27,7 @@ We're going to add some data from @debruine2004 looking at attractiveness judgem
 Run the code below.
 
 ```{r}
+# run in the console
 usethis::use_data_raw("self_res_att")
 ```
 
@@ -49,6 +50,7 @@ usethis::use_data(self_res_att, overwrite = TRUE)
 Download the data file called `DeBruine_2004_PRSLB_att.csv` from <https://osf.io/2ud56/> and save it in `data-raw`. The code below will also do this.
 
 ```{r, eval = FALSE}
+# run in the console
 download.file(url = "https://osf.io/download/3c5s4/",
               destfile = "data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
@@ -75,11 +77,13 @@ Have a quick look at the data and make sure the columns import as the right data
 4. edit them to set factors with levels in a sensible order
 
 ```{r}
+# run in the console
 spec(self_res_att)
 ```
 
 
 ```{r}
+# add to data-raw/self_res_att.R
 ct <- cols(
   id = col_character(),
   sex = col_factor(levels = c("female", "male")),
@@ -107,6 +111,7 @@ self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv", col_type
 Once you're satisfied that the data are in the right form, you can run this code to add the data to your package. 
 
 ```{r, eval = FALSE}
+# include in data-raw/self_res_att.R after prep code
 usethis::use_data(self_res_att, overwrite = TRUE)
 ```
 
@@ -142,6 +147,7 @@ Data need to be documented to be included in a package. The documentation looks 
 Create a new script called "self_res_att". The function `use_r()` will save it in the right directory as `R/self_res_att.R`"` and open it in the source pane. 
 
 ```{r, eval = FALSE}
+# run in the console
 usethis::use_r("self_res_att")
 ```
 
@@ -172,6 +178,7 @@ You can manually edit the column `\item` descriptions, but this can be pretty te
 Use the following code to get a list of the column names in the data set. The function `dput()` gives you the code needed to create an object.
 
 ```{r}
+# run in the console
 coldesc <- rep("", ncol(self_res_att))
 names(coldesc) <- names(self_res_att)
 dput(coldesc)
@@ -180,6 +187,7 @@ dput(coldesc)
 Copy and paste the output into your script and assign this to an object called `vars`.
 
 ```{r}
+# add this code to data-raw/self_res_att.R
 vars <- c(
     id = "",
     sex = "",
@@ -246,6 +254,7 @@ I've written [a function](https://github.com/PsyTeachR/intro-r-pkgs/blob/main/R/
 Now save this file and add the documentation to your package with the following code:
 
 ```{r, eval = FALSE}
+# run in the console
 devtools::document()
 ```
 
@@ -267,6 +276,7 @@ You need to run this function any time you make changes to the documentation in 
 Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).
 
 ```{r, eval = FALSE}
+# run in the console
 devtools::load_all(".")
 ```
 
@@ -283,6 +293,7 @@ d1 <- demopkg::self_res_att
 You should also be able to see the documentation in the Help pane.
 
 ```{r, eval = FALSE}
+# run in the console
 ?demopkg::self_res_att
 ```
 

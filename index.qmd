@@ -36,7 +36,7 @@ The passcode for all recordings will be `codingclub22!`
 
     Learn to write custom functions and include them in your package.
 
-4. Documentation (2022-10-26)
+4. Documentation (2022-10-26) [Recording](https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR)
 
     Write function documentation using the roxygen format. This is what creates the help documentation for functions.
     
@@ -67,6 +67,7 @@ The passcode for all recordings will be `codingclub22!`
 ## Resources
 
 * [R Packages](https://r-pkgs.org/) @r-packages
+* [R package primer](https://kbroman.org/pkg_primer/) by Karl Broman
 * [usethis](https://usethis.r-lib.org/)
 * [testthat](https://testthat.r-lib.org/)
 * [pkgdown](https://pkgdown.r-lib.org/)

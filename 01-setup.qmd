@@ -31,6 +31,7 @@ tinytex::install_tinytex()
 Use the following command to create the framework for a new package called `demopkg`. Set the path `r glossary("argument")` to the path where you want to save your package. The last section of the path should be the name of the package: `demopkg`.
 
 ```{r create-package, eval = FALSE}
+# run in the console
 usethis::create_package(path = "~/rproj/demopkg")
 ```
 
@@ -115,6 +116,8 @@ Date: 2022-10-05
 Make sure you've saved any changes to the `DESCRIPTION` file first, as adding a license will modify that file. Add a license using one of the following options:
 
 ```{r license, eval = FALSE}
+# run one of these in the console
+
 # more common for study or data packages
 usethis::use_ccby_license() # reusable with citation
 usethis::use_cc0_license()  # public domain
@@ -131,6 +134,7 @@ See <https://choosealicense.com> for more details and other options.
 Use the following code to set up a `r glossary("README")` document that will explain how to install and use your package.
 
 ```{r readme, eval = FALSE}
+# run in the console
 usethis::use_readme_rmd() 
 ```
 
@@ -175,6 +179,7 @@ No man pages found in package  ‘demopkg’
 Now you should be able to see `demopkg` in your Packages tab, load it with the `library()` function, and get a citation.
 
 ```{r}
+# run in the console
 citation("demopkg")
 ```
 

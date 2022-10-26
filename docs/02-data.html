@@ -310,7 +310,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
-</header><p><a href="https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ">Recording</a> (passcode: codingclub22!)</p>
+</header><p><a href="https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>Add datasets to your package and document them with a codebook. You can use our demo data or your own.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
@@ -327,7 +327,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span class="header-section-number">2.1.1</span> Raw Data Directory</h3>
 <p>Run the code below.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># run in the console</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first time you run this function in a new package project, it will create a directory called <code>data-raw</code> and add this directory to the <code>.Rbuildignore</code> file so it isn’t included in your package.</p>
 <div class="webex-solution">
@@ -344,8 +345,9 @@ Data Privacy
 <span class="header-section-number">2.1.2</span> Add Raw Data</h3>
 <p>Download the data file called <code>DeBruine_2004_PRSLB_att.csv</code> from <a href="https://osf.io/2ud56/" class="uri">https://osf.io/2ud56/</a> and save it in <code>data-raw</code>. The code below will also do this.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://osf.io/download/3c5s4/"</span>,</span>
-<span id="cb4-2"><a href="#cb4-2"></a>              <span class="at">destfile =</span> <span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># run in the console</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://osf.io/download/3c5s4/"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>              <span class="at">destfile =</span> <span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="sec-load-data" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="sec-load-data">
 <span class="header-section-number">2.1.3</span> Load Data</h3>
@@ -366,7 +368,8 @@ Data Privacy
 <li>edit them to set factors with levels in a sensible order</li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">spec</span>(self_res_att)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># run in the console</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">spec</span>(self_res_att)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>cols(
   id = col_character(),
@@ -389,32 +392,34 @@ Data Privacy
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">cols</span>(</span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="at">id =</span> <span class="fu">col_character</span>(),</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">sex =</span> <span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>)),</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">ethgroup =</span> <span class="fu">col_factor</span>(),</span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="at">age =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="at">m_non =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="at">f_non =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">m_self =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-9"><a href="#cb8-9"></a>  <span class="at">f_self =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-10"><a href="#cb8-10"></a>  <span class="at">grpsize =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-11"><a href="#cb8-11"></a>  <span class="at">group =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-12"><a href="#cb8-12"></a>  <span class="at">mascpref =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-13"><a href="#cb8-13"></a>  <span class="at">obro =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-14"><a href="#cb8-14"></a>  <span class="at">osis =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-15"><a href="#cb8-15"></a>  <span class="at">ybro =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-16"><a href="#cb8-16"></a>  <span class="at">ysis =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb8-17"><a href="#cb8-17"></a>  <span class="at">birthorder =</span> <span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"only"</span>, <span class="st">"firstborn"</span>, <span class="st">"middleborn"</span>, <span class="st">"lastborn"</span>))</span>
-<span id="cb8-18"><a href="#cb8-18"></a>)</span>
-<span id="cb8-19"><a href="#cb8-19"></a></span>
-<span id="cb8-20"><a href="#cb8-20"></a>self_res_att <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>, <span class="at">col_types =</span> ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># add to data-raw/self_res_att.R</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>ct <span class="ot">&lt;-</span> <span class="fu">cols</span>(</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">sex =</span> <span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>)),</span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="at">ethgroup =</span> <span class="fu">col_factor</span>(),</span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="at">age =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="at">m_non =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">f_non =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="at">m_self =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="at">f_self =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="at">grpsize =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="at">group =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="at">mascpref =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="at">obro =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="at">osis =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="at">ybro =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-17"><a href="#cb8-17"></a>  <span class="at">ysis =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb8-18"><a href="#cb8-18"></a>  <span class="at">birthorder =</span> <span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"only"</span>, <span class="st">"firstborn"</span>, <span class="st">"middleborn"</span>, <span class="st">"lastborn"</span>))</span>
+<span id="cb8-19"><a href="#cb8-19"></a>)</span>
+<span id="cb8-20"><a href="#cb8-20"></a></span>
+<span id="cb8-21"><a href="#cb8-21"></a>self_res_att <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data-raw/DeBruine_2004_PRSLB_att.csv"</span>, <span class="at">col_types =</span> ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="add-processed-data" class="level3" data-number="2.1.5"><h3 data-number="2.1.5" class="anchored" data-anchor-id="add-processed-data">
 <span class="header-section-number">2.1.5</span> Add Processed Data</h3>
 <p>Once you’re satisfied that the data are in the right form, you can run this code to add the data to your package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(self_res_att, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># include in data-raw/self_res_att.R after prep code</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(self_res_att, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output">
 <pre><code>✔ Adding 'R' to \033[32mDepends\033[39m field in DESCRIPTION
@@ -440,7 +445,8 @@ Data Privacy
 <span class="header-section-number">2.2.1</span> Data Decsription</h3>
 <p>Create a new script called “self_res_att”. The function <code>use_r()</code> will save it in the right directory as <code>R/self_res_att.R</code>“` and open it in the source pane.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># run in the console</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="warning">
 <p>Make sure you don’t confuse this file with the processing script at <code>data-raw/self_res_att.R</code>.</p>
@@ -462,9 +468,10 @@ Data Privacy
 <p>You can manually edit the column <code>\item</code> descriptions, but this can be pretty tedious for longer data sets. I’ll show you how to make the process a little easier.</p>
 <p>Use the following code to get a list of the column names in the data set. The function <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> gives you the code needed to create an object.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>coldesc <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">""</span>, <span class="fu">ncol</span>(self_res_att))</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">names</span>(coldesc) <span class="ot">&lt;-</span> <span class="fu">names</span>(self_res_att)</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">dput</span>(coldesc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># run in the console</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>coldesc <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">""</span>, <span class="fu">ncol</span>(self_res_att))</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">names</span>(coldesc) <span class="ot">&lt;-</span> <span class="fu">names</span>(self_res_att)</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="fu">dput</span>(coldesc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>c(id = "", sex = "", ethgroup = "", age = "", m_non = "", f_non = "", 
 m_self = "", f_self = "", grpsize = "", group = "", mascpref = "", 
@@ -473,24 +480,25 @@ obro = "", osis = "", ybro = "", ysis = "", birthorder = "")</code></pre>
 </div>
 <p>Copy and paste the output into your script and assign this to an object called <code>vars</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb16-2"><a href="#cb16-2"></a>    <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb16-3"><a href="#cb16-3"></a>    <span class="at">sex =</span> <span class="st">""</span>,</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="at">ethgroup =</span> <span class="st">""</span>,</span>
-<span id="cb16-5"><a href="#cb16-5"></a>    <span class="at">age =</span> <span class="st">""</span>,</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    <span class="at">m_non =</span> <span class="st">""</span>,</span>
-<span id="cb16-7"><a href="#cb16-7"></a>    <span class="at">f_non =</span> <span class="st">""</span>,</span>
-<span id="cb16-8"><a href="#cb16-8"></a>    <span class="at">m_self =</span> <span class="st">""</span>,</span>
-<span id="cb16-9"><a href="#cb16-9"></a>    <span class="at">f_self =</span> <span class="st">""</span>,</span>
-<span id="cb16-10"><a href="#cb16-10"></a>    <span class="at">grpsize =</span> <span class="st">""</span>,</span>
-<span id="cb16-11"><a href="#cb16-11"></a>    <span class="at">group =</span> <span class="st">""</span>,</span>
-<span id="cb16-12"><a href="#cb16-12"></a>    <span class="at">mascpref =</span> <span class="st">""</span>,</span>
-<span id="cb16-13"><a href="#cb16-13"></a>    <span class="at">obro =</span> <span class="st">""</span>,</span>
-<span id="cb16-14"><a href="#cb16-14"></a>    <span class="at">osis =</span> <span class="st">""</span>,</span>
-<span id="cb16-15"><a href="#cb16-15"></a>    <span class="at">ybro =</span> <span class="st">""</span>,</span>
-<span id="cb16-16"><a href="#cb16-16"></a>    <span class="at">ysis =</span> <span class="st">""</span>,</span>
-<span id="cb16-17"><a href="#cb16-17"></a>    <span class="at">birthorder =</span> <span class="st">""</span></span>
-<span id="cb16-18"><a href="#cb16-18"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># add this code to data-raw/self_res_att.R</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="at">sex =</span> <span class="st">""</span>,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="at">ethgroup =</span> <span class="st">""</span>,</span>
+<span id="cb16-6"><a href="#cb16-6"></a>    <span class="at">age =</span> <span class="st">""</span>,</span>
+<span id="cb16-7"><a href="#cb16-7"></a>    <span class="at">m_non =</span> <span class="st">""</span>,</span>
+<span id="cb16-8"><a href="#cb16-8"></a>    <span class="at">f_non =</span> <span class="st">""</span>,</span>
+<span id="cb16-9"><a href="#cb16-9"></a>    <span class="at">m_self =</span> <span class="st">""</span>,</span>
+<span id="cb16-10"><a href="#cb16-10"></a>    <span class="at">f_self =</span> <span class="st">""</span>,</span>
+<span id="cb16-11"><a href="#cb16-11"></a>    <span class="at">grpsize =</span> <span class="st">""</span>,</span>
+<span id="cb16-12"><a href="#cb16-12"></a>    <span class="at">group =</span> <span class="st">""</span>,</span>
+<span id="cb16-13"><a href="#cb16-13"></a>    <span class="at">mascpref =</span> <span class="st">""</span>,</span>
+<span id="cb16-14"><a href="#cb16-14"></a>    <span class="at">obro =</span> <span class="st">""</span>,</span>
+<span id="cb16-15"><a href="#cb16-15"></a>    <span class="at">osis =</span> <span class="st">""</span>,</span>
+<span id="cb16-16"><a href="#cb16-16"></a>    <span class="at">ybro =</span> <span class="st">""</span>,</span>
+<span id="cb16-17"><a href="#cb16-17"></a>    <span class="at">ysis =</span> <span class="st">""</span>,</span>
+<span id="cb16-18"><a href="#cb16-18"></a>    <span class="at">birthorder =</span> <span class="st">""</span></span>
+<span id="cb16-19"><a href="#cb16-19"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="info">
 <p>The lines breaks will probably be ugly, but you can select the code and choose <strong><code>Reformat Code</code></strong> (cmd-shift-A) from the <strong><code>Code</code></strong> menu to fix it.</p>
@@ -549,7 +557,8 @@ obro = "", osis = "", ybro = "", ysis = "", birthorder = "")</code></pre>
 <span class="header-section-number">2.2.3</span> Add to Package</h3>
 <p>Now save this file and add the documentation to your package with the following code:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># run in the console</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should see the following output.</p>
 <div class="cell-output">
@@ -563,7 +572,8 @@ Writing self_res_att.Rd</code></pre>
 <span class="header-section-number">2.3</span> Load in package</h2>
 <p>Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># run in the console</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should be able to access the data now.</p>
 <div class="cell" data-layout-align="center">
@@ -575,7 +585,8 @@ Writing self_res_att.Rd</code></pre>
 </div>
 <p>You should also be able to see the documentation in the Help pane.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>?demopkg<span class="sc">::</span>self_res_att</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># run in the console</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>?demopkg<span class="sc">::</span>self_res_att</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="glossary" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">2.4</span> Glossary</h2>

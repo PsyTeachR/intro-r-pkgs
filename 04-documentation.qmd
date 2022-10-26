@@ -4,6 +4,8 @@
 source("R/setup.R")
 ```
 
+[Recording](https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR) (passcode: `codingclub22!`)
+
 Write function documentation using the roxygen format. This is what creates the help documentation for functions.
 
 ```{r}
@@ -29,7 +31,7 @@ Go to the `R/apa_t_pair.R` file we created last week. Put your cursor anywhere i
 #' @examples
 ```
 
-This creates the help files you can see for any function. For example, type `?mean` in the `r glossary("console")`.
+This creates the help files you can see for any function. For example, type `?t.test` in the `r glossary("console")`.
 
 
 ### Title and Description
@@ -107,11 +109,66 @@ The title is so descriptive here that I skipped a description.
 
 `r unhide()`
 
-## Document and Load
+## Importing functions {#sec-imports}
 
-Now, you need to run a documentation function to add your function to the package documentation and export it for use.
+If you want to use functions from another package without always having to include the package name prefix, you can import those specific functions using roxygen documentation.  
+
+``` r
+#' @importFrom stats t.test sd
+```
+
+You can also import **all** functions from a package to use without the prefix. I only tend to do this with ggplot2, since it's really hard to read ggplot code if you have to prefix all of the functions with `ggplot2::`. 
+
+``` r
+#' @import ggplot2
+```
+
+If you're going to import functions from a package, you also need to declare it as a dependency of your package:
 
 ```{r, eval = FALSE}
+# type this in the console
+usethis::use_package("ggplot2")
+```
+
+The best place to put roxygen documentation for function or package imports is in a package documentation file. You can set one up with this code:
+
+```{r, eval = FALSE}
+# type this in the console
+usethis::use_package_doc()
+```
+
+This will make a file in the `R` directory called `demopkg-package.R` with the following contents:
+
+```r
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
+NULL
+```
+
+Edit it to add a title, description, and any imports. You can also get rid of the usethis comments (I'm not sure what those are for).
+
+```r
+#' A Demo for Coding Club 2022.
+#'
+#' The goal of demopkg is to practice making a package.
+#'
+#' @import ggplot2
+#' @importFrom stats t.test sd
+#' @keywords internal
+"_PACKAGE"
+
+NULL
+```
+
+## Document and Load
+
+Now, you need to run the documentation function to add your function to the package documentation and export it for use.
+
+```{r, eval = FALSE}
+# type this in the console
 devtools::document()
 ```
 
@@ -123,6 +180,7 @@ You should see output like this.
 ℹ Loading demopkg
 Writing NAMESPACE
 Writing apa_t_pair.Rd
+Writing demopkg-package.Rd
 Writing round0.Rd
 ```
 :::
@@ -130,9 +188,11 @@ Writing round0.Rd
 Now restart R and make sure that your `r glossary("environment")` is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.
 
 ```{r, eval = FALSE}
+# type this in the console
 devtools::load_all(".")
 ?round0
 ?apa_t_pair
+?demopkg
 ```
 
 

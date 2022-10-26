@@ -5,7 +5,7 @@ source("R/setup.R")
 ```
 
 [Recording](https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3)
-(Passcode: codingclub22!)
+(passcode: `codingclub22!`)
 
 Learn to write custom functions and include them in your package.
 
@@ -57,6 +57,7 @@ The `return()` function also stops all subsequent code from being run.
 Run the code above to define the function. After it's defined, if you type the function name into the console, without parentheses, it will show you the code for the function.
 
 ```{r}
+# run in the console
 round0
 ```
 
@@ -67,6 +68,7 @@ You can do this for any function; try a few! Many of the base R functions, like 
 Use your function like any other R function.
 
 ```{r}
+# run in the console
 round0(7/3, 3)
 round0(1.9999, 2)
 ```
@@ -147,6 +149,7 @@ Now we're ready to abstract this into a function. The function will need a name.
 You can create an R script in the `R` directory called `apa_t_pair.R`, but the code below does this for you.
 
 ```{r, eval = FALSE}
+# run in the console
 usethis::use_r("apa_t_pair")
 ```
 
@@ -303,16 +306,19 @@ If the output doesn't change, this usually means that you forgot to run the code
 You need to "import" any non-base packages that you use in a function. These are called "dependencies" because your function depends on them. Our function above uses `glue()` from the glue package. The function below is a quick way to add a dependency.
 
 ```{r, eval = FALSE}
+# run in the console
 usethis::use_package("glue")
 ```
 
 You should see this output: 
 
+::: {.cell-output}
 ```
 ✔ Setting active project to '/Users/lisad/rproj/demopkg'
 ✔ Adding 'glue' to Imports field in DESCRIPTION
 • Refer to functions with `glue::fun()`
 ```
+:::
 
 This means that you should always use the full form `glue::glue()`, rather than loading a package with the `library()` function and using just the function name `glue()`. 
 
@@ -324,6 +330,7 @@ You can open the `DESCRIPTION` file to see what has changed. Alternatively, you 
 Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).
 
 ```{r, eval = FALSE}
+# run in the console
 devtools::load_all(".")
 ```
 
@@ -346,6 +353,35 @@ apa_t_pair(x = self_res_att$m_self,
            level1 = "participants who resembled those faces",
            level2 = "non-self participants")
 ```
+
+### Check
+
+Run the CMD check using `devtools::check()` or by clicking the Check icon in the Build tab. There will be a lot of grey output text, and hopefully a lot of green checkmarks. But at the end, you'll probably get a message like this:
+
+::: {.cell-output}
+```
+❯ checking R code for possible problems ... NOTE
+  apa_t_pair: no visible global function definition for ‘t.test’
+  apa_t_pair: no visible global function definition for ‘sd’
+  Undefined global functions or variables:
+    sd t.test
+  Consider adding
+    importFrom("stats", "sd", "t.test")
+  to your NAMESPACE file.
+
+0 errors ✔ | 0 warnings ✔ | 1 note ✖
+
+R CMD check succeeded
+```
+:::
+
+The `no visible global function definition` note means that we've used some functions that aren't from our own package and we haven't specified what package they are from. `t.test` and `sd` are functions from the `stats` package, which is automatically loaded when you start up R, but still needs to be added as a dependency. 
+
+You can add the `stats::` prefix to `t.test` and `sd` and add the dependency using `usethis::use_package("stats")`.
+
+::: {.info}
+The part that suggests you add `importFrom("stats", "sd", "t.test")` to the NAMESAPCE file is a way for you to add specific functions from another package to your package so you can use them without specifying the package name first. However, that specific instruction should be ignored because you should never edit the NAMESPACE file yourself. Instead use roxygen to set this up, which will be explained in @sec-imports. 
+:::
 
 ### Install
 

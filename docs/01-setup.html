@@ -317,7 +317,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span class="header-section-number">1.1</span> Create your R package</h2>
 <p>Use the following command to create the framework for a new package called <code>demopkg</code>. Set the path <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">argument</a> to the path where you want to save your package. The last section of the path should be the name of the package: <code>demopkg</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="at">path =</span> <span class="st">"~/rproj/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># run in the console</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="at">path =</span> <span class="st">"~/rproj/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="warning">
 <p>Package names can only be letters, numbers, and full stops.</p>
@@ -380,20 +381,23 @@ RoxygenNote: 7.2.0
 <span class="header-section-number">1.1.2</span> Create a LICENSE</h3>
 <p>Make sure you’ve saved any changes to the <code>DESCRIPTION</code> file first, as adding a license will modify that file. Add a license using one of the following options:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># more common for study or data packages</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>usethis<span class="sc">::</span><span class="fu">use_ccby_license</span>() <span class="co"># reusable with citation</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>usethis<span class="sc">::</span><span class="fu">use_cc0_license</span>()  <span class="co"># public domain</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># more common for function packages</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()  <span class="co"># permissive sharing</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>usethis<span class="sc">::</span><span class="fu">use_gpl3_license</span>() <span class="co"># derivatives must be open</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># run one of these in the console</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># more common for study or data packages</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>usethis<span class="sc">::</span><span class="fu">use_ccby_license</span>() <span class="co"># reusable with citation</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>usethis<span class="sc">::</span><span class="fu">use_cc0_license</span>()  <span class="co"># public domain</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co"># more common for function packages</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()  <span class="co"># permissive sharing</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>usethis<span class="sc">::</span><span class="fu">use_gpl3_license</span>() <span class="co"># derivatives must be open</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>See <a href="https://choosealicense.com" class="uri">https://choosealicense.com</a> for more details and other options.</p>
 </section><section id="create-a-readme" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="create-a-readme">
 <span class="header-section-number">1.1.3</span> Create a README</h3>
 <p>Use the following code to set up a <a class="glossary" target="_blank" title="A text file in the base directory of a project that describes the project." href="https://psyteachr.github.io/glossary/r#readme">README</a> document that will explain how to install and use your package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># run in the console</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We’ll eventually put this on <a class="glossary" target="_blank" title="A cloud-based service for storing and sharing your version controlled files." href="https://psyteachr.github.io/glossary/g#github">github</a>, so change the installation instructions to the following (change <code>yourusername</code> to your github username).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>You can install demopkg from [GitHub](https<span class="sc">:</span><span class="er">//</span>github.com) with<span class="sc">:</span></span>
@@ -424,7 +428,8 @@ No man pages found in package  ‘demopkg’
 </div>
 <p>Now you should be able to see <code>demopkg</code> in your Packages tab, load it with the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function, and get a citation.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># run in the console</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 To cite package 'demopkg' in publications use:
