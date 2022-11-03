@@ -4,6 +4,8 @@
 source("R/setup.R")
 ```
 
+[Recording](https://uofglasgow.zoom.us/rec/share/F--AV75X9YORfesOFy3-RXFRhoqinE6BVpxcKKj8LJYkMPHdAzR-6mxYRdzsKp8d.eb_tjAl-_A29Ur8P) (passcode: `codingclub22!`)
+
 Write unit tests for your custom functions using testthat.
 
 ```{r}
@@ -132,7 +134,18 @@ test_that("non-defaults", {
 
 You can use tests to help you develop your package. First, think of something you want to add or change. Then write a test that checks if your function is doing that new thing. It will, of course, fail, but then your task is to alter the function code until the test passes. 
 
-For example, it would be nice to give a warning if x and y are identical, since this is almost always a mistake. The first step is to write a test that fails. Wrap the code `apa_t_pair(x, x)` inside the function `expect_warning()`, which will pass if the code produces a warning and fail if it doesn't. 
+For example, it would be nice to give a custom error message if x and y are identical, since this is almost always a mistake and you can't calculate any test statistics. 
+
+```{r}
+x <- c(1,2,1,4,1)
+apa_t_pair(x, x)
+```
+
+::: {.warning}
+You may get an error above instead of "There was a NAsignificant difference; t(4) = NaN, p = NaN.", this means that you've changed a default setting, but I'm having trouble figuring out what (one of my computers returns an error and two return the text above). I'll update this when I figure it out. Regardless, we want to replace that opaque error with an intelligible error.
+:::
+
+The first step is to write a test that fails. Wrap the code `apa_t_pair(x, x)` inside the function `expect_error()`, which will pass if the code produces the specified error message and fail if it doesn't. 
 
 ```{r, error = TRUE}
 # add to tests/testthat/apa_t_pair.R
@@ -140,11 +153,13 @@ For example, it would be nice to give a warning if x and y are identical, since 
 test_that("same x and y", {
   x <- c(1,2,1,4,1)
   
-  expect_warning( apa_t_pair(x, x) )
+  expect_error( apa_t_pair(x, x), 
+                regexp = "x and y cannot be identical",
+                fixed = TRUE )
 })
 ```
 
-Now we can edit the function `apa_t_pair()` (in the file `R/apa_t_pair.R`) until the test passes. Add a few lines of code at the start of the function to check if all of the values in `x` are the same as all of the values in `y`, and display a warning if they are.
+Now we can edit the function `apa_t_pair()` (in the file `R/apa_t_pair.R`) until the test passes. Add a few lines of code at the start of the function to check if all of the values in `x` are the same as all of the values in `y`, and display an error message if they are.
 
 ```{r}
 # edit R/apa_t_pair.R
@@ -155,7 +170,7 @@ apa_t_pair <- function(x, y,
                        level2 = "level 2") {
   # warn about identical values
   if (all(x == y)) {
-    warning("The values for x and y should probably not be identical.")
+    stop("x and y cannot be identical")
   }
   
   t_results <- t.test(x, y, paired = TRUE)
@@ -184,13 +199,14 @@ Now the test should pass.
 
 test_that("same x and y", {
   x <- c(1,2,1,4,1)
-  y <- c(5,3,2,5,6)
   
-  expect_warning( apa_t_pair(x, x) )
+  expect_error( apa_t_pair(x, x), 
+                regexp = "x and y cannot be identical",
+                fixed = TRUE )
 })
 ```
 
-Now that we have 5 tests for this function, we can run them all by clicking on **`Run Tests`** in the upper right corner of the `r glossary("panes", "source pane")`. If all goes well, you'll see the following in the Build tab:
+Now that we have 4 tests for this function, we can run them all by clicking on **`Run Tests`** in the upper right corner of the `r glossary("panes", "source pane")`. If all goes well, you'll see the following in the Build tab:
 
 ::: {.cell-output}
 ```
@@ -199,7 +215,7 @@ Now that we have 5 tests for this function, we can run them all by clicking on *
 ℹ Loading demopkg
 
 ══ Testing test-apa_t_pair.R ═════
-[ FAIL 0 | WARN 0 | SKIP 0 | PASS 5 ] Done!
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ] Done!
 
 Test complete
 ```

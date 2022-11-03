@@ -40,7 +40,7 @@ The passcode for all recordings will be `codingclub22!`
 
     Write function documentation using the roxygen format. This is what creates the help documentation for functions.
     
-5. Unit Tests (2022-11-02)
+5. Unit Tests (2022-11-02) [Recording](https://uofglasgow.zoom.us/rec/share/F--AV75X9YORfesOFy3-RXFRhoqinE6BVpxcKKj8LJYkMPHdAzR-6mxYRdzsKp8d.eb_tjAl-_A29Ur8P)
 
     Write unit tests for your custom functions using testthat.
 
