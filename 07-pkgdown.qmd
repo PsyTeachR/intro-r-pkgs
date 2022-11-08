@@ -7,5 +7,43 @@ library(usethis)
 library(pkgdown)
 ```
 
+## Set up pkgdown
+
+The following function makes some edits to `Rbuildignore` (telling R to ignore these files when building the package) and `.gitignore` (telling git to ignore the docs directory).
+
+```{r, eval = FALSE}
+# run in the console
+usethis::use_pkgdown()
+```
+
+You'll see some output that looks like this. 
+
+::: {.cell-output}
+```
+✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
+✔ Adding '^_pkgdown\\.yml$', '^docs$', '^pkgdown$' to '.Rbuildignore'
+✔ Adding 'docs' to '.gitignore'
+✔ Writing '_pkgdown.yml'
+• Modify '_pkgdown.yml'
+```
+:::
+
+A file called `_pkgdown.yml` will open with the following contents. 
+
+``` yaml
+url: ~
+template:
+  bootstrap: 5
+```
+
+While it is not required, I like to make a directory called `pkgdown` and keep all pkgdown-related contents in there.
+
+```{r, eval = FALSE}
+# run in the console
+dir.create("pkgdown")
+file.rename(from = "_pkgdown.yml",
+            to = "pkgdown/_pkgdown.yml")
+```
+
 
 ## CITATION file

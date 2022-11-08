@@ -2,21 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.0.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Coding Club: Creating an R Package - 6&nbsp; Analysis Vignette</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +50,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
+code span.bu { } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +63,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.im { } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -269,10 +264,17 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#further-reading" id="toc-further-reading" class="nav-link active" data-scroll-target="#further-reading"><span class="toc-section-number">6.1</span>  Further Reading</a></li>
+<li><a href="#create-a-new-vignette" id="toc-create-a-new-vignette" class="nav-link active" data-scroll-target="#create-a-new-vignette"> <span class="header-section-number">6.1</span> Create a new vignette</a></li>
+  <li><a href="#editing-the-vignette" id="toc-editing-the-vignette" class="nav-link" data-scroll-target="#editing-the-vignette"> <span class="header-section-number">6.2</span> Editing the vignette</a></li>
+  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents"> <span class="header-section-number">6.3</span> Contents</a></li>
+  <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build"> <span class="header-section-number">6.4</span> Build</a></li>
+  <li><a href="#check" id="toc-check" class="nav-link" data-scroll-target="#check"> <span class="header-section-number">6.5</span> Check</a></li>
+  <li><a href="#access-vignettes" id="toc-access-vignettes" class="nav-link" data-scroll-target="#access-vignettes"> <span class="header-section-number">6.6</span> Access vignettes</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"> <span class="header-section-number">6.7</span> Further Reading</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"> <span class="header-section-number">6.8</span> Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/06-vignettes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/06-vignettes.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -291,16 +293,134 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 </header><p>Include your study analysis code as a package vignette.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(pkgdown) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># to create the vignette structure</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools) <span class="co"># to build vignettes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="further-reading" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="further-reading">
-<span class="header-section-number">6.1</span> Further Reading</h2>
+<section id="create-a-new-vignette" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="create-a-new-vignette">
+<span class="header-section-number">6.1</span> Create a new vignette</h2>
+<p>New vignettes need a name (the file name and the string you can use to access it later) and a title. If you omit the title, it will be the same as the file name.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># run in the console</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>usethis<span class="sc">::</span><span class="fu">use_vignette</span>(<span class="at">name =</span> <span class="st">"analysis"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>                      <span class="at">title =</span> <span class="st">"Analysis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first time you add a vignette, you will see the first six lines of output below. You will only see the last two lines after that, and the new .Rmd file will open in the source pane.</p>
+<div class="cell-output">
+<pre><code>✔ Adding 'knitr' to Suggests field in DESCRIPTION
+✔ Setting VignetteBuilder field in DESCRIPTION to 'knitr'
+✔ Adding 'inst/doc' to '.gitignore'
+✔ Creating 'vignettes/'
+✔ Adding '*.html', '*.R' to 'vignettes/.gitignore'
+✔ Adding 'rmarkdown' to Suggests field in DESCRIPTION
+✔ Writing 'vignettes/analysis.Rmd'
+• Modify 'vignettes/analysis.Rmd'</code></pre>
+</div>
+</section><section id="editing-the-vignette" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="editing-the-vignette">
+<span class="header-section-number">6.2</span> Editing the vignette</h2>
+<p>You can update the title of your vignette, but leave the output and vignette keys alone unless you’re sure you know what you’re doing.</p>
+<p>The default knitr options set <code>collapse = TRUE</code>, which means that code and output chunks are merged together, and <code>comment = "#&gt;"</code>, which means that output lines are prefixed by <code>#&gt;</code> instead of the normal default of <code>##</code>. You can change these or any other options (see the <a href="https://yihui.org/knitr/options/">knitr manual</a> for more details), but these give you the typical look of R package documentation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="at">comment =</span> <span class="st">"#&gt;"</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># example code to show the options above</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">set.seed</span>(<span class="dv">8675309</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">rnorm</span>(<span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="fu">t.test</span>()</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;  One Sample t-test</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; data:  rnorm(20)</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; t = 0.65455, df = 19, p-value = 0.5206</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; alternative hypothesis: true mean is not equal to 0</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;  -0.3281379  0.6267663</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; mean of x </span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 0.1493142</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+
+</div>
+</section><section id="contents" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="contents">
+<span class="header-section-number">6.3</span> Contents</h2>
+<p>Now you can add contents in the same way you would write any <a class="glossary" target="_blank" title="The R-specific version of markdown: a way to specify formatting, such as headers, paragraphs, lists, bolding, and links, as well as code blocks and inline code." href="https://psyteachr.github.io/glossary/r#r-markdown">R Markdown</a> script. For example, we could create a section for “Demographics” and include the following code to make a table.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>self_res_att <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">group_by</span>(sex, ethgroup) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb6-4"><a href="#cb6-4"></a>            <span class="at">mean_age =</span> <span class="fu">mean</span>(age) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
+<span id="cb6-5"><a href="#cb6-5"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(age) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
+<span id="cb6-6"><a href="#cb6-6"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="warning">
+<p>You’ll need to add <code><a href="https://dplyr.tidyverse.org">library(dplyr)</a></code> to your vignette to use <code>group_by()</code> and <code>summarise()</code>.</p>
+</div>
+</section><section id="build" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="build">
+<span class="header-section-number">6.4</span> Build</h2>
+<p>Now you can build your vignette.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># run in the console</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>devtools<span class="sc">::</span><span class="fu">build_vignettes</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You will see the normal output for knitting a document, and then these messages:</p>
+<div class="cell-output">
+<pre><code>Output created: analysis.html
+--- finished re-building ‘analysis.Rmd’
+
+ℹ Copying vignettes
+ℹ Moving analysis.html and analysis.R to doc/
+ℹ Copying analysis.Rmd to doc/
+ℹ Building vignette index</code></pre>
+</div>
+<p>You can view the HTML file in <code>doc/analysis.html</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># run in the console</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">browseURL</span>(<span class="st">"doc/analysis.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="check" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="check">
+<span class="header-section-number">6.5</span> Check</h2>
+<p>Run the check (from the Build pane or by running <code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code>) to make sure everything is set up right. This will re-build your vignettes, as well as run all the unit tests and other checks. You will get the following “note” (unless you’d already added dplyr to your dependencies).</p>
+<div class="cell-output">
+<pre><code>❯ checking for unstated dependencies in vignettes ... NOTE
+  'library' or 'require' call not declared from: ‘dplyr’</code></pre>
+</div>
+<p>You can fix this by adding dplyr as a dependency. If you are only using it in vignettes and not in any actual package code, add it as a suggestion.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># run in the console</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"dplyr"</span>, <span class="st">"Suggests"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now when you rerun the check, you should get</p>
+<div class="cell-output" style="color: #00FF00;">
+<pre><code>0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
+</div>
+</section><section id="access-vignettes" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="access-vignettes">
+<span class="header-section-number">6.6</span> Access vignettes</h2>
+<p>Find out the vignettes a package has with the <code><a href="https://rdrr.io/r/utils/vignette.html">vignette()</a></code> function. Make sure you’ve loaded your updated package.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># run in the console</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Access a specific vignette topic in the Viewer pane. You don’t need to specify the package if the vignette name is unique.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># run in the console</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">vignette</span>(<span class="at">topic =</span> <span class="st">"analysis"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next week, we’ll learn how to create a website for your package that displays this vignette.</p>
+</section><section id="further-reading" class="level2" data-number="6.7"><h2 data-number="6.7" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">6.7</span> Further Reading</h2>
 <ul>
 <li>
 <a href="https://r-pkgs.org/vignettes.html">Vignettes</a> from <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span>
 </li>
-</ul>
+</ul></section><section id="further-practice" class="level2" data-number="6.8"><h2 data-number="6.8" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">6.8</span> Further Practice</h2>
+<ol type="1">
+<li><p>Add more text to your vignette, such as a plot of the data or analyses using the <code>apa_t_pair()</code> function.</p></li>
+<li><p>Create another vignette in this package or in another package.</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
@@ -588,16 +708,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -699,8 +809,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
