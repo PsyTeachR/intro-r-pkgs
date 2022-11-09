@@ -1,4 +1,4 @@
-# Analysis Vignette {#sec-vignettes}
+# Vignettes {#sec-vignettes}
 
 ```{r, include = FALSE}
 source("R/setup.R")
@@ -13,15 +13,18 @@ library(devtools) # to build vignettes
 
 ## Create a new vignette
 
-New vignettes need a name (the file name and the string you can use to access it later) and a title. If you omit the title, it will be the same as  the file name.
+New vignettes need a name (the file name and the string you can use to access it later) and optionally a title. If you omit the title, it will be the same as the file name, but you can edit it in the next step.
 
 ```{r, eval = FALSE}
 # run in the console
-usethis::use_vignette(name = "analysis", 
-                      title = "Analysis")
+usethis::use_vignette(name = "demopkg")
 ```
 
-The first time you add a vignette, you will see the first six lines of output below. You will only see the last two lines after that, and the new .Rmd file will open in the source pane.
+::: {.info}
+If the name of your vignette is the same as your package, it will be treated specially in a pkgdown site, which we'll create next week. his is typically for the package overview for getting started.
+:::
+
+The first time you add a vignette, you will see output like below. You will only see the last two lines after that. 
 
 ::: {.cell-output}
 ```
@@ -31,16 +34,39 @@ The first time you add a vignette, you will see the first six lines of output be
 ✔ Creating 'vignettes/'
 ✔ Adding '*.html', '*.R' to 'vignettes/.gitignore'
 ✔ Adding 'rmarkdown' to Suggests field in DESCRIPTION
-✔ Writing 'vignettes/analysis.Rmd'
-• Modify 'vignettes/analysis.Rmd'
+✔ Writing 'vignettes/att.Rmd'
+• Modify 'vignettes/att.Rmd'
 ```
 :::
 
-## Editing the vignette
+## Setup
 
-You can update the title of your vignette, but leave the output and vignette keys alone unless you're sure you know what you're doing.
+The new .Rmd file will open in the source pane.
 
-The default knitr options set `collapse = TRUE`, which means that code and output chunks are merged together, and `comment = "#>"`, which means that output lines are prefixed by `#>` instead of the normal default of `##`. You can change these or any other options (see the [knitr manual](https://yihui.org/knitr/options/) for more details), but these give you the typical look of R package documentation.
+### YAML Header
+
+You can update the `title` of your vignette. See `?rmarkdown::html_vignette` for potential options you can set for this document type.
+
+::: {.warning}
+The `VignetteIndexEntry` value should be the same as the title. Other than that, don't edit the vignette lines.
+:::
+
+``` yaml
+---
+title: "Demopkg Overview"
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
+vignette: >
+  %\VignetteIndexEntry{Demopkg Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```
+
+### Knitr Options
+
+The default knitr options set `collapse = TRUE`, which means that code and output `r glossary("chunk", "chunks")` are merged together, and `comment = "#>"`, which means that output lines are prefixed by `#>` instead of the normal default of `##`. 
 
 ```{r}
 knitr::opts_chunk$set(
@@ -48,6 +74,8 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
+You can change these or any other options (see the [knitr manual](https://yihui.org/knitr/options/) for more details), but these give you the typical look of R package documentation.
 
 ```{r}
 # example code to show the options above
@@ -65,9 +93,16 @@ knitr::opts_chunk$set(
 
 ## Contents
 
-Now you can add contents in the same way you would write any `r glossary("R Markdown")` script. For example, we could create a section for "Demographics" and include the following code to make a table.
+Now you can add contents in the same way you would write any `r glossary("R Markdown")` script. For example, we could create a section to describe the built-in data sets.
 
-```{r, eval = FALSE}
+````
+## Data
+
+### self_res_att
+
+Attractiveness judgements of same-sex and other-sex self-resembling faces from DeBruine (2004). Data are from 108 participants. Original data are from <https://osf.io/3c5s4/>.
+
+```{{r, echo = FALSE}}
 self_res_att |>
   group_by(sex, ethgroup) |>
   summarise(n = n(),
@@ -76,13 +111,15 @@ self_res_att |>
             .groups = "drop")
 ```
 
+````
+
 ::: {.warning}
 You'll need to add `library(dplyr)` to your vignette to use `group_by()` and `summarise()`.
 :::
 
 ## Build
 
-Now you can build your vignette.
+You can knit the vignette as you're writing it to quickly check what the output looks like. Once you're done with a vignette, you can "build" it to add it to the package.
 
 ```{r, eval = FALSE}
 # run in the console
@@ -93,26 +130,26 @@ You will see the normal output for knitting a document, and then these messages:
 
 ::: {.cell-output}
 ```
-Output created: analysis.html
---- finished re-building ‘analysis.Rmd’
+Output created: demopkg.html
+--- finished re-building ‘demopkg.Rmd’
 
 ℹ Copying vignettes
-ℹ Moving analysis.html and analysis.R to doc/
-ℹ Copying analysis.Rmd to doc/
+ℹ Moving demopkg.html and demopkg.R to doc/
+ℹ Copying demopkg.Rmd to doc/
 ℹ Building vignette index
 ```
 :::
 
-You can view the HTML file in `doc/analysis.html`. 
+You can view the HTML file in `doc/demopkg.html`. 
 
 ```{r, eval = FALSE}
 # run in the console
-browseURL("doc/analysis.html")
+browseURL("doc/demopkg.html")
 ```
 
 ## Check
 
-Run the check (from the Build pane or by running `devtools::check()`) to make sure everything is set up right. This will re-build your vignettes, as well as run all the unit tests and other checks. You will get the following "note" (unless you'd already added dplyr to your dependencies).
+Run the check (from the Build pane or by running `devtools::check()`) to make sure everything is set up right. This will re-build your vignettes, as well as run all the unit tests and other checks. You will get the following note (unless you'd already added dplyr to your dependencies).
 
 ::: {.cell-output}
 ```
@@ -123,7 +160,7 @@ Run the check (from the Build pane or by running `devtools::check()`) to make su
 
 You can fix this by adding dplyr as a dependency. If you are only using it in vignettes and not in any actual package code, add it as a suggestion.
 
-```{r, eval = FALSE}
+```{{r}}
 # run in the console
 usethis::use_package("dplyr", "Suggests")
 ```
@@ -149,7 +186,7 @@ Access a specific vignette topic in the Viewer pane. You don't need to specify t
 
 ```{r, eval = FALSE}
 # run in the console
-vignette(topic = "analysis", package = "demopkg")
+vignette(topic = "demopkg", package = "demopkg")
 ```
 
 Next week, we'll learn how to create a website for your package that displays this vignette.
@@ -160,6 +197,6 @@ Next week, we'll learn how to create a website for your package that displays th
 
 ## Further Practice
 
-1. Add more text to your vignette, such as a plot of the data or analyses using the `apa_t_pair()` function. 
+1. Add more text to your vignette, such as a plot of the data.
 
-1. Create another vignette in this package or in another package.
+1. Create another vignette in this package for analyses. Compare `m_self` vs `m_non` and `f_self` vs `f_non` separately for male and female participants using the `apa_t_pair()` function.
