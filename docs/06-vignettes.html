@@ -278,9 +278,10 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents"> <span class="header-section-number">6.3</span> Contents</a></li>
   <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build"> <span class="header-section-number">6.4</span> Build</a></li>
   <li><a href="#check" id="toc-check" class="nav-link" data-scroll-target="#check"> <span class="header-section-number">6.5</span> Check</a></li>
-  <li><a href="#access-vignettes" id="toc-access-vignettes" class="nav-link" data-scroll-target="#access-vignettes"> <span class="header-section-number">6.6</span> Access vignettes</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"> <span class="header-section-number">6.7</span> Further Reading</a></li>
-  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"> <span class="header-section-number">6.8</span> Further Practice</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install"> <span class="header-section-number">6.6</span> Install</a></li>
+  <li><a href="#access-vignettes" id="toc-access-vignettes" class="nav-link" data-scroll-target="#access-vignettes"> <span class="header-section-number">6.7</span> Access vignettes</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"> <span class="header-section-number">6.8</span> Further Reading</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"> <span class="header-section-number">6.9</span> Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/06-vignettes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/06-vignettes.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -427,27 +428,32 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="cell-output" style="color: #00FF00;">
 <pre><code>0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
 </div>
-</section><section id="access-vignettes" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="access-vignettes">
-<span class="header-section-number">6.6</span> Access vignettes</h2>
+</section><section id="install" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="install">
+<span class="header-section-number">6.6</span> Install</h2>
+<p>Building the vignettes can take up some time, so they are not built by default when you install your package. If you want to install the package so your vignettes are available outside the development project, use the following code.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a># run in the console</span>
+<span id="cb14-2"><a href="#cb14-2"></a>devtools::install(build_vignettes = TRUE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="access-vignettes" class="level2" data-number="6.7"><h2 data-number="6.7" class="anchored" data-anchor-id="access-vignettes">
+<span class="header-section-number">6.7</span> Access vignettes</h2>
 <p>Find out the vignettes a package has with the <code><a href="https://rdrr.io/r/utils/vignette.html">vignette()</a></code> function. Make sure you’ve loaded your updated package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># run in the console</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># run in the console</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Access a specific vignette topic in the Viewer pane. You don’t need to specify the package if the vignette name is unique.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># run in the console</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">vignette</span>(<span class="at">topic =</span> <span class="st">"demopkg"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># run in the console</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">vignette</span>(<span class="at">topic =</span> <span class="st">"demopkg"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next week, we’ll learn how to create a website for your package that displays this vignette.</p>
-</section><section id="further-reading" class="level2" data-number="6.7"><h2 data-number="6.7" class="anchored" data-anchor-id="further-reading">
-<span class="header-section-number">6.7</span> Further Reading</h2>
+</section><section id="further-reading" class="level2" data-number="6.8"><h2 data-number="6.8" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">6.8</span> Further Reading</h2>
 <ul>
 <li>
 <a href="https://r-pkgs.org/vignettes.html">Vignettes</a> from <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span>
 </li>
-</ul></section><section id="further-practice" class="level2" data-number="6.8"><h2 data-number="6.8" class="anchored" data-anchor-id="further-practice">
-<span class="header-section-number">6.8</span> Further Practice</h2>
+</ul></section><section id="further-practice" class="level2" data-number="6.9"><h2 data-number="6.9" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">6.9</span> Further Practice</h2>
 <ol type="1">
 <li><p>Add more text to your vignette, such as a plot of the data.</p></li>
 <li><p>Create another vignette in this package for analyses. Compare <code>m_self</code> vs <code>m_non</code> and <code>f_self</code> vs <code>f_non</code> separately for male and female participants using the <code>apa_t_pair()</code> function.</p></li>

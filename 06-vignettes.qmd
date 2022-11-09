@@ -173,6 +173,16 @@ Now when you rerun the check, you should get
 ```
 :::
 
+## Install
+
+Building the vignettes can take up some time, so they are not built by default when you install your package. If you want to install the package so your vignettes are available outside the development project, use the following code.
+
+```{{r}}
+# run in the console
+devtools::install(build_vignettes = TRUE)
+```
+
+
 ## Access vignettes
 
 Find out the vignettes a package has with the `vignette()` function. Make sure you've loaded your updated package. 
