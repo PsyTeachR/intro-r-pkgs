@@ -44,7 +44,7 @@ The passcode for all recordings will be `codingclub22!`
 
     Write unit tests for your custom functions using testthat.
 
-6. Vignettes (2022-11-09)
+6. Vignettes (2022-11-09) [Recording](https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv)
 
     Include your study analysis code as a package vignette.
 

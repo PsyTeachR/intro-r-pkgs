@@ -268,7 +268,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
    
   <ul>
 <li><a href="#set-up-pkgdown" id="toc-set-up-pkgdown" class="nav-link active" data-scroll-target="#set-up-pkgdown"> <span class="header-section-number">7.1</span> Set up pkgdown</a></li>
-  <li><a href="#citation-file" id="toc-citation-file" class="nav-link" data-scroll-target="#citation-file"> <span class="header-section-number">7.2</span> CITATION file</a></li>
+  <li><a href="#build-site" id="toc-build-site" class="nav-link" data-scroll-target="#build-site"> <span class="header-section-number">7.2</span> Build Site</a></li>
+  <li><a href="#citation-file" id="toc-citation-file" class="nav-link" data-scroll-target="#citation-file"> <span class="header-section-number">7.3</span> CITATION file</a></li>
+  <li><a href="#logo" id="toc-logo" class="nav-link" data-scroll-target="#logo"> <span class="header-section-number">7.4</span> Logo</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"> <span class="header-section-number">7.5</span> Further Reading</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"> <span class="header-section-number">7.6</span> Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/07-pkgdown.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/07-pkgdown.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -297,6 +301,9 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># run in the console</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>usethis<span class="sc">::</span><span class="fu">use_pkgdown</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="try">
+<p>If you already have GitHub set up with your package, use <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown_github_pages()</a></code> instead. If not, we’ll cover how to link your site to GitHub in <a href="09-sharing.html"><span>Chapter&nbsp;9</span></a>.</p>
+</div>
 <p>You’ll see some output that looks like this.</p>
 <div class="cell-output">
 <pre><code>✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
@@ -316,8 +323,104 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb5-3"><a href="#cb5-3"></a><span class="fu">file.rename</span>(<span class="at">from =</span> <span class="st">"_pkgdown.yml"</span>,</span>
 <span id="cb5-4"><a href="#cb5-4"></a>            <span class="at">to =</span> <span class="st">"pkgdown/_pkgdown.yml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="citation-file" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="citation-file">
-<span class="header-section-number">7.2</span> CITATION file</h2>
+</section><section id="build-site" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="build-site">
+<span class="header-section-number">7.2</span> Build Site</h2>
+<p>Now check that everything is set up correctly by building the site.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># run in the console</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>pkgdown<span class="sc">::</span><span class="fu">build_site</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="try">
+<p>If you already have GitHub set up with your package, use <code><a href="https://pkgdown.r-lib.org/reference/build_site_github_pages.html">pkgdown::build_site_github_pages()</a></code> instead.</p>
+</div>
+<p>You should see something like the following output, and then a webpage will appear in your Viewer pane or a separate window (depending on your preference settings). If you need to open it manually, open <code>docs/index.html</code> in a web browser.</p>
+<div class="cell-output">
+<pre><code>-- Installing package into temporary library -----------
+== Building pkgdown site ===============================
+Reading from: '/rproj/debruine/demopkg'
+Writing to:   '/rproj/debruine/demopkg/docs'
+-- Initialising site -----------------------------------
+-- Building home ---------------------------------------
+Reading 'LICENSE.md'
+Writing '404.html'
+-- Building function reference -------------------------
+Reading 'man/apa_t_pair.Rd'
+Reading 'man/demopkg-package.Rd'
+Reading 'man/self_res_att.Rd'
+-- Building articles ------------------------------------
+Reading 'vignettes/demopkg.Rmd'
+Writing 'sitemap.xml'
+-- Building search index --------------------------------
+== DONE =================================================
+-- Previewing site --------------------------------------</code></pre>
+</div>
+<p>If everything is working correctly, this will have automatically organised information from the DESCRIPTION file, the README, function documentation, and vignettes into a website. If you created a vignette called <code>demopkg</code>, this will be available under “Get started”, and any other vignettes will be available under “Articles”. Documentation for each function will be available under “Reference”.</p>
+</section><section id="citation-file" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="citation-file">
+<span class="header-section-number">7.3</span> CITATION file</h2>
+<p>A citation file is a specially formatted file for specifying the citation to your materials. As always, you can set one up with a usethis function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># run in the console</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>usethis<span class="sc">::</span><span class="fu">use_citation</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will create a file called <code>CITATION</code> in the directory <code>inst</code> (this is a directory where you can keep supplemental files your package needs). The file contains skeletons for two R functions that create the text shown when someone looks up the citation for your package. You should make this consistent with the information in the <code>DESCRIPTION</code> file.</p>
+<p>If your package isn’t associated with a paper, use “Manual” instead of “Article”. Annoyingly, there is no widely accepted BibTex entry type for software, so most people just use a citation to the documentation using the manual type.</p>
+<p>I prefer to use the <code><a href="https://rdrr.io/r/utils/bibentry.html">bibentry()</a></code> function instead of <code><a href="https://rdrr.io/r/utils/citEntry.html">citEntry()</a></code> because it displays the BibTex version of the citation automatically (note that it uses the argument <code>bibtype</code> instead of <code>entry</code>). The help for this function explains all of the options for citations in detail.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">citHeader</span>(<span class="st">"To cite demopkg in publications use:"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>title <span class="ot">&lt;-</span> <span class="st">"{demopkg}: Data and analysis from DeBruine (2004)"</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>url   <span class="ot">&lt;-</span> <span class="st">"https://psyteachr.github.io/demopkg"</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>year  <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"-.*"</span>, <span class="st">""</span>, meta<span class="sc">$</span>Date)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>note  <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"R package version %s"</span>, meta<span class="sc">$</span>Version)</span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">bibentry</span>(</span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="at">bibtype =</span> <span class="st">"Manual"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="at">title =</span> title,</span>
+<span id="cb9-11"><a href="#cb9-11"></a>  <span class="at">author =</span> <span class="fu">c</span>(<span class="fu">person</span>(<span class="st">"Lisa"</span>, <span class="st">"DeBruine"</span>)),</span>
+<span id="cb9-12"><a href="#cb9-12"></a>  <span class="at">year =</span> year,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>  <span class="at">note =</span> note,</span>
+<span id="cb9-14"><a href="#cb9-14"></a>  <span class="at">url =</span> url,</span>
+<span id="cb9-15"><a href="#cb9-15"></a>  <span class="at">textVersion =</span> <span class="fu">paste0</span>(</span>
+<span id="cb9-16"><a href="#cb9-16"></a>    <span class="st">"Lisa DeBruine, ("</span>, year, <span class="st">"). "</span>, title, <span class="st">". "</span>, note, <span class="st">". "</span>, url</span>
+<span id="cb9-17"><a href="#cb9-17"></a>  )</span>
+<span id="cb9-18"><a href="#cb9-18"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Save this file and re-load your package, then check the citation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># run in the console</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+To cite demopkg in publications use:
+
+  Lisa DeBruine, (2022). {demopkg}: Data and analysis from DeBruine
+  (2004). R package version 0.0.0.9000.
+  https://psyteachr.github.io/demopkg
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {{demopkg}: Data and analysis from DeBruine (2004)},
+    author = {Lisa DeBruine},
+    year = {2022},
+    note = {R package version 0.0.0.9000},
+    url = {https://psyteachr.github.io/demopkg},
+  }</code></pre>
+</div>
+</div>
+<p>Now you can build the pkgdown site again to see the citation update. However, this will run all of the vignettes, which might take a long time. You can re-build parts of the pkgdown site instead. Use auto-complete to browse the list of functions that start with <code>build_</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># run in the console</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>pkgdown<span class="sc">::</span><span class="fu">build_home</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="logo" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="logo">
+<span class="header-section-number">7.4</span> Logo</h2>
+</section><section id="further-reading" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">7.5</span> Further Reading</h2>
+<ul>
+<li><a href="https://pkgdown.r-lib.org/">pkgdown Manual</a></li>
+</ul></section><section id="further-practice" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">7.6</span> Further Practice</h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">

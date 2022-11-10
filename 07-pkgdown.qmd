@@ -16,6 +16,10 @@ The following function makes some edits to `Rbuildignore` (telling R to ignore t
 usethis::use_pkgdown()
 ```
 
+::: {.try}
+If you already have GitHub set up with your package, use `usethis::use_pkgdown_github_pages()` instead. If not, we'll cover how to link your site to GitHub in @sec-sharing. 
+:::
+
 You'll see some output that looks like this. 
 
 ::: {.cell-output}
@@ -45,5 +49,104 @@ file.rename(from = "_pkgdown.yml",
             to = "pkgdown/_pkgdown.yml")
 ```
 
+## Build Site
+
+Now check that everything is set up correctly by building the site.
+
+```{r, eval = FALSE}
+# run in the console
+pkgdown::build_site()
+```
+
+::: {.try}
+If you already have GitHub set up with your package, use `pkgdown::build_site_github_pages()` instead.
+:::
+
+You should see something like the following output, and then a webpage will appear in your Viewer pane or a separate window (depending on your preference settings). If you need to open it manually, open `docs/index.html` in a web browser.
+
+::: {.cell-output}
+```
+-- Installing package into temporary library -----------
+== Building pkgdown site ===============================
+Reading from: '/rproj/debruine/demopkg'
+Writing to:   '/rproj/debruine/demopkg/docs'
+-- Initialising site -----------------------------------
+-- Building home ---------------------------------------
+Reading 'LICENSE.md'
+Writing '404.html'
+-- Building function reference -------------------------
+Reading 'man/apa_t_pair.Rd'
+Reading 'man/demopkg-package.Rd'
+Reading 'man/self_res_att.Rd'
+-- Building articles ------------------------------------
+Reading 'vignettes/demopkg.Rmd'
+Writing 'sitemap.xml'
+-- Building search index --------------------------------
+== DONE =================================================
+-- Previewing site --------------------------------------
+```
+:::
+
+If everything is working correctly, this will have automatically organised information from the DESCRIPTION file, the README, function documentation, and vignettes into a website. If you created a vignette called `demopkg`, this will be available under "Get started", and any other vignettes will be available under "Articles". Documentation for each function will be available under "Reference". 
+
 
 ## CITATION file
+
+A citation file is a specially formatted file for specifying the citation to your materials. As always, you can set one up with a usethis function.
+
+```{r, eval = FALSE}
+# run in the console
+usethis::use_citation()
+```
+
+This will create a file called `CITATION` in the directory `inst` (this is a directory where you can keep supplemental files your package needs). The file contains skeletons for two R functions that create the text shown when someone looks up the citation for your package. You should make this consistent with the information in the `DESCRIPTION` file.
+
+If your package isn't associated with a paper, use "Manual" instead of "Article". Annoyingly, there is no widely accepted BibTex entry type for software, so most people just use a citation to the documentation using the manual type.
+
+I prefer to use the `bibentry()` function instead of `citEntry()` because it displays the BibTex version of the citation automatically (note that it uses the argument `bibtype` instead of `entry`). The help for this function explains all of the options for citations in detail.
+
+```{r, eval = FALSE}
+citHeader("To cite demopkg in publications use:")
+
+title <- "{demopkg}: Data and analysis from DeBruine (2004)"
+url   <- "https://psyteachr.github.io/demopkg"
+year  <- sub("-.*", "", meta$Date)
+note  <- sprintf("R package version %s", meta$Version)
+
+bibentry(
+  bibtype = "Manual",
+  title = title,
+  author = c(person("Lisa", "DeBruine")),
+  year = year,
+  note = note,
+  url = url,
+  textVersion = paste0(
+    "Lisa DeBruine, (", year, "). ", title, ". ", note, ". ", url
+  )
+)
+```
+
+Save this file and re-load your package, then check the citation.
+
+```{r}
+# run in the console
+citation("demopkg")
+```
+
+Now you can build the pkgdown site again to see the citation update. However, this will run all of the vignettes, which might take a long time. You can re-build parts of the pkgdown site instead. Use auto-complete to browse the list of functions that start with `build_`. 
+
+```{r, eval = FALSE}
+# run in the console
+pkgdown::build_home()
+```
+
+## Logo
+
+
+
+
+## Further Reading
+
+* [pkgdown Manual](https://pkgdown.r-lib.org/)
+
+## Further Practice
