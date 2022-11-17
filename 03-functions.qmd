@@ -21,7 +21,7 @@ library(devtools) # for loading your package
 
 First, let's create a very basic `r glossary("function")` to learn about custom functions. Functions need a name (like any R `r glossary("object")`). They are created with the `function()` function. We're going to make a function that rounds numbers and keeps the trailing zeroes, so let's call it `round0`.
 
-```{r}
+```{r, filename="R/round0.R"}
 round0 <- function() {
   # function code goes here
 }
@@ -31,7 +31,7 @@ Most functions have `r glossary("argument", "arguments")` that set inputs to the
 
 Check the help for the `round` function; we want our function to work almost the same, so it will be easier for users if the arguments have the same names in the same order, with the same default values. In the example below, the argument `digits` defaults to 0 unless you change it.
 
-```{r}
+```{r, filename="R/round0.R"}
 round0 <- function(x, digits = 0) {
   # function code goes here
 }
@@ -39,7 +39,7 @@ round0 <- function(x, digits = 0) {
 
 Functions use these arguments in their code to produce some kind of output (or side effect). Here, we use the value of `digits` to create a formatting string, and format the value of `x` with it using `sprintf()`.  Finally, we use the `return()` function to return the value.
 
-```{r}
+```{r, filename="R/round0.R"}
 round0 <- function(x, digits = 0) {
   fmt <- paste0("%.", digits, "f")
   x0 <- sprintf(fmt, x)
@@ -56,8 +56,7 @@ The `return()` function also stops all subsequent code from being run.
 
 Run the code above to define the function. After it's defined, if you type the function name into the console, without parentheses, it will show you the code for the function.
 
-```{r}
-# run in the console
+```{r, filename="run in the console"}
 round0
 ```
 
@@ -67,8 +66,7 @@ You can do this for any function; try a few! Many of the base R functions, like 
 
 Use your function like any other R function.
 
-```{r}
-# run in the console
+```{r, filename="run in the console"}
 round0(7/3, 3)
 round0(1.9999, 2)
 ```
@@ -84,9 +82,10 @@ For `demopkg`, we're going to create a function that produces the APA-formatted 
 
 ### Specific Instance
 
-The first step is to sort out a specific instance of your code. We'll load in the data we added to demopkg in @sec-load-data.
+The first step is to sort out a specific instance of your code. You can put this in a new R script for working out your code and delete it later. We'll load in the data we added to demopkg in @sec-load-data.
 
 ```{r}
+# load example data
 data("self_res_att", package = "demopkg")
 ```
 
@@ -99,6 +98,7 @@ self_res_att <- read.csv("https://raw.githubusercontent.com/PsyTeachR/intro-r-pk
 Next, compare preferences for self-resembling female faces (`f_self`) to others' preferences for those same faces `f_non` using a paired-samples t-test.
 
 ```{r}
+# analysis
 t_results <- t.test(
   x = self_res_att$f_self, 
   y = self_res_att$f_non,
@@ -148,22 +148,21 @@ Now we're ready to abstract this into a function. The function will need a name.
 
 You can create an R script in the `R` directory called `apa_t_pair.R`, but the code below does this for you.
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 usethis::use_r("apa_t_pair")
 ```
 
 We'll develop our function in this file. To start, set up a blank function definition.
 
-```{r}
+```{r, filename="R/apa_t_pair.R"}
 apa_t_pair <- function() {
   
 }
 ```
 
-Then add the code above inside the curly brackets.
+Then add the code from your example script above inside the curly brackets.
 
-```{r}
+```{r, filename="R/apa_t_pair.R"}
 apa_t_pair <- function() {
   t_results <- t.test(self_res_att$f_self, 
                       self_res_att$f_non,
@@ -190,8 +189,7 @@ apa_t_pair <- function() {
 
 Skip a few lines and copy the `round0` function definition below this one. You don't have to define functions in any particular order, as long as all function definitions are run before you try to use them. Run all the code in this file and test that the function works by running it once in the console.
 
-```{r}
-# run in the console
+```{r, filename="run in the console"}
 apa_t_pair()
 ```
 
@@ -203,7 +201,7 @@ If you get the message: `Error in apa_t_pair() : could not find function "apa_t_
 
 We probably want this function to work for any pair of vectors we give it, not just the value of `f_self` and `f_non`. So we need to add `r glossary("argument", "arguments")` to the function. Add arguments `x` and `y` to the function and replace `self_res_att$f_self` with `x` and `self_res_att$f_self` with `y` everywhere in the function.
 
-```{r}
+```{r, filename="R/apa_t_pair.R"}
 apa_t_pair <- function(x, y) {
   t_results <- t.test(x, y, paired = TRUE)
   
@@ -245,7 +243,6 @@ This is because the `x` and `y` inside of the function are in a different `r glo
 You can specify the vectors as arguments.
 
 ```{r}
-# run in the console or another file
 apa_t_pair(x = self_res_att$f_self, 
            y = self_res_att$f_non)
 ```
@@ -256,7 +253,7 @@ Now we can further customise our function. You probably won't always be comparin
 
 Since the values are defined with the variable names used in the glue template, we don't need to specify those in the `glue()` function anymore.
 
-```{r}
+```{r, filename="R/apa_t_pair.R"}
 apa_t_pair <- function(x, y, 
                        dv = "the DV", 
                        level1 = "level 1", 
@@ -305,8 +302,7 @@ If the output doesn't change, this usually means that you forgot to run the code
 
 You need to "import" any non-base packages that you use in a function. These are called "dependencies" because your function depends on them. Our function above uses `glue()` from the glue package. The function below is a quick way to add a dependency.
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 usethis::use_package("glue")
 ```
 
@@ -329,8 +325,7 @@ You can open the `DESCRIPTION` file to see what has changed. Alternatively, you 
 
 Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 devtools::load_all(".")
 ```
 

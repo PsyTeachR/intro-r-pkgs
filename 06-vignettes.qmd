@@ -9,6 +9,8 @@ source("R/setup.R")
 Include your study analysis code as a package vignette.
 
 ```{r}
+# packages required for this chapter
+
 library(usethis)  # to create the vignette structure
 library(devtools) # to build vignettes
 ```
@@ -17,8 +19,7 @@ library(devtools) # to build vignettes
 
 New vignettes need a name (the file name and the string you can use to access it later) and optionally a title. If you omit the title, it will be the same as the file name, but you can edit it in the next step.
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 usethis::use_vignette(name = "demopkg")
 ```
 
@@ -36,8 +37,8 @@ The first time you add a vignette, you will see output like below. You will only
 ✔ Creating 'vignettes/'
 ✔ Adding '*.html', '*.R' to 'vignettes/.gitignore'
 ✔ Adding 'rmarkdown' to Suggests field in DESCRIPTION
-✔ Writing 'vignettes/att.Rmd'
-• Modify 'vignettes/att.Rmd'
+✔ Writing 'vignettes/demopkg.Rmd'
+• Modify 'vignettes/demopkg.Rmd'
 ```
 :::
 
@@ -70,7 +71,7 @@ vignette: >
 
 The default knitr options set `collapse = TRUE`, which means that code and output `r glossary("chunk", "chunks")` are merged together, and `comment = "#>"`, which means that output lines are prefixed by `#>` instead of the normal default of `##`. 
 
-```{r}
+```{r, filename="vignettes/demopkg.Rmd"}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -123,8 +124,7 @@ You'll need to add `library(dplyr)` to your vignette to use `group_by()` and `su
 
 You can knit the vignette as you're writing it to quickly check what the output looks like. Once you're done with a vignette, you can "build" it to add it to the package.
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 devtools::build_vignettes()
 ```
 
@@ -144,8 +144,7 @@ Output created: demopkg.html
 
 You can view the HTML file in `doc/demopkg.html`. 
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 browseURL("doc/demopkg.html")
 ```
 
@@ -162,8 +161,7 @@ Run the check (from the Build pane or by running `devtools::check()`) to make su
 
 You can fix this by adding dplyr as a dependency. If you are only using it in vignettes and not in any actual package code, add it as a suggestion.
 
-```{{r}}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 usethis::use_package("dplyr", "Suggests")
 ```
 
@@ -179,8 +177,7 @@ Now when you rerun the check, you should get
 
 Building the vignettes can take up some time, so they are not built by default when you install your package. If you want to install the package so your vignettes are available outside the development project, use the following code.
 
-```{{r}}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 devtools::install(build_vignettes = TRUE)
 ```
 
@@ -189,15 +186,13 @@ devtools::install(build_vignettes = TRUE)
 
 Find out the vignettes a package has with the `vignette()` function. Make sure you've loaded your updated package. 
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 vignette(package = "demopkg")
 ```
 
 Access a specific vignette topic in the Viewer pane. You don't need to specify the package if the vignette name is unique.
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 vignette(topic = "demopkg", package = "demopkg")
 ```
 

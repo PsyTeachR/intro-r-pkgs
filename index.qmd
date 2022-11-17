@@ -48,7 +48,7 @@ The passcode for all recordings will be `codingclub22!`
 
     Include your study analysis code as a package vignette.
 
-7. Pkgdown Websites (2022-11-16)
+7. Pkgdown Websites (2022-11-16) [Recording](https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ)
 
     Create a package website using pkgdown.
 
