@@ -306,7 +306,9 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </header><p><a href="https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>Write function documentation using the roxygen format. This is what creates the help documentation for functions.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(devtools) <span class="co"># for rendering documentation and loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(devtools) <span class="co"># for rendering documentation and loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="roxygen" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="roxygen">
 <span class="header-section-number">4.1</span> Roxygen</h2>
@@ -386,13 +388,21 @@ Solution
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#' @import ggplot2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you’re going to import functions from a package, you also need to declare it as a dependency of your package:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The best place to put roxygen documentation for function or package imports is in a package documentation file. You can set one up with this code:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>usethis<span class="sc">::</span><span class="fu">use_package_doc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>usethis<span class="sc">::</span><span class="fu">use_package_doc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>This will make a file in the <code>R</code> directory called <code>demopkg-package.R</code> with the following contents:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#' @keywords internal</span></span>
@@ -416,8 +426,12 @@ Solution
 <span class="header-section-number">4.4</span> Document and Load</h2>
 <p>Now, you need to run the documentation function to add your function to the package documentation and export it for use.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>You should see output like this.</p>
 <div class="cell-output">
@@ -430,11 +444,15 @@ Writing round0.Rd</code></pre>
 </div>
 <p>Now restart R and make sure that your <a class="glossary" target="_blank" title="A data structure that contains R objects such as variables and functions" href="https://psyteachr.github.io/glossary/e#environment">environment</a> is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
-<span id="cb16-3"><a href="#cb16-3"></a>?round0</span>
-<span id="cb16-4"><a href="#cb16-4"></a>?apa_t_pair</span>
-<span id="cb16-5"><a href="#cb16-5"></a>?demopkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>?round0</span>
+<span id="cb16-3"><a href="#cb16-3"></a>?apa_t_pair</span>
+<span id="cb16-4"><a href="#cb16-4"></a>?demopkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section><section id="glossary" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">4.5</span> Glossary</h2>

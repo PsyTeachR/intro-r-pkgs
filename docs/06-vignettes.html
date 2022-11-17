@@ -306,15 +306,21 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </header><p><a href="https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>Include your study analysis code as a package vignette.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># to create the vignette structure</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools) <span class="co"># to build vignettes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(usethis)  <span class="co"># to create the vignette structure</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(devtools) <span class="co"># to build vignettes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="create-a-new-vignette" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="create-a-new-vignette">
 <span class="header-section-number">6.1</span> Create a new vignette</h2>
 <p>New vignettes need a name (the file name and the string you can use to access it later) and optionally a title. If you omit the title, it will be the same as the file name, but you can edit it in the next step.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># run in the console</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>usethis<span class="sc">::</span><span class="fu">use_vignette</span>(<span class="at">name =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_vignette</span>(<span class="at">name =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="info">
 <p>If the name of your vignette is the same as your package, it will be treated specially in a pkgdown site, which we’ll create next week. his is typically for the package overview for getting started.</p>
@@ -327,8 +333,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 ✔ Creating 'vignettes/'
 ✔ Adding '*.html', '*.R' to 'vignettes/.gitignore'
 ✔ Adding 'rmarkdown' to Suggests field in DESCRIPTION
-✔ Writing 'vignettes/att.Rmd'
-• Modify 'vignettes/att.Rmd'</code></pre>
+✔ Writing 'vignettes/demopkg.Rmd'
+• Modify 'vignettes/demopkg.Rmd'</code></pre>
 </div>
 </section><section id="setup" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="setup">
 <span class="header-section-number">6.2</span> Setup</h2>
@@ -353,10 +359,15 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span class="header-section-number">6.2.2</span> Knitr Options</h3>
 <p>The default knitr options set <code>collapse = TRUE</code>, which means that code and output <a class="glossary" target="_blank" title="A section of code in an R Markdown file" href="https://psyteachr.github.io/glossary/c#chunk">chunks</a> are merged together, and <code>comment = "#&gt;"</code>, which means that output lines are prefixed by <code>#&gt;</code> instead of the normal default of <code>##</code>.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>vignettes/demopkg.Rmd</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">comment =</span> <span class="st">"#&gt;"</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>You can change these or any other options (see the <a href="https://yihui.org/knitr/options/">knitr manual</a> for more details), but these give you the typical look of R package documentation.</p>
 <div class="cell" data-layout-align="center">
@@ -402,8 +413,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span class="header-section-number">6.4</span> Build</h2>
 <p>You can knit the vignette as you’re writing it to quickly check what the output looks like. Once you’re done with a vignette, you can “build” it to add it to the package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># run in the console</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>devtools<span class="sc">::</span><span class="fu">build_vignettes</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>devtools<span class="sc">::</span><span class="fu">build_vignettes</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>You will see the normal output for knitting a document, and then these messages:</p>
 <div class="cell-output">
@@ -417,8 +432,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <p>You can view the HTML file in <code>doc/demopkg.html</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># run in the console</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">browseURL</span>(<span class="st">"doc/demopkg.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">browseURL</span>(<span class="st">"doc/demopkg.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section><section id="check" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="check">
 <span class="header-section-number">6.5</span> Check</h2>
@@ -428,8 +447,14 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   'library' or 'require' call not declared from: ‘dplyr’</code></pre>
 </div>
 <p>You can fix this by adding dplyr as a dependency. If you are only using it in vignettes and not in any actual package code, add it as a suggestion.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a># run in the console</span>
-<span id="cb12-2"><a href="#cb12-2"></a>usethis::use_package("dplyr", "Suggests")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"dplyr"</span>, <span class="st">"Suggests"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 <p>Now when you rerun the check, you should get</p>
 <div class="cell-output" style="color: #00FF00;">
 <pre><code>0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
@@ -437,19 +462,33 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </section><section id="install" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="install">
 <span class="header-section-number">6.6</span> Install</h2>
 <p>Building the vignettes can take up some time, so they are not built by default when you install your package. If you want to install the package so your vignettes are available outside the development project, use the following code.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a># run in the console</span>
-<span id="cb14-2"><a href="#cb14-2"></a>devtools::install(build_vignettes = TRUE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>(<span class="at">build_vignettes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section><section id="access-vignettes" class="level2" data-number="6.7"><h2 data-number="6.7" class="anchored" data-anchor-id="access-vignettes">
 <span class="header-section-number">6.7</span> Access vignettes</h2>
 <p>Find out the vignettes a package has with the <code><a href="https://rdrr.io/r/utils/vignette.html">vignette()</a></code> function. Make sure you’ve loaded your updated package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># run in the console</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>Access a specific vignette topic in the Viewer pane. You don’t need to specify the package if the vignette name is unique.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># run in the console</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">vignette</span>(<span class="at">topic =</span> <span class="st">"demopkg"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">vignette</span>(<span class="at">topic =</span> <span class="st">"demopkg"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>Next week, we’ll learn how to create a website for your package that displays this vignette.</p>
 </section><section id="further-reading" class="level2" data-number="6.8"><h2 data-number="6.8" class="anchored" data-anchor-id="further-reading">

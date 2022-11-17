@@ -150,7 +150,11 @@ test_that("same x and y", {
 })
 ```
 
-Now we can edit the function `apa_t_pair()` (in the file `R/apa_t_pair.R`) until the test passes. Add a few lines of code at the start of the function to check if all of the values in `x` are the same as all of the values in `y`, and display an error message if they are.
+::: {.info}
+The function `expect_error()` can use regular expressions to test for patterns. For example, `"is not allowed$"` will match any string that ends with "is not allowed". Regex is powerful, but can be tricky to use. If you want to test if the returned error text is **exactly** the same as the `regexp` string, set `fixed = TRUE`. 
+:::
+
+Now we can edit the function `apa_t_pair()` until the test passes. Add a few lines of code at the start of the function to check if all of the values in `x` are the same as all of the values in `y`, and display an error message if they are.
 
 ```{r, filename="R/apa_t_pair.R"}
 apa_t_pair <- function(x, y, 

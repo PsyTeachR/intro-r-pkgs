@@ -113,28 +113,40 @@ This will create a file called `CITATION` in the directory `inst` (this is a dir
 
 If your package isn't associated with a paper, use "Manual" instead of "Article". Annoyingly, there is no widely accepted BibTex entry type for software, so most people just use a citation to the documentation using the manual type.
 
-I prefer to use the `bibentry()` function instead of `citEntry()` because it displays the BibTex version of the citation automatically (note that it uses the argument `bibtype` instead of `entry`). The help for this function explains all of the options for citations in detail.
+You can read and use parts of your DESCRIPTION file from the object `meta`. It will be available even if you don't define it, but you can use the code below to inspect it. Unfortunately, meta$Authors needs a lot of parsing to use in the CITATION file, so it's usually easier to just copy it, but I've included the parsing code below if you're curious.
+
+```{r, filename="run in the console"}
+meta <- packageDescription("demopkg")
+names(meta)
+```
+
 
 ```{r, eval = FALSE, filename = "inst/CITATION"}
 citHeader("To cite demopkg in publications use:")
 
-title <- "{demopkg}: Data and analysis from DeBruine (2004)"
-url   <- "https://psyteachr.github.io/demopkg"
 year  <- sub("-.*", "", meta$Date)
 note  <- sprintf("R package version %s", meta$Version)
+authors <- eval(parse(text = meta$`Authors@R`))
+text_authors <- authors |>
+  format(include= c("family", "given"), 
+         collapse = list(family = ", ")) |> 
+  paste(collapse = ", ")
 
 bibentry(
   bibtype = "Manual",
-  title = title,
-  author = c(person("Lisa", "DeBruine")),
+  title = sprintf("{%s}: %s", meta$Package, meta$Title),
+  author = authors,
   year = year,
   note = note,
-  url = url,
-  textVersion = paste0(
-    "Lisa DeBruine, (", year, "). ", title, ". ", note, ". ", url
+  url = meta$URL,
+  textVersion = sprintf(
+    "%s, (%s). %s: %s. %s, %s",
+    text_authors, year, meta$Package, meta$Title, note, meta$URL
   )
 )
 ```
+
+I prefer to use the `bibentry()` function instead of `citEntry()` because it displays the BibTex version of the citation automatically (note that it uses the argument `bibtype` instead of `entry`). The help for this function explains all of the options for citations in detail.
 
 Save this file and re-load your package, then check the citation.
 

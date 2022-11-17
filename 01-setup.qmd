@@ -73,7 +73,7 @@ RoxygenNote: 7.2.0
 
 Open the `DESCRIPTION` file. It should look like this:
 
-``` yaml
+```{yaml, filename = "DESCRIPTION"}
 Package: demopkg
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
@@ -89,7 +89,7 @@ RoxygenNote: 7.2.0
 
 Change the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your [ORCiD](https://orcid.org/).
 
-``` yaml
+```{yaml, filename = "DESCRIPTION"}
 Authors@R: c(
     person(given = "Lisa",
            family = "DeBruine",
@@ -105,7 +105,7 @@ Authors@R: c(
 
 Also add the date like this. The date is used to create an automatic citation for your package.
 
-``` yaml
+```{yaml, filename = "DESCRIPTION"}
 Package: demopkg
 Date: 2022-10-05
 ```
@@ -138,10 +138,10 @@ usethis::use_readme_rmd()
 
 We'll eventually put this on `r glossary("github")`, so change the installation instructions to the following (change `yourusername` to your github username). 
 
-```` r
+```` md
 You can install demopkg from [GitHub](https://github.com) with:
 
-``` r
+```{{r}}
 devtools::install_github("yourusername/demopkg")
 ```
 ````

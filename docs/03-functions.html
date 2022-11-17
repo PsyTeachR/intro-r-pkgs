@@ -323,19 +323,33 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span class="header-section-number">3.1</span> Function Overview</h2>
 <p>First, let’s create a very basic <a class="glossary" target="_blank" title="A named section of code that can be reused." href="https://psyteachr.github.io/glossary/f#function">function</a> to learn about custom functions. Functions need a name (like any R <a class="glossary" target="_blank" title="A word that identifies and stores the value of some data for later use." href="https://psyteachr.github.io/glossary/o#object">object</a>). They are created with the <code>function()</code> function. We’re going to make a function that rounds numbers and keeps the trailing zeroes, so let’s call it <code>round0</code>.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/round0.R</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>round0 <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb2-2"><a href="#cb2-2"></a>  <span class="co"># function code goes here</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>Most functions have <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">arguments</a> that set inputs to the function or options for how the function can work. These arguments can be required for the function to work, or have <a class="glossary" target="_blank" title="A value that a function uses for an argument if it is skipped." href="https://psyteachr.github.io/glossary/d#default-value">default values</a>.</p>
 <p>Check the help for the <code>round</code> function; we want our function to work almost the same, so it will be easier for users if the arguments have the same names in the same order, with the same default values. In the example below, the argument <code>digits</code> defaults to 0 unless you change it.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/round0.R</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>round0 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">digits =</span> <span class="dv">0</span>) {</span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="co"># function code goes here</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>Functions use these arguments in their code to produce some kind of output (or side effect). Here, we use the value of <code>digits</code> to create a formatting string, and format the value of <code>x</code> with it using <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code>. Finally, we use the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function to return the value.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/round0.R</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>round0 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">digits =</span> <span class="dv">0</span>) {</span>
 <span id="cb4-2"><a href="#cb4-2"></a>  fmt <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"%."</span>, digits, <span class="st">"f"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a>  x0 <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(fmt, x)</span>
@@ -343,14 +357,19 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">return</span>(x0)</span>
 <span id="cb4-6"><a href="#cb4-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <div class="info">
 <p>You technically don’t have to use the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function. The last object created in the function code will be automatically returned. Most people don’t use <code><a href="https://rdrr.io/r/base/function.html">return()</a></code>, but that can sometimes make it hard to figure out exactly what is being returned if you have a lot of if/else logic.</p>
 <p>The <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function also stops all subsequent code from being run.</p>
 </div>
 <p>Run the code above to define the function. After it’s defined, if you type the function name into the console, without parentheses, it will show you the code for the function.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># run in the console</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>round0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>round0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function(x, digits = 0) {
   fmt &lt;- paste0("%.", digits, "f")
@@ -365,9 +384,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <p>Use your function like any other R function.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># run in the console</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">round0</span>(<span class="dv">7</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">round0</span>(<span class="fl">1.9999</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">round0</span>(<span class="dv">7</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">round0</span>(<span class="fl">1.9999</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2.333"
 [1] "2.00"</code></pre>
@@ -382,9 +405,10 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </blockquote>
 <section id="specific-instance" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="specific-instance">
 <span class="header-section-number">3.2.1</span> Specific Instance</h3>
-<p>The first step is to sort out a specific instance of your code. We’ll load in the data we added to demopkg in <a href="02-data.html#sec-load-data"><span>Section&nbsp;2.1.3</span></a>.</p>
+<p>The first step is to sort out a specific instance of your code. You can put this in a new R script for working out your code and delete it later. We’ll load in the data we added to demopkg in <a href="02-data.html#sec-load-data"><span>Section&nbsp;2.1.3</span></a>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">data</span>(<span class="st">"self_res_att"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># load example data</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">data</span>(<span class="st">"self_res_att"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you haven’t added the data to your package yet, use this code:</p>
 <div class="cell" data-layout-align="center">
@@ -392,12 +416,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <p>Next, compare preferences for self-resembling female faces (<code>f_self</code>) to others’ preferences for those same faces <code>f_non</code> using a paired-samples t-test.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
-<span id="cb11-4"><a href="#cb11-4"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-5"><a href="#cb11-5"></a></span>
-<span id="cb11-6"><a href="#cb11-6"></a>t_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># analysis</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a>t_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Paired t-test
@@ -467,17 +492,30 @@ mean difference
 <p>Now we’re ready to abstract this into a function. The function will need a name. This function will (for now) only give you the APA-style text for a paired-samples t-test, so let’s call it <code>apa_t_pair</code>.</p>
 <p>You can create an R script in the <code>R</code> directory called <code>apa_t_pair.R</code>, but the code below does this for you.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># run in the console</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">"apa_t_pair"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">"apa_t_pair"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>We’ll develop our function in this file. To start, set up a blank function definition.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb19-2"><a href="#cb19-2"></a>  </span>
 <span id="cb19-3"><a href="#cb19-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then add the code above inside the curly brackets.</p>
+</div>
+<p>Then add the code from your example script above inside the curly brackets.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb20-2"><a href="#cb20-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(self_res_att<span class="sc">$</span>f_self, </span>
 <span id="cb20-3"><a href="#cb20-3"></a>                      self_res_att<span class="sc">$</span>f_non,</span>
@@ -501,10 +539,15 @@ mean difference
 <span id="cb20-21"><a href="#cb20-21"></a>  )</span>
 <span id="cb20-22"><a href="#cb20-22"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>Skip a few lines and copy the <code>round0</code> function definition below this one. You don’t have to define functions in any particular order, as long as all function definitions are run before you try to use them. Run all the code in this file and test that the function works by running it once in the console.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># run in the console</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
 </div>
@@ -516,6 +559,10 @@ mean difference
 <span class="header-section-number">3.2.3</span> Add Arguments</h3>
 <p>We probably want this function to work for any pair of vectors we give it, not just the value of <code>f_self</code> and <code>f_non</code>. So we need to add <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">arguments</a> to the function. Add arguments <code>x</code> and <code>y</code> to the function and replace <code>self_res_att$f_self</code> with <code>x</code> and <code>self_res_att$f_self</code> with <code>y</code> everywhere in the function.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
 <span id="cb23-2"><a href="#cb23-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb23-3"><a href="#cb23-3"></a>  </span>
@@ -537,6 +584,7 @@ mean difference
 <span id="cb23-19"><a href="#cb23-19"></a>  )</span>
 <span id="cb23-20"><a href="#cb23-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>Now, if you try to run the function without any arguments, you’ll get an error message. This is because there are no default values for <code>x</code> and <code>y</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -556,9 +604,8 @@ mean difference
 <p>This is because the <code>x</code> and <code>y</code> inside of the function are in a different <a class="glossary" target="_blank" title="A data structure that contains R objects such as variables and functions" href="https://psyteachr.github.io/glossary/e#environment">environment</a> to any <code>x</code> and <code>y</code> outside of the function. This can seem confusing at first, but it’s good that you don’t need to worry about objects that exist outside of your function.</p>
 <p>You can specify the vectors as arguments.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># run in the console or another file</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
-<span id="cb28-3"><a href="#cb28-3"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb28-2"><a href="#cb28-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
 </div>
@@ -568,6 +615,10 @@ mean difference
 <p>Now we can further customise our function. You probably won’t always be comparing “preferences for female faces” between “participants who resembled those faces” and “non-self participants”, so let’s add three new arguments to the function. We can set generic <a class="glossary" target="_blank" title="A value that a function uses for an argument if it is skipped." href="https://psyteachr.github.io/glossary/d#default-value">default values</a> for these new arguments so that you don’t have to specify them if the defaults are OK.</p>
 <p>Since the values are defined with the variable names used in the glue template, we don’t need to specify those in the <code>glue()</code> function anymore.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, </span>
 <span id="cb30-2"><a href="#cb30-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>, </span>
 <span id="cb30-3"><a href="#cb30-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>, </span>
@@ -588,6 +639,7 @@ mean difference
 <span id="cb30-18"><a href="#cb30-18"></a>    <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
 <span id="cb30-19"><a href="#cb30-19"></a>  )</span>
 <span id="cb30-20"><a href="#cb30-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>Try running the function both with and without the new arguments.</p>
 <div class="cell" data-layout-align="center">
@@ -616,8 +668,12 @@ mean difference
 <span class="header-section-number">3.3.1</span> Import dependencies</h3>
 <p>You need to “import” any non-base packages that you use in a function. These are called “dependencies” because your function depends on them. Our function above uses <code>glue()</code> from the glue package. The function below is a quick way to add a dependency.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># run in the console</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"glue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"glue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>You should see this output:</p>
 <div class="cell-output">
@@ -631,8 +687,12 @@ mean difference
 <span class="header-section-number">3.3.2</span> Load</h3>
 <p>Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># run in the console</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The function should now be available.</p>
 <div class="cell" data-layout-align="center">
