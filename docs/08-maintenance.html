@@ -269,7 +269,17 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#cmd-check" id="toc-cmd-check" class="nav-link active" data-scroll-target="#cmd-check"><span class="toc-section-number">8.1</span>  CMD Check</a></li>
+  <li><a href="#unit-tests" id="toc-unit-tests" class="nav-link" data-scroll-target="#unit-tests"><span class="toc-section-number">8.2</span>  Unit Tests</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description"><span class="toc-section-number">8.3</span>  DESCRIPTION</a></li>
+  <li><a href="#unexpected-files" id="toc-unexpected-files" class="nav-link" data-scroll-target="#unexpected-files"><span class="toc-section-number">8.4</span>  Unexpected files</a></li>
+  <li><a href="#function-documentation" id="toc-function-documentation" class="nav-link" data-scroll-target="#function-documentation"><span class="toc-section-number">8.5</span>  Function documentation</a></li>
+  <li><a href="#large-files" id="toc-large-files" class="nav-link" data-scroll-target="#large-files"><span class="toc-section-number">8.6</span>  Large files</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">8.7</span>  Further Resources</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/08-maintenance.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/08-maintenance.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -290,6 +300,207 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="cmd-check" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="cmd-check">
+<span class="header-section-number">8.1</span> CMD Check</h2>
+<p>You can run diagnostic tests on your package by clicking the <strong><code>Check</code></strong> button in the Build tab, or with the function <code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code>. This will:</p>
+<ul>
+<li>Update documentation</li>
+<li>Build your package manual and vignettes</li>
+<li>Check the format of the DESCRIPTION file</li>
+<li>Run a variety of checks</li>
+<li>Run the function documentation examples</li>
+<li>Run the unit tests</li>
+</ul>
+<p>Ideally, you’ll see a bunch of green checks for a minute or two, and then this output:</p>
+<div class="cell-output">
+<pre><code>── R CMD check results ── demopkg 0.0.0.9008 ──
+Duration: 13.2s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
+</div>
+<p>Errors are things you really have to fix, warnings should probably be fixed but often won’t break your package, and notes are optional unless you’re submitting to CRAN.</p>
+<p>Unfortunately, in real package development that’s rare enough to be exciting. Let’s make a few things go wrong so we can see what that looks like.</p>
+</section><section id="unit-tests" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="unit-tests">
+<span class="header-section-number">8.2</span> Unit Tests</h2>
+<p>What if a test produces an unexpected warning or error? Create a new test file so we can make some mistakes.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"error"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>In the file that opens up, edit the demo test to create an error and add a new test that creates a warning.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>tests/testhat/test-error.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">test_that</span>(<span class="st">"error"</span>, {</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">expect_equal</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>})</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">test_that</span>(<span class="st">"warning"</span>, {</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">expect_false</span>(<span class="fu">all</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span>
+<span id="cb4-7"><a href="#cb4-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="info">
+<p>The second test should produce the warning “longer object length is not a multiple of shorter object length”. If you check for equivalence of <a class="glossary" target="_blank" title="A type of data structure that collects values with the same data type, like T/F values, numbers, or strings." href="https://psyteachr.github.io/glossary/v#vector">vectors</a> that have different lengths, the shorter one is “recycled”.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">==</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+<p>If the length of the shorter vector doesn’t divide evenly into the length of the longer one, you will get a warning, but the result will be as expected. If you are writing code where this might happen and isn’t a problem, you can suppress warnings.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">suppressWarnings</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">==</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">length.out =</span> <span class="dv">5</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE TRUE TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+</div>
+<p>Save the test file and run the CMD check again. You can skip building the vignettes if they take too long.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>(<span class="at">vignettes =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You will see the normal test output at the end, which will have a lot of text about the errors. The test section will conclude with <code>[ FAIL 1 | WARN 1 | SKIP 0 | PASS 8 ]</code> and then the CMD check summary will display:</p>
+<div class="cell-output">
+<pre><code>1 error ✖ | 0 warnings ✔ | 0 notes ✔
+Error: R CMD check found ERRORs
+Execution halted
+
+Exited with status 1.</code></pre>
+</div>
+<p>This one is pretty easy to figure out because the error is right before the CMD check summary. Typically, I would run the tests separately (see <a href="05-unit-tests.html#sec-multiple-tests"><span>Section&nbsp;5.5</span></a>) because the output is better for figuring out the problem. This will tell us that our failed and warning tests were in <code>test-error.R</code> and give error messages of variable helpfulness.</p>
+<div class="cell-output">
+<pre><code>Failure (test-error.R:2:3): error
+2 * 2 (`actual`) not equal to 5 (`expected`).
+
+  `actual`: 4
+`expected`: 5
+
+Warning (test-error.R:6:3): warning
+longer object length is not a multiple of shorter object length
+Backtrace:
+ 1. testthat::expect_false(all(1:2 == 1:3))
+      at test-error.R:6:2
+ 2. testthat::quasi_label(enquo(object), label, arg = "object")
+ 3. rlang::eval_bare(expr, quo_get_env(quo))</code></pre>
+</div>
+<p>You can find the approximate location of the problem in this text, “Failure (test-error.R:2:3)”, which means that the error is in the file <code>test-error.R</code> on line 2 and character 3. Sometimes the actual error is before or after this point, but it’s a good place to start.</p>
+<div class="warning">
+<p>Remember to delete the file <code>test-error.R</code> after this exercise!</p>
+</div>
+</section><section id="description" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="description">
+<span class="header-section-number">8.3</span> DESCRIPTION</h2>
+<p>Now let’s make an error in the <code>DESCRIPTION</code> file. Delete one of the commas under “Suggests:”. I recommend adding package dependencies to this file using <code><a href="https://usethis.r-lib.org/reference/use_package.html">usethis::use_package()</a></code> because I often cause this error when I do it manually.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>Suggests<span class="sc">:</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>    dplyr,</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    knitr,</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    rmarkdown</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="fu">testthat</span> (<span class="sc">&gt;=</span> <span class="dv">3</span>.<span class="fl">0.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Save the file and re-run the CMD check. The CMD check will end with:</p>
+<div class="cell-output">
+<pre><code>Execution halted
+
+Exited with status 1.</code></pre>
+</div>
+<p>Scroll back until you see a red line reading:</p>
+<div class="cell-output">
+<pre><code>E  checking DESCRIPTION meta-information ...</code></pre>
+</div>
+<p>This will be followed by a somewhat helpful human-readable message, and then dozens of lines of backtrace that you can ignore. This message at least alerts you to the fact that the problem is in your DESCRIPTION file and near “rmarkdown” and “testthat (&gt;= 3.0.0)”. You can fix the comma now.</p>
+<p>Another common DESCRIPTION error is with the format of the Authors list. Remove the last round bracket, save the file and re-run the CMD check.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>Authors<span class="sc">@</span>R<span class="sc">:</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>    <span class="fu">person</span>(<span class="at">given =</span> <span class="st">"Lisa"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3"></a>           <span class="at">family =</span> <span class="st">"DeBruine"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4"></a>           <span class="at">role =</span> <span class="fu">c</span>(<span class="st">"aut"</span>, <span class="st">"cre"</span>),</span>
+<span id="cb15-5"><a href="#cb15-5"></a>           <span class="at">email =</span> <span class="st">"debruine@gmail.com"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>           <span class="at">comment =</span> <span class="fu">c</span>(<span class="at">ORCID =</span> <span class="st">"0000-0002-7523-5539"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You will again see that the check terminates with a red error message: “Exited with status 1.” Scroll back up to the red error message to see that the problem was “Malformed Authors@R field”. This is almost always a problem with commas or brackets. Go add the bracket back in.</p>
+<p>A slightly more esoteric problem will be flagged if you delete the full stop from the end of your Description. The CMD check will succeed, but will give you the following note:</p>
+<div class="cell-output">
+<pre><code>❯ checking DESCRIPTION meta-information ... NOTE
+  Malformed Description field: should contain one or more complete sentences.
+
+0 errors ✔ | 0 warnings ✔ | 1 note ✖
+
+R CMD check succeeded</code></pre>
+</div>
+<p>Add the full stop back in.</p>
+</section><section id="unexpected-files" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="unexpected-files">
+<span class="header-section-number">8.4</span> Unexpected files</h2>
+<p>You’ll also get a warning if there are unexpected files in your package directory that aren’t included in <code>.Rbuildignore</code>. Open up that file and delete <code>^pkgdown$</code>. This should produce the following note.</p>
+<div class="cell-output">
+<pre><code>❯ checking top-level files ... NOTE
+  Non-standard file/directory found at top level:
+    ‘pkgdown’
+
+0 errors ✔ | 0 warnings ✔ | 1 note ✖</code></pre>
+</div>
+<p>The .Rbuildignore file uses regex to match files, so the easiest way to add a directory or file to it is to use a function from usethis.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>usethis<span class="sc">::</span><span class="fu">use_build_ignore</span>(<span class="st">"pkgdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="function-documentation" class="level2" data-number="8.5"><h2 data-number="8.5" class="anchored" data-anchor-id="function-documentation">
+<span class="header-section-number">8.5</span> Function documentation</h2>
+<p>You will also get check errors if your function documentation doesn’t match the function. Open up a function and change the name of one <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">argument</a> in the roxygen documentation to an argument that doesn’t exist (e.g., change the argument <code>x</code> to <code>z</code>).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#' @param z A vector of the values for level 1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Save the file and run CMD check. You will get the following warning:</p>
+<div class="cell-output">
+<pre><code>❯ checking Rd \usage sections ... WARNING
+  Undocumented arguments in documentation object 'apa_t_pair'
+    ‘x’</code></pre>
+</div>
+</section><section id="large-files" class="level2" data-number="8.6"><h2 data-number="8.6" class="anchored" data-anchor-id="large-files">
+<span class="header-section-number">8.6</span> Large files</h2>
+<p>If you have large file or the total package size is too big, you will get a warning. You can ignore this unless you’re planning on submitting to CRAN.</p>
+<p>To test this, add a file that is 5MB or larger to the <code>inst</code> directory (or run the code below) and run the CMD check.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># downloads a 5.1 MB file to your inst directory</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">download.file</span>(<span class="st">"https://webmorph.org/include/images/gifs/id.gif"</span>, <span class="st">"inst/delete_me.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You’ll get a note like this.</p>
+<div class="cell-output">
+<pre><code>❯ checking installed package size ... NOTE
+    installed size is  5.6Mb
+
+0 errors ✔ | 0 warnings ✔ | 1 note ✖</code></pre>
+</div>
+</section><section id="further-resources" class="level2" data-number="8.7"><h2 data-number="8.7" class="anchored" data-anchor-id="further-resources">
+<span class="header-section-number">8.7</span> Further Resources</h2>
+<ul>
+<li>
+<a href="https://r-pkgs.org/check.html">R CMD check</a> from <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span>
+</li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
@@ -309,8 +520,7 @@ Wickham, H. (2015). <em>R packages: Organize, test, document, and share your cod
 Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
-
-</main><!-- /main --><script>
+</section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {

@@ -235,9 +235,9 @@ test_that("data available", {
 })
 ```
 
-## Multiple tests
+## Multiple tests {#sec-multiple-tests}
 
-You can run all of the tests for all of the functions in your package by clicking on **`Test`** in the Build Tab or typing `` in the console. Here, you'll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).
+You can run all of the tests for all of the functions in your package by clicking on **`Test`** in the Build Tab or typing `devtools::test()` in the console. Here, you'll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).
 
 ::: {.cell-output}
 ```

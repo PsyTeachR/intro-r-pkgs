@@ -276,7 +276,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#set-up-test" id="toc-set-up-test" class="nav-link" data-scroll-target="#set-up-test"><span class="toc-section-number">5.2</span>  Set up test</a></li>
   <li><a href="#test-driven-development" id="toc-test-driven-development" class="nav-link" data-scroll-target="#test-driven-development"><span class="toc-section-number">5.3</span>  Test-driven development</a></li>
   <li><a href="#testing-data" id="toc-testing-data" class="nav-link" data-scroll-target="#testing-data"><span class="toc-section-number">5.4</span>  Testing data</a></li>
-  <li><a href="#multiple-tests" id="toc-multiple-tests" class="nav-link" data-scroll-target="#multiple-tests"><span class="toc-section-number">5.5</span>  Multiple tests</a></li>
+  <li><a href="#sec-multiple-tests" id="toc-sec-multiple-tests" class="nav-link" data-scroll-target="#sec-multiple-tests"><span class="toc-section-number">5.5</span>  Multiple tests</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">5.6</span>  Glossary</a></li>
   <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">5.7</span>  Further Resources</a></li>
   <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">5.8</span>  Further Practice</a></li>
@@ -337,7 +337,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb4-3"><a href="#cb4-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😀</code></pre>
+<pre><code>Test passed 🥇</code></pre>
 </div>
 </div>
 <p>Change the default label for this test. You can label these whatever you want (it <em>really</em> doesn’t matter); I usually start with “defaults” and test the most basic example to make sure the function defaults work as expected. Delete the demo code between the curly brackets.</p>
@@ -367,7 +367,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb7-8"><a href="#cb7-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 🌈</code></pre>
 </div>
 </div>
 <p>That particular example was <a class="glossary" target="_blank" title="" href="https://psyteachr.github.io/glossary/n#non-significant">significance</a>. Let’s add a version that does show a significant difference and make sure the text changes appropriately.</p>
@@ -496,7 +496,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb19-7"><a href="#cb19-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎊</code></pre>
+<pre><code>Test passed 🌈</code></pre>
 </div>
 </div>
 <p>Now that we have 4 tests for this function, we can run them all by clicking on <strong><code>Run Tests</code></strong> in the upper right corner of the <a class="glossary" target="_blank" title="RStudio is arranged with four window &quot;panes&quot;." href="https://psyteachr.github.io/glossary/p#panes">source pane</a>. If all goes well, you’ll see the following in the Build tab:</p>
@@ -537,9 +537,9 @@ Test complete</code></pre>
 <span id="cb23-8"><a href="#cb23-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section><section id="multiple-tests" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="multiple-tests">
+</section><section id="sec-multiple-tests" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="sec-multiple-tests">
 <span class="header-section-number">5.5</span> Multiple tests</h2>
-<p>You can run all of the tests for all of the functions in your package by clicking on <strong><code>Test</code></strong> in the Build Tab or typing `` in the console. Here, you’ll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).</p>
+<p>You can run all of the tests for all of the functions in your package by clicking on <strong><code>Test</code></strong> in the Build Tab or typing <code><a href="https://devtools.r-lib.org/reference/test.html">devtools::test()</a></code> in the console. Here, you’ll get one row for each test file (usually one test file per function) and a summary of how many tests Failed (F), gave unexpected warnings (W), were skipped (S), or passed (OK).</p>
 <div class="cell-output">
 <pre><code>==&gt; devtools::test()
 
