@@ -4,6 +4,8 @@
 source("R/setup.R")
 ```
 
+[Recording](https://uofglasgow.zoom.us/rec/share/IIjuf9y7xF4t_KuLK_i324CMp3fu71hAnONq93lQr9_d-Ye9leOy7TCrI4VId9TV.jAqwDHjtQir5UpLx) (passcode: `codingclub22!`)
+
 How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.
 
 ```{r}
@@ -33,7 +35,7 @@ Duration: 13.2s
 ```
 :::
 
-Errors are things you really have to fix, warnings should probably be fixed but often won't break your package, and notes are optional unless you're submitting to CRAN.
+Errors are things you really have to fix, warnings should probably be fixed but often won't break your package, and notes are optional unless you're submitting to `r glossary("CRAN")`.
 
 Unfortunately, in real package development that's rare enough to be exciting. Let's make a few things go wrong so we can see what that looks like.
 

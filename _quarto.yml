@@ -43,7 +43,6 @@ book:
   - 07-pkgdown.qmd
   - 08-maintenance.qmd
   - 09-sharing.qmd
-  - 10-next-steps.qmd
   appendices:
   - references.qmd
 

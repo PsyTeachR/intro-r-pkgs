@@ -52,21 +52,17 @@ The passcode for all recordings will be `codingclub22!`
 
     Create a package website using pkgdown.
 
-8. Package Maintenance (2022-11-23)
+8. Package Maintenance (2022-11-23) [Recording](https://uofglasgow.zoom.us/rec/share/IIjuf9y7xF4t_KuLK_i324CMp3fu71hAnONq93lQr9_d-Ye9leOy7TCrI4VId9TV.jAqwDHjtQir5UpLx)
 
     How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.
-
-9. Sharing your package (2022-11-30)
-
+    
 ::: {.dangerous}
-The UK University and College Union (UCU) is [planning industrial action](https://www.ucu.org.uk/article/12609/Biggest-ever-university-strikes-set-to-hit-UK-campuses-over-pay-conditions--pensions) this day, and Lisa is a union member, so this session will be delayed until 12-07, unless the universities propose a reasonable offer.
+The UK University and College Union (UCU) is [planning industrial action](https://www.ucu.org.uk/article/12609/Biggest-ever-university-strikes-set-to-hit-UK-campuses-over-pay-conditions--pensions) on 2022-11-30, and Lisa is a union member, so this session will be delayed until 12-07, unless the universities propose a reasonable offer.
 :::
 
+9. Sharing your package (2022-12-07)
+
     Set up a github account and make a package repository to share your package and pkgdown website.
-
-10. Review and next steps (2022-12-07)
-
-    Whatever we didn’t get to. We'll also discuss how to continue your learning.
     
 ## Resources
 
