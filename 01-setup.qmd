@@ -10,8 +10,7 @@ Create a package project and edit the default files. We'll start using the most 
 
 Today we'll be using the following `r glossary("package", "packages")`, so install them if necessary:
 
-```{r install, eval = FALSE}
-# packages required for this chapter
+```{r install, eval = FALSE, filename="Packages required for this chapter"}
 
 library(usethis)
 library(devtools)
@@ -35,7 +34,7 @@ Use the following command to create the framework for a new package called `demo
 usethis::create_package(path = "~/rproj/demopkg")
 ```
 
-::: {.warning}
+::: {.callout-warning}
 Package names can only be letters, numbers, and full stops.
 :::
 
@@ -148,7 +147,7 @@ devtools::install_github("yourusername/demopkg")
 
 Delete the example for now.
 
-::: {.warning}
+::: {.callout-warning}
 Make sure you knit your README.Rmd file when you update it and never edit the README.md file (that's just for github).
 :::
 

@@ -1,15 +1,10 @@
 # Unit Tests {#sec-unit-tests}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://uofglasgow.zoom.us/rec/share/F--AV75X9YORfesOFy3-RXFRhoqinE6BVpxcKKj8LJYkMPHdAzR-6mxYRdzsKp8d.eb_tjAl-_A29Ur8P) (passcode: `codingclub22!`)
 
 Write unit tests for your custom functions using testthat.
 
-```{r}
-# packages required for this chapter
+```{r, filename="Packages required for this chapter"}
 
 library(usethis)
 library(testthat)
@@ -133,7 +128,7 @@ x <- c(1,2,1,4,1)
 apa_t_pair(x, x)
 ```
 
-::: {.warning}
+::: {.callout-warning}
 You may get an error above instead of "There was a NAsignificant difference; t(4) = NaN, p = NaN.", this means that you've changed a default setting, but I'm having trouble figuring out what (one of my computers returns an error and two return the text above). I'll update this when I figure it out. Regardless, we want to replace that opaque error with an intelligible error.
 :::
 
@@ -150,7 +145,7 @@ test_that("same x and y", {
 })
 ```
 
-::: {.info}
+::: {.callout-note}
 The function `expect_error()` can use regular expressions to test for patterns. For example, `"is not allowed$"` will match any string that ends with "is not allowed". Regex is powerful, but can be tricky to use. If you want to test if the returned error text is **exactly** the same as the `regexp` string, set `fixed = TRUE`. 
 :::
 

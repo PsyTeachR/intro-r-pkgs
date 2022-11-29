@@ -1,19 +1,14 @@
 # Overview {.unnumbered}
 
-```{r, include = FALSE}
-# devtools::install_github("psyteachr/glossary")
-library(glossary)
-```
-
-
 This book will serve as a record of the activities of the 2022 [PsyTeachR](https://psyteachr.github.io) Coding Club at the University of Glasgow School of Psychology & Neuroscience. It is in progress and will be updated regularly.
 
 Making an R package develops generic coding skills and gives you valuable insight to how R works. We’ll cover setting up a package project, creating functions, documenting them with roxygen, creating vignettes, unit testing, package testing, version control with git, and distribution with github.
 
 You will need only very basic R skills and a willingness to learn. The only people this would not be suitable for are those with zero previous experience in R (unless you know you pick up coding languages quickly). If you can install packages and have written an analysis script, you'll be fine.
 
-::: {.try}
-[Register for free at EventBrite](https://coding-club-packages.eventbrite.co.uk) to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don't worry if you can't make all of the dates. We'll record the sessions and make them public ASAP so you can catch up if you miss the live session.
+::: {.callout-important}
+## Register for free at EventBrite
+[Register](https://coding-club-packages.eventbrite.co.uk) to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don't worry if you can't make all of the dates. We'll record the sessions and make them public ASAP so you can catch up if you miss the live session.
 :::
 
 ## Demo Package
@@ -56,7 +51,8 @@ The passcode for all recordings will be `codingclub22!`
 
     How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.
     
-::: {.dangerous}
+::: {.callout-important}
+## No session 2022-11-30
 The UK University and College Union (UCU) is [planning industrial action](https://www.ucu.org.uk/article/12609/Biggest-ever-university-strikes-set-to-hit-UK-campuses-over-pay-conditions--pensions) on 2022-11-30, and Lisa is a union member, so this session will be delayed until 12-07, unless the universities propose a reasonable offer.
 :::
 

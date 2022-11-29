@@ -293,8 +293,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </header><p><a href="https://uofglasgow.zoom.us/rec/share/IIjuf9y7xF4t_KuLK_i324CMp3fu71hAnONq93lQr9_d-Ye9leOy7TCrI4VId9TV.jAqwDHjtQir5UpLx">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <section id="cmd-check" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="cmd-check">
 <span class="header-section-number">8.1</span> CMD Check</h2>
@@ -315,6 +320,7 @@ Duration: 13.2s
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
 </div>
 <p>Errors are things you really have to fix, warnings should probably be fixed but often won’t break your package, and notes are optional unless you’re submitting to <a class="glossary" target="_blank" title="The Comprehensive R Archive Network: a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R." href="https://psyteachr.github.io/glossary/c#cran">CRAN</a>.</p>
+<p><img src="images/goose-problems.jpg" class="img-fluid" style="width: 25%; float:right;" alt="Goose from untitled goose game witht he words: I think I will cause problems on purpose"></p>
 <p>Unfortunately, in real package development that’s rare enough to be exciting. Let’s make a few things go wrong so we can see what that looks like.</p>
 </section><section id="unit-tests" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="unit-tests">
 <span class="header-section-number">8.2</span> Unit Tests</h2>
@@ -342,7 +348,16 @@ Duration: 13.2s
 <span id="cb4-7"><a href="#cb4-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="info">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The second test should produce the warning “longer object length is not a multiple of shorter object length”. If you check for equivalence of <a class="glossary" target="_blank" title="A type of data structure that collects values with the same data type, like T/F values, numbers, or strings." href="https://psyteachr.github.io/glossary/v#vector">vectors</a> that have different lengths, the shorter one is “recycled”.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">==</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -357,6 +372,7 @@ Duration: 13.2s
 <span id="cb7-3"><a href="#cb7-3"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE TRUE TRUE TRUE TRUE</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -394,8 +410,18 @@ Backtrace:
  3. rlang::eval_bare(expr, quo_get_env(quo))</code></pre>
 </div>
 <p>You can find the approximate location of the problem in this text, “Failure (test-error.R:2:3)”, which means that the error is in the file <code>test-error.R</code> on line 2 and character 3. Sometimes the actual error is before or after this point, but it’s a good place to start.</p>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Remember to delete the file <code>test-error.R</code> after this exercise!</p>
+</div>
 </div>
 </section><section id="description" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="description">
 <span class="header-section-number">8.3</span> DESCRIPTION</h2>

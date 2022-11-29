@@ -308,11 +308,14 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </header><p><a href="https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>Learn to write custom functions and include them in your package.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(usethis)  <span class="co"># for setting up data sets in a package</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(glue)     <span class="co"># for text joining</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(devtools) <span class="co"># for loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># for setting up data sets in a package</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(glue)     <span class="co"># for text joining</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(devtools) <span class="co"># for loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <section id="function-overview" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="function-overview">
 <span class="header-section-number">3.1</span> Function Overview</h2>
@@ -353,9 +356,19 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb4-6"><a href="#cb4-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="info">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You technically don’t have to use the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function. The last object created in the function code will be automatically returned. Most people don’t use <code><a href="https://rdrr.io/r/base/function.html">return()</a></code>, but that can sometimes make it hard to figure out exactly what is being returned if you have a lot of if/else logic.</p>
 <p>The <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function also stops all subsequent code from being run.</p>
+</div>
 </div>
 <p>Run the code above to define the function. After it’s defined, if you type the function name into the console, without parentheses, it will show you the code for the function.</p>
 <div class="cell" data-layout-align="center">
@@ -374,8 +387,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 }</code></pre>
 </div>
 </div>
-<div class="info">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You can do this for any function; try a few! Many of the base R functions, like <code>mean</code> have unsatisfying code like <code>UseMethod("mean")</code>, which you can lean about in the <a href="https://adv-r.hadley.nz/s3.html">S3 Chapter of Advanced R</a>, but other functions like <code>sd</code> will show you the code they use.</p>
+</div>
 </div>
 <p>Use your function like any other R function.</p>
 <div class="cell" data-layout-align="center">
@@ -479,8 +502,18 @@ mean difference
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
 </div>
 </div>
-<div class="info">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Don’t worry about <code>p = 0</code> just now. A further practice exercise is for you to add code to the function to change it to <code>p &lt; .001</code> where appropriate.</p>
+</div>
 </div>
 </section><section id="set-up-function" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="set-up-function">
 <span class="header-section-number">3.2.2</span> Set up Function</h3>
@@ -547,8 +580,18 @@ mean difference
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
 </div>
 </div>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If you get the message: <code>Error in apa_t_pair() : could not find function "apa_t_pair"</code>, this means you didn’t run the code that created the function.</p>
+</div>
 </div>
 </section><section id="add-arguments" class="level3" data-number="3.2.3"><h3 data-number="3.2.3" class="anchored" data-anchor-id="add-arguments">
 <span class="header-section-number">3.2.3</span> Add Arguments</h3>
@@ -654,8 +697,18 @@ mean difference
 <pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
 </div>
 </div>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If the output doesn’t change, this usually means that you forgot to run the code that re-defined <code>apa_t_pair</code>.</p>
+</div>
 </div>
 </section></section><section id="load-in-package" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="load-in-package">
 <span class="header-section-number">3.3</span> Load in package</h2>
@@ -730,8 +783,18 @@ R CMD check succeeded</code></pre>
 </div>
 <p>The <code>no visible global function definition</code> note means that we’ve used some functions that aren’t from our own package and we haven’t specified what package they are from. <code>t.test</code> and <code>sd</code> are functions from the <code>stats</code> package, which is automatically loaded when you start up R, but still needs to be added as a dependency.</p>
 <p>You can add the <code>stats::</code> prefix to <code>t.test</code> and <code>sd</code> and add the dependency using <code>usethis::use_package("stats")</code>.</p>
-<div class="info">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The part that suggests you add <code>importFrom("stats", "sd", "t.test")</code> to the NAMESAPCE file is a way for you to add specific functions from another package to your package so you can use them without specifying the package name first. However, that specific instruction should be ignored because you should never edit the NAMESPACE file yourself. Instead use roxygen to set this up, which will be explained in <a href="04-documentation.html#sec-imports"><span>Section&nbsp;4.3</span></a>.</p>
+</div>
 </div>
 </section><section id="install" class="level3" data-number="3.3.4"><h3 data-number="3.3.4" class="anchored" data-anchor-id="install">
 <span class="header-section-number">3.3.4</span> Install</h3>

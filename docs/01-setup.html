@@ -298,10 +298,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <p>Create a package project and edit the default files. We’ll start using the most helpful package, usethis.</p>
 <p>Today we’ll be using the following <a class="glossary" target="_blank" title="A group of R functions." href="https://psyteachr.github.io/glossary/p#package">packages</a>, so install them if necessary:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>You may need to download some other files to allow you to compile packages if you’ve never installed a package “from source” before. If you’re a Windows user, you’ll need <a href="https://cran.r-project.org/bin/windows/Rtools">RTools</a>; download and install the recommended version. If you’re a Mac user, you’ll need <a href="https://www.freecodecamp.org/news/install-xcode-command-line-tools/">XCode Tools</a>, which you can install by opening the Terminal tab in RStudio (or opening the Terminal application) and typing the following at the command line: <code>xcode-select --install</code>.</p>
 <p>Additionally, you may need to install LaTeX to make PDF versions of the code documentation. The tinytex package is usually the easiest way to do this.</p>
@@ -325,8 +328,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="at">path =</span> <span class="st">"~/rproj/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Package names can only be letters, numbers, and full stops.</p>
+</div>
 </div>
 <p>You’ll see the following output, and a new RStudio <a class="glossary" target="_blank" title="A way to organise related files in RStudio" href="https://psyteachr.github.io/glossary/p#project">project</a> will open up. You can close the old window now and just work in this project.</p>
 <div class="cell-output">
@@ -439,8 +452,18 @@ RoxygenNote: 7.2.0
 <span id="cb10-4"><a href="#cb10-4"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"yourusername/demopkg"</span>)</span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Delete the example for now.</p>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Make sure you knit your README.Rmd file when you update it and never edit the README.md file (that’s just for github).</p>
+</div>
 </div>
 <p>We’ll make a full-featured pkgdown website in <a href="07-pkgdown.html"><span>Chapter&nbsp;7</span></a>, so we don’t need too many details here.</p>
 </section></section><section id="install-the-package" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="install-the-package">

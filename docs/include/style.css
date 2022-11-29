@@ -5,12 +5,11 @@ img { max-width: 100%; }
 
 /* fix code wrap with line numbers */
 pre > code.sourceCode > span {
-  text-indent: -50px;
-  padding-left: 50px;
+  text-indent: -4em;
+  padding-left: 4em;
 }
 
 .inline-figure { border: none; }
-.quarto-cover-image { display: none; }
 
 @media screen and (max-width: 767.98px) {
   #TOC, #quarto-sidebar .sidebar-menu-container ul.mt-1 {

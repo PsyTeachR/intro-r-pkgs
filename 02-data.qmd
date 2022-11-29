@@ -1,16 +1,11 @@
 # Adding Data {#sec-data}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ)
 (passcode: `codingclub22!`)
 
 Add datasets to your package and document them with a codebook. You can use our demo data or your own.
 
-```{r}
-# packages required for this chapter
+```{r, filename="Packages required for this chapter"}
 
 library(usethis)  # for setting up data sets in a package
 library(readr)    # for reading in CSV data
@@ -32,9 +27,10 @@ usethis::use_data_raw("self_res_att")
 
 The first time you run this function in a new package project, it will create a directory called `data-raw` and add this directory to the `.Rbuildignore` file so it isn't included in your package. 
 
-`r hide("Data Privacy")`
+::: {.callout-caution collapse="true"}
+## Data Privacy
 Any processed data you include in an R package is viewable by anyone who downloads the package. Anything in the `data-raw` directory is not included in the **package**, but if you share your whole project publicly on GitHub, people will be able see the raw data and processing code. You can prevent this by adding this directory to `.gitignore` (which we will discuss in @sec-sharing), but it's pretty easy to make errors that accidentally share everything, so the safest way is to process your data outside the package project if you really can't share the raw data.
-`r unhide()`
+:::
 
 It will also open a file in that directory called `self_res_att.R` with the following contents.
 
@@ -61,7 +57,7 @@ Now, load the data in this script, using the object name `self_res_att`; this wi
 self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
 
-::: {.info}
+::: {.callout-note}
 I use `readr::read_csv()` so we can fix the column types, but you're free to use any way you're comfortable with to load and process the data.
 :::
 
@@ -145,7 +141,7 @@ Create a new script called "self_res_att". The function `use_r()` will save it i
 usethis::use_r("self_res_att")
 ```
 
-::: {.warning}
+::: {.callout-caution}
 Make sure you don't confuse this file with the processing script at `data-raw/self_res_att.R`.
 :::
 
@@ -200,7 +196,7 @@ vars <- c(
   )
 ```
 
-::: {.info}
+::: {.callout-note}
 The lines breaks will probably be ugly, but you can select the code and choose **`Reformat Code`** (cmd-shift-A) from the **`Code`** menu to fix it.
 :::
 
@@ -237,7 +233,7 @@ glue::glue("#'   \\item{[colname]}{[coldesc]}",
            .close = "]")
 ```
 
-::: {.info}
+::: {.callout-note}
 I've written [a function](https://github.com/PsyTeachR/intro-r-pkgs/blob/main/R/data_doc.R) that you can use to set up a data documentation file for a data object. This could be useful if you are adding many data tables to a package.
 :::
 

@@ -293,16 +293,19 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </header><p><a href="https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>Create a package website using pkgdown.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(usethis)  <span class="co"># to set up pkgdown</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(pkgdown)  <span class="co"># to create the pkgdown website</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(devtools) <span class="co"># to build the package README</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># optional</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(hexSticker) <span class="co"># to make hex sticker</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(ggplot2)    <span class="co"># to make hex sticker plot</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(badger)     <span class="co"># to create custom badges</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># to set up pkgdown</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(pkgdown)  <span class="co"># to create the pkgdown website</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(devtools) <span class="co"># to build the package README</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># optional</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(hexSticker) <span class="co"># to make hex sticker</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(ggplot2)    <span class="co"># to make hex sticker plot</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(badger)     <span class="co"># to create custom badges</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <section id="set-up-pkgdown" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="set-up-pkgdown">
 <span class="header-section-number">7.1</span> Set up pkgdown</h2>
@@ -315,8 +318,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_pkgdown</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="try">
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If you already have GitHub set up with your package, use <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown_github_pages()</a></code> instead. If not, we’ll cover how to link your site to GitHub in <a href="09-sharing.html"><span>Chapter&nbsp;9</span></a>.</p>
+</div>
 </div>
 <p>You’ll see some output that looks like this.</p>
 <div class="cell-output">
@@ -352,8 +365,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pkgdown<span class="sc">::</span><span class="fu">build_site</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="try">
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If you already have GitHub set up with your package, use <code><a href="https://pkgdown.r-lib.org/reference/build_site_github_pages.html">pkgdown::build_site_github_pages()</a></code> instead.</p>
+</div>
 </div>
 <p>You should see something like the following output, and then a webpage will appear in your Viewer pane or a separate window (depending on your preference settings). If you need to open it manually, open <code>docs/index.html</code> in a web browser.</p>
 <div class="cell-output">
@@ -481,8 +504,18 @@ A BibTeX entry for LaTeX users is
 </section><section id="logo" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="logo">
 <span class="header-section-number">7.4</span> Logo</h2>
 <p>You can use any image for a logo, but it’s traditional to make a hex sticker for R packages.</p>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The code below requires the <a href="https://github.com/GuangchuangYu/hexSticker">hexSticker</a> package, which is outstanding, but a little tricky to install. It might require installing <a href="https://www.imagemagick.org/script/download.php">imageMagick</a> on your computer (not an R package). On MacOS, you might need to install <a href="https://www.xquartz.org/">xquartz</a> on your computer (not an R package) and then re-install the R package {sysfont}.</p>
+</div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -523,7 +556,7 @@ A BibTeX entry for LaTeX users is
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="07-pkgdown_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="07-pkgdown_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -559,8 +592,18 @@ Warning: pkgdown config does not specify the site's url, which is optional but r
 <span id="cb18-4"><a href="#cb18-4"></a>pkgdown<span class="sc">::</span><span class="fu">build_home</span>()     <span class="co"># update home page</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If you try to just <code>build_home()</code>, you will get a message like <code>pkgdown can only use images in 'man/figures' and 'vignettes'</code> because the logo hasn’t been copied to the right places. This could also be the problem if you update the logo but it doesn’t change in the pkgdown home page.</p>
+</div>
 </div>
 </section><section id="badges" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="badges">
 <span class="header-section-number">7.5</span> Badges</h2>

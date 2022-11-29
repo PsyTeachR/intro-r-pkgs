@@ -301,10 +301,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </header><p><a href="https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>Include your study analysis code as a package vignette.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># packages required for this chapter</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(usethis)  <span class="co"># to create the vignette structure</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(devtools) <span class="co"># to build vignettes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># to create the vignette structure</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools) <span class="co"># to build vignettes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <section id="create-a-new-vignette" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="create-a-new-vignette">
 <span class="header-section-number">6.1</span> Create a new vignette</h2>
@@ -317,8 +320,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_vignette</span>(<span class="at">name =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="info">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If the name of your vignette is the same as your package, it will be treated specially in a pkgdown site, which we’ll create next week. his is typically for the package overview for getting started.</p>
+</div>
 </div>
 <p>The first time you add a vignette, you will see output like below. You will only see the last two lines after that.</p>
 <div class="cell-output">
@@ -337,8 +350,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <section id="yaml-header" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="yaml-header">
 <span class="header-section-number">6.2.1</span> YAML Header</h3>
 <p>You can update the <code>title</code> of your vignette. See <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_vignette.html">?rmarkdown::html_vignette</a></code> for potential options you can set for this document type.</p>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The <code>VignetteIndexEntry</code> value should be the same as the title. Other than that, don’t edit the vignette lines.</p>
+</div>
 </div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">---</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Demopkg Overview"</span></span>
@@ -401,8 +424,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(age) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="warning">
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You’ll need to add <code><a href="https://dplyr.tidyverse.org">library(dplyr)</a></code> to your vignette to use <code>group_by()</code> and <code>summarise()</code>.</p>
+</div>
 </div>
 </section><section id="build" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="build">
 <span class="header-section-number">6.4</span> Build</h2>

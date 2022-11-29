@@ -1,15 +1,10 @@
 # Documentation {#sec-documentation}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR) (passcode: `codingclub22!`)
 
 Write function documentation using the roxygen format. This is what creates the help documentation for functions.
 
-```{r}
-# packages required for this chapter
+```{r, filename="Packages required for this chapter"}
 
 library(devtools) # for rendering documentation and loading your package
 ```
@@ -50,7 +45,7 @@ The first line of the roxygen documentation is the title and the paragraph under
 
 ```
 
-::: {.info} 
+::: {.callout-note} 
 The curly brackets need to be prefaced by a backslash so they will show as `r glossary("literal")` curly brackets in the Help files, rather than be interpreted as `r glossary("markdown")` syntax.
 :::
 
@@ -97,7 +92,9 @@ Add at least one example that shows how the function works. Make sure to create 
 
 Not everyone documents helper functions like `round0`, but I think it's good practice. Repeat the steps above with `round0`, but omit the line with `@export`. Annoyingly, non-exported functions can't have examples, so you can also delete those. Try to do this yourself before you look at the answer below, but have a look at the help file for `round` for inspiration.
 
-`r hide()`
+::: {.callout-tip collapse="true"}
+## Documentation for `round0`
+
 The title is so descriptive here that I skipped a description.
 
 ``` roxygen
@@ -108,8 +105,7 @@ The title is so descriptive here that I skipped a description.
 #'
 #' @return character string of formatted number
 ```
-
-`r unhide()`
+:::
 
 ## Importing functions {#sec-imports}
 

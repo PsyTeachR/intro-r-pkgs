@@ -1,15 +1,10 @@
 # Pkgdown Websites {#sec-pkgdown}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ) (passcode: `codingclub22!`)
 
 Create a package website using pkgdown.
 
-```{r, message=FALSE}
-# packages required for this chapter
+```{r, message=FALSE, filename="Packages required for this chapter"}
 
 library(usethis)  # to set up pkgdown
 library(pkgdown)  # to create the pkgdown website
@@ -29,7 +24,7 @@ The following function makes some edits to `Rbuildignore` (telling R to ignore t
 usethis::use_pkgdown()
 ```
 
-::: {.try}
+::: {.callout-tip}
 If you already have GitHub set up with your package, use `usethis::use_pkgdown_github_pages()` instead. If not, we'll cover how to link your site to GitHub in @sec-sharing. 
 :::
 
@@ -69,7 +64,7 @@ Now check that everything is set up correctly by building the site.
 pkgdown::build_site()
 ```
 
-::: {.try}
+::: {.callout-tip}
 If you already have GitHub set up with your package, use `pkgdown::build_site_github_pages()` instead.
 :::
 
@@ -164,7 +159,7 @@ pkgdown::build_home()
 
 You can use any image for a logo, but it's traditional to make a hex sticker for R packages. 
 
-::: {.warning}
+::: {.callout-warning}
 The code below requires the [hexSticker](https://github.com/GuangchuangYu/hexSticker) package, which is outstanding, but a little tricky to install. It might require installing [imageMagick](https://www.imagemagick.org/script/download.php) on your computer (not an R package). On MacOS, you might need to install [xquartz](https://www.xquartz.org/) on your computer (not an R package) and then re-install the R package {sysfont}.
 :::
 
@@ -232,7 +227,7 @@ pkgdown::build_home()     # update home page
 ```
 
 
-::: {.warning}
+::: {.callout-warning}
 If you try to just `build_home()`, you will get a message like `pkgdown can only use images in 'man/figures' and 'vignettes'` because the logo hasn't been copied to the right places. This could also be the problem if you update the logo but it doesn't change in the pkgdown home page.
 :::
 

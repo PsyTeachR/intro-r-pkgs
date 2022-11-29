@@ -1,15 +1,10 @@
 # Vignettes {#sec-vignettes}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv) (passcode: `codingclub22!`)
 
 Include your study analysis code as a package vignette.
 
-```{r}
-# packages required for this chapter
+```{r, filename="Packages required for this chapter"}
 
 library(usethis)  # to create the vignette structure
 library(devtools) # to build vignettes
@@ -23,7 +18,7 @@ New vignettes need a name (the file name and the string you can use to access it
 usethis::use_vignette(name = "demopkg")
 ```
 
-::: {.info}
+::: {.callout-note}
 If the name of your vignette is the same as your package, it will be treated specially in a pkgdown site, which we'll create next week. his is typically for the package overview for getting started.
 :::
 
@@ -50,7 +45,7 @@ The new .Rmd file will open in the source pane.
 
 You can update the `title` of your vignette. See `?rmarkdown::html_vignette` for potential options you can set for this document type.
 
-::: {.warning}
+::: {.callout-warning}
 The `VignetteIndexEntry` value should be the same as the title. Other than that, don't edit the vignette lines.
 :::
 
@@ -116,7 +111,7 @@ self_res_att |>
 
 ````
 
-::: {.warning}
+::: {.callout-warning}
 You'll need to add `library(dplyr)` to your vignette to use `group_by()` and `summarise()`.
 :::
 

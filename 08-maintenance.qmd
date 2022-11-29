@@ -1,14 +1,10 @@
 # Package Maintenance {#sec-maintenance}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://uofglasgow.zoom.us/rec/share/IIjuf9y7xF4t_KuLK_i324CMp3fu71hAnONq93lQr9_d-Ye9leOy7TCrI4VId9TV.jAqwDHjtQir5UpLx) (passcode: `codingclub22!`)
 
 How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.
 
-```{r}
+```{r, filename="Packages required for this chapter"}
 library(usethis)
 library(devtools)
 ```
@@ -37,6 +33,8 @@ Duration: 13.2s
 
 Errors are things you really have to fix, warnings should probably be fixed but often won't break your package, and notes are optional unless you're submitting to `r glossary("CRAN")`.
 
+![](images/goose-problems.jpg){fig-alt="Goose from untitled goose game witht he words: I think I will cause problems on purpose" style="width: 25%; float:right;"}
+
 Unfortunately, in real package development that's rare enough to be exciting. Let's make a few things go wrong so we can see what that looks like.
 
 ## Unit Tests
@@ -59,7 +57,7 @@ test_that("warning", {
 })
 ```
 
-::: {.info}
+::: {.callout-note}
 The second test should produce the warning "longer object length is not a multiple of shorter object length". If you check for equivalence of `r glossary("vector", "vectors")` that have different lengths, the shorter one is "recycled". 
 
 ```{r}
@@ -118,7 +116,7 @@ Backtrace:
 
 You can find the approximate location of the problem in this text, "Failure (test-error.R:2:3)", which means that the error is in the file `test-error.R` on line 2 and character 3. Sometimes the actual error is before or after this point, but it's a good place to start.
 
-::: {.warning}
+::: {.callout-warning}
 Remember to delete the file `test-error.R` after this exercise!
 :::
 
