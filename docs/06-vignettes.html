@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.1.189">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Coding Club: Creating an R Package - 6&nbsp; Analysis Vignette</title>
+<title>Coding Club: Creating an R Package - 6&nbsp; Vignettes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -152,7 +152,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis Vignette</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -228,7 +228,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis Vignette</span></a>
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -244,11 +244,6 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-next-steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Next Steps</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -272,12 +267,26 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#further-reading" id="toc-further-reading" class="nav-link active" data-scroll-target="#further-reading"><span class="toc-section-number">6.1</span>  Further Reading</a></li>
+<li><a href="#create-a-new-vignette" id="toc-create-a-new-vignette" class="nav-link active" data-scroll-target="#create-a-new-vignette"><span class="toc-section-number">6.1</span>  Create a new vignette</a></li>
+  <li>
+<a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">6.2</span>  Setup</a>
+  <ul class="collapse">
+<li><a href="#yaml-header" id="toc-yaml-header" class="nav-link" data-scroll-target="#yaml-header"><span class="toc-section-number">6.2.1</span>  YAML Header</a></li>
+  <li><a href="#knitr-options" id="toc-knitr-options" class="nav-link" data-scroll-target="#knitr-options"><span class="toc-section-number">6.2.2</span>  Knitr Options</a></li>
+  </ul>
+</li>
+  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents"><span class="toc-section-number">6.3</span>  Contents</a></li>
+  <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build"><span class="toc-section-number">6.4</span>  Build</a></li>
+  <li><a href="#check" id="toc-check" class="nav-link" data-scroll-target="#check"><span class="toc-section-number">6.5</span>  Check</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install"><span class="toc-section-number">6.6</span>  Install</a></li>
+  <li><a href="#access-vignettes" id="toc-access-vignettes" class="nav-link" data-scroll-target="#access-vignettes"><span class="toc-section-number">6.7</span>  Access vignettes</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="toc-section-number">6.8</span>  Further Reading</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">6.9</span>  Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/06-vignettes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/06-vignettes.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-vignettes" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis Vignette</span></span></h1>
+<h1 class="title"><span id="sec-vignettes" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></span></h1>
 </div>
 
 
@@ -289,18 +298,239 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
-</header><p>Include your study analysis code as a package vignette.</p>
+</header><p><a href="https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv">Recording</a> (passcode: <code>codingclub22!</code>)</p>
+<p>Include your study analysis code as a package vignette.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(pkgdown) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
 </div>
-<section id="further-reading" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="further-reading">
-<span class="header-section-number">6.1</span> Further Reading</h2>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># to create the vignette structure</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools) <span class="co"># to build vignettes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="create-a-new-vignette" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="create-a-new-vignette">
+<span class="header-section-number">6.1</span> Create a new vignette</h2>
+<p>New vignettes need a name (the file name and the string you can use to access it later) and optionally a title. If you omit the title, it will be the same as the file name, but you can edit it in the next step.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_vignette</span>(<span class="at">name =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the name of your vignette is the same as your package, it will be treated specially in a pkgdown site, which we’ll create next week. his is typically for the package overview for getting started.</p>
+</div>
+</div>
+<p>The first time you add a vignette, you will see output like below. You will only see the last two lines after that.</p>
+<div class="cell-output">
+<pre><code>✔ Adding 'knitr' to Suggests field in DESCRIPTION
+✔ Setting VignetteBuilder field in DESCRIPTION to 'knitr'
+✔ Adding 'inst/doc' to '.gitignore'
+✔ Creating 'vignettes/'
+✔ Adding '*.html', '*.R' to 'vignettes/.gitignore'
+✔ Adding 'rmarkdown' to Suggests field in DESCRIPTION
+✔ Writing 'vignettes/demopkg.Rmd'
+• Modify 'vignettes/demopkg.Rmd'</code></pre>
+</div>
+</section><section id="setup" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="setup">
+<span class="header-section-number">6.2</span> Setup</h2>
+<p>The new .Rmd file will open in the source pane.</p>
+<section id="yaml-header" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="yaml-header">
+<span class="header-section-number">6.2.1</span> YAML Header</h3>
+<p>You can update the <code>title</code> of your vignette. See <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_vignette.html">?rmarkdown::html_vignette</a></code> for potential options you can set for this document type.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>VignetteIndexEntry</code> value should be the same as the title. Other than that, don’t edit the vignette lines.</p>
+</div>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">---</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Demopkg Overview"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="at">  rmarkdown:</span><span class="fu">:html_vignette</span><span class="kw">:</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="at">    </span><span class="fu">df_print</span><span class="kw">:</span><span class="at"> kable</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="fu">vignette</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  %\VignetteIndexEntry{Demopkg Overview}</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  %\VignetteEngine{knitr::rmarkdown}</span>
+<span id="cb4-9"><a href="#cb4-9"></a>  %\VignetteEncoding{UTF-8}</span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="knitr-options" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="knitr-options">
+<span class="header-section-number">6.2.2</span> Knitr Options</h3>
+<p>The default knitr options set <code>collapse = TRUE</code>, which means that code and output <a class="glossary" target="_blank" title="A section of code in an R Markdown file" href="https://psyteachr.github.io/glossary/c#chunk">chunks</a> are merged together, and <code>comment = "#&gt;"</code>, which means that output lines are prefixed by <code>#&gt;</code> instead of the normal default of <code>##</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>vignettes/demopkg.Rmd</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">comment =</span> <span class="st">"#&gt;"</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You can change these or any other options (see the <a href="https://yihui.org/knitr/options/">knitr manual</a> for more details), but these give you the typical look of R package documentation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># example code to show the options above</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">set.seed</span>(<span class="dv">8675309</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">rnorm</span>(<span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="fu">t.test</span>()</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;  One Sample t-test</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; </span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; data:  rnorm(20)</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; t = 0.65455, df = 19, p-value = 0.5206</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; alternative hypothesis: true mean is not equal to 0</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  -0.3281379  0.6267663</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; mean of x </span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; 0.1493142</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+
+</div>
+</section></section><section id="contents" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="contents">
+<span class="header-section-number">6.3</span> Contents</h2>
+<p>Now you can add contents in the same way you would write any <a class="glossary" target="_blank" title="The R-specific version of markdown: a way to specify formatting, such as headers, paragraphs, lists, bolding, and links, as well as code blocks and inline code." href="https://psyteachr.github.io/glossary/r#r-markdown">R Markdown</a> script. For example, we could create a section to describe the built-in data sets.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### self_res_att</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Attractiveness judgements of same-sex and other-sex self-resembling faces from DeBruine (2004). Data are from 108 participants. Original data are from <span class="ot">&lt;https://osf.io/3c5s4/&gt;</span>.</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>self_res_att <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, ethgroup) <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_age =</span> <span class="fu">mean</span>(age) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(age) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You’ll need to add <code><a href="https://dplyr.tidyverse.org">library(dplyr)</a></code> to your vignette to use <code>group_by()</code> and <code>summarise()</code>.</p>
+</div>
+</div>
+</section><section id="build" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="build">
+<span class="header-section-number">6.4</span> Build</h2>
+<p>You can knit the vignette as you’re writing it to quickly check what the output looks like. Once you’re done with a vignette, you can “build” it to add it to the package.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>devtools<span class="sc">::</span><span class="fu">build_vignettes</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You will see the normal output for knitting a document, and then these messages:</p>
+<div class="cell-output">
+<pre><code>Output created: demopkg.html
+--- finished re-building ‘demopkg.Rmd’
+
+ℹ Copying vignettes
+ℹ Moving demopkg.html and demopkg.R to doc/
+ℹ Copying demopkg.Rmd to doc/
+ℹ Building vignette index</code></pre>
+</div>
+<p>You can view the HTML file in <code>doc/demopkg.html</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">browseURL</span>(<span class="st">"doc/demopkg.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="check" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="check">
+<span class="header-section-number">6.5</span> Check</h2>
+<p>Run the check (from the Build pane or by running <code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code>) to make sure everything is set up right. This will re-build your vignettes, as well as run all the unit tests and other checks. You will get the following note (unless you’d already added dplyr to your dependencies).</p>
+<div class="cell-output">
+<pre><code>❯ checking for unstated dependencies in vignettes ... NOTE
+  'library' or 'require' call not declared from: ‘dplyr’</code></pre>
+</div>
+<p>You can fix this by adding dplyr as a dependency. If you are only using it in vignettes and not in any actual package code, add it as a suggestion.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"dplyr"</span>, <span class="st">"Suggests"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Now when you rerun the check, you should get</p>
+<div class="cell-output" style="color: #00FF00;">
+<pre><code>0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
+</div>
+</section><section id="install" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="install">
+<span class="header-section-number">6.6</span> Install</h2>
+<p>Building the vignettes can take up some time, so they are not built by default when you install your package. If you want to install the package so your vignettes are available outside the development project, use the following code.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>(<span class="at">build_vignettes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="access-vignettes" class="level2" data-number="6.7"><h2 data-number="6.7" class="anchored" data-anchor-id="access-vignettes">
+<span class="header-section-number">6.7</span> Access vignettes</h2>
+<p>Find out the vignettes a package has with the <code><a href="https://rdrr.io/r/utils/vignette.html">vignette()</a></code> function. Make sure you’ve loaded your updated package.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Access a specific vignette topic in the Viewer pane. You don’t need to specify the package if the vignette name is unique.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">vignette</span>(<span class="at">topic =</span> <span class="st">"demopkg"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Next week, we’ll learn how to create a website for your package that displays this vignette.</p>
+</section><section id="further-reading" class="level2" data-number="6.8"><h2 data-number="6.8" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">6.8</span> Further Reading</h2>
 <ul>
 <li>
 <a href="https://r-pkgs.org/vignettes.html">Vignettes</a> from <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span>
 </li>
-</ul>
+</ul></section><section id="further-practice" class="level2" data-number="6.9"><h2 data-number="6.9" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">6.9</span> Further Practice</h2>
+<ol type="1">
+<li><p>Add more text to your vignette, such as a plot of the data.</p></li>
+<li><p>Create another vignette in this package for analyses. Compare <code>m_self</code> vs <code>m_non</code> and <code>f_self</code> vs <code>f_non</code> separately for male and female participants using the <code>apa_t_pair()</code> function.</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">

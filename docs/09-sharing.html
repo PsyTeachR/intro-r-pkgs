@@ -108,7 +108,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./10-next-steps.html" rel="next">
+<link href="./references.html" rel="next">
 <link href="./08-maintenance.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -228,7 +228,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis Vignette</span></a>
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -244,11 +244,6 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-sharing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-next-steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Next Steps</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -297,7 +292,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 </header><p>Set up a github account and make a package repository to share your package and pkgdown website.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <section id="set-up-git" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="set-up-git">
 <span class="header-section-number">9.1</span> Set up git</h2>
@@ -329,12 +329,19 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <p>If you think you’ve already done this in the past, or have just set it up, double check with this function:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>usethis<span class="sc">::</span><span class="fu">gh_token_help</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• GitHub host: 'https://github.com'
+• Personal access token for 'https://github.com': '&lt;discovered&gt;'
+• GitHub user: 'debruine'
+• Token scopes: 'gist, repo, user, workflow'
+• Email(s): 'debruine@gmail.com (primary)', 'lisa.debruine@glasgow.ac.uk'</code></pre>
+</div>
 </div>
 </section><section id="add-repository" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="add-repository">
 <span class="header-section-number">9.3</span> Add Repository</h2>
 <p>Now we can add this project to your github repositories.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>usethis<span class="sc">::</span><span class="fu">use_github</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>usethis<span class="sc">::</span><span class="fu">use_github</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output">
 <pre><code>ℹ Defaulting to 'https' Git protocol
@@ -359,7 +366,7 @@ Is it ok to commit it?</code></pre>
 <span class="header-section-number">9.4</span> Add a README</h2>
 <p>All repositories need a README. R package repositories tend to follow a pattern that the following function will set up.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Edit the goal of the package. You can use text from the DESCRIPTION file.</p>
 <pre><code>The goal of demopkg is to provide data and analysis code for the paper "Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces" (DeBruine, 2004).</code></pre>
@@ -429,10 +436,10 @@ To https://github.com/debruine/demopkg.git
    19dfbb3..5ae4e39  main -&gt; main</code></pre>
 </div>
 <p>TL;DR:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">git</span> status</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">git</span> add <span class="pp">*</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"README updates"</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">git</span> status</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">git</span> add <span class="pp">*</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"README updates"</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="further-resources" class="level2" data-number="9.7"><h2 data-number="9.7" class="anchored" data-anchor-id="further-resources">
 <span class="header-section-number">9.7</span> Further Resources</h2>
 <ul>
@@ -872,8 +879,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./10-next-steps.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Next Steps</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

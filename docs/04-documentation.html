@@ -228,7 +228,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis Vignette</span></a>
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -244,11 +244,6 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-next-steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Next Steps</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -306,118 +301,158 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </header><p><a href="https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR">Recording</a> (passcode: <code>codingclub22!</code>)</p>
 <p>Write function documentation using the roxygen format. This is what creates the help documentation for functions.</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(devtools) <span class="co"># for rendering documentation and loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: usethis</code></pre>
+</div>
 </div>
 <section id="roxygen" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="roxygen">
 <span class="header-section-number">4.1</span> Roxygen</h2>
 <p>Go to the <code>R/apa_t_pair.R</code> file we created last week. Put your cursor anywhere inside that <a class="glossary" target="_blank" title="A named section of code that can be reused." href="https://psyteachr.github.io/glossary/f#function">function</a> and choose <strong><code>Insert Roxygen Skeleton</code></strong> from the <strong><code>Code</code></strong> menu. It should generate documentation code in roxygen format like this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>#' Title</span>
-<span id="cb2-2"><a href="#cb2-2"></a>#'</span>
-<span id="cb2-3"><a href="#cb2-3"></a>#' @param x</span>
-<span id="cb2-4"><a href="#cb2-4"></a>#' @param y</span>
-<span id="cb2-5"><a href="#cb2-5"></a>#' @param dv</span>
-<span id="cb2-6"><a href="#cb2-6"></a>#' @param level1</span>
-<span id="cb2-7"><a href="#cb2-7"></a>#' @param level2</span>
-<span id="cb2-8"><a href="#cb2-8"></a>#'</span>
-<span id="cb2-9"><a href="#cb2-9"></a>#' @return</span>
-<span id="cb2-10"><a href="#cb2-10"></a>#' @export</span>
-<span id="cb2-11"><a href="#cb2-11"></a>#'</span>
-<span id="cb2-12"><a href="#cb2-12"></a>#' @examples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>#' Title</span>
+<span id="cb3-2"><a href="#cb3-2"></a>#'</span>
+<span id="cb3-3"><a href="#cb3-3"></a>#' @param x</span>
+<span id="cb3-4"><a href="#cb3-4"></a>#' @param y</span>
+<span id="cb3-5"><a href="#cb3-5"></a>#' @param dv</span>
+<span id="cb3-6"><a href="#cb3-6"></a>#' @param level1</span>
+<span id="cb3-7"><a href="#cb3-7"></a>#' @param level2</span>
+<span id="cb3-8"><a href="#cb3-8"></a>#'</span>
+<span id="cb3-9"><a href="#cb3-9"></a>#' @return</span>
+<span id="cb3-10"><a href="#cb3-10"></a>#' @export</span>
+<span id="cb3-11"><a href="#cb3-11"></a>#'</span>
+<span id="cb3-12"><a href="#cb3-12"></a>#' @examples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This creates the help files you can see for any function. For example, type <code><a href="https://rdrr.io/r/stats/t.test.html">?t.test</a></code> in the <a class="glossary" target="_blank" title="The pane in RStudio where you can type in commands and view output messages." href="https://psyteachr.github.io/glossary/c#console">console</a>.</p>
 <section id="title-and-description" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="title-and-description">
 <span class="header-section-number">4.1.1</span> Title and Description</h3>
 <p>The first line of the roxygen documentation is the title and the paragraph under that is the description. If you have more than one paragraph of description, you need to add the <code>@description</code> tag. Update your documentation like this:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>#' APA text for Paired-Samples T-Test</span>
-<span id="cb3-2"><a href="#cb3-2"></a>#' </span>
-<span id="cb3-3"><a href="#cb3-3"></a>#' @description</span>
-<span id="cb3-4"><a href="#cb3-4"></a>#' Create APA-formatted text for the results of an independent-samples t-test in the following format:</span>
-<span id="cb3-5"><a href="#cb3-5"></a>#'</span>
-<span id="cb3-6"><a href="#cb3-6"></a>#' A paired-samples t-test was conducted to compare \{dv\} between \{level1\} (M = \{mean1\}, SD = \{sd1\}) and \{level2\} (M = \{mean2\}, SD = \{sd2\}). There was a \{non\}significant difference; t(\{df\}) = \{t_value\}, p = \{p_value\}.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="info">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>#' APA text for Paired-Samples T-Test</span>
+<span id="cb4-2"><a href="#cb4-2"></a>#' </span>
+<span id="cb4-3"><a href="#cb4-3"></a>#' @description</span>
+<span id="cb4-4"><a href="#cb4-4"></a>#' Create APA-formatted text for the results of an independent-samples t-test in the following format:</span>
+<span id="cb4-5"><a href="#cb4-5"></a>#'</span>
+<span id="cb4-6"><a href="#cb4-6"></a>#' A paired-samples t-test was conducted to compare \{dv\} between \{level1\} (M = \{mean1\}, SD = \{sd1\}) and \{level2\} (M = \{mean2\}, SD = \{sd2\}). There was a \{non\}significant difference; t(\{df\}) = \{t_value\}, p = \{p_value\}.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The curly brackets need to be prefaced by a backslash so they will show as <a class="glossary" target="_blank" title="The actual character being typed, not the special meaning it has to code." href="https://psyteachr.github.io/glossary/l#literal">literal</a> curly brackets in the Help files, rather than be interpreted as <a class="glossary" target="_blank" title="A way to specify formatting, such as headers, paragraphs, lists, bolding, and links." href="https://psyteachr.github.io/glossary/m#markdown">markdown</a> syntax.</p>
+</div>
 </div>
 </section><section id="arguments" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="arguments">
 <span class="header-section-number">4.1.2</span> Arguments</h3>
 <p>The “Arguments” section is created from the lines that start with <code>@param</code>. They should define each <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">argument</a> in the function.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>#' @param x A vector of the values for level 1.</span>
-<span id="cb4-2"><a href="#cb4-2"></a>#' @param y A vector of the values for level 2.</span>
-<span id="cb4-3"><a href="#cb4-3"></a>#' @param dv The text describing the DV in the output statement.</span>
-<span id="cb4-4"><a href="#cb4-4"></a>#' @param level1 The text describing level 1 in the output statement.</span>
-<span id="cb4-5"><a href="#cb4-5"></a>#' @param level2 The text describing level 2 in the output statement.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>#' @param x A vector of the values for level 1.</span>
+<span id="cb5-2"><a href="#cb5-2"></a>#' @param y A vector of the values for level 2.</span>
+<span id="cb5-3"><a href="#cb5-3"></a>#' @param dv The text describing the DV in the output statement.</span>
+<span id="cb5-4"><a href="#cb5-4"></a>#' @param level1 The text describing level 1 in the output statement.</span>
+<span id="cb5-5"><a href="#cb5-5"></a>#' @param level2 The text describing level 2 in the output statement.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="return-value" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="return-value">
 <span class="header-section-number">4.1.3</span> Return Value</h3>
 <p>The line starting with <code>@return</code> creates the “Value” section. This tells the user what kind of <a class="glossary" target="_blank" title="A word that identifies and stores the value of some data for later use." href="https://psyteachr.github.io/glossary/o#object">object</a> is returned from the function. The line <code>@export</code> tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>#' @return A character string.</span>
-<span id="cb5-2"><a href="#cb5-2"></a>#' @export</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>#' @return A character string.</span>
+<span id="cb6-2"><a href="#cb6-2"></a>#' @export</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="examples" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="examples">
 <span class="header-section-number">4.1.4</span> Examples</h3>
 <p>Add at least one example that shows how the function works. Make sure to create any objects you need to run the function. Here, we can use the data object <code>self_res_att</code> because we added it to our package in <a href="02-data.html"><span>Chapter&nbsp;2</span></a>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>#' @examples</span>
-<span id="cb6-2"><a href="#cb6-2"></a>#' # use generic text</span>
-<span id="cb6-3"><a href="#cb6-3"></a>#' apa_t_pair(x = self_res_att$f_self,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>#'            y = self_res_att$f_non)</span>
-<span id="cb6-5"><a href="#cb6-5"></a>#'</span>
-<span id="cb6-6"><a href="#cb6-6"></a>#' # specify the text for dv and levels</span>
-<span id="cb6-7"><a href="#cb6-7"></a>#' apa_t_pair(x = self_res_att$f_self,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>#'            y = self_res_att$f_non,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>#'            dv = "preferences for female faces",</span>
-<span id="cb6-10"><a href="#cb6-10"></a>#'            level1 = "participants who resembled those faces",</span>
-<span id="cb6-11"><a href="#cb6-11"></a>#'            level2 = "non-self participants")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>#' @examples</span>
+<span id="cb7-2"><a href="#cb7-2"></a>#' # use generic text</span>
+<span id="cb7-3"><a href="#cb7-3"></a>#' apa_t_pair(x = self_res_att$f_self,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>#'            y = self_res_att$f_non)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>#'</span>
+<span id="cb7-6"><a href="#cb7-6"></a>#' # specify the text for dv and levels</span>
+<span id="cb7-7"><a href="#cb7-7"></a>#' apa_t_pair(x = self_res_att$f_self,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>#'            y = self_res_att$f_non,</span>
+<span id="cb7-9"><a href="#cb7-9"></a>#'            dv = "preferences for female faces",</span>
+<span id="cb7-10"><a href="#cb7-10"></a>#'            level1 = "participants who resembled those faces",</span>
+<span id="cb7-11"><a href="#cb7-11"></a>#'            level2 = "non-self participants")</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section><section id="helper-functions" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="helper-functions">
 <span class="header-section-number">4.2</span> Helper Functions</h2>
 <p>Not everyone documents helper functions like <code>round0</code>, but I think it’s good practice. Repeat the steps above with <code>round0</code>, but omit the line with <code>@export</code>. Annoyingly, non-exported functions can’t have examples, so you can also delete those. Try to do this yourself before you look at the answer below, but have a look at the help file for <code>round</code> for inspiration.</p>
-<div class="webex-solution">
-<button>
-Solution
-</button>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Documentation for <code>round0</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>The title is so descriptive here that I skipped a description.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>#' Round with Trailing Zeroes</span>
-<span id="cb7-2"><a href="#cb7-2"></a>#'</span>
-<span id="cb7-3"><a href="#cb7-3"></a>#' @param x a numeric vector</span>
-<span id="cb7-4"><a href="#cb7-4"></a>#' @param digits integer indicating the number of decimal places to be used.</span>
-<span id="cb7-5"><a href="#cb7-5"></a>#'</span>
-<span id="cb7-6"><a href="#cb7-6"></a>#' @return character string of formatted number</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>#' Round with Trailing Zeroes</span>
+<span id="cb8-2"><a href="#cb8-2"></a>#'</span>
+<span id="cb8-3"><a href="#cb8-3"></a>#' @param x a numeric vector</span>
+<span id="cb8-4"><a href="#cb8-4"></a>#' @param digits integer indicating the number of decimal places to be used.</span>
+<span id="cb8-5"><a href="#cb8-5"></a>#'</span>
+<span id="cb8-6"><a href="#cb8-6"></a>#' @return character string of formatted number</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </div>
 </section><section id="sec-imports" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="sec-imports">
 <span class="header-section-number">4.3</span> Importing functions</h2>
 <p>If you want to use functions from another package without always having to include the package name prefix, you can import those specific functions using roxygen documentation.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#' @importFrom stats t.test sd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#' @importFrom stats t.test sd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You can also import <strong>all</strong> functions from a package to use without the prefix. I only tend to do this with ggplot2, since it’s really hard to read ggplot code if you have to prefix all of the functions with <code>ggplot2::</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#' @import ggplot2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#' @import ggplot2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you’re going to import functions from a package, you also need to declare it as a dependency of your package:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The best place to put roxygen documentation for function or package imports is in a package documentation file. You can set one up with this code:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>usethis<span class="sc">::</span><span class="fu">use_package_doc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>usethis<span class="sc">::</span><span class="fu">use_package_doc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>This will make a file in the <code>R</code> directory called <code>demopkg-package.R</code> with the following contents:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#' @keywords internal</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="st">"_PACKAGE"</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="do">## usethis namespace: start</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="do">## usethis namespace: end</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#' @keywords internal</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="st">"_PACKAGE"</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="do">## usethis namespace: start</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="do">## usethis namespace: end</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Edit it to add a title, description, and any imports. You can also get rid of the usethis comments (I’m not sure what those are for).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#' A Demo for Coding Club 2022.</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#'</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#' The goal of demopkg is to practice making a package.</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#'</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#' @import ggplot2</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#' @importFrom stats t.test sd</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#' @keywords internal</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="st">"_PACKAGE"</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">#' A Demo for Coding Club 2022.</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#'</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co">#' The goal of demopkg is to practice making a package.</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#'</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#' @import ggplot2</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#' @importFrom stats t.test sd</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#' @keywords internal</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="st">"_PACKAGE"</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="document-and-load" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="document-and-load">
 <span class="header-section-number">4.4</span> Document and Load</h2>
 <p>Now, you need to run the documentation function to add your function to the package documentation and export it for use.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>You should see output like this.</p>
 <div class="cell-output">
@@ -430,11 +465,15 @@ Writing round0.Rd</code></pre>
 </div>
 <p>Now restart R and make sure that your <a class="glossary" target="_blank" title="A data structure that contains R objects such as variables and functions" href="https://psyteachr.github.io/glossary/e#environment">environment</a> is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># type this in the console</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
-<span id="cb16-3"><a href="#cb16-3"></a>?round0</span>
-<span id="cb16-4"><a href="#cb16-4"></a>?apa_t_pair</span>
-<span id="cb16-5"><a href="#cb16-5"></a>?demopkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>?round0</span>
+<span id="cb17-3"><a href="#cb17-3"></a>?apa_t_pair</span>
+<span id="cb17-4"><a href="#cb17-4"></a>?demopkg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section><section id="glossary" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">4.5</span> Glossary</h2>

@@ -1,11 +1,295 @@
 # Pkgdown Websites {#sec-pkgdown}
 
+[Recording](https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ) (passcode: `codingclub22!`)
+
 Create a package website using pkgdown.
 
-```{r}
-library(usethis)
-library(pkgdown)
+```{r, message=FALSE, filename="Packages required for this chapter"}
+
+library(usethis)  # to set up pkgdown
+library(pkgdown)  # to create the pkgdown website
+library(devtools) # to build the package README
+
+# optional
+library(hexSticker) # to make hex sticker
+library(ggplot2)    # to make hex sticker plot
+library(badger)     # to create custom badges
 ```
+
+## Set up pkgdown
+
+The following function makes some edits to `Rbuildignore` (telling R to ignore these files when building the package) and `.gitignore` (telling git to ignore the docs directory).
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_pkgdown()
+```
+
+::: {.callout-tip}
+If you already have GitHub set up with your package, use `usethis::use_pkgdown_github_pages()` instead. If not, we'll cover how to link your site to GitHub in @sec-sharing. 
+:::
+
+You'll see some output that looks like this. 
+
+::: {.cell-output}
+```
+✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
+✔ Adding '^_pkgdown\\.yml$', '^docs$', '^pkgdown$' to '.Rbuildignore'
+✔ Adding 'docs' to '.gitignore'
+✔ Writing '_pkgdown.yml'
+• Modify '_pkgdown.yml'
+```
+:::
+
+A file called `_pkgdown.yml` will open with the following contents. 
+
+``` yaml
+url: ~
+template:
+  bootstrap: 5
+```
+
+While it is not required, I like to make a directory called `pkgdown` and keep all pkgdown-related contents in there.
+
+```{r, eval = FALSE, filename="run in the console"}
+dir.create("pkgdown")
+file.rename(from = "_pkgdown.yml",
+            to = "pkgdown/_pkgdown.yml")
+```
+
+## Build Site
+
+Now check that everything is set up correctly by building the site.
+
+```{r, eval = FALSE, filename="run in the console"}
+pkgdown::build_site()
+```
+
+::: {.callout-tip}
+If you already have GitHub set up with your package, use `pkgdown::build_site_github_pages()` instead.
+:::
+
+You should see something like the following output, and then a webpage will appear in your Viewer pane or a separate window (depending on your preference settings). If you need to open it manually, open `docs/index.html` in a web browser.
+
+::: {.cell-output}
+```
+-- Installing package into temporary library --
+== Building pkgdown site ======================
+Reading from: '/rproj/debruine/demopkg'
+Writing to:   '/rproj/debruine/demopkg/docs'
+-- Initialising site --------------------------
+-- Building home ------------------------------
+Reading 'LICENSE.md'
+Writing '404.html'
+-- Building function reference ----------------
+Reading 'man/apa_t_pair.Rd'
+Reading 'man/demopkg-package.Rd'
+Reading 'man/self_res_att.Rd'
+-- Building articles --------------------------
+Reading 'vignettes/demopkg.Rmd'
+Writing 'sitemap.xml'
+-- Building search index ----------------------
+== DONE =======================================
+-- Previewing site ----------------------------
+```
+:::
+
+If everything is working correctly, this will have automatically organised information from the DESCRIPTION file, the README, function documentation, and vignettes into a website. If you created a vignette called `demopkg`, this will be available under "Get started", and any other vignettes will be available under "Articles". Documentation for each function will be available under "Reference". 
 
 
 ## CITATION file
+
+A citation file is a specially formatted file for specifying the citation to your materials. As always, you can set one up with a usethis function.
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_citation()
+```
+
+This will create a file called `CITATION` in the directory `inst` (this is a directory where you can keep supplemental files your package needs). The file contains skeletons for two R functions that create the text shown when someone looks up the citation for your package. You should make this consistent with the information in the `DESCRIPTION` file.
+
+If your package isn't associated with a paper, use "Manual" instead of "Article". Annoyingly, there is no widely accepted BibTex entry type for software, so most people just use a citation to the documentation using the manual type.
+
+You can read and use parts of your DESCRIPTION file from the object `meta`. It will be available even if you don't define it, but you can use the code below to inspect it. Unfortunately, meta$Authors needs a lot of parsing to use in the CITATION file, so it's usually easier to just copy it, but I've included the parsing code below if you're curious.
+
+```{r, filename="run in the console"}
+meta <- packageDescription("demopkg")
+names(meta)
+```
+
+
+```{r, eval = FALSE, filename = "inst/CITATION"}
+citHeader("To cite demopkg in publications use:")
+
+year  <- sub("-.*", "", meta$Date)
+note  <- sprintf("R package version %s", meta$Version)
+authors <- eval(parse(text = meta$`Authors@R`))
+text_authors <- authors |>
+  format(include= c("family", "given"), 
+         collapse = list(family = ", ")) |> 
+  paste(collapse = ", ")
+
+bibentry(
+  bibtype = "Manual",
+  title = sprintf("{%s}: %s", meta$Package, meta$Title),
+  author = authors,
+  year = year,
+  note = note,
+  url = meta$URL,
+  textVersion = sprintf(
+    "%s, (%s). %s: %s. %s, %s",
+    text_authors, year, meta$Package, meta$Title, note, meta$URL
+  )
+)
+```
+
+I prefer to use the `bibentry()` function instead of `citEntry()` because it displays the BibTex version of the citation automatically (note that it uses the argument `bibtype` instead of `entry`). The help for this function explains all of the options for citations in detail.
+
+Save this file and re-load your package, then check the citation.
+
+```{r, filename="run in the console"}
+citation("demopkg")
+```
+
+Now you can build the pkgdown site again to see the citation update. However, this will run all of the vignettes, which might take a long time. You can re-build parts of the pkgdown site instead. Use auto-complete to browse the list of functions that start with `build_`. 
+
+```{r, eval = FALSE, filename="run in the console"}
+pkgdown::build_home()
+```
+
+## Logo
+
+You can use any image for a logo, but it's traditional to make a hex sticker for R packages. 
+
+::: {.callout-warning}
+The code below requires the [hexSticker](https://github.com/GuangchuangYu/hexSticker) package, which is outstanding, but a little tricky to install. It might require installing [imageMagick](https://www.imagemagick.org/script/download.php) on your computer (not an R package). On MacOS, you might need to install [xquartz](https://www.xquartz.org/) on your computer (not an R package) and then re-install the R package {sysfont}.
+:::
+
+```{r, filename = "pkgdown/logo.R"}
+# make a heart with math!
+t <- seq(0, 2*pi, by=0.05) |> c(0)
+heart <- data.frame(
+  x = 16*sin(t)^3,
+  y = 13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t)
+)
+
+heartplot <- ggplot(heart, aes(x, y)) +
+  geom_point(color = "red") + 
+  theme_void()
+
+# customise your hex sticker
+hexSticker::sticker(
+  filename = "inst/figures/logo.png",
+  # subplot aesthetics
+  subplot = heartplot, 
+  s_width = 1.0, s_height = .85,
+  s_x=1, s_y=.75,
+  # package name aesthetics
+  package = "demopkg", 
+  p_size = 24,  
+  p_color = "red",
+  # hexagon aesthetics
+  h_size = 1,
+  h_fill = "pink", 
+  h_color = "red",
+  # url aesthetics
+  url = "psyteachr.github.io/demopkg",
+  u_size = 5.4,
+  u_color = "white"
+) |> plot() # preview with plot()
+```
+
+However you make your logo, store the high-resolution version at `inst/figures/logo.png`. Now you can add it to the package with the following code.
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_logo("inst/figures/logo.png")
+```
+
+You'll see the following output and the code for including your logo in the README will be copied to your clipboard. Ignore the warning about the URL for now; we'll sort that out in @sec-sharing.
+
+:::{.cell-output}
+```
+✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
+✔ Creating 'man/figures/'
+✔ Resized 'inst/figures/logo.png' to 240x278
+• Add logo to your README with the following html:
+Warning: pkgdown config does not specify the site's url, which is optional but recommended
+  # demopkg <img src="man/figures/logo.png" align="right" height="139" />
+  [Copied to clipboard]
+```
+:::
+
+Open `README.Rmd`, replace the line `# demopkg` with the copied text, and run the following code. 
+
+```{r, eval = FALSE, filename="run in the console"}
+pkgdown::init_site()      # copy logo to the right places
+pkgdown::build_favicons() # create favicons from the logo
+devtools::build_readme()  # update README.md after changes to the Rmd
+pkgdown::build_home()     # update home page
+```
+
+
+::: {.callout-warning}
+If you try to just `build_home()`, you will get a message like `pkgdown can only use images in 'man/figures' and 'vignettes'` because the logo hasn't been copied to the right places. This could also be the problem if you update the logo but it doesn't change in the pkgdown home page.
+:::
+
+## Badges
+
+You've probably seen these lines in the README and wondered how you can get some badges.
+
+```
+<!-- badges: start -->
+<!-- badges: end -->
+```
+
+You can add a badge that describes the lifecycle of your package, from the options "experimental", "stable", "deprecated", or "superceded". Our demopkg is probably "experimental" :)
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_lifecycle_badge("experimental")
+```
+
+::: {.cell-output}
+```
+✔ Adding Lifecycle: experimental badge to 'README.Rmd'
+• Re-knit 'README.Rmd' with `devtools::build_readme()`
+```
+:::
+
+It will add the following text to your README.Rmd file. 
+
+```
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+```
+
+Make sure you re-knit the README and then re-build your pkgdown home page.
+
+Usethis has functions to add badges linking to your package on CRAN, Bioconductor, [mybinder.org](https://mybinder.org), or RStudio Cloud. You can also add badges that declare whether your builds are passing various checks, which we'll discuss in @sec-maintenance. 
+
+The [badger](https://github.com/GuangchuangYu/badger) package lets you create the code for custom badges, which you can manually paste into the README.
+
+```{r, filename="run in the console"}
+badge_doi("10.1098/rspb.2004.2824", "firebrick")
+
+badge_custom(
+  "ORCiD",
+  "0000-0002-7523-5539",
+  "dodgerblue",
+  "https://orcid.org/0000-0002-7523-5539"
+)
+```
+
+Make sure to add appropriate alt-text in the square brackets after the exclamation point to make your images accessible.
+
+```
+[![DOI:10.1098/rspb.2004.2824](https://img.shields.io/badge/doi-10.1098/rspb.2004.2824-firebrick.svg)](https://doi.org/10.1098/rspb.2004.2824)
+[![ORCiD:0000-0002-7523-5539](https://img.shields.io/badge/ORCiD-0000--0002--7523--5539-dodgerblue.svg)](https://orcid.org/0000-0002-7523-5539)
+```
+
+## Further Reading
+
+* [pkgdown Manual](https://pkgdown.r-lib.org/)
+
+## Further Practice
+
+1. Customise your site using tips from this pkgdown [vignette](https://pkgdown.r-lib.org/articles/customise.html).
+1. Look through the badge types at [badger](https://github.com/GuangchuangYu/badger) and see what might be useful for you.

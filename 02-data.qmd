@@ -1,16 +1,11 @@
 # Adding Data {#sec-data}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ)
 (passcode: `codingclub22!`)
 
 Add datasets to your package and document them with a codebook. You can use our demo data or your own.
 
-```{r}
-# packages required for this chapter
+```{r, filename="Packages required for this chapter"}
 
 library(usethis)  # for setting up data sets in a package
 library(readr)    # for reading in CSV data
@@ -26,16 +21,16 @@ We're going to add some data from @debruine2004 looking at attractiveness judgem
 
 Run the code below.
 
-```{r}
-# run in the console
+```{r, filename="run in the console"}
 usethis::use_data_raw("self_res_att")
 ```
 
 The first time you run this function in a new package project, it will create a directory called `data-raw` and add this directory to the `.Rbuildignore` file so it isn't included in your package. 
 
-`r hide("Data Privacy")`
+::: {.callout-caution collapse="true"}
+## Data Privacy
 Any processed data you include in an R package is viewable by anyone who downloads the package. Anything in the `data-raw` directory is not included in the **package**, but if you share your whole project publicly on GitHub, people will be able see the raw data and processing code. You can prevent this by adding this directory to `.gitignore` (which we will discuss in @sec-sharing), but it's pretty easy to make errors that accidentally share everything, so the safest way is to process your data outside the package project if you really can't share the raw data.
-`r unhide()`
+:::
 
 It will also open a file in that directory called `self_res_att.R` with the following contents.
 
@@ -49,8 +44,7 @@ usethis::use_data(self_res_att, overwrite = TRUE)
 
 Download the data file called `DeBruine_2004_PRSLB_att.csv` from <https://osf.io/2ud56/> and save it in `data-raw`. The code below will also do this.
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 download.file(url = "https://osf.io/download/3c5s4/",
               destfile = "data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
@@ -59,11 +53,11 @@ download.file(url = "https://osf.io/download/3c5s4/",
 
 Now, load the data in this script, using the object name `self_res_att`; this will be the name of the data object in your package. You will see some message text about the data.
 
-```{r}
+```{r, filename = "data-raw/self_res_att.R"}
 self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv")
 ```
 
-::: {.info}
+::: {.callout-note}
 I use `readr::read_csv()` so we can fix the column types, but you're free to use any way you're comfortable with to load and process the data.
 :::
 
@@ -76,14 +70,12 @@ Have a quick look at the data and make sure the columns import as the right data
 3. assign them to an object (here called `ct`), and 
 4. edit them to set factors with levels in a sensible order
 
-```{r}
-# run in the console
+```{r, filename="run in the console"}
 spec(self_res_att)
 ```
 
 
-```{r}
-# add to data-raw/self_res_att.R
+```{r, filename="data-raw/self_res_att.R"}
 ct <- cols(
   id = col_character(),
   sex = col_factor(levels = c("female", "male")),
@@ -110,8 +102,7 @@ self_res_att <- readr::read_csv("data-raw/DeBruine_2004_PRSLB_att.csv", col_type
 
 Once you're satisfied that the data are in the right form, you can run this code to add the data to your package. 
 
-```{r, eval = FALSE}
-# include in data-raw/self_res_att.R after prep code
+```{r, eval = FALSE, filename="data-raw/self_res_att.R"}
 usethis::use_data(self_res_att, overwrite = TRUE)
 ```
 
@@ -146,12 +137,11 @@ Data need to be documented to be included in a package. The documentation looks 
 
 Create a new script called "self_res_att". The function `use_r()` will save it in the right directory as `R/self_res_att.R`"` and open it in the source pane. 
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 usethis::use_r("self_res_att")
 ```
 
-::: {.warning}
+::: {.callout-caution}
 Make sure you don't confuse this file with the processing script at `data-raw/self_res_att.R`.
 :::
 
@@ -177,8 +167,7 @@ You can manually edit the column `\item` descriptions, but this can be pretty te
 
 Use the following code to get a list of the column names in the data set. The function `dput()` gives you the code needed to create an object.
 
-```{r}
-# run in the console
+```{r, filename="run in the console"}
 coldesc <- rep("", ncol(self_res_att))
 names(coldesc) <- names(self_res_att)
 dput(coldesc)
@@ -186,8 +175,7 @@ dput(coldesc)
 
 Copy and paste the output into your script and assign this to an object called `vars`.
 
-```{r}
-# add this code to data-raw/self_res_att.R
+```{r, filename="data-raw/self_res_att.R"}
 vars <- c(
     id = "",
     sex = "",
@@ -208,13 +196,13 @@ vars <- c(
   )
 ```
 
-::: {.info}
+::: {.callout-note}
 The lines breaks will probably be ugly, but you can select the code and choose **`Reformat Code`** (cmd-shift-A) from the **`Code`** menu to fix it.
 :::
 
 Next, define each of these columns.
 
-```{r}
+```{r, filename="data-raw/self_res_at.R"}
 vars <- c(
   "id" = "participant unique ID",
   "sex" = "sex of the participant (male/female)",
@@ -237,7 +225,7 @@ vars <- c(
 
 Now we can format this for the description file. Because the format uses curly brackets, we're going to set the opening and closing symbols for glue to square brackets. Copy and paste these lines into the items section.
 
-```{r}
+```{r, filename="data-raw/self_res_at.R"}
 glue::glue("#'   \\item{[colname]}{[coldesc]}",
            colname = names(vars),
            coldesc = vars,
@@ -245,7 +233,7 @@ glue::glue("#'   \\item{[colname]}{[coldesc]}",
            .close = "]")
 ```
 
-::: {.info}
+::: {.callout-note}
 I've written [a function](https://github.com/PsyTeachR/intro-r-pkgs/blob/main/R/data_doc.R) that you can use to set up a data documentation file for a data object. This could be useful if you are adding many data tables to a package.
 :::
 
@@ -253,8 +241,7 @@ I've written [a function](https://github.com/PsyTeachR/intro-r-pkgs/blob/main/R/
 
 Now save this file and add the documentation to your package with the following code:
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 devtools::document()
 ```
 
@@ -275,14 +262,13 @@ You need to run this function any time you make changes to the documentation in 
 
 Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 devtools::load_all(".")
 ```
 
 You should be able to access the data now.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, filename="run in the console"}
 # load as self_res_att
 data("self_res_att", package = "demopkg")
 
@@ -292,8 +278,7 @@ d1 <- demopkg::self_res_att
 
 You should also be able to see the documentation in the Help pane.
 
-```{r, eval = FALSE}
-# run in the console
+```{r, eval = FALSE, filename="run in the console"}
 ?demopkg::self_res_att
 ```
 

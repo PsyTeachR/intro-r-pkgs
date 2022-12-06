@@ -1,17 +1,204 @@
-# Analysis Vignette {#sec-vignettes}
+# Vignettes {#sec-vignettes}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
+[Recording](https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv) (passcode: `codingclub22!`)
 
 Include your study analysis code as a package vignette.
 
-```{r}
-library(usethis)
-library(pkgdown) 
+```{r, filename="Packages required for this chapter"}
+
+library(usethis)  # to create the vignette structure
+library(devtools) # to build vignettes
 ```
 
+## Create a new vignette
+
+New vignettes need a name (the file name and the string you can use to access it later) and optionally a title. If you omit the title, it will be the same as the file name, but you can edit it in the next step.
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_vignette(name = "demopkg")
+```
+
+::: {.callout-note}
+If the name of your vignette is the same as your package, it will be treated specially in a pkgdown site, which we'll create next week. his is typically for the package overview for getting started.
+:::
+
+The first time you add a vignette, you will see output like below. You will only see the last two lines after that. 
+
+::: {.cell-output}
+```
+✔ Adding 'knitr' to Suggests field in DESCRIPTION
+✔ Setting VignetteBuilder field in DESCRIPTION to 'knitr'
+✔ Adding 'inst/doc' to '.gitignore'
+✔ Creating 'vignettes/'
+✔ Adding '*.html', '*.R' to 'vignettes/.gitignore'
+✔ Adding 'rmarkdown' to Suggests field in DESCRIPTION
+✔ Writing 'vignettes/demopkg.Rmd'
+• Modify 'vignettes/demopkg.Rmd'
+```
+:::
+
+## Setup
+
+The new .Rmd file will open in the source pane.
+
+### YAML Header
+
+You can update the `title` of your vignette. See `?rmarkdown::html_vignette` for potential options you can set for this document type.
+
+::: {.callout-warning}
+The `VignetteIndexEntry` value should be the same as the title. Other than that, don't edit the vignette lines.
+:::
+
+``` yaml
+---
+title: "Demopkg Overview"
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
+vignette: >
+  %\VignetteIndexEntry{Demopkg Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```
+
+### Knitr Options
+
+The default knitr options set `collapse = TRUE`, which means that code and output `r glossary("chunk", "chunks")` are merged together, and `comment = "#>"`, which means that output lines are prefixed by `#>` instead of the normal default of `##`. 
+
+```{r, filename="vignettes/demopkg.Rmd"}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+You can change these or any other options (see the [knitr manual](https://yihui.org/knitr/options/) for more details), but these give you the typical look of R package documentation.
+
+```{r}
+# example code to show the options above
+set.seed(8675309)
+rnorm(20) |> t.test()
+```
+
+```{r, echo = FALSE}
+# go back to default options
+knitr::opts_chunk$set(
+  collapse = FALSE,
+  comment = "##"
+)
+```
+
+## Contents
+
+Now you can add contents in the same way you would write any `r glossary("R Markdown")` script. For example, we could create a section to describe the built-in data sets.
+
+````
+## Data
+
+### self_res_att
+
+Attractiveness judgements of same-sex and other-sex self-resembling faces from DeBruine (2004). Data are from 108 participants. Original data are from <https://osf.io/3c5s4/>.
+
+```{{r, echo = FALSE}}
+self_res_att |>
+  group_by(sex, ethgroup) |>
+  summarise(n = n(),
+            mean_age = mean(age) |> round(1),
+            sd_age = sd(age) |> round(2),
+            .groups = "drop")
+```
+
+````
+
+::: {.callout-warning}
+You'll need to add `library(dplyr)` to your vignette to use `group_by()` and `summarise()`.
+:::
+
+## Build
+
+You can knit the vignette as you're writing it to quickly check what the output looks like. Once you're done with a vignette, you can "build" it to add it to the package.
+
+```{r, eval = FALSE, filename="run in the console"}
+devtools::build_vignettes()
+```
+
+You will see the normal output for knitting a document, and then these messages:
+
+::: {.cell-output}
+```
+Output created: demopkg.html
+--- finished re-building ‘demopkg.Rmd’
+
+ℹ Copying vignettes
+ℹ Moving demopkg.html and demopkg.R to doc/
+ℹ Copying demopkg.Rmd to doc/
+ℹ Building vignette index
+```
+:::
+
+You can view the HTML file in `doc/demopkg.html`. 
+
+```{r, eval = FALSE, filename="run in the console"}
+browseURL("doc/demopkg.html")
+```
+
+## Check
+
+Run the check (from the Build pane or by running `devtools::check()`) to make sure everything is set up right. This will re-build your vignettes, as well as run all the unit tests and other checks. You will get the following note (unless you'd already added dplyr to your dependencies).
+
+::: {.cell-output}
+```
+❯ checking for unstated dependencies in vignettes ... NOTE
+  'library' or 'require' call not declared from: ‘dplyr’
+```
+:::
+
+You can fix this by adding dplyr as a dependency. If you are only using it in vignettes and not in any actual package code, add it as a suggestion.
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_package("dplyr", "Suggests")
+```
+
+Now when you rerun the check, you should get 
+
+::: {.cell-output style="color: #00FF00;"}
+```
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+```
+:::
+
+## Install
+
+Building the vignettes can take up some time, so they are not built by default when you install your package. If you want to install the package so your vignettes are available outside the development project, use the following code.
+
+```{r, eval = FALSE, filename="run in the console"}
+devtools::install(build_vignettes = TRUE)
+```
+
+
+## Access vignettes
+
+Find out the vignettes a package has with the `vignette()` function. Make sure you've loaded your updated package. 
+
+```{r, eval = FALSE, filename="run in the console"}
+vignette(package = "demopkg")
+```
+
+Access a specific vignette topic in the Viewer pane. You don't need to specify the package if the vignette name is unique.
+
+```{r, eval = FALSE, filename="run in the console"}
+vignette(topic = "demopkg", package = "demopkg")
+```
+
+Next week, we'll learn how to create a website for your package that displays this vignette.
 
 ## Further Reading
 
 * [Vignettes](https://r-pkgs.org/vignettes.html) from @r-packages
+
+## Further Practice
+
+1. Add more text to your vignette, such as a plot of the data.
+
+1. Create another vignette in this package for analyses. Compare `m_self` vs `m_non` and `f_self` vs `f_non` separately for male and female participants using the `apa_t_pair()` function.

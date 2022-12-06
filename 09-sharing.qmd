@@ -1,9 +1,5 @@
 # Sharing your package {#sec-sharing}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 Set up a github account and make a package repository to share your package and pkgdown website.
 
 ```{r}

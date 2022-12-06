@@ -228,7 +228,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis Vignette</span></a>
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -244,11 +244,6 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-next-steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Next Steps</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -272,7 +267,13 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#citation-file" id="toc-citation-file" class="nav-link active" data-scroll-target="#citation-file"><span class="toc-section-number">7.1</span>  CITATION file</a></li>
+<li><a href="#set-up-pkgdown" id="toc-set-up-pkgdown" class="nav-link active" data-scroll-target="#set-up-pkgdown"><span class="toc-section-number">7.1</span>  Set up pkgdown</a></li>
+  <li><a href="#build-site" id="toc-build-site" class="nav-link" data-scroll-target="#build-site"><span class="toc-section-number">7.2</span>  Build Site</a></li>
+  <li><a href="#citation-file" id="toc-citation-file" class="nav-link" data-scroll-target="#citation-file"><span class="toc-section-number">7.3</span>  CITATION file</a></li>
+  <li><a href="#logo" id="toc-logo" class="nav-link" data-scroll-target="#logo"><span class="toc-section-number">7.4</span>  Logo</a></li>
+  <li><a href="#badges" id="toc-badges" class="nav-link" data-scroll-target="#badges"><span class="toc-section-number">7.5</span>  Badges</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="toc-section-number">7.6</span>  Further Reading</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">7.7</span>  Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/07-pkgdown.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/07-pkgdown.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -289,13 +290,378 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
-</header><p>Create a package website using pkgdown.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(pkgdown)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</header><p><a href="https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ">Recording</a> (passcode: <code>codingclub22!</code>)</p>
+<p>Create a package website using pkgdown.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
 </div>
-<section id="citation-file" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="citation-file">
-<span class="header-section-number">7.1</span> CITATION file</h2>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># to set up pkgdown</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(pkgdown)  <span class="co"># to create the pkgdown website</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(devtools) <span class="co"># to build the package README</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># optional</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(hexSticker) <span class="co"># to make hex sticker</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(ggplot2)    <span class="co"># to make hex sticker plot</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(badger)     <span class="co"># to create custom badges</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="set-up-pkgdown" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="set-up-pkgdown">
+<span class="header-section-number">7.1</span> Set up pkgdown</h2>
+<p>The following function makes some edits to <code>Rbuildignore</code> (telling R to ignore these files when building the package) and <code>.gitignore</code> (telling git to ignore the docs directory).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_pkgdown</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you already have GitHub set up with your package, use <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown_github_pages()</a></code> instead. If not, we’ll cover how to link your site to GitHub in <a href="09-sharing.html"><span>Chapter&nbsp;9</span></a>.</p>
+</div>
+</div>
+<p>You’ll see some output that looks like this.</p>
+<div class="cell-output">
+<pre><code>✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
+✔ Adding '^_pkgdown\\.yml$', '^docs$', '^pkgdown$' to '.Rbuildignore'
+✔ Adding 'docs' to '.gitignore'
+✔ Writing '_pkgdown.yml'
+• Modify '_pkgdown.yml'</code></pre>
+</div>
+<p>A file called <code>_pkgdown.yml</code> will open with the following contents.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>While it is not required, I like to make a directory called <code>pkgdown</code> and keep all pkgdown-related contents in there.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">dir.create</span>(<span class="st">"pkgdown"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">file.rename</span>(<span class="at">from =</span> <span class="st">"_pkgdown.yml"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>            <span class="at">to =</span> <span class="st">"pkgdown/_pkgdown.yml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="build-site" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="build-site">
+<span class="header-section-number">7.2</span> Build Site</h2>
+<p>Now check that everything is set up correctly by building the site.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pkgdown<span class="sc">::</span><span class="fu">build_site</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you already have GitHub set up with your package, use <code><a href="https://pkgdown.r-lib.org/reference/build_site_github_pages.html">pkgdown::build_site_github_pages()</a></code> instead.</p>
+</div>
+</div>
+<p>You should see something like the following output, and then a webpage will appear in your Viewer pane or a separate window (depending on your preference settings). If you need to open it manually, open <code>docs/index.html</code> in a web browser.</p>
+<div class="cell-output">
+<pre><code>-- Installing package into temporary library --
+== Building pkgdown site ======================
+Reading from: '/rproj/debruine/demopkg'
+Writing to:   '/rproj/debruine/demopkg/docs'
+-- Initialising site --------------------------
+-- Building home ------------------------------
+Reading 'LICENSE.md'
+Writing '404.html'
+-- Building function reference ----------------
+Reading 'man/apa_t_pair.Rd'
+Reading 'man/demopkg-package.Rd'
+Reading 'man/self_res_att.Rd'
+-- Building articles --------------------------
+Reading 'vignettes/demopkg.Rmd'
+Writing 'sitemap.xml'
+-- Building search index ----------------------
+== DONE =======================================
+-- Previewing site ----------------------------</code></pre>
+</div>
+<p>If everything is working correctly, this will have automatically organised information from the DESCRIPTION file, the README, function documentation, and vignettes into a website. If you created a vignette called <code>demopkg</code>, this will be available under “Get started”, and any other vignettes will be available under “Articles”. Documentation for each function will be available under “Reference”.</p>
+</section><section id="citation-file" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="citation-file">
+<span class="header-section-number">7.3</span> CITATION file</h2>
+<p>A citation file is a specially formatted file for specifying the citation to your materials. As always, you can set one up with a usethis function.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>usethis<span class="sc">::</span><span class="fu">use_citation</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>This will create a file called <code>CITATION</code> in the directory <code>inst</code> (this is a directory where you can keep supplemental files your package needs). The file contains skeletons for two R functions that create the text shown when someone looks up the citation for your package. You should make this consistent with the information in the <code>DESCRIPTION</code> file.</p>
+<p>If your package isn’t associated with a paper, use “Manual” instead of “Article”. Annoyingly, there is no widely accepted BibTex entry type for software, so most people just use a citation to the documentation using the manual type.</p>
+<p>You can read and use parts of your DESCRIPTION file from the object <code>meta</code>. It will be available even if you don’t define it, but you can use the code below to inspect it. Unfortunately, meta$Authors needs a lot of parsing to use in the CITATION file, so it’s usually easier to just copy it, but I’ve included the parsing code below if you’re curious.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">packageDescription</span>(<span class="st">"demopkg"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">names</span>(meta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Package"                 "Date"                   
+ [3] "Title"                   "Version"                
+ [5] "Authors@R"               "Description"            
+ [7] "License"                 "Encoding"               
+ [9] "Roxygen"                 "RoxygenNote"            
+[11] "Depends"                 "LazyData"               
+[13] "URL"                     "BugReports"             
+[15] "Imports"                 "Suggests"               
+[17] "Config/testthat/edition" "VignetteBuilder"        
+[19] "Author"                  "Maintainer"             
+[21] "Built"                  </code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>inst/CITATION</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">citHeader</span>(<span class="st">"To cite demopkg in publications use:"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>year  <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"-.*"</span>, <span class="st">""</span>, meta<span class="sc">$</span>Date)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>note  <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"R package version %s"</span>, meta<span class="sc">$</span>Version)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>authors <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> meta<span class="sc">$</span><span class="st">`</span><span class="at">Authors@R</span><span class="st">`</span>))</span>
+<span id="cb11-6"><a href="#cb11-6"></a>text_authors <span class="ot">&lt;-</span> authors <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">format</span>(<span class="at">include=</span> <span class="fu">c</span>(<span class="st">"family"</span>, <span class="st">"given"</span>), </span>
+<span id="cb11-8"><a href="#cb11-8"></a>         <span class="at">collapse =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">", "</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-9"><a href="#cb11-9"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">", "</span>)</span>
+<span id="cb11-10"><a href="#cb11-10"></a></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="fu">bibentry</span>(</span>
+<span id="cb11-12"><a href="#cb11-12"></a>  <span class="at">bibtype =</span> <span class="st">"Manual"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>  <span class="at">title =</span> <span class="fu">sprintf</span>(<span class="st">"{%s}: %s"</span>, meta<span class="sc">$</span>Package, meta<span class="sc">$</span>Title),</span>
+<span id="cb11-14"><a href="#cb11-14"></a>  <span class="at">author =</span> authors,</span>
+<span id="cb11-15"><a href="#cb11-15"></a>  <span class="at">year =</span> year,</span>
+<span id="cb11-16"><a href="#cb11-16"></a>  <span class="at">note =</span> note,</span>
+<span id="cb11-17"><a href="#cb11-17"></a>  <span class="at">url =</span> meta<span class="sc">$</span>URL,</span>
+<span id="cb11-18"><a href="#cb11-18"></a>  <span class="at">textVersion =</span> <span class="fu">sprintf</span>(</span>
+<span id="cb11-19"><a href="#cb11-19"></a>    <span class="st">"%s, (%s). %s: %s. %s, %s"</span>,</span>
+<span id="cb11-20"><a href="#cb11-20"></a>    text_authors, year, meta<span class="sc">$</span>Package, meta<span class="sc">$</span>Title, note, meta<span class="sc">$</span>URL</span>
+<span id="cb11-21"><a href="#cb11-21"></a>  )</span>
+<span id="cb11-22"><a href="#cb11-22"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>I prefer to use the <code><a href="https://rdrr.io/r/utils/bibentry.html">bibentry()</a></code> function instead of <code><a href="https://rdrr.io/r/utils/citEntry.html">citEntry()</a></code> because it displays the BibTex version of the citation automatically (note that it uses the argument <code>bibtype</code> instead of <code>entry</code>). The help for this function explains all of the options for citations in detail.</p>
+<p>Save this file and re-load your package, then check the citation.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+To cite demopkg in publications use:
+
+  DeBruine L, (2022). demopkg: Demo Package. R package version
+  0.0.0.9007, https://psyteachr.github.io/demopkg/
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {{demopkg}: Demo Package},
+    author = {Lisa DeBruine},
+    year = {2022},
+    note = {R package version 0.0.0.9007},
+    url = {https://psyteachr.github.io/demopkg/},
+  }</code></pre>
+</div>
+</div>
+<p>Now you can build the pkgdown site again to see the citation update. However, this will run all of the vignettes, which might take a long time. You can re-build parts of the pkgdown site instead. Use auto-complete to browse the list of functions that start with <code>build_</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>pkgdown<span class="sc">::</span><span class="fu">build_home</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="logo" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="logo">
+<span class="header-section-number">7.4</span> Logo</h2>
+<p>You can use any image for a logo, but it’s traditional to make a hex sticker for R packages.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The code below requires the <a href="https://github.com/GuangchuangYu/hexSticker">hexSticker</a> package, which is outstanding, but a little tricky to install. It might require installing <a href="https://www.imagemagick.org/script/download.php">imageMagick</a> on your computer (not an R package). On MacOS, you might need to install <a href="https://www.xquartz.org/">xquartz</a> on your computer (not an R package) and then re-install the R package {sysfont}.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>pkgdown/logo.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># make a heart with math!</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="at">by=</span><span class="fl">0.05</span>) <span class="sc">|&gt;</span> <span class="fu">c</span>(<span class="dv">0</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>heart <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="at">x =</span> <span class="dv">16</span><span class="sc">*</span><span class="fu">sin</span>(t)<span class="sc">^</span><span class="dv">3</span>,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="at">y =</span> <span class="dv">13</span><span class="sc">*</span><span class="fu">cos</span>(t)<span class="sc">-</span><span class="dv">5</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>t)<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">3</span><span class="sc">*</span>t)<span class="sc">-</span><span class="fu">cos</span>(<span class="dv">4</span><span class="sc">*</span>t)</span>
+<span id="cb15-6"><a href="#cb15-6"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>heartplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(heart, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb15-11"><a href="#cb15-11"></a></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co"># customise your hex sticker</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>hexSticker<span class="sc">::</span><span class="fu">sticker</span>(</span>
+<span id="cb15-14"><a href="#cb15-14"></a>  <span class="at">filename =</span> <span class="st">"inst/figures/logo.png"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15"></a>  <span class="co"># subplot aesthetics</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a>  <span class="at">subplot =</span> heartplot, </span>
+<span id="cb15-17"><a href="#cb15-17"></a>  <span class="at">s_width =</span> <span class="fl">1.0</span>, <span class="at">s_height =</span> .<span class="dv">85</span>,</span>
+<span id="cb15-18"><a href="#cb15-18"></a>  <span class="at">s_x=</span><span class="dv">1</span>, <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
+<span id="cb15-19"><a href="#cb15-19"></a>  <span class="co"># package name aesthetics</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a>  <span class="at">package =</span> <span class="st">"demopkg"</span>, </span>
+<span id="cb15-21"><a href="#cb15-21"></a>  <span class="at">p_size =</span> <span class="dv">24</span>,  </span>
+<span id="cb15-22"><a href="#cb15-22"></a>  <span class="at">p_color =</span> <span class="st">"red"</span>,</span>
+<span id="cb15-23"><a href="#cb15-23"></a>  <span class="co"># hexagon aesthetics</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a>  <span class="at">h_size =</span> <span class="dv">1</span>,</span>
+<span id="cb15-25"><a href="#cb15-25"></a>  <span class="at">h_fill =</span> <span class="st">"pink"</span>, </span>
+<span id="cb15-26"><a href="#cb15-26"></a>  <span class="at">h_color =</span> <span class="st">"red"</span>,</span>
+<span id="cb15-27"><a href="#cb15-27"></a>  <span class="co"># url aesthetics</span></span>
+<span id="cb15-28"><a href="#cb15-28"></a>  <span class="at">url =</span> <span class="st">"psyteachr.github.io/demopkg"</span>,</span>
+<span id="cb15-29"><a href="#cb15-29"></a>  <span class="at">u_size =</span> <span class="fl">5.4</span>,</span>
+<span id="cb15-30"><a href="#cb15-30"></a>  <span class="at">u_color =</span> <span class="st">"white"</span></span>
+<span id="cb15-31"><a href="#cb15-31"></a>) <span class="sc">|&gt;</span> <span class="fu">plot</span>() <span class="co"># preview with plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="07-pkgdown_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>However you make your logo, store the high-resolution version at <code>inst/figures/logo.png</code>. Now you can add it to the package with the following code.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>usethis<span class="sc">::</span><span class="fu">use_logo</span>(<span class="st">"inst/figures/logo.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You’ll see the following output and the code for including your logo in the README will be copied to your clipboard. Ignore the warning about the URL for now; we’ll sort that out in <a href="09-sharing.html"><span>Chapter&nbsp;9</span></a>.</p>
+<div class="cell-output">
+<pre><code>✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
+✔ Creating 'man/figures/'
+✔ Resized 'inst/figures/logo.png' to 240x278
+• Add logo to your README with the following html:
+Warning: pkgdown config does not specify the site's url, which is optional but recommended
+  # demopkg &lt;img src="man/figures/logo.png" align="right" height="139" /&gt;
+  [Copied to clipboard]</code></pre>
+</div>
+<p>Open <code>README.Rmd</code>, replace the line <code># demopkg</code> with the copied text, and run the following code.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>pkgdown<span class="sc">::</span><span class="fu">init_site</span>()      <span class="co"># copy logo to the right places</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>pkgdown<span class="sc">::</span><span class="fu">build_favicons</span>() <span class="co"># create favicons from the logo</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>devtools<span class="sc">::</span><span class="fu">build_readme</span>()  <span class="co"># update README.md after changes to the Rmd</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>pkgdown<span class="sc">::</span><span class="fu">build_home</span>()     <span class="co"># update home page</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you try to just <code>build_home()</code>, you will get a message like <code>pkgdown can only use images in 'man/figures' and 'vignettes'</code> because the logo hasn’t been copied to the right places. This could also be the problem if you update the logo but it doesn’t change in the pkgdown home page.</p>
+</div>
+</div>
+</section><section id="badges" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="badges">
+<span class="header-section-number">7.5</span> Badges</h2>
+<p>You’ve probably seen these lines in the README and wondered how you can get some badges.</p>
+<pre><code>&lt;!-- badges: start --&gt;
+&lt;!-- badges: end --&gt;</code></pre>
+<p>You can add a badge that describes the lifecycle of your package, from the options “experimental”, “stable”, “deprecated”, or “superceded”. Our demopkg is probably “experimental” :)</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>usethis<span class="sc">::</span><span class="fu">use_lifecycle_badge</span>(<span class="st">"experimental"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell-output">
+<pre><code>✔ Adding Lifecycle: experimental badge to 'README.Rmd'
+• Re-knit 'README.Rmd' with `devtools::build_readme()`</code></pre>
+</div>
+<p>It will add the following text to your README.Rmd file.</p>
+<pre><code>&lt;!-- badges: start --&gt;
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+&lt;!-- badges: end --&gt;</code></pre>
+<p>Make sure you re-knit the README and then re-build your pkgdown home page.</p>
+<p>Usethis has functions to add badges linking to your package on CRAN, Bioconductor, <a href="https://mybinder.org">mybinder.org</a>, or RStudio Cloud. You can also add badges that declare whether your builds are passing various checks, which we’ll discuss in <a href="08-maintenance.html"><span>Chapter&nbsp;8</span></a>.</p>
+<p>The <a href="https://github.com/GuangchuangYu/badger">badger</a> package lets you create the code for custom badges, which you can manually paste into the README.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">badge_doi</span>(<span class="st">"10.1098/rspb.2004.2824"</span>, <span class="st">"firebrick"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="fu">badge_custom</span>(</span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="st">"ORCiD"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="st">"0000-0002-7523-5539"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="st">"dodgerblue"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="st">"https://orcid.org/0000-0002-7523-5539"</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "[![](https://img.shields.io/badge/doi-10.1098/rspb.2004.2824-firebrick.svg)](https://doi.org/10.1098/rspb.2004.2824)"
+[1] "[![](https://img.shields.io/badge/ORCiD-0000--0002--7523--5539-dodgerblue.svg)](https://orcid.org/0000-0002-7523-5539)"</code></pre>
+</div>
+</div>
+<p>Make sure to add appropriate alt-text in the square brackets after the exclamation point to make your images accessible.</p>
+<pre><code>[![DOI:10.1098/rspb.2004.2824](https://img.shields.io/badge/doi-10.1098/rspb.2004.2824-firebrick.svg)](https://doi.org/10.1098/rspb.2004.2824)
+[![ORCiD:0000-0002-7523-5539](https://img.shields.io/badge/ORCiD-0000--0002--7523--5539-dodgerblue.svg)](https://orcid.org/0000-0002-7523-5539)</code></pre>
+</section><section id="further-reading" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">7.6</span> Further Reading</h2>
+<ul>
+<li><a href="https://pkgdown.r-lib.org/">pkgdown Manual</a></li>
+</ul></section><section id="further-practice" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">7.7</span> Further Practice</h2>
+<ol type="1">
+<li>Customise your site using tips from this pkgdown <a href="https://pkgdown.r-lib.org/articles/customise.html">vignette</a>.</li>
+<li>Look through the badge types at <a href="https://github.com/GuangchuangYu/badger">badger</a> and see what might be useful for you.</li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
@@ -724,7 +1090,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./06-vignettes.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analysis Vignette</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

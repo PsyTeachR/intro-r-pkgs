@@ -1,7 +1,10 @@
 # book-specific code to include on every page
 
 # devtools::install_github("psyteachr/glossary)
-library(glossary)
+suppressPackageStartupMessages({
+  library(stats) # prevents dplyr::filter problem
+  library(glossary)
+})
 glossary::reset_glossary()
 
 # default knitr options
@@ -16,19 +19,3 @@ knitr::opts_chunk$set(
   fig.align  = 'center',
   digits = 3
 )
-
-suppressPackageStartupMessages({
-  library(webexercises)
-})
-
-knitr::knit_hooks$set(webex.hide = function(before, options, envir) {
-  if (before) {
-    if (is.character(options$webex.hide)) {
-      hide(options$webex.hide)
-    } else {
-      hide()
-    }
-  } else {
-    unhide()
-  }
-})
