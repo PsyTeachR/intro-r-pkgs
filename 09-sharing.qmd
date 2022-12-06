@@ -2,15 +2,24 @@
 
 Set up a github account and make a package repository to share your package and pkgdown website.
 
-```{r}
+```{r, filename="Packages required for this chapter"}
 library(usethis)
 ```
+
+## Install git
+
+You will need to have git installed on your computer to complete this chapter. You can check if git is already installed on your computer by going to **`Shell...`** under the Tools menu (or just open a terminal window) and typing `which git`. If you get an answer like `/usr/local/bin/git`, then git is already installed. If not, [install git](https://gist.github.com/derhuerst/1b15ff4652a867391f03) and then use `which git` to check where it is installed.
+
+Go to **`Global Options...`** from the Tools menu and set the location of your git executable to the location from the previous step.
+
+![](images/git-commit.png)
+
 
 ## Set up git
 
 If your project doesn't already use git, set it up with this function:
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, filename="run in the console"}
 usethis::use_git()
 ```
 
@@ -22,8 +31,7 @@ It will than ask "• A restart of RStudio is required to activate the Git pane 
 
 Now, set up your github repository. If you don't already have a github account, you need to make one first. Then enter this function into the console.
 
-```{r, eval = FALSE}
-# paste into the console
+```{r, eval = FALSE, filename="run in the console"}
 usethis::create_github_token()
 ```
 
@@ -39,8 +47,8 @@ It will open up a website where you can set the name of the computer you're usin
 
 After you set up your token, make sure to copy the value (if you forget and close the window, you can just make another token). Type the following code into the console and follow the instructions to set your token.
 
-```{r, eval = FALSE}
-# enter into the console and follow instructions
+```{r, eval = FALSE, filename="run in the console"}
+# follow instructions after running
 gitcreds::gitcreds_set()
 ```
 
@@ -54,7 +62,7 @@ usethis::gh_token_help()
 
 Now we can add this project to your github repositories.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, filename="run in the console"}
 usethis::use_github()
 ```
 
@@ -85,29 +93,25 @@ Allow usethis to commit any uncommitted files.
 
 Your web browser should open up the page <https://github.com/yourusername/demopkg>
 
-## Add a README
+## Set up github pages
 
-All repositories need a README. R package repositories tend to follow a pattern that the following function will set up.
+We're going to set up a way to turn your pkgdown site into a webpage hosted by github. Run the following function and overwrite the existing _pkgdown.yml file if asked.
 
-```{r, eval = FALSE}
-usethis::use_readme_rmd()
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_pkgdown_github_pages()
 ```
 
-Edit the goal of the package. You can use text from the DESCRIPTION file.
+This will update some files and add a new directory called `.github` that contains a script that will build your pkgdown website every time you push changes to github. You should also see some output that instructs you to re-run the package documentation.
 
+```{r, eval = FALSE, filename="run in the console"}
+devtools::document()
 ```
-The goal of demopkg is to provide data and analysis code for the paper "Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces" (DeBruine, 2004).
-```
-
-Delete everything under the Example heading and add some example code, such as showing an analysis with `apa_t_pair()`. 
-
-Now save and knit the .Rmd file, which will create a  file called `README.md`. Don't ever edit this file, just create it with the .Rmd file.
 
 ## Commit and push changes
 
-Go into the Git tab in the upper right pane. You should see a list of files that have changes, including the README files. 
+After you make any changes to your project, you will need to commit and push changes. Committing means saving a snapshot of the changes to your computer, and pushing means sending those changes to github.
 
-Select them all and click on the staged checkboxes, then click "Commit".
+Go into the Git tab in the upper right pane. You should see a list of files that have changes.  Select them all and click on the staged checkboxes, then click "Commit".
 
 :::{.light-mode}
 ![](images/git-commit.png)
@@ -117,15 +121,12 @@ Select them all and click on the staged checkboxes, then click "Commit".
 ![](images/git-commit-dark.png)
 :::
 
-Write a commit statement like "added README" and click the Commit button. You should see a popup that end with text like this:
+Write a commit statement like "pkgdown website" and click the Commit button. You should see a popup that ends with text like this:
 
 :::{.terminal}
 ```
->>> /usr/local/git/bin/git commit -F /var/folders/6w/y3tyzgs1403cz7tgw8k4lk600000gq/T/Rtmpi8M1q2/git-commit-message-45a77cb49a7b.txt
-[main 19dfbb3] added README
- 3 files changed, 111 insertions(+)
- create mode 100644 README.Rmd
- create mode 100644 README.md
+>>> /usr/local/git/bin/git commit -F [master 4d52aee] pkgdown website
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 :::
 
@@ -137,9 +138,9 @@ You'll see a popup with text like this:
 
 :::{.terminal}
 ```
->>> /usr/local/git/bin/git push origin HEAD:refs/heads/main
-To https://github.com/debruine/demopkg.git
-   4cbc523..19dfbb3  HEAD -> main
+>>> /usr/bin/git push origin HEAD:refs/heads/main
+To https://github.com/PsyTeachR/demopkg.git
+   1199f67..4d52aee  HEAD -> main
 ```
 :::
 
@@ -204,6 +205,31 @@ git commit -m "README updates"
 git push
 ```
 
+## Set up website
+
+Go to your github page and click the **`Settings`** item in the top menu and then the **`Pages`** item in the left menu. If your site is live, there will be a link at the top of this page. Click it and have a look at your website!
+
+If not, you may need to change some settings. Under **`Build and Deployment`**, make sure the Source is set to "Deploy from branch", the Branch is set to "gh-pages", and the folder is set to "/(root)".
+
+:::{.light-mode}
+![](images/github-pages.png)
+:::
+
+:::{.dark-mode}
+![](images/github-pages-dark.png)
+:::
+
+Now, whenever you push changes to your repository, a script will rebuild your pkgdown site and update it. This can take a few minutes. You'll see a small yellow dot next to the last commit message and a timer to indicate that the script is running. When it turns green, your script is done and the website has been updated. If the dot turns red, that means there was a problem running the pkgdown script; you can click on the **`Actions`** menu item to get more details.
+
+:::{.light-mode}
+![](images/ghpages-update.png)
+:::
+
+:::{.dark-mode}
+![](images/ghpages-update-dark.png)
+:::
+
+
 ## Further Resources
 
-* [Happy Git with R]() @happy-git
+* [Happy Git with R](https://happygitwithr.com/) @happy-git
