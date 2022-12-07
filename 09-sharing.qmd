@@ -4,18 +4,23 @@ Set up a github account and make a package repository to share your package and 
 
 ```{r, filename="Packages required for this chapter"}
 library(usethis)
+library(devtools)
 ```
 
-## Install git
+## Setting up
+
+You need to install and set up `r glossary("git")` and set up a `r glossary("github")` token on each new computer. 
+
+### Install git
 
 You will need to have git installed on your computer to complete this chapter. You can check if git is already installed on your computer by going to **`Shell...`** under the Tools menu (or just open a terminal window) and typing `which git`. If you get an answer like `/usr/local/bin/git`, then git is already installed. If not, [install git](https://gist.github.com/derhuerst/1b15ff4652a867391f03) and then use `which git` to check where it is installed.
 
 Go to **`Global Options...`** from the Tools menu and set the location of your git executable to the location from the previous step.
 
-![](images/git-commit.png)
+![](images/git-path.png)
 
 
-## Set up git
+### Set up git
 
 If your project doesn't already use git, set it up with this function:
 
@@ -27,15 +32,23 @@ It will list all of your files and ask if it's OK to commit them. Choose the aff
 
 It will than ask "• A restart of RStudio is required to activate the Git pane Restart now?". Choose the affirmative option and wait for the restart.
 
-## Set up GitHub
+### Set up GitHub
 
-Now, set up your github repository. If you don't already have a github account, you need to make one first. Then enter this function into the console.
+Now, set up your github repository. If you don't already have a github account, you need to [make one first](https://github.com/signup). 
+
+Next, you need to create a "token" and save it on your local computer. If you think you've already done this in the past, double check with this function:
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::gh_token_help()
+```
+
+If you haven't added a token, enter this function into the console.
 
 ```{r, eval = FALSE, filename="run in the console"}
 usethis::create_github_token()
 ```
 
-It will open up a website where you can set the name of the computer you're using this token on. You're meant to set it to expire for security purposes, but you can also set it up without an expiry date. 
+It will open up a website where you can set a note, usually the name of the computer you're using this token on. You're meant to set it to expire for security purposes, but you can also set it up without an expiry date. 
 
 ::: {.light-mode}
 ![](images/github-token.png)
@@ -52,15 +65,15 @@ After you set up your token, make sure to copy the value (if you forget and clos
 gitcreds::gitcreds_set()
 ```
 
-If you think you've already done this in the past, or have just set it up, double check with this function:
+To double-check the setup, run this:
 
-```{r}
+```{r, filename="run in the console"}
 usethis::gh_token_help()
 ```
 
 ## Add Repository
 
-Now we can add this project to your github repositories.
+Now we can add this project to your github repositories. This only needs to be done once for each project. 
 
 ```{r, eval = FALSE, filename="run in the console"}
 usethis::use_github()
@@ -93,25 +106,26 @@ Allow usethis to commit any uncommitted files.
 
 Your web browser should open up the page <https://github.com/yourusername/demopkg>
 
-## Set up github pages
+### Install from GitHub
 
-We're going to set up a way to turn your pkgdown site into a webpage hosted by github. Run the following function and overwrite the existing _pkgdown.yml file if asked.
-
-```{r, eval = FALSE, filename="run in the console"}
-usethis::use_pkgdown_github_pages()
-```
-
-This will update some files and add a new directory called `.github` that contains a script that will build your pkgdown website every time you push changes to github. You should also see some output that instructs you to re-run the package documentation.
+Now you (and others) can install your package via GitHub with the following code. (Replace "psyteachr" with your github username.)
 
 ```{r, eval = FALSE, filename="run in the console"}
-devtools::document()
+devtools::install_github("psyteachr/demopkg")
 ```
 
-## Commit and push changes
+
+### Commit and push changes
 
 After you make any changes to your project, you will need to commit and push changes. Committing means saving a snapshot of the changes to your computer, and pushing means sending those changes to github.
 
-Go into the Git tab in the upper right pane. You should see a list of files that have changes.  Select them all and click on the staged checkboxes, then click "Commit".
+Edit the README file to include the code for installing your package from github. Make sure to set that code chunk to not evaluate; you don't want to install the package every time you run your README code.
+
+```{{r, eval = FALSE}}
+devtools::install_github("psyteachr/demopkg")
+```
+
+Knit the README, then go into the Git tab in the upper right pane. You should see a list of files that have changes.  Select them all and click on the staged checkboxes, then click "Commit".
 
 :::{.light-mode}
 ![](images/git-commit.png)
@@ -126,7 +140,7 @@ Write a commit statement like "pkgdown website" and click the Commit button. You
 :::{.terminal}
 ```
 >>> /usr/local/git/bin/git commit -F [master 4d52aee] pkgdown website
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 ```
 :::
 
@@ -146,7 +160,7 @@ To https://github.com/PsyTeachR/demopkg.git
 
 If there were no error message, go ahead and close this.
 
-## Terminal 
+### Terminal 
 
 You may prefer interacting with git via the command line. If not, you can skip this section. 
 
@@ -205,7 +219,27 @@ git commit -m "README updates"
 git push
 ```
 
-## Set up website
+## GitHub Pages
+
+We're going to set up a way to turn your pkgdown site into a webpage hosted by github. 
+
+### Set up pkgdown for github pages
+
+First, we'll configure pkgdown to use github pages. You only need to do this once for each package project. We could have set up pkgdown this way in @sec-pkgdown, but your project needs to be linked to a github repository first. Run the following function and overwrite the existing _pkgdown.yml file if asked.
+
+```{r, eval = FALSE, filename="run in the console"}
+usethis::use_pkgdown_github_pages()
+```
+
+This will update some files and add a new directory called `.github` that contains a script that will build your pkgdown website every time you push changes to github. You should also see some output that instructs you to re-run the package documentation.
+
+```{r, eval = FALSE, filename="run in the console"}
+devtools::document()
+```
+
+Commit any changes to the project locally and push them to github using the git tab or terminal methods described above.
+
+### Set up website
 
 Go to your github page and click the **`Settings`** item in the top menu and then the **`Pages`** item in the left menu. If your site is live, there will be a link at the top of this page. Click it and have a look at your website!
 
@@ -228,6 +262,14 @@ Now, whenever you push changes to your repository, a script will rebuild your pk
 :::{.dark-mode}
 ![](images/ghpages-update-dark.png)
 :::
+
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table(as_kable = FALSE) |> 
+  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
+  unclass() |> cat()
+```
 
 
 ## Further Resources

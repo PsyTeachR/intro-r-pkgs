@@ -267,15 +267,31 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#install-git" id="toc-install-git" class="nav-link active" data-scroll-target="#install-git"><span class="toc-section-number">9.1</span>  Install git</a></li>
-  <li><a href="#set-up-git" id="toc-set-up-git" class="nav-link" data-scroll-target="#set-up-git"><span class="toc-section-number">9.2</span>  Set up git</a></li>
-  <li><a href="#set-up-github" id="toc-set-up-github" class="nav-link" data-scroll-target="#set-up-github"><span class="toc-section-number">9.3</span>  Set up GitHub</a></li>
-  <li><a href="#add-repository" id="toc-add-repository" class="nav-link" data-scroll-target="#add-repository"><span class="toc-section-number">9.4</span>  Add Repository</a></li>
-  <li><a href="#set-up-github-pages" id="toc-set-up-github-pages" class="nav-link" data-scroll-target="#set-up-github-pages"><span class="toc-section-number">9.5</span>  Set up github pages</a></li>
-  <li><a href="#commit-and-push-changes" id="toc-commit-and-push-changes" class="nav-link" data-scroll-target="#commit-and-push-changes"><span class="toc-section-number">9.6</span>  Commit and push changes</a></li>
-  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="toc-section-number">9.7</span>  Terminal</a></li>
-  <li><a href="#set-up-website" id="toc-set-up-website" class="nav-link" data-scroll-target="#set-up-website"><span class="toc-section-number">9.8</span>  Set up website</a></li>
-  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">9.9</span>  Further Resources</a></li>
+<li>
+<a href="#setting-up" id="toc-setting-up" class="nav-link active" data-scroll-target="#setting-up"><span class="toc-section-number">9.1</span>  Setting up</a>
+  <ul class="collapse">
+<li><a href="#install-git" id="toc-install-git" class="nav-link" data-scroll-target="#install-git"><span class="toc-section-number">9.1.1</span>  Install git</a></li>
+  <li><a href="#set-up-git" id="toc-set-up-git" class="nav-link" data-scroll-target="#set-up-git"><span class="toc-section-number">9.1.2</span>  Set up git</a></li>
+  <li><a href="#set-up-github" id="toc-set-up-github" class="nav-link" data-scroll-target="#set-up-github"><span class="toc-section-number">9.1.3</span>  Set up GitHub</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#add-repository" id="toc-add-repository" class="nav-link" data-scroll-target="#add-repository"><span class="toc-section-number">9.2</span>  Add Repository</a>
+  <ul class="collapse">
+<li><a href="#install-from-github" id="toc-install-from-github" class="nav-link" data-scroll-target="#install-from-github"><span class="toc-section-number">9.2.1</span>  Install from GitHub</a></li>
+  <li><a href="#commit-and-push-changes" id="toc-commit-and-push-changes" class="nav-link" data-scroll-target="#commit-and-push-changes"><span class="toc-section-number">9.2.2</span>  Commit and push changes</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="toc-section-number">9.2.3</span>  Terminal</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#github-pages" id="toc-github-pages" class="nav-link" data-scroll-target="#github-pages"><span class="toc-section-number">9.3</span>  GitHub Pages</a>
+  <ul class="collapse">
+<li><a href="#set-up-pkgdown-for-github-pages" id="toc-set-up-pkgdown-for-github-pages" class="nav-link" data-scroll-target="#set-up-pkgdown-for-github-pages"><span class="toc-section-number">9.3.1</span>  Set up pkgdown for github pages</a></li>
+  <li><a href="#set-up-website" id="toc-set-up-website" class="nav-link" data-scroll-target="#set-up-website"><span class="toc-section-number">9.3.2</span>  Set up website</a></li>
+  </ul>
+</li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">9.4</span>  Glossary</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">9.5</span>  Further Resources</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/09-sharing.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/09-sharing.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -298,16 +314,20 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Packages required for this chapter</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<section id="install-git" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="install-git">
-<span class="header-section-number">9.1</span> Install git</h2>
+<section id="setting-up" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="setting-up">
+<span class="header-section-number">9.1</span> Setting up</h2>
+<p>You need to install and set up <a class="glossary" target="_blank" title="One type of version control software." href="https://psyteachr.github.io/glossary/g#git">git</a> and set up a <a class="glossary" target="_blank" title="A cloud-based service for storing and sharing your version controlled files." href="https://psyteachr.github.io/glossary/g#github">github</a> token on each new computer.</p>
+<section id="install-git" class="level3" data-number="9.1.1"><h3 data-number="9.1.1" class="anchored" data-anchor-id="install-git">
+<span class="header-section-number">9.1.1</span> Install git</h3>
 <p>You will need to have git installed on your computer to complete this chapter. You can check if git is already installed on your computer by going to <strong><code>Shell...</code></strong> under the Tools menu (or just open a terminal window) and typing <code>which git</code>. If you get an answer like <code>/usr/local/bin/git</code>, then git is already installed. If not, <a href="https://gist.github.com/derhuerst/1b15ff4652a867391f03">install git</a> and then use <code>which git</code> to check where it is installed.</p>
 <p>Go to <strong><code>Global Options...</code></strong> from the Tools menu and set the location of your git executable to the location from the previous step.</p>
-<p><img src="images/git-commit.png" class="img-fluid"></p>
-</section><section id="set-up-git" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="set-up-git">
-<span class="header-section-number">9.2</span> Set up git</h2>
+<p><img src="images/git-path.png" class="img-fluid"></p>
+</section><section id="set-up-git" class="level3" data-number="9.1.2"><h3 data-number="9.1.2" class="anchored" data-anchor-id="set-up-git">
+<span class="header-section-number">9.1.2</span> Set up git</h3>
 <p>If your project doesn’t already use git, set it up with this function:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -319,18 +339,28 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <p>It will list all of your files and ask if it’s OK to commit them. Choose the affirmative option (e.g., “Yes”, “Absolutely”, “Yeah”).</p>
 <p>It will than ask “• A restart of RStudio is required to activate the Git pane Restart now?”. Choose the affirmative option and wait for the restart.</p>
-</section><section id="set-up-github" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="set-up-github">
-<span class="header-section-number">9.3</span> Set up GitHub</h2>
-<p>Now, set up your github repository. If you don’t already have a github account, you need to make one first. Then enter this function into the console.</p>
+</section><section id="set-up-github" class="level3" data-number="9.1.3"><h3 data-number="9.1.3" class="anchored" data-anchor-id="set-up-github">
+<span class="header-section-number">9.1.3</span> Set up GitHub</h3>
+<p>Now, set up your github repository. If you don’t already have a github account, you need to <a href="https://github.com/signup">make one first</a>.</p>
+<p>Next, you need to create a “token” and save it on your local computer. If you think you’ve already done this in the past, double check with this function:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">gh_token_help</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>It will open up a website where you can set the name of the computer you’re using this token on. You’re meant to set it to expire for security purposes, but you can also set it up without an expiry date.</p>
+<p>If you haven’t added a token, enter this function into the console.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>It will open up a website where you can set a note, usually the name of the computer you’re using this token on. You’re meant to set it to expire for security purposes, but you can also set it up without an expiry date.</p>
 <div class="light-mode">
 <p><img src="images/github-token.png" class="img-fluid"></p>
 </div>
@@ -343,30 +373,35 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># follow instructions after running</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># follow instructions after running</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>If you think you’ve already done this in the past, or have just set it up, double check with this function:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>usethis<span class="sc">::</span><span class="fu">gh_token_help</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>• GitHub host: 'https://github.com'
-• Personal access token for 'https://github.com': '&lt;discovered&gt;'
-• GitHub user: 'debruine'
-• Token scopes: 'repo, user, workflow'
-• Email(s): 'debruine@gmail.com (primary)', 'lisa.debruine@glasgow.ac.uk'</code></pre>
-</div>
-</div>
-</section><section id="add-repository" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="add-repository">
-<span class="header-section-number">9.4</span> Add Repository</h2>
-<p>Now we can add this project to your github repositories.</p>
+<p>To double-check the setup, run this:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>usethis<span class="sc">::</span><span class="fu">use_github</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>usethis<span class="sc">::</span><span class="fu">gh_token_help</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• GitHub host: 'https://github.com'
+• Personal access token for 'https://github.com': '&lt;discovered&gt;'
+• GitHub user: 'debruine'
+• Token scopes: 'gist, repo, user, workflow'
+• Email(s): 'debruine@gmail.com (primary)', 'lisa.debruine@glasgow.ac.uk'</code></pre>
+</div>
+</div>
+</section></section><section id="add-repository" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="add-repository">
+<span class="header-section-number">9.2</span> Add Repository</h2>
+<p>Now we can add this project to your github repositories. This only needs to be done once for each project.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>usethis<span class="sc">::</span><span class="fu">use_github</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="cell-output">
@@ -388,30 +423,23 @@ Is it ok to commit it?</code></pre>
 ✔ Opening URL 'https://github.com/debruine/demopkg'</code></pre>
 </div>
 <p>Your web browser should open up the page <a href="https://github.com/yourusername/demopkg" class="uri">https://github.com/yourusername/demopkg</a></p>
-</section><section id="set-up-github-pages" class="level2" data-number="9.5"><h2 data-number="9.5" class="anchored" data-anchor-id="set-up-github-pages">
-<span class="header-section-number">9.5</span> Set up github pages</h2>
-<p>We’re going to set up a way to turn your pkgdown site into a webpage hosted by github. Run the following function and overwrite the existing _pkgdown.yml file if asked.</p>
+<section id="install-from-github" class="level3" data-number="9.2.1"><h3 data-number="9.2.1" class="anchored" data-anchor-id="install-from-github">
+<span class="header-section-number">9.2.1</span> Install from GitHub</h3>
+<p>Now you (and others) can install your package via GitHub with the following code. (Replace “psyteachr” with your github username.)</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>usethis<span class="sc">::</span><span class="fu">use_pkgdown_github_pages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"psyteachr/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>This will update some files and add a new directory called <code>.github</code> that contains a script that will build your pkgdown website every time you push changes to github. You should also see some output that instructs you to re-run the package documentation.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>run in the console</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section><section id="commit-and-push-changes" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="commit-and-push-changes">
-<span class="header-section-number">9.6</span> Commit and push changes</h2>
+</section><section id="commit-and-push-changes" class="level3" data-number="9.2.2"><h3 data-number="9.2.2" class="anchored" data-anchor-id="commit-and-push-changes">
+<span class="header-section-number">9.2.2</span> Commit and push changes</h3>
 <p>After you make any changes to your project, you will need to commit and push changes. Committing means saving a snapshot of the changes to your computer, and pushing means sending those changes to github.</p>
-<p>Go into the Git tab in the upper right pane. You should see a list of files that have changes. Select them all and click on the staged checkboxes, then click “Commit”.</p>
+<p>Edit the README file to include the code for installing your package from github. Make sure to set that code chunk to not evaluate; you don’t want to install the package every time you run your README code.</p>
+<p><code>{{r, eval = FALSE}} devtools::install_github("psyteachr/demopkg")</code></p>
+<p>Knit the README, then go into the Git tab in the upper right pane. You should see a list of files that have changes. Select them all and click on the staged checkboxes, then click “Commit”.</p>
 <div class="light-mode">
 <p><img src="images/git-commit.png" class="img-fluid"></p>
 </div>
@@ -421,7 +449,7 @@ Is it ok to commit it?</code></pre>
 <p>Write a commit statement like “pkgdown website” and click the Commit button. You should see a popup that ends with text like this:</p>
 <div class="terminal">
 <pre><code>&gt;&gt;&gt; /usr/local/git/bin/git commit -F [master 4d52aee] pkgdown website
- 1 file changed, 1 insertion(+), 1 deletion(-)</code></pre>
+ 2 files changed, 2 insertions(+), 2 deletions(-)</code></pre>
 </div>
 <p>If there were no errors, you can close this box and the review changes interface.</p>
 <p>A “commit” creates a snapshot of your project on your computer, so you can always go back to this version, but it doesn’t update the version on the web. For that, you need to “push”. Click the green up arrow in the git pane.</p>
@@ -432,8 +460,8 @@ To https://github.com/PsyTeachR/demopkg.git
    1199f67..4d52aee  HEAD -&gt; main</code></pre>
 </div>
 <p>If there were no error message, go ahead and close this.</p>
-</section><section id="terminal" class="level2" data-number="9.7"><h2 data-number="9.7" class="anchored" data-anchor-id="terminal">
-<span class="header-section-number">9.7</span> Terminal</h2>
+</section><section id="terminal" class="level3" data-number="9.2.3"><h3 data-number="9.2.3" class="anchored" data-anchor-id="terminal">
+<span class="header-section-number">9.2.3</span> Terminal</h3>
 <p>You may prefer interacting with git via the command line. If not, you can skip this section.</p>
 <p>Add something to the README and re-knit to create changes. Then go to the Terminal in the console pane and type <code>git status</code>. You should see output like this, with the changed files in red.</p>
 <div class="terminal">
@@ -473,8 +501,32 @@ To https://github.com/debruine/demopkg.git
 <span id="cb17-2"><a href="#cb17-2"></a><span class="fu">git</span> add <span class="pp">*</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"README updates"</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="set-up-website" class="level2" data-number="9.8"><h2 data-number="9.8" class="anchored" data-anchor-id="set-up-website">
-<span class="header-section-number">9.8</span> Set up website</h2>
+</section></section><section id="github-pages" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="github-pages">
+<span class="header-section-number">9.3</span> GitHub Pages</h2>
+<p>We’re going to set up a way to turn your pkgdown site into a webpage hosted by github.</p>
+<section id="set-up-pkgdown-for-github-pages" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="set-up-pkgdown-for-github-pages">
+<span class="header-section-number">9.3.1</span> Set up pkgdown for github pages</h3>
+<p>First, we’ll configure pkgdown to use github pages. You only need to do this once for each package project. We could have set up pkgdown this way in <a href="07-pkgdown.html"><span>Chapter&nbsp;7</span></a>, but your project needs to be linked to a github repository first. Run the following function and overwrite the existing _pkgdown.yml file if asked.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>usethis<span class="sc">::</span><span class="fu">use_pkgdown_github_pages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>This will update some files and add a new directory called <code>.github</code> that contains a script that will build your pkgdown website every time you push changes to github. You should also see some output that instructs you to re-run the package documentation.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Commit any changes to the project locally and push them to github using the git tab or terminal methods described above.</p>
+</section><section id="set-up-website" class="level3" data-number="9.3.2"><h3 data-number="9.3.2" class="anchored" data-anchor-id="set-up-website">
+<span class="header-section-number">9.3.2</span> Set up website</h3>
 <p>Go to your github page and click the <strong><code>Settings</code></strong> item in the top menu and then the <strong><code>Pages</code></strong> item in the left menu. If your site is live, there will be a link at the top of this page. Click it and have a look at your website!</p>
 <p>If not, you may need to change some settings. Under <strong><code>Build and Deployment</code></strong>, make sure the Source is set to “Deploy from branch”, the Branch is set to “gh-pages”, and the folder is set to “/(root)”.</p>
 <div class="light-mode">
@@ -490,8 +542,41 @@ To https://github.com/debruine/demopkg.git
 <div class="dark-mode">
 <p><img src="images/ghpages-update-dark.png" class="img-fluid"></p>
 </div>
-</section><section id="further-resources" class="level2" data-number="9.9"><h2 data-number="9.9" class="anchored" data-anchor-id="further-resources">
-<span class="header-section-number">9.9</span> Further Resources</h2>
+</section></section><section id="glossary" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="glossary">
+<span class="header-section-number">9.4</span> Glossary</h2>
+<div class="cell" data-layout-align="center">
+
+<table>
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:left;">
+definition
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://psyteachr.github.io/glossary/g.html#git" class="glossary" target="_blank">git</a>
+</td>
+<td style="text-align:left;">
+One type of version control software.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://psyteachr.github.io/glossary/g.html#github" class="glossary" target="_blank">github</a>
+</td>
+<td style="text-align:left;">
+A cloud-based service for storing and sharing your version controlled files.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="further-resources" class="level2" data-number="9.5"><h2 data-number="9.5" class="anchored" data-anchor-id="further-resources">
+<span class="header-section-number">9.5</span> Further Resources</h2>
 <ul>
 <li>
 <a href="https://happygitwithr.com/">Happy Git with R</a> <span class="citation" data-cites="happy-git">Bryan et al. (<a href="references.html#ref-happy-git" role="doc-biblioref">n.d.</a>)</span>
