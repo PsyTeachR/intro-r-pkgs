@@ -4,7 +4,7 @@
 
 Write unit tests for your custom functions using testthat.
 
-```{r, filename="Packages required for this chapter"}
+```{r, messages = FALSE, filename="Packages required for this chapter"}
 
 library(usethis)
 library(testthat)
