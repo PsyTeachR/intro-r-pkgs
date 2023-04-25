@@ -19,13 +19,14 @@ Imports:
     badger,
     devtools,
     ggplot2,
-    glossary,
     glue,
     hexSticker,
     pkgdown,
     readr,
     testthat,
     usethis,
-    webexercises
+    webexercises,
+    glossary
 Remotes:
     psyteachr/glossary
+
