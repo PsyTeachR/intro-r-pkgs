@@ -28,4 +28,4 @@ Imports:
     usethis,
     webexercises
 Remotes:
-    https://github.com/psyteachr/glossary
+    psyteachr/glossary
