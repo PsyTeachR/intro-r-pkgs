@@ -8,7 +8,7 @@ book:
   #description: "Creating an R Package"
   cover-image: images/logos/logo.png
   image: images/logos/logo.png
-  fav-icon: images/logos/favicon.ico
+  favicon: images/logos/favicon.ico
   #cookie-consent: true
   google-analytics: "G-6NP3MF25W3"
   page-navigation: true

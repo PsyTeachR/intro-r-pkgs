@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -51,6 +51,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./01-setup.html" rel="next">
+<link href="./images/logos/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -228,7 +229,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
   <li><a href="#demo-package" id="toc-demo-package" class="nav-link" data-scroll-target="#demo-package">Demo Package</a></li>
-  <li><a href="#tentative-schedule" id="toc-tentative-schedule" class="nav-link" data-scroll-target="#tentative-schedule">Tentative Schedule</a></li>
+  <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule">Schedule</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></li>
   </ul>
@@ -253,6 +254,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
           </div>
   </div>
     
+  
     
   </div>
   
@@ -262,29 +264,21 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <section id="overview" class="level1 unnumbered">
 <p><img src="images/logos/logo.png" title="Coding Club: Creating an R Package" class="quarto-cover-image img-fluid"></p><h1 class="unnumbered">Overview</h1>
-<p>This book will serve as a record of the activities of the 2022 <a href="https://psyteachr.github.io">PsyTeachR</a> Coding Club at the University of Glasgow School of Psychology &amp; Neuroscience. It is in progress and will be updated regularly.</p>
 <p>Making an R package develops generic coding skills and gives you valuable insight to how R works. We’ll cover setting up a package project, creating functions, documenting them with roxygen, creating vignettes, unit testing, package testing, version control with git, and distribution with github.</p>
 <p>You will need only very basic R skills and a willingness to learn. The only people this would not be suitable for are those with zero previous experience in R (unless you know you pick up coding languages quickly). If you can install packages and have written an analysis script, you’ll be fine.</p>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Register for free at EventBrite
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><a href="https://coding-club-packages.eventbrite.co.uk">Register</a> to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don’t worry if you can’t make all of the dates. We’ll record the sessions and make them public ASAP so you can catch up if you miss the live session.</p>
-</div>
-</div>
+<!--
+::: {.callout-important}
+## Register for free at EventBrite
+[Register](https://coding-club-packages.eventbrite.co.uk) to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don't worry if you can't make all of the dates. We'll record the sessions and make them public ASAP so you can catch up if you miss the live session.
+:::
+-->
 <section id="demo-package" class="level2">
 <h2 class="anchored" data-anchor-id="demo-package">Demo Package</h2>
 <p>This book contains all of the instructions to create your first R package. But if you fall behind and need to download the most recent version of the demopkg, visit <a href="https://github.com/psyteachr/demopkg" class="uri">https://github.com/psyteachr/demopkg</a> and check the README for download instructions.</p>
 </section>
-<section id="tentative-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="tentative-schedule">Tentative Schedule</h2>
-<p>The passcode for all recordings will be <code>codingclub22!</code></p>
+<section id="schedule" class="level2">
+<h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
+<p>This originally ran as a weekly online workshop in 2022 for the <a href="https://psyteachr.github.io">PsyTeachR</a> Coding Club at the University of Glasgow School of Psychology &amp; Neuroscience. The passcode for all recordings is <code>codingclub22!</code></p>
 <ol type="1">
 <li><p>Setting up a package project (2022-10-05) <a href="https://uofglasgow.zoom.us/rec/share/mxeupKeSgQ7ZekH86RV1UQ-4ROAv6xQoJRB7G2Z7lnLovcTGdVVs39mRb1q7cvZn.UYy6h6E6Sc6xOCOr">Recording</a></p>
 <p>Create a package project and edit the default files. Well start using the most helpful package, usethis.</p></li>
@@ -685,7 +679,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   // Switch to dark mode if need be
   if (hasAlternateSentinel()) {
     toggleColorMode(true);
-  } 
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -707,7 +703,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -743,24 +756,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
