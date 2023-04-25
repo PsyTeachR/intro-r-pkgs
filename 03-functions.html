@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Coding Club: Creating an R Package - 3&nbsp; Custom Functions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04-documentation.html" rel="next">
+<link href="./02-data.html" rel="prev">
+<link href="./images/logos/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
+</script><link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Coding Club: Creating an R Package</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+<a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-functions.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-documentation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-unit-tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-pkgdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-maintenance.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#function-overview" id="toc-function-overview" class="nav-link active" data-scroll-target="#function-overview"><span class="toc-section-number">3.1</span>  Function Overview</a></li>
+  <li>
+<a href="#function-development" id="toc-function-development" class="nav-link" data-scroll-target="#function-development"><span class="toc-section-number">3.2</span>  Function Development</a>
+  <ul class="collapse">
+<li><a href="#specific-instance" id="toc-specific-instance" class="nav-link" data-scroll-target="#specific-instance"><span class="toc-section-number">3.2.1</span>  Specific Instance</a></li>
+  <li><a href="#set-up-function" id="toc-set-up-function" class="nav-link" data-scroll-target="#set-up-function"><span class="toc-section-number">3.2.2</span>  Set up Function</a></li>
+  <li><a href="#add-arguments" id="toc-add-arguments" class="nav-link" data-scroll-target="#add-arguments"><span class="toc-section-number">3.2.3</span>  Add Arguments</a></li>
+  <li><a href="#further-arguments" id="toc-further-arguments" class="nav-link" data-scroll-target="#further-arguments"><span class="toc-section-number">3.2.4</span>  Further Arguments</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#load-in-package" id="toc-load-in-package" class="nav-link" data-scroll-target="#load-in-package"><span class="toc-section-number">3.3</span>  Load in package</a>
+  <ul class="collapse">
+<li><a href="#import-dependencies" id="toc-import-dependencies" class="nav-link" data-scroll-target="#import-dependencies"><span class="toc-section-number">3.3.1</span>  Import dependencies</a></li>
+  <li><a href="#load" id="toc-load" class="nav-link" data-scroll-target="#load"><span class="toc-section-number">3.3.2</span>  Load</a></li>
+  <li><a href="#check" id="toc-check" class="nav-link" data-scroll-target="#check"><span class="toc-section-number">3.3.3</span>  Check</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install"><span class="toc-section-number">3.3.4</span>  Install</a></li>
+  </ul>
+</li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">3.4</span>  Glossary</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">3.5</span>  Further Resources</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">3.6</span>  Further Practice</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/03-functions.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/03-functions.qmd" class="toc-action">View source</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-functions" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p><a href="https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3">Recording</a> (passcode: <code>codingclub22!</code>)</p>
+<p>Learn to write custom functions and include them in your package.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># for setting up data sets in a package</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(glue)     <span class="co"># for text joining</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(devtools) <span class="co"># for loading your package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="function-overview" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="function-overview">
+<span class="header-section-number">3.1</span> Function Overview</h2>
+<p>First, let’s create a very basic <a class="glossary" target="_blank" title="A named section of code that can be reused." href="https://psyteachr.github.io/glossary/f#function">function</a> to learn about custom functions. Functions need a name (like any R <a class="glossary" target="_blank" title="A word that identifies and stores the value of some data for later use." href="https://psyteachr.github.io/glossary/o#object">object</a>). They are created with the <code>function()</code> function. We’re going to make a function that rounds numbers and keeps the trailing zeroes, so let’s call it <code>round0</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/round0.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>round0 <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="co"># function code goes here</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Most functions have <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">arguments</a> that set inputs to the function or options for how the function can work. These arguments can be required for the function to work, or have <a class="glossary" target="_blank" title="A value that a function uses for an argument if it is skipped." href="https://psyteachr.github.io/glossary/d#default-value">default values</a>.</p>
+<p>Check the help for the <code>round</code> function; we want our function to work almost the same, so it will be easier for users if the arguments have the same names in the same order, with the same default values. In the example below, the argument <code>digits</code> defaults to 0 unless you change it.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/round0.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>round0 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">digits =</span> <span class="dv">0</span>) {</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="co"># function code goes here</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Functions use these arguments in their code to produce some kind of output (or side effect). Here, we use the value of <code>digits</code> to create a formatting string, and format the value of <code>x</code> with it using <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code>. Finally, we use the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function to return the value.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/round0.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>round0 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">digits =</span> <span class="dv">0</span>) {</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  fmt <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"%."</span>, digits, <span class="st">"f"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  x0 <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(fmt, x)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  </span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">return</span>(x0)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You technically don’t have to use the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function. The last object created in the function code will be automatically returned. Most people don’t use <code><a href="https://rdrr.io/r/base/function.html">return()</a></code>, but that can sometimes make it hard to figure out exactly what is being returned if you have a lot of if/else logic.</p>
+<p>The <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function also stops all subsequent code from being run.</p>
+</div>
+</div>
+<p>Run the code above to define the function. After it’s defined, if you type the function name into the console, without parentheses, it will show you the code for the function.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>round0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function(x, digits = 0) {
+  fmt &lt;- paste0("%.", digits, "f")
+  x0 &lt;- sprintf(fmt, x)
+  
+  return(x0)
+}</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can do this for any function; try a few! Many of the base R functions, like <code>mean</code> have unsatisfying code like <code>UseMethod("mean")</code>, which you can lean about in the <a href="https://adv-r.hadley.nz/s3.html">S3 Chapter of Advanced R</a>, but other functions like <code>sd</code> will show you the code they use.</p>
+</div>
+</div>
+<p>Use your function like any other R function.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">round0</span>(<span class="dv">7</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">round0</span>(<span class="fl">1.9999</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2.333"
+[1] "2.00"</code></pre>
+</div>
+</div>
+<p>However, you’ll have to define it at the top of any script that uses it, unless you add it to a package.</p>
+</section><section id="function-development" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="function-development">
+<span class="header-section-number">3.2</span> Function Development</h2>
+<p>For <code>demopkg</code>, we’re going to create a function that produces the APA-formatted text for the results of a paired-samples t-test. Here’s an example of APA format.</p>
+<blockquote class="blockquote">
+<p>A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}.</p>
+</blockquote>
+<section id="specific-instance" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="specific-instance">
+<span class="header-section-number">3.2.1</span> Specific Instance</h3>
+<p>The first step is to sort out a specific instance of your code. You can put this in a new R script for working out your code and delete it later. We’ll load in the data we added to demopkg in <a href="02-data.html#sec-load-data"><span>Section&nbsp;2.1.3</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># load example data</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">data</span>(<span class="st">"self_res_att"</span>, <span class="at">package =</span> <span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you haven’t added the data to your package yet, use this code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>self_res_att <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/PsyTeachR/intro-r-pkgs/main/data-raw/DeBruine_2004_PRSLB_att.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, compare preferences for self-resembling female faces (<code>f_self</code>) to others’ preferences for those same faces <code>f_non</code> using a paired-samples t-test.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># analysis</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a>t_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  self_res_att$f_self and self_res_att$f_non
+t = 3.5996, df = 107, p-value = 0.0004845
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 0.2557008 0.8825708
+sample estimates:
+mean difference 
+      0.5691358 </code></pre>
+</div>
+</div>
+<p>Now we set up the text template with variables inside curly brackets where we want to insert values from the analysis. Just make up the variable names, keeping them short but meaningful.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The object <code>t_results</code> prints out like above, but the object is actually a list, Use the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function to see the structure of the list.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">str</span>(t_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 10
+ $ statistic  : Named num 3.6
+  ..- attr(*, "names")= chr "t"
+ $ parameter  : Named num 107
+  ..- attr(*, "names")= chr "df"
+ $ p.value    : num 0.000485
+ $ conf.int   : num [1:2] 0.256 0.883
+  ..- attr(*, "conf.level")= num 0.95
+ $ estimate   : Named num 0.569
+  ..- attr(*, "names")= chr "mean difference"
+ $ null.value : Named num 0
+  ..- attr(*, "names")= chr "mean difference"
+ $ stderr     : num 0.158
+ $ alternative: chr "two.sided"
+ $ method     : chr "Paired t-test"
+ $ data.name  : chr "self_res_att$f_self and self_res_att$f_non"
+ - attr(*, "class")= chr "htest"</code></pre>
+</div>
+</div>
+<p>Now we can set the value of each variable from the <code>t_results</code> object. You can’t get the means and standard deviations from the <code>t_results</code> object, so we’ll calculate those from the data. Round each numeric value to the appropriate level using the <code>round0</code> function we created above.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  template,</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="at">mean1   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>), </span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="at">sd1     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>),</span>
+<span id="cb16-8"><a href="#cb16-8"></a>  <span class="at">mean2   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb16-9"><a href="#cb16-9"></a>  <span class="at">sd2     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb16-10"><a href="#cb16-10"></a>  <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb16-11"><a href="#cb16-11"></a>  <span class="at">df      =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>parameter, <span class="dv">0</span>),</span>
+<span id="cb16-12"><a href="#cb16-12"></a>  <span class="at">t_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>statistic, <span class="dv">2</span>),</span>
+<span id="cb16-13"><a href="#cb16-13"></a>  <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb16-14"><a href="#cb16-14"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t worry about <code>p = 0</code> just now. A further practice exercise is for you to add code to the function to change it to <code>p &lt; .001</code> where appropriate.</p>
+</div>
+</div>
+</section><section id="set-up-function" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="set-up-function">
+<span class="header-section-number">3.2.2</span> Set up Function</h3>
+<p>Now we’re ready to abstract this into a function. The function will need a name. This function will (for now) only give you the APA-style text for a paired-samples t-test, so let’s call it <code>apa_t_pair</code>.</p>
+<p>You can create an R script in the <code>R</code> directory called <code>apa_t_pair.R</code>, but the code below does this for you.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(<span class="st">"apa_t_pair"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>We’ll develop our function in this file. To start, set up a blank function definition.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb19-2"><a href="#cb19-2"></a>  </span>
+<span id="cb19-3"><a href="#cb19-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Then add the code from your example script above inside the curly brackets.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb20-3"><a href="#cb20-3"></a>                      self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>                      <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>  </span>
+<span id="cb20-6"><a href="#cb20-6"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>  </span>
+<span id="cb20-8"><a href="#cb20-8"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb20-9"><a href="#cb20-9"></a>    template,</span>
+<span id="cb20-10"><a href="#cb20-10"></a>    <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb20-11"><a href="#cb20-11"></a>    <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb20-12"><a href="#cb20-12"></a>    <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
+<span id="cb20-13"><a href="#cb20-13"></a>    <span class="at">mean1   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>), </span>
+<span id="cb20-14"><a href="#cb20-14"></a>    <span class="at">sd1     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_self), <span class="dv">1</span>),</span>
+<span id="cb20-15"><a href="#cb20-15"></a>    <span class="at">mean2   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb20-16"><a href="#cb20-16"></a>    <span class="at">sd2     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(self_res_att<span class="sc">$</span>f_non), <span class="dv">1</span>),</span>
+<span id="cb20-17"><a href="#cb20-17"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb20-18"><a href="#cb20-18"></a>    <span class="at">df      =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>parameter, <span class="dv">0</span>),</span>
+<span id="cb20-19"><a href="#cb20-19"></a>    <span class="at">t_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>statistic, <span class="dv">2</span>),</span>
+<span id="cb20-20"><a href="#cb20-20"></a>    <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb20-21"><a href="#cb20-21"></a>  )</span>
+<span id="cb20-22"><a href="#cb20-22"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Skip a few lines and copy the <code>round0</code> function definition below this one. You don’t have to define functions in any particular order, as long as all function definitions are run before you try to use them. Run all the code in this file and test that the function works by running it once in the console.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you get the message: <code>Error in apa_t_pair() : could not find function "apa_t_pair"</code>, this means you didn’t run the code that created the function.</p>
+</div>
+</div>
+</section><section id="add-arguments" class="level3" data-number="3.2.3"><h3 data-number="3.2.3" class="anchored" data-anchor-id="add-arguments">
+<span class="header-section-number">3.2.3</span> Add Arguments</h3>
+<p>We probably want this function to work for any pair of vectors we give it, not just the value of <code>f_self</code> and <code>f_non</code>. So we need to add <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">arguments</a> to the function. Add arguments <code>x</code> and <code>y</code> to the function and replace <code>self_res_att$f_self</code> with <code>x</code> and <code>self_res_att$f_self</code> with <code>y</code> everywhere in the function.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb23-2"><a href="#cb23-2"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>  </span>
+<span id="cb23-4"><a href="#cb23-4"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>  </span>
+<span id="cb23-6"><a href="#cb23-6"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb23-7"><a href="#cb23-7"></a>    template,</span>
+<span id="cb23-8"><a href="#cb23-8"></a>    <span class="at">dv      =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9"></a>    <span class="at">level1  =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb23-10"><a href="#cb23-10"></a>    <span class="at">level2  =</span> <span class="st">"non-self participants"</span>,</span>
+<span id="cb23-11"><a href="#cb23-11"></a>    <span class="at">mean1   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(x), <span class="dv">1</span>), </span>
+<span id="cb23-12"><a href="#cb23-12"></a>    <span class="at">sd1     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(x), <span class="dv">1</span>),</span>
+<span id="cb23-13"><a href="#cb23-13"></a>    <span class="at">mean2   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(y), <span class="dv">1</span>),</span>
+<span id="cb23-14"><a href="#cb23-14"></a>    <span class="at">sd2     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(y), <span class="dv">1</span>),</span>
+<span id="cb23-15"><a href="#cb23-15"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb23-16"><a href="#cb23-16"></a>    <span class="at">df      =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>parameter, <span class="dv">0</span>),</span>
+<span id="cb23-17"><a href="#cb23-17"></a>    <span class="at">t_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb23-18"><a href="#cb23-18"></a>    <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb23-19"><a href="#cb23-19"></a>  )</span>
+<span id="cb23-20"><a href="#cb23-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Now, if you try to run the function without any arguments, you’ll get an error message. This is because there are no default values for <code>x</code> and <code>y</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in apa_t_pair(): argument "x" is missing, with no default</code></pre>
+</div>
+</div>
+<p>This also won’t work.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>x <span class="ot">&lt;-</span> self_res_att<span class="sc">$</span>f_self</span>
+<span id="cb26-2"><a href="#cb26-2"></a>y <span class="ot">&lt;-</span> self_res_att<span class="sc">$</span>f_non</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="fu">apa_t_pair</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in apa_t_pair(): argument "x" is missing, with no default</code></pre>
+</div>
+</div>
+<p>This is because the <code>x</code> and <code>y</code> inside of the function are in a different <a class="glossary" target="_blank" title="A data structure that contains R objects such as variables and functions" href="https://psyteachr.github.io/glossary/e#environment">environment</a> to any <code>x</code> and <code>y</code> outside of the function. This can seem confusing at first, but it’s good that you don’t need to worry about objects that exist outside of your function.</p>
+<p>You can specify the vectors as arguments.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb28-2"><a href="#cb28-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
+</div>
+</div>
+</section><section id="further-arguments" class="level3" data-number="3.2.4"><h3 data-number="3.2.4" class="anchored" data-anchor-id="further-arguments">
+<span class="header-section-number">3.2.4</span> Further Arguments</h3>
+<p>Now we can further customise our function. You probably won’t always be comparing “preferences for female faces” between “participants who resembled those faces” and “non-self participants”, so let’s add three new arguments to the function. We can set generic <a class="glossary" target="_blank" title="A value that a function uses for an argument if it is skipped." href="https://psyteachr.github.io/glossary/d#default-value">default values</a> for these new arguments so that you don’t have to specify them if the defaults are OK.</p>
+<p>Since the values are defined with the variable names used in the glue template, we don’t need to specify those in the <code>glue()</code> function anymore.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>R/apa_t_pair.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, </span>
+<span id="cb30-2"><a href="#cb30-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>, </span>
+<span id="cb30-3"><a href="#cb30-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>, </span>
+<span id="cb30-4"><a href="#cb30-4"></a>                       <span class="at">level2 =</span> <span class="st">"level 2"</span>) {</span>
+<span id="cb30-5"><a href="#cb30-5"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-6"><a href="#cb30-6"></a>  </span>
+<span id="cb30-7"><a href="#cb30-7"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb30-8"><a href="#cb30-8"></a>  </span>
+<span id="cb30-9"><a href="#cb30-9"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb30-10"><a href="#cb30-10"></a>    template,</span>
+<span id="cb30-11"><a href="#cb30-11"></a>    <span class="at">mean1   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(x), <span class="dv">1</span>), </span>
+<span id="cb30-12"><a href="#cb30-12"></a>    <span class="at">sd1     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(x), <span class="dv">1</span>),</span>
+<span id="cb30-13"><a href="#cb30-13"></a>    <span class="at">mean2   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(y), <span class="dv">1</span>),</span>
+<span id="cb30-14"><a href="#cb30-14"></a>    <span class="at">sd2     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(y), <span class="dv">1</span>),</span>
+<span id="cb30-15"><a href="#cb30-15"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb30-16"><a href="#cb30-16"></a>    <span class="at">df      =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>parameter, <span class="dv">0</span>),</span>
+<span id="cb30-17"><a href="#cb30-17"></a>    <span class="at">t_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb30-18"><a href="#cb30-18"></a>    <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb30-19"><a href="#cb30-19"></a>  )</span>
+<span id="cb30-20"><a href="#cb30-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Try running the function both with and without the new arguments.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb31-2"><a href="#cb31-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A paired-samples t-test was conducted to compare the DV between level 1 (M = 3.5, SD = 1.6) and level 2 (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb33-2"><a href="#cb33-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the output doesn’t change, this usually means that you forgot to run the code that re-defined <code>apa_t_pair</code>.</p>
+</div>
+</div>
+</section></section><section id="load-in-package" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="load-in-package">
+<span class="header-section-number">3.3</span> Load in package</h2>
+<section id="import-dependencies" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="import-dependencies">
+<span class="header-section-number">3.3.1</span> Import dependencies</h3>
+<p>You need to “import” any non-base packages that you use in a function. These are called “dependencies” because your function depends on them. Our function above uses <code>glue()</code> from the glue package. The function below is a quick way to add a dependency.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"glue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You should see this output:</p>
+<div class="cell-output">
+<pre><code>✔ Setting active project to '/Users/lisad/rproj/demopkg'
+✔ Adding 'glue' to Imports field in DESCRIPTION
+• Refer to functions with `glue::fun()`</code></pre>
+</div>
+<p>This means that you should always use the full form <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code>, rather than loading a package with the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function and using just the function name <code>glue()</code>.</p>
+<p>You can open the <code>DESCRIPTION</code> file to see what has changed. Alternatively, you can manually add dependencies to this file under “Imports:”.</p>
+</section><section id="load" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="load">
+<span class="header-section-number">3.3.2</span> Load</h3>
+<p>Now restart R and make sure that your environment is clear. Run the following code to load your package. You can also use a keyboard shortcut to run this function (Mac: cmd-shift-L, Windows: ctl-shift-L).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>The function should now be available.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>f_self, </span>
+<span id="cb38-2"><a href="#cb38-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>f_non,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for female faces"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A paired-samples t-test was conducted to compare preferences for female faces between participants who resembled those faces (M = 3.5, SD = 1.6) and non-self participants (M = 3.0, SD = 1.2). There was a significant difference; t(107) = 3.60, p = 0.000.</code></pre>
+</div>
+</div>
+<p>And it should be easy to adapt for other pairs of values, such as the equivalent analysis for male faces.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">apa_t_pair</span>(<span class="at">x =</span> self_res_att<span class="sc">$</span>m_self, </span>
+<span id="cb40-2"><a href="#cb40-2"></a>           <span class="at">y =</span> self_res_att<span class="sc">$</span>m_non,</span>
+<span id="cb40-3"><a href="#cb40-3"></a>           <span class="at">dv =</span> <span class="st">"preferences for male faces"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4"></a>           <span class="at">level1 =</span> <span class="st">"participants who resembled those faces"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5"></a>           <span class="at">level2 =</span> <span class="st">"non-self participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A paired-samples t-test was conducted to compare preferences for male faces between participants who resembled those faces (M = 3.5, SD = 1.4) and non-self participants (M = 2.9, SD = 1.0). There was a significant difference; t(107) = 3.89, p = 0.000.</code></pre>
+</div>
+</div>
+</section><section id="check" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="check">
+<span class="header-section-number">3.3.3</span> Check</h3>
+<p>Run the CMD check using <code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code> or by clicking the Check icon in the Build tab. There will be a lot of grey output text, and hopefully a lot of green checkmarks. But at the end, you’ll probably get a message like this:</p>
+<div class="cell-output">
+<pre><code>❯ checking R code for possible problems ... NOTE
+  apa_t_pair: no visible global function definition for ‘t.test’
+  apa_t_pair: no visible global function definition for ‘sd’
+  Undefined global functions or variables:
+    sd t.test
+  Consider adding
+    importFrom("stats", "sd", "t.test")
+  to your NAMESPACE file.
+
+0 errors ✔ | 0 warnings ✔ | 1 note ✖
+
+R CMD check succeeded</code></pre>
+</div>
+<p>The <code>no visible global function definition</code> note means that we’ve used some functions that aren’t from our own package and we haven’t specified what package they are from. <code>t.test</code> and <code>sd</code> are functions from the <code>stats</code> package, which is automatically loaded when you start up R, but still needs to be added as a dependency.</p>
+<p>You can add the <code>stats::</code> prefix to <code>t.test</code> and <code>sd</code> and add the dependency using <code>usethis::use_package("stats")</code>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The part that suggests you add <code>importFrom("stats", "sd", "t.test")</code> to the NAMESAPCE file is a way for you to add specific functions from another package to your package so you can use them without specifying the package name first. However, that specific instruction should be ignored because you should never edit the NAMESPACE file yourself. Instead use roxygen to set this up, which will be explained in <a href="04-documentation.html#sec-imports"><span>Section&nbsp;4.3</span></a>.</p>
+</div>
+</div>
+</section><section id="install" class="level3" data-number="3.3.4"><h3 data-number="3.3.4" class="anchored" data-anchor-id="install">
+<span class="header-section-number">3.3.4</span> Install</h3>
+<p>When you’re developing a package, you usually “load” it using <code>devtools::load_all(".")</code> to be able to access all of the functions in the package for testing and development. This way, the development package is only available during the current session in this project. You will load it every time you make some changes to the package.</p>
+<p>If you want your package to be available outside of project sessions where you’ve explicitly loaded it, you need to <strong>install</strong> the package using <code><a href="https://devtools.r-lib.org/reference/install.html">devtools::install()</a></code> or the Install button in the Build pane.</p>
+<p>After your package is installed, make sure the environment is clear, and try the following code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">round0</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in round0(1, 3): could not find function "round0"</code></pre>
+</div>
+</div>
+<p>This is because <code>round0</code> is an internal, non-exported function, so only the developer (you) is supposed to be able to use it. Technically, you can also access internal functions using the triple-colon.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>demopkg<span class="sc">:::</span><span class="fu">round0</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1.000"</code></pre>
+</div>
+</div>
+</section></section><section id="glossary" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="glossary">
+<span class="header-section-number">3.4</span> Glossary</h2>
+<div class="cell" data-layout-align="center">
+
+<table>
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:left;">
+definition
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://psyteachr.github.io/glossary/a.html#argument" class="glossary" target="_blank">argument</a>
+</td>
+<td style="text-align:left;">
+A variable that provides input to a function.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://psyteachr.github.io/glossary/d.html#default-value" class="glossary" target="_blank">default value</a>
+</td>
+<td style="text-align:left;">
+A value that a function uses for an argument if it is skipped.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://psyteachr.github.io/glossary/e.html#environment" class="glossary" target="_blank">environment</a>
+</td>
+<td style="text-align:left;">
+A data structure that contains R objects such as variables and functions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://psyteachr.github.io/glossary/f.html#function" class="glossary" target="_blank">function</a>
+</td>
+<td style="text-align:left;">
+A named section of code that can be reused.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://psyteachr.github.io/glossary/o.html#object" class="glossary" target="_blank">object</a>
+</td>
+<td style="text-align:left;">
+A word that identifies and stores the value of some data for later use.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="further-resources" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="further-resources">
+<span class="header-section-number">3.5</span> Further Resources</h2>
+<ul>
+<li>
+<a href="https://adv-r.hadley.nz/functions.html">Functions</a> from <span class="citation" data-cites="advanced-r">Wickham (<a href="references.html#ref-advanced-r" role="doc-biblioref">2019</a>)</span>
+</li>
+</ul></section><section id="further-practice" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">3.6</span> Further Practice</h2>
+<ol type="1">
+<li><p>Add an argument called <code>alpha</code> that allows the user to set an alpha criterion for determining significance. Make the default value 0.05.</p></li>
+<li><p>Edit the function to handle p-values &lt; .001.</p></li>
+<li><p>Add 95% confidence intervals to the output.</p></li>
+<li><p>Allow the user to set a custom confidence interval. Give this a sensible default value.</p></li>
+<li><p>Create another function to produce the text for a different analysis you’re familiar with in R, such as an ANOVA or correlation.</p></li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
+</div>
+<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
+</div>
+<div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
+Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
+</div>
+<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
+</div>
+<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
+</div>
+</div>
+</section></main><!-- /main --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./02-data.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04-documentation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">CC-BY 2022, Lisa DeBruine</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/psyteachr/intro-r-pkgs">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://tech.lgbt/@debruine">
+      <i class="bi bi-mastodon" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/psyteachr">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+</div>
+  </div>
+</footer>
+
+
+</body></html>

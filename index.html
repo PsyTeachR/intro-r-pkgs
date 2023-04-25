@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -45,18 +50,19 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./01-setup.html" rel="next">
+<link href="./images/logos/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -85,15 +91,10 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </script>
-<script type="application/json" class="js-hypothesis-config">
-{
-  "theme": "clean",
-  "openSidebar": false
-}
-</script>
-<script async="" src="https://hypothes.is/embed.js"></script>
 
 
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/style.css">
 </head>
 
@@ -118,7 +119,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Coding Club: Creating an R Package</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/psyteachr/coding-club-r-packages/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
         <li>
@@ -158,24 +159,81 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./01-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-documentation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-unit-tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-pkgdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-maintenance.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
-  <li><a href="#tentative-schedule" id="toc-tentative-schedule" class="nav-link" data-scroll-target="#tentative-schedule">Tentative Schedule</a></li>
+  <li><a href="#demo-package" id="toc-demo-package" class="nav-link" data-scroll-target="#demo-package">Demo Package</a></li>
+  <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule">Schedule</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/coding-club-r-packages/edit/master/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/coding-club-r-packages/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/coding-club-r-packages/blob/master/index.qmd" class="toc-action">View source</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/index.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -196,6 +254,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
           </div>
   </div>
     
+  
     
   </div>
   
@@ -205,41 +264,298 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <section id="overview" class="level1 unnumbered">
 <p><img src="images/logos/logo.png" title="Coding Club: Creating an R Package" class="quarto-cover-image img-fluid"></p><h1 class="unnumbered">Overview</h1>
-<section id="tentative-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="tentative-schedule">Tentative Schedule</h2>
+<p>Making an R package develops generic coding skills and gives you valuable insight to how R works. We’ll cover setting up a package project, creating functions, documenting them with roxygen, creating vignettes, unit testing, package testing, version control with git, and distribution with github.</p>
+<p>You will need only very basic R skills and a willingness to learn. The only people this would not be suitable for are those with zero previous experience in R (unless you know you pick up coding languages quickly). If you can install packages and have written an analysis script, you’ll be fine.</p>
+<!--
+::: {.callout-important}
+## Register for free at EventBrite
+[Register](https://coding-club-packages.eventbrite.co.uk) to help us keep organised and let us know a little bit about your experience. Space is unlimited, so don't worry if you can't make all of the dates. We'll record the sessions and make them public ASAP so you can catch up if you miss the live session.
+:::
+-->
+<section id="demo-package" class="level2">
+<h2 class="anchored" data-anchor-id="demo-package">Demo Package</h2>
+<p>This book contains all of the instructions to create your first R package. But if you fall behind and need to download the most recent version of the demopkg, visit <a href="https://github.com/psyteachr/demopkg" class="uri">https://github.com/psyteachr/demopkg</a> and check the README for download instructions.</p>
+</section>
+<section id="schedule" class="level2">
+<h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
+<p>This originally ran as a weekly online workshop in 2022 for the <a href="https://psyteachr.github.io">PsyTeachR</a> Coding Club at the University of Glasgow School of Psychology &amp; Neuroscience. The passcode for all recordings is <code>codingclub22!</code></p>
 <ol type="1">
-<li><p>Setting up a package project (2022-10-05)</p>
-<p>Create a package project and edit the default files. We’ll start using the most helpful package, usethis.</p></li>
-<li><p>Adding Data (2022-10-12)</p>
+<li><p>Setting up a package project (2022-10-05) <a href="https://youtu.be/XiM4jFJ6ocY">Recording</a></p>
+<p>Create a package project and edit the default files. Well start using the most helpful package, usethis.</p></li>
+<li><p>Adding Data (2022-10-12) <a href="https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ">Recording</a></p>
 <p>Add datasets to your package and document them with a codebook. You can use our demo data or your own.</p></li>
-<li><p>Custom Functions (2022-10-19)</p>
+<li><p>Custom Functions (2022-10-19) <a href="https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3">Recording</a></p>
 <p>Learn to write custom functions and include them in your package.</p></li>
-<li><p>Documentation (2022-10-26)</p>
+<li><p>Documentation (2022-10-26) <a href="https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR">Recording</a></p>
 <p>Write function documentation using the roxygen format. This is what creates the help documentation for functions.</p></li>
-<li><p>Analysis Vignette (2022-11-02)</p>
-<p>Include your study analysis code as a package vignette.</p></li>
-<li><p>Pkgdown Websites (2022-11-09)</p>
-<p>Create a package website using pkgdown.</p></li>
-<li><p>Unit Tests (2022-11-16)</p>
+<li><p>Unit Tests (2022-11-02) <a href="https://uofglasgow.zoom.us/rec/share/F--AV75X9YORfesOFy3-RXFRhoqinE6BVpxcKKj8LJYkMPHdAzR-6mxYRdzsKp8d.eb_tjAl-_A29Ur8P">Recording</a></p>
 <p>Write unit tests for your custom functions using testthat.</p></li>
-<li><p>Package Maintenance (2022-11-22)</p>
+<li><p>Vignettes (2022-11-09) <a href="https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv">Recording</a></p>
+<p>Include your study analysis code as a package vignette.</p></li>
+<li><p>Pkgdown Websites (2022-11-16) <a href="https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ">Recording</a></p>
+<p>Create a package website using pkgdown.</p></li>
+<li><p>Package Maintenance (2022-11-23) <a href="https://uofglasgow.zoom.us/rec/share/IIjuf9y7xF4t_KuLK_i324CMp3fu71hAnONq93lQr9_d-Ye9leOy7TCrI4VId9TV.jAqwDHjtQir5UpLx">Recording</a></p>
 <p>How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.</p></li>
-<li><p>Sharing your package (2022-11-30)</p>
-<p>Set up a github account and make a package repository to share your package and pkgdown website.</p></li>
-<li><p>Review and next steps (2022-12-07)</p>
-<p>Whatever we didn’t get to. We’ll also discuss how to continue your learning.</p></li>
 </ol>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+No session 2022-11-30
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The UK University and College Union (UCU) is <a href="https://www.ucu.org.uk/article/12609/Biggest-ever-university-strikes-set-to-hit-UK-campuses-over-pay-conditions--pensions">planning industrial action</a> on 2022-11-30, and Lisa is a union member, so this session will be delayed until 12-07, unless the universities propose a reasonable offer.</p>
+</div>
+</div>
+<ol start="9" type="1">
+<li><p>Sharing your package (2022-12-07)</p>
+<p>Set up a github account and make a package repository to share your package and pkgdown website.</p></li>
+</ol>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><a href="https://r-pkgs.org/">R Packages</a> <span class="citation" data-cites="r-packages">Wickham (<a href="references.html#ref-r-packages" role="doc-biblioref">2015</a>)</span></li>
+<li><a href="https://kbroman.org/pkg_primer/">R package primer</a> by Karl Broman</li>
+<li><a href="https://usethis.r-lib.org/">usethis</a></li>
+<li><a href="https://testthat.r-lib.org/">testthat</a></li>
+<li><a href="https://pkgdown.r-lib.org/">pkgdown</a></li>
+<li><a href="https://crumplab.com/vertical/">vertical</a></li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
+</div>
+<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
+</div>
 <div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
 Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
+</div>
+<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
+</div>
+<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
 </section>
 </section>
 
 </main> <!-- /main -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script>
 // open rdrr links externally ----
 
@@ -339,6 +655,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -367,7 +693,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'alternate';
+  let localAlternateSentinel = 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
@@ -390,7 +716,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   // Switch to dark mode if need be
   if (hasAlternateSentinel()) {
     toggleColorMode(true);
-  } 
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -412,7 +740,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -440,31 +785,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
@@ -472,8 +836,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01-setup.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -484,8 +848,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/psyteachr/coding-club-r-packages">
+    <a class="nav-link" href="https://github.com/psyteachr/intro-r-pkgs">
       <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://tech.lgbt/@debruine">
+      <i class="bi bi-mastodon" role="img">
 </i> 
     </a>
   </li>  

@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Coding Club: Creating an R Package - 7&nbsp; Pkgdown Websites</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08-maintenance.html" rel="next">
+<link href="./06-vignettes.html" rel="prev">
+<link href="./images/logos/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
+</script><link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Coding Club: Creating an R Package</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+<a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-documentation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-unit-tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-pkgdown.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-maintenance.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#set-up-pkgdown" id="toc-set-up-pkgdown" class="nav-link active" data-scroll-target="#set-up-pkgdown"><span class="toc-section-number">7.1</span>  Set up pkgdown</a></li>
+  <li><a href="#build-site" id="toc-build-site" class="nav-link" data-scroll-target="#build-site"><span class="toc-section-number">7.2</span>  Build Site</a></li>
+  <li><a href="#citation-file" id="toc-citation-file" class="nav-link" data-scroll-target="#citation-file"><span class="toc-section-number">7.3</span>  CITATION file</a></li>
+  <li><a href="#logo" id="toc-logo" class="nav-link" data-scroll-target="#logo"><span class="toc-section-number">7.4</span>  Logo</a></li>
+  <li><a href="#badges" id="toc-badges" class="nav-link" data-scroll-target="#badges"><span class="toc-section-number">7.5</span>  Badges</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="toc-section-number">7.6</span>  Further Reading</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">7.7</span>  Further Practice</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/07-pkgdown.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/07-pkgdown.qmd" class="toc-action">View source</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-pkgdown" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p><a href="https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ">Recording</a> (passcode: <code>codingclub22!</code>)</p>
+<p>Create a package website using pkgdown.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Packages required for this chapter</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)  <span class="co"># to set up pkgdown</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(pkgdown)  <span class="co"># to create the pkgdown website</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(devtools) <span class="co"># to build the package README</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># optional</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(hexSticker) <span class="co"># to make hex sticker</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(ggplot2)    <span class="co"># to make hex sticker plot</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(badger)     <span class="co"># to create custom badges</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="set-up-pkgdown" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="set-up-pkgdown">
+<span class="header-section-number">7.1</span> Set up pkgdown</h2>
+<p>The following function makes some edits to <code>Rbuildignore</code> (telling R to ignore these files when building the package) and <code>.gitignore</code> (telling git to ignore the docs directory).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_pkgdown</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you already have GitHub set up with your package, use <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html">usethis::use_pkgdown_github_pages()</a></code> instead. If not, we’ll cover how to link your site to GitHub in <a href="09-sharing.html"><span>Chapter&nbsp;9</span></a>.</p>
+</div>
+</div>
+<p>You’ll see some output that looks like this.</p>
+<div class="cell-output">
+<pre><code>✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
+✔ Adding '^_pkgdown\\.yml$', '^docs$', '^pkgdown$' to '.Rbuildignore'
+✔ Adding 'docs' to '.gitignore'
+✔ Writing '_pkgdown.yml'
+• Modify '_pkgdown.yml'</code></pre>
+</div>
+<p>A file called <code>_pkgdown.yml</code> will open with the following contents.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> </span><span class="ch">~</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>While it is not required, I like to make a directory called <code>pkgdown</code> and keep all pkgdown-related contents in there.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">dir.create</span>(<span class="st">"pkgdown"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">file.rename</span>(<span class="at">from =</span> <span class="st">"_pkgdown.yml"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>            <span class="at">to =</span> <span class="st">"pkgdown/_pkgdown.yml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="build-site" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="build-site">
+<span class="header-section-number">7.2</span> Build Site</h2>
+<p>Now check that everything is set up correctly by building the site.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pkgdown<span class="sc">::</span><span class="fu">build_site</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you already have GitHub set up with your package, use <code><a href="https://pkgdown.r-lib.org/reference/build_site_github_pages.html">pkgdown::build_site_github_pages()</a></code> instead.</p>
+</div>
+</div>
+<p>You should see something like the following output, and then a webpage will appear in your Viewer pane or a separate window (depending on your preference settings). If you need to open it manually, open <code>docs/index.html</code> in a web browser.</p>
+<div class="cell-output">
+<pre><code>-- Installing package into temporary library --
+== Building pkgdown site ======================
+Reading from: '/rproj/debruine/demopkg'
+Writing to:   '/rproj/debruine/demopkg/docs'
+-- Initialising site --------------------------
+-- Building home ------------------------------
+Reading 'LICENSE.md'
+Writing '404.html'
+-- Building function reference ----------------
+Reading 'man/apa_t_pair.Rd'
+Reading 'man/demopkg-package.Rd'
+Reading 'man/self_res_att.Rd'
+-- Building articles --------------------------
+Reading 'vignettes/demopkg.Rmd'
+Writing 'sitemap.xml'
+-- Building search index ----------------------
+== DONE =======================================
+-- Previewing site ----------------------------</code></pre>
+</div>
+<p>If everything is working correctly, this will have automatically organised information from the DESCRIPTION file, the README, function documentation, and vignettes into a website. If you created a vignette called <code>demopkg</code>, this will be available under “Get started”, and any other vignettes will be available under “Articles”. Documentation for each function will be available under “Reference”.</p>
+</section><section id="citation-file" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="citation-file">
+<span class="header-section-number">7.3</span> CITATION file</h2>
+<p>A citation file is a specially formatted file for specifying the citation to your materials. As always, you can set one up with a usethis function.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>usethis<span class="sc">::</span><span class="fu">use_citation</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>This will create a file called <code>CITATION</code> in the directory <code>inst</code> (this is a directory where you can keep supplemental files your package needs). The file contains skeletons for two R functions that create the text shown when someone looks up the citation for your package. You should make this consistent with the information in the <code>DESCRIPTION</code> file.</p>
+<p>If your package isn’t associated with a paper, use “Manual” instead of “Article”. Annoyingly, there is no widely accepted BibTex entry type for software, so most people just use a citation to the documentation using the manual type.</p>
+<p>You can read and use parts of your DESCRIPTION file from the object <code>meta</code>. It will be available even if you don’t define it, but you can use the code below to inspect it. Unfortunately, meta$Authors needs a lot of parsing to use in the CITATION file, so it’s usually easier to just copy it, but I’ve included the parsing code below if you’re curious.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">packageDescription</span>(<span class="st">"demopkg"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">names</span>(meta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Package"                 "Date"                   
+ [3] "Title"                   "Version"                
+ [5] "Authors@R"               "Description"            
+ [7] "License"                 "Encoding"               
+ [9] "Roxygen"                 "RoxygenNote"            
+[11] "Depends"                 "LazyData"               
+[13] "Imports"                 "Suggests"               
+[15] "Config/testthat/edition" "URL"                    
+[17] "BugReports"              "NeedsCompilation"       
+[19] "Packaged"                "Author"                 
+[21] "Maintainer"              "Built"                  
+[23] "RemoteType"              "RemoteHost"             
+[25] "RemoteRepo"              "RemoteUsername"         
+[27] "RemotePkgRef"            "RemoteRef"              
+[29] "RemoteSha"               "GithubRepo"             
+[31] "GithubUsername"          "GithubRef"              
+[33] "GithubSHA1"             </code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>inst/CITATION</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">citHeader</span>(<span class="st">"To cite demopkg in publications use:"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>year  <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"-.*"</span>, <span class="st">""</span>, meta<span class="sc">$</span>Date)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>note  <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"R package version %s"</span>, meta<span class="sc">$</span>Version)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>authors <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> meta<span class="sc">$</span><span class="st">`</span><span class="at">Authors@R</span><span class="st">`</span>))</span>
+<span id="cb11-6"><a href="#cb11-6"></a>text_authors <span class="ot">&lt;-</span> authors <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">format</span>(<span class="at">include=</span> <span class="fu">c</span>(<span class="st">"family"</span>, <span class="st">"given"</span>), </span>
+<span id="cb11-8"><a href="#cb11-8"></a>         <span class="at">collapse =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">", "</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-9"><a href="#cb11-9"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">", "</span>)</span>
+<span id="cb11-10"><a href="#cb11-10"></a></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="fu">bibentry</span>(</span>
+<span id="cb11-12"><a href="#cb11-12"></a>  <span class="at">bibtype =</span> <span class="st">"Manual"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>  <span class="at">title =</span> <span class="fu">sprintf</span>(<span class="st">"{%s}: %s"</span>, meta<span class="sc">$</span>Package, meta<span class="sc">$</span>Title),</span>
+<span id="cb11-14"><a href="#cb11-14"></a>  <span class="at">author =</span> authors,</span>
+<span id="cb11-15"><a href="#cb11-15"></a>  <span class="at">year =</span> year,</span>
+<span id="cb11-16"><a href="#cb11-16"></a>  <span class="at">note =</span> note,</span>
+<span id="cb11-17"><a href="#cb11-17"></a>  <span class="at">url =</span> meta<span class="sc">$</span>URL,</span>
+<span id="cb11-18"><a href="#cb11-18"></a>  <span class="at">textVersion =</span> <span class="fu">sprintf</span>(</span>
+<span id="cb11-19"><a href="#cb11-19"></a>    <span class="st">"%s, (%s). %s: %s. %s, %s"</span>,</span>
+<span id="cb11-20"><a href="#cb11-20"></a>    text_authors, year, meta<span class="sc">$</span>Package, meta<span class="sc">$</span>Title, note, meta<span class="sc">$</span>URL</span>
+<span id="cb11-21"><a href="#cb11-21"></a>  )</span>
+<span id="cb11-22"><a href="#cb11-22"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>I prefer to use the <code><a href="https://rdrr.io/r/utils/bibentry.html">bibentry()</a></code> function instead of <code><a href="https://rdrr.io/r/utils/citEntry.html">citEntry()</a></code> because it displays the BibTex version of the citation automatically (note that it uses the argument <code>bibtype</code> instead of <code>entry</code>). The help for this function explains all of the options for citations in detail.</p>
+<p>Save this file and re-load your package, then check the citation.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'demopkg' in publications use:
+
+  DeBruine L (2022). _demopkg: Data and analysis from DeBruine (2004)_.
+  R package version 0.0.0.9000, &lt;https://github.com/debruine/demopkg&gt;.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {demopkg: Data and analysis from DeBruine (2004)},
+    author = {Lisa DeBruine},
+    year = {2022},
+    note = {R package version 0.0.0.9000},
+    url = {https://github.com/debruine/demopkg},
+  }</code></pre>
+</div>
+</div>
+<p>Now you can build the pkgdown site again to see the citation update. However, this will run all of the vignettes, which might take a long time. You can re-build parts of the pkgdown site instead. Use auto-complete to browse the list of functions that start with <code>build_</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>pkgdown<span class="sc">::</span><span class="fu">build_home</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="logo" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="logo">
+<span class="header-section-number">7.4</span> Logo</h2>
+<p>You can use any image for a logo, but it’s traditional to make a hex sticker for R packages.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The code below requires the <a href="https://github.com/GuangchuangYu/hexSticker">hexSticker</a> package, which is outstanding, but a little tricky to install. It might require installing <a href="https://www.imagemagick.org/script/download.php">imageMagick</a> on your computer (not an R package). On MacOS, you might need to install <a href="https://www.xquartz.org/">xquartz</a> on your computer (not an R package) and then re-install the R package {sysfont}.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>pkgdown/logo.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># make a heart with math!</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="at">by=</span><span class="fl">0.05</span>) <span class="sc">|&gt;</span> <span class="fu">c</span>(<span class="dv">0</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>heart <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="at">x =</span> <span class="dv">16</span><span class="sc">*</span><span class="fu">sin</span>(t)<span class="sc">^</span><span class="dv">3</span>,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="at">y =</span> <span class="dv">13</span><span class="sc">*</span><span class="fu">cos</span>(t)<span class="sc">-</span><span class="dv">5</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>t)<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">3</span><span class="sc">*</span>t)<span class="sc">-</span><span class="fu">cos</span>(<span class="dv">4</span><span class="sc">*</span>t)</span>
+<span id="cb15-6"><a href="#cb15-6"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>heartplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(heart, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb15-11"><a href="#cb15-11"></a></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co"># customise your hex sticker</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>hexSticker<span class="sc">::</span><span class="fu">sticker</span>(</span>
+<span id="cb15-14"><a href="#cb15-14"></a>  <span class="at">filename =</span> <span class="st">"inst/figures/logo.png"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15"></a>  <span class="co"># subplot aesthetics</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a>  <span class="at">subplot =</span> heartplot, </span>
+<span id="cb15-17"><a href="#cb15-17"></a>  <span class="at">s_width =</span> <span class="fl">1.0</span>, <span class="at">s_height =</span> .<span class="dv">85</span>,</span>
+<span id="cb15-18"><a href="#cb15-18"></a>  <span class="at">s_x=</span><span class="dv">1</span>, <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
+<span id="cb15-19"><a href="#cb15-19"></a>  <span class="co"># package name aesthetics</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a>  <span class="at">package =</span> <span class="st">"demopkg"</span>, </span>
+<span id="cb15-21"><a href="#cb15-21"></a>  <span class="at">p_size =</span> <span class="dv">24</span>,  </span>
+<span id="cb15-22"><a href="#cb15-22"></a>  <span class="at">p_color =</span> <span class="st">"red"</span>,</span>
+<span id="cb15-23"><a href="#cb15-23"></a>  <span class="co"># hexagon aesthetics</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a>  <span class="at">h_size =</span> <span class="dv">1</span>,</span>
+<span id="cb15-25"><a href="#cb15-25"></a>  <span class="at">h_fill =</span> <span class="st">"pink"</span>, </span>
+<span id="cb15-26"><a href="#cb15-26"></a>  <span class="at">h_color =</span> <span class="st">"red"</span>,</span>
+<span id="cb15-27"><a href="#cb15-27"></a>  <span class="co"># url aesthetics</span></span>
+<span id="cb15-28"><a href="#cb15-28"></a>  <span class="at">url =</span> <span class="st">"psyteachr.github.io/demopkg"</span>,</span>
+<span id="cb15-29"><a href="#cb15-29"></a>  <span class="at">u_size =</span> <span class="fl">5.4</span>,</span>
+<span id="cb15-30"><a href="#cb15-30"></a>  <span class="at">u_color =</span> <span class="st">"white"</span></span>
+<span id="cb15-31"><a href="#cb15-31"></a>) <span class="sc">|&gt;</span> <span class="fu">plot</span>() <span class="co"># preview with plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="07-pkgdown_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>However you make your logo, store the high-resolution version at <code>inst/figures/logo.png</code>. Now you can add it to the package with the following code.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>usethis<span class="sc">::</span><span class="fu">use_logo</span>(<span class="st">"inst/figures/logo.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You’ll see the following output and the code for including your logo in the README will be copied to your clipboard. Ignore the warning about the URL for now; we’ll sort that out in <a href="09-sharing.html"><span>Chapter&nbsp;9</span></a>.</p>
+<div class="cell-output">
+<pre><code>✔ Setting active project to '/Users/lisad/rproj/debruine/demopkg'
+✔ Creating 'man/figures/'
+✔ Resized 'inst/figures/logo.png' to 240x278
+• Add logo to your README with the following html:
+Warning: pkgdown config does not specify the site's url, which is optional but recommended
+  # demopkg &lt;img src="man/figures/logo.png" align="right" height="139" /&gt;
+  [Copied to clipboard]</code></pre>
+</div>
+<p>Open <code>README.Rmd</code>, replace the line <code># demopkg</code> with the copied text, and run the following code.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>pkgdown<span class="sc">::</span><span class="fu">init_site</span>()      <span class="co"># copy logo to the right places</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>pkgdown<span class="sc">::</span><span class="fu">build_favicons</span>() <span class="co"># create favicons from the logo</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>devtools<span class="sc">::</span><span class="fu">build_readme</span>()  <span class="co"># update README.md after changes to the Rmd</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>pkgdown<span class="sc">::</span><span class="fu">build_home</span>()     <span class="co"># update home page</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you try to just <code>build_home()</code>, you will get a message like <code>pkgdown can only use images in 'man/figures' and 'vignettes'</code> because the logo hasn’t been copied to the right places. This could also be the problem if you update the logo but it doesn’t change in the pkgdown home page.</p>
+</div>
+</div>
+</section><section id="badges" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="badges">
+<span class="header-section-number">7.5</span> Badges</h2>
+<p>You’ve probably seen these lines in the README and wondered how you can get some badges.</p>
+<pre><code>&lt;!-- badges: start --&gt;
+&lt;!-- badges: end --&gt;</code></pre>
+<p>You can add a badge that describes the lifecycle of your package, from the options “experimental”, “stable”, “deprecated”, or “superceded”. Our demopkg is probably “experimental” :)</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>usethis<span class="sc">::</span><span class="fu">use_lifecycle_badge</span>(<span class="st">"experimental"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell-output">
+<pre><code>✔ Adding Lifecycle: experimental badge to 'README.Rmd'
+• Re-knit 'README.Rmd' with `devtools::build_readme()`</code></pre>
+</div>
+<p>It will add the following text to your README.Rmd file.</p>
+<pre><code>&lt;!-- badges: start --&gt;
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+&lt;!-- badges: end --&gt;</code></pre>
+<p>Make sure you re-knit the README and then re-build your pkgdown home page.</p>
+<p>Usethis has functions to add badges linking to your package on CRAN, Bioconductor, <a href="https://mybinder.org">mybinder.org</a>, or RStudio Cloud. You can also add badges that declare whether your builds are passing various checks, which we’ll discuss in <a href="08-maintenance.html"><span>Chapter&nbsp;8</span></a>.</p>
+<p>The <a href="https://github.com/GuangchuangYu/badger">badger</a> package lets you create the code for custom badges, which you can manually paste into the README.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>run in the console</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">badge_doi</span>(<span class="st">"10.1098/rspb.2004.2824"</span>, <span class="st">"firebrick"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="fu">badge_custom</span>(</span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="st">"ORCiD"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="st">"0000-0002-7523-5539"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="st">"dodgerblue"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="st">"https://orcid.org/0000-0002-7523-5539"</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "[![](https://img.shields.io/badge/doi-10.1098/rspb.2004.2824-firebrick.svg)](https://doi.org/10.1098/rspb.2004.2824)"
+[1] "[![](https://img.shields.io/badge/ORCiD-0000--0002--7523--5539-dodgerblue.svg)](https://orcid.org/0000-0002-7523-5539)"</code></pre>
+</div>
+</div>
+<p>Make sure to add appropriate alt-text in the square brackets after the exclamation point to make your images accessible.</p>
+<pre><code>[![DOI:10.1098/rspb.2004.2824](https://img.shields.io/badge/doi-10.1098/rspb.2004.2824-firebrick.svg)](https://doi.org/10.1098/rspb.2004.2824)
+[![ORCiD:0000-0002-7523-5539](https://img.shields.io/badge/ORCiD-0000--0002--7523--5539-dodgerblue.svg)](https://orcid.org/0000-0002-7523-5539)</code></pre>
+</section><section id="further-reading" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">7.6</span> Further Reading</h2>
+<ul>
+<li><a href="https://pkgdown.r-lib.org/">pkgdown Manual</a></li>
+</ul></section><section id="further-practice" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="further-practice">
+<span class="header-section-number">7.7</span> Further Practice</h2>
+<ol type="1">
+<li>Customise your site using tips from this pkgdown <a href="https://pkgdown.r-lib.org/articles/customise.html">vignette</a>.</li>
+<li>Look through the badge types at <a href="https://github.com/GuangchuangYu/badger">badger</a> and see what might be useful for you.</li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
+</div>
+<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
+</div>
+<div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
+Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
+</div>
+<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
+</div>
+<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
+</div>
+</div>
+</section></main><!-- /main --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./06-vignettes.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08-maintenance.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">CC-BY 2022, Lisa DeBruine</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/psyteachr/intro-r-pkgs">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://tech.lgbt/@debruine">
+      <i class="bi bi-mastodon" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/psyteachr">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+</div>
+  </div>
+</footer>
+
+
+</body></html>
