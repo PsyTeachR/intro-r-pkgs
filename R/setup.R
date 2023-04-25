@@ -1,11 +1,13 @@
 # book-specific code to include on every page
+library(stats) # prevents dplyr::filter problem
 
 # devtools::install_github("psyteachr/glossary)
-suppressPackageStartupMessages({
-  library(stats) # prevents dplyr::filter problem
-  library(glossary)
-})
-glossary::reset_glossary()
+if (requireNamespace("glossary", quietly = TRUE)) {
+  suppressPackageStartupMessages({
+    library(glossary)
+  })
+  glossary::reset_glossary()
+}
 
 # default knitr options
 knitr::opts_chunk$set(
