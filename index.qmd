@@ -19,7 +19,7 @@ This book contains all of the instructions to create your first R package. But i
 
 This originally ran as a weekly online workshop in 2022 for the [PsyTeachR](https://psyteachr.github.io) Coding Club at the University of Glasgow School of Psychology & Neuroscience. The passcode for all recordings is `codingclub22!`
 
-1. Setting up a package project (2022-10-05) [Recording](https://uofglasgow.zoom.us/rec/share/mxeupKeSgQ7ZekH86RV1UQ-4ROAv6xQoJRB7G2Z7lnLovcTGdVVs39mRb1q7cvZn.UYy6h6E6Sc6xOCOr)
+1. Setting up a package project (2022-10-05) [Recording](https://youtu.be/XiM4jFJ6ocY)
 
     Create a package project and edit the default files. Well start using the most helpful package, usethis.
 

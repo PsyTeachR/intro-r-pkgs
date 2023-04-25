@@ -30,6 +30,8 @@ book:
     right:
       - icon: github
         href: https://github.com/psyteachr/intro-r-pkgs
+      - icon: mastodon
+        href: "https://tech.lgbt/@debruine"
       - icon: twitter
         href: https://twitter.com/psyteachr
   chapters:

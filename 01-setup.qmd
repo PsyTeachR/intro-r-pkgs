@@ -4,7 +4,7 @@
 source("R/setup.R")
 ```
 
-[Recording](https://uofglasgow.zoom.us/rec/share/mxeupKeSgQ7ZekH86RV1UQ-4ROAv6xQoJRB7G2Z7lnLovcTGdVVs39mRb1q7cvZn.UYy6h6E6Sc6xOCOr) (passcode: `codingclub22!`)
+[Recording](https://youtu.be/XiM4jFJ6ocY)
 
 Create a package project and edit the default files. We'll start using the most helpful package, usethis.
 

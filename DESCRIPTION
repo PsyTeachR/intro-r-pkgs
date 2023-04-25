@@ -1,0 +1,31 @@
+Package: intro-r-pkgs
+Title: Creating an R Package
+Version: 0.0.1.0
+Authors@R: 
+ c(
+    person(
+        given = "Lisa", 
+        family = "DeBruine", 
+        role = c("aut", "cre"), 
+        email = "debruine@gmail.com", 
+        comment = c(ORCID = "0000-0002-7523-5539")
+    ))
+Description: Making an R package develops generic coding skills and gives you valuable insight to how R works. We’ll cover setting up a package project, creating functions, documenting them with roxygen, creating vignettes, unit testing, package testing, version control with git, and distribution with github.
+License: CC BY 4.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: 
+    badger,
+    devtools,
+    ggplot2,
+    glossary,
+    glue,
+    hexSticker,
+    pkgdown,
+    readr,
+    testthat,
+    usethis,
+    webexercises
+Remotes:
+    psyteachr/glossary
