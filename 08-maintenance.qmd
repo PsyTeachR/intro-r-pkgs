@@ -1,6 +1,6 @@
 # Package Maintenance {#sec-maintenance}
 
-[Recording](https://uofglasgow.zoom.us/rec/share/IIjuf9y7xF4t_KuLK_i324CMp3fu71hAnONq93lQr9_d-Ye9leOy7TCrI4VId9TV.jAqwDHjtQir5UpLx) (passcode: `codingclub22!`)
+[Recording](https://youtu.be/Q0HRweq2s8I)
 
 How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.
 

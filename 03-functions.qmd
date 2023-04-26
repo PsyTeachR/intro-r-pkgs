@@ -1,7 +1,6 @@
 # Custom Functions {#sec-functions}
 
-[Recording](https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3)
-(passcode: `codingclub22!`)
+[Recording](https://youtu.be/ebpEA0UaG0I)
 
 Learn to write custom functions and include them in your package.
 

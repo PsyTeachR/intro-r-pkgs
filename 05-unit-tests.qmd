@@ -1,6 +1,6 @@
 # Unit Tests {#sec-unit-tests}
 
-[Recording](https://uofglasgow.zoom.us/rec/share/F--AV75X9YORfesOFy3-RXFRhoqinE6BVpxcKKj8LJYkMPHdAzR-6mxYRdzsKp8d.eb_tjAl-_A29Ur8P) (passcode: `codingclub22!`)
+[Recording](https://youtu.be/nGLur5zwLPY)
 
 Write unit tests for your custom functions using testthat.
 

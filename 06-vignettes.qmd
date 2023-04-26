@@ -1,6 +1,6 @@
 # Vignettes {#sec-vignettes}
 
-[Recording](https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv) (passcode: `codingclub22!`)
+[Recording](https://youtu.be/nxX9zfP91dM)
 
 Include your study analysis code as a package vignette.
 

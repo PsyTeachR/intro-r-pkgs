@@ -1,6 +1,6 @@
 # Pkgdown Websites {#sec-pkgdown}
 
-[Recording](https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ) (passcode: `codingclub22!`)
+[Recording](https://youtu.be/IRtOORWdKGI)
 
 Create a package website using pkgdown.
 
