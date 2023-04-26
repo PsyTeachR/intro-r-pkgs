@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,14 +18,15 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -39,8 +40,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -102,11 +102,16 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Coding Club: Creating an R Package</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Overview</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -114,105 +119,119 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Coding Club: Creating an R Package</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-            <i class="bi bi-bi-twitter pe-1"></i>
-          Twitter
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-            <i class="bi bi-bi-facebook pe-1"></i>
-          Facebook
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
-            <i class="bi bi-bi-linkedin pe-1"></i>
-          LinkedIn
-          </a>
-        </li>
-    </ul>
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Overview</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></a>
+  <a href="./01-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></a>
+  <a href="./02-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></a>
+  <a href="./03-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-documentation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></a>
+  <a href="./04-documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-unit-tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></a>
+  <a href="./05-unit-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-pkgdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></a>
+  <a href="./07-pkgdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-maintenance.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></a>
+  <a href="./08-maintenance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
+  <a href="./09-sharing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your Package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -220,6 +239,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -240,7 +260,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Coding Club: Creating an R Package</h1>
+<h1 class="title">Coding Club: Creating an R Package</h1>
 </div>
 
 
@@ -263,7 +283,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 
 <section id="overview" class="level1 unnumbered">
-<p><img src="images/logos/logo.png" title="Coding Club: Creating an R Package" class="quarto-cover-image img-fluid"></p><h1 class="unnumbered">Overview</h1>
+<h1 class="unnumbered">Overview</h1><p><img src="images/logos/logo.png" title="Coding Club: Creating an R Package" class="quarto-cover-image img-fluid"></p>
 <p>Making an R package develops generic coding skills and gives you valuable insight to how R works. We’ll cover setting up a package project, creating functions, documenting them with roxygen, creating vignettes, unit testing, package testing, version control with git, and distribution with github.</p>
 <p>You will need only very basic R skills and a willingness to learn. The only people this would not be suitable for are those with zero previous experience in R (unless you know you pick up coding languages quickly). If you can install packages and have written an analysis script, you’ll be fine.</p>
 <!--
@@ -278,40 +298,25 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </section>
 <section id="schedule" class="level2">
 <h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
-<p>This originally ran as a weekly online workshop in 2022 for the <a href="https://psyteachr.github.io">PsyTeachR</a> Coding Club at the University of Glasgow School of Psychology &amp; Neuroscience. The passcode for all recordings is <code>codingclub22!</code></p>
+<p>This originally ran as a weekly online workshop in 2022 for the <a href="https://psyteachr.github.io">PsyTeachR</a> Coding Club at the University of Glasgow School of Psychology &amp; Neuroscience. The videos are on a <a href="https://www.youtube.com/playlist?list=PLA2iRWVwbpTLPSdIM8peMcpzeVDPAQvfc">playlist on YouTube</a>.</p>
 <ol type="1">
 <li><p>Setting up a package project (2022-10-05) <a href="https://youtu.be/XiM4jFJ6ocY">Recording</a></p>
 <p>Create a package project and edit the default files. Well start using the most helpful package, usethis.</p></li>
-<li><p>Adding Data (2022-10-12) <a href="https://uofglasgow.zoom.us/rec/share/o0RHg82nSsyPLSMpA5hxHdqiHnc86H7zmBvzDL-n6ICqq0NQ1wHf8FKF3zvkeGmj.H72yZQDGbVST5gqQ">Recording</a></p>
+<li><p>Adding Data (2022-10-12) <a href="https://youtu.be/trKL8YMXh1U">Recording</a></p>
 <p>Add datasets to your package and document them with a codebook. You can use our demo data or your own.</p></li>
-<li><p>Custom Functions (2022-10-19) <a href="https://uofglasgow.zoom.us/rec/share/GsdzG_rdN-ifbRqRndm-lUKXYNqf8dQB12tnkJwmWD2Z8Po4koqArTcHFtH-DXlx.QLwfu5cwMgQ3OCK3">Recording</a></p>
+<li><p>Custom Functions (2022-10-19) <a href="https://youtu.be/ebpEA0UaG0I">Recording</a></p>
 <p>Learn to write custom functions and include them in your package.</p></li>
-<li><p>Documentation (2022-10-26) <a href="https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR">Recording</a></p>
+<li><p>Documentation (2022-10-26) <a href="https://youtu.be/DGJJ5bX4090">Recording</a></p>
 <p>Write function documentation using the roxygen format. This is what creates the help documentation for functions.</p></li>
-<li><p>Unit Tests (2022-11-02) <a href="https://uofglasgow.zoom.us/rec/share/F--AV75X9YORfesOFy3-RXFRhoqinE6BVpxcKKj8LJYkMPHdAzR-6mxYRdzsKp8d.eb_tjAl-_A29Ur8P">Recording</a></p>
+<li><p>Unit Tests (2022-11-02) <a href="https://youtu.be/nGLur5zwLPY">Recording</a></p>
 <p>Write unit tests for your custom functions using testthat.</p></li>
-<li><p>Vignettes (2022-11-09) <a href="https://uofglasgow.zoom.us/rec/share/GkpP8Q473G517qIObour0HjqfylSRMNmcv1EEMOMUM56xXN_fnZQg2OatYPOWx7V.U_7Gy0scEJCNS6bv">Recording</a></p>
+<li><p>Vignettes (2022-11-09) <a href="https://youtu.be/nxX9zfP91dM">Recording</a></p>
 <p>Include your study analysis code as a package vignette.</p></li>
-<li><p>Pkgdown Websites (2022-11-16) <a href="https://uofglasgow.zoom.us/rec/share/bRqwxQOd7rNw3ie7xwIx7Oj1le7XoxClIIMWt00-unBzcKe9enVeSSeh9O3B_9l7.0KvcITpFNTLrDghJ">Recording</a></p>
+<li><p>Pkgdown Websites (2022-11-16) <a href="https://youtu.be/IRtOORWdKGI">Recording</a></p>
 <p>Create a package website using pkgdown.</p></li>
-<li><p>Package Maintenance (2022-11-23) <a href="https://uofglasgow.zoom.us/rec/share/IIjuf9y7xF4t_KuLK_i324CMp3fu71hAnONq93lQr9_d-Ye9leOy7TCrI4VId9TV.jAqwDHjtQir5UpLx">Recording</a></p>
+<li><p>Package Maintenance (2022-11-23) <a href="https://youtu.be/Q0HRweq2s8I">Recording</a></p>
 <p>How to run CMD-check to make sure everything is put together right, and how to troubleshoot the inevitable problems.</p></li>
-</ol>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-No session 2022-11-30
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The UK University and College Union (UCU) is <a href="https://www.ucu.org.uk/article/12609/Biggest-ever-university-strikes-set-to-hit-UK-campuses-over-pay-conditions--pensions">planning industrial action</a> on 2022-11-30, and Lisa is a union member, so this session will be delayed until 12-07, unless the universities propose a reasonable offer.</p>
-</div>
-</div>
-<ol start="9" type="1">
-<li><p>Sharing your package (2022-12-07)</p>
+<li><p>Sharing your package (2022-12-07) <a href="https://youtu.be/C-zGrJda4rU">Recording</a></p>
 <p>Set up a github account and make a package repository to share your package and pkgdown website.</p></li>
 </ol>
 </section>
@@ -327,20 +332,20 @@ No session 2022-11-30
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
-<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="listitem">
 Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
 </div>
-<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+<div id="ref-debruine2004" class="csl-entry" role="listitem">
 DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
 </div>
-<div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
+<div id="ref-knuth84" class="csl-entry" role="listitem">
 Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
 </div>
-<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+<div id="ref-r-packages" class="csl-entry" role="listitem">
 Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
 </div>
-<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+<div id="ref-advanced-r" class="csl-entry" role="listitem">
 Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
@@ -726,9 +731,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -793,6 +812,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -845,6 +950,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">CC-BY 2022, Lisa DeBruine</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
