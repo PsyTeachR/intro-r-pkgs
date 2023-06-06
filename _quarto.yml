@@ -62,7 +62,11 @@ format:
       dark:
       - darkly
       - include/dark.scss
-    css: [include/psyteachr.css, include/webex.css, include/style.css]
+    css:
+    - https://use.fontawesome.com/releases/v5.13.0/css/all.css
+    - include/psyteachr.css
+    - include/webex.css
+    - include/style.css
     df-print: kable
     code-link: true
     #code-fold: false

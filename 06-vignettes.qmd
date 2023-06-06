@@ -193,6 +193,12 @@ vignette(topic = "demopkg", package = "demopkg")
 
 Next week, we'll learn how to create a website for your package that displays this vignette.
 
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table()
+```
+
 ## Further Reading
 
 * [Vignettes](https://r-pkgs.org/vignettes.html) from @r-packages

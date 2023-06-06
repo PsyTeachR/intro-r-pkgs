@@ -268,9 +268,7 @@ Now, whenever you push changes to your repository, a script will rebuild your pk
 ## Glossary
 
 ```{r, echo = FALSE, results='asis'}
-glossary_table(as_kable = FALSE) |> 
-  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
-  unclass() |> cat()
+glossary_table()
 ```
 
 

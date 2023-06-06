@@ -240,6 +240,12 @@ You'll get a note like this.
 ```
 :::
 
+## Glossary
+
+```{r, echo = FALSE, results='asis'}
+glossary_table()
+```
+
 ## Further Resources
 
 * [R CMD check](https://r-pkgs.org/check.html) from @r-packages

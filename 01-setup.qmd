@@ -1,9 +1,5 @@
 # Setting up {#sec-setup}
 
-```{r, include = FALSE}
-source("R/setup.R")
-```
-
 [Recording](https://youtu.be/XiM4jFJ6ocY)
 
 Create a package project and edit the default files. We'll start using the most helpful package, usethis.
@@ -183,9 +179,7 @@ citation("demopkg")
 ## Glossary
 
 ```{r, echo = FALSE, results='asis'}
-glossary_table(as_kable = FALSE) |> 
-  kableExtra::kable(row.names = FALSE, escape = FALSE) |>
-  unclass() |> cat()
+glossary_table()
 ```
 
 ## Further Practice

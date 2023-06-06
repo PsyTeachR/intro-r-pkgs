@@ -1,12 +1,19 @@
 # book-specific code to include on every page
 library(stats) # prevents dplyr::filter problem
 
-# devtools::install_github("psyteachr/glossary)
 if (requireNamespace("glossary", quietly = TRUE)) {
   suppressPackageStartupMessages({
     library(glossary)
   })
-  glossary::reset_glossary()
+  glossary_reset()
+  glossary_path("psyteachr")
+  glossary_popup("hover")
+}
+
+if (requireNamespace("webexercises", quietly = TRUE)) {
+  suppressPackageStartupMessages({
+    library(webexercises)
+  })
 }
 
 # default knitr options

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.340">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Coding Club: Creating an R Package - 4&nbsp; Documentation</title>
 <style>
@@ -14,9 +14,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -43,48 +44,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -98,8 +70,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -145,149 +116,172 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
-</script><link rel="stylesheet" href="include/psyteachr.css">
+</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/psyteachr.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/style.css">
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-documentation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Coding Club: Creating an R Package</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+    <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-            <i class="bi bi-bi-twitter pe-1"></i>
-          Twitter
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-            <i class="bi bi-bi-facebook pe-1"></i>
-          Facebook
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-            <i class="bi bi-bi-linkedin pe-1"></i>
-          LinkedIn
-          </a>
-        </li>
-    </ul>
-<a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Overview</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></a>
+  <a href="./01-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></a>
+  <a href="./02-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></a>
+  <a href="./03-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Custom Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-documentation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></a>
+  <a href="./04-documentation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-unit-tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></a>
+  <a href="./05-unit-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
+  <a href="./06-vignettes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-pkgdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></a>
+  <a href="./07-pkgdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pkgdown Websites</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-maintenance.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></a>
+  <a href="./08-maintenance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Package Maintenance</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-sharing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your package</span></a>
+  <a href="./09-sharing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Sharing your Package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
-<a href="#roxygen" id="toc-roxygen" class="nav-link active" data-scroll-target="#roxygen"><span class="toc-section-number">4.1</span>  Roxygen</a>
+<a href="#roxygen" id="toc-roxygen" class="nav-link active" data-scroll-target="#roxygen"><span class="header-section-number">4.1</span> Roxygen</a>
   <ul class="collapse">
-<li><a href="#title-and-description" id="toc-title-and-description" class="nav-link" data-scroll-target="#title-and-description"><span class="toc-section-number">4.1.1</span>  Title and Description</a></li>
-  <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments"><span class="toc-section-number">4.1.2</span>  Arguments</a></li>
-  <li><a href="#return-value" id="toc-return-value" class="nav-link" data-scroll-target="#return-value"><span class="toc-section-number">4.1.3</span>  Return Value</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="toc-section-number">4.1.4</span>  Examples</a></li>
+<li><a href="#title-and-description" id="toc-title-and-description" class="nav-link" data-scroll-target="#title-and-description"><span class="header-section-number">4.1.1</span> Title and Description</a></li>
+  <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments"><span class="header-section-number">4.1.2</span> Arguments</a></li>
+  <li><a href="#return-value" id="toc-return-value" class="nav-link" data-scroll-target="#return-value"><span class="header-section-number">4.1.3</span> Return Value</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">4.1.4</span> Examples</a></li>
   </ul>
 </li>
-  <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link" data-scroll-target="#helper-functions"><span class="toc-section-number">4.2</span>  Helper Functions</a></li>
-  <li><a href="#sec-imports" id="toc-sec-imports" class="nav-link" data-scroll-target="#sec-imports"><span class="toc-section-number">4.3</span>  Importing functions</a></li>
-  <li><a href="#document-and-load" id="toc-document-and-load" class="nav-link" data-scroll-target="#document-and-load"><span class="toc-section-number">4.4</span>  Document and Load</a></li>
-  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="toc-section-number">4.5</span>  Glossary</a></li>
-  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="toc-section-number">4.6</span>  Further Resources</a></li>
-  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="toc-section-number">4.7</span>  Further Practice</a></li>
+  <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link" data-scroll-target="#helper-functions"><span class="header-section-number">4.2</span> Helper Functions</a></li>
+  <li><a href="#sec-imports" id="toc-sec-imports" class="nav-link" data-scroll-target="#sec-imports"><span class="header-section-number">4.3</span> Importing functions</a></li>
+  <li><a href="#document-and-load" id="toc-document-and-load" class="nav-link" data-scroll-target="#document-and-load"><span class="header-section-number">4.4</span> Document and Load</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">4.5</span> Glossary</a></li>
+  <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="header-section-number">4.6</span> Further Resources</a></li>
+  <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="header-section-number">4.7</span> Further Practice</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/04-documentation.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/04-documentation.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-documentation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></span></h1>
+<h1 class="title"><span id="sec-documentation" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></span></h1>
 </div>
 
 
@@ -300,7 +294,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
-</header><p><a href="https://uofglasgow.zoom.us/rec/share/sOMxVB9wd084RpyVbz_HyFh1tTLP3PqmQVMBBONNc4SucxDYp8u4XSlujlnj7ZW4.egNs8uuVGd1Al5oR">Recording</a> (passcode: <code>codingclub22!</code>)</p>
+</header><p><a href="https://youtu.be/DGJJ5bX4090">Recording</a></p>
 <p>Write function documentation using the roxygen format. This is what creates the help documentation for functions.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -315,7 +309,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <section id="roxygen" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="roxygen">
 <span class="header-section-number">4.1</span> Roxygen</h2>
-<p>Go to the <code>R/apa_t_pair.R</code> file we created last week. Put your cursor anywhere inside that <a class="glossary" target="_blank" title="A named section of code that can be reused." href="https://psyteachr.github.io/glossary/f#function">function</a> and choose <strong><code>Insert Roxygen Skeleton</code></strong> from the <strong><code>Code</code></strong> menu. It should generate documentation code in roxygen format like this:</p>
+<p>Go to the <code>R/apa_t_pair.R</code> file we created last week. Put your cursor anywhere inside that <a href="https://psyteachr.github.io/glossary/f#function" target="_blank" class="glossary" title="A named section of code that can be reused.">function</a> and choose <strong><code>Insert Roxygen Skeleton</code></strong> from the <strong><code>Code</code></strong> menu. It should generate documentation code in roxygen format like this:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>#' Title</span>
 <span id="cb3-2"><a href="#cb3-2"></a>#'</span>
 <span id="cb3-3"><a href="#cb3-3"></a>#' @param x</span>
@@ -328,7 +322,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb3-10"><a href="#cb3-10"></a>#' @export</span>
 <span id="cb3-11"><a href="#cb3-11"></a>#'</span>
 <span id="cb3-12"><a href="#cb3-12"></a>#' @examples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This creates the help files you can see for any function. For example, type <code><a href="https://rdrr.io/r/stats/t.test.html">?t.test</a></code> in the <a class="glossary" target="_blank" title="The pane in RStudio where you can type in commands and view output messages." href="https://psyteachr.github.io/glossary/c#console">console</a>.</p>
+<p>This creates the help files you can see for any function. For example, type <code><a href="https://rdrr.io/r/stats/t.test.html">?t.test</a></code> in the <a href="https://psyteachr.github.io/glossary/c#console" target="_blank" class="glossary" title="The pane in RStudio where you can type in commands and view output messages.">console</a>.</p>
 <section id="title-and-description" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="title-and-description">
 <span class="header-section-number">4.1.1</span> Title and Description</h3>
 <p>The first line of the roxygen documentation is the title and the paragraph under that is the description. If you have more than one paragraph of description, you need to add the <code>@description</code> tag. Update your documentation like this:</p>
@@ -338,22 +332,22 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <span id="cb4-4"><a href="#cb4-4"></a>#' Create APA-formatted text for the results of an independent-samples t-test in the following format:</span>
 <span id="cb4-5"><a href="#cb4-5"></a>#'</span>
 <span id="cb4-6"><a href="#cb4-6"></a>#' A paired-samples t-test was conducted to compare \{dv\} between \{level1\} (M = \{mean1\}, SD = \{sd1\}) and \{level2\} (M = \{mean2\}, SD = \{sd2\}). There was a \{non\}significant difference; t(\{df\}) = \{t_value\}, p = \{p_value\}.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The curly brackets need to be prefaced by a backslash so they will show as <a class="glossary" target="_blank" title="The actual character being typed, not the special meaning it has to code." href="https://psyteachr.github.io/glossary/l#literal">literal</a> curly brackets in the Help files, rather than be interpreted as <a class="glossary" target="_blank" title="A way to specify formatting, such as headers, paragraphs, lists, bolding, and links." href="https://psyteachr.github.io/glossary/m#markdown">markdown</a> syntax.</p>
+<p>The curly brackets need to be prefaced by a backslash so they will show as <a href="https://psyteachr.github.io/glossary/l#literal" target="_blank" class="glossary" title="The actual character being typed, not the special meaning it has to code.">literal</a> curly brackets in the Help files, rather than be interpreted as <a href="https://psyteachr.github.io/glossary/m#markdown" target="_blank" class="glossary" title="A way to specify formatting, such as headers, paragraphs, lists, bolding, and links.">markdown</a> syntax.</p>
 </div>
 </div>
 </section><section id="arguments" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="arguments">
 <span class="header-section-number">4.1.2</span> Arguments</h3>
-<p>The “Arguments” section is created from the lines that start with <code>@param</code>. They should define each <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">argument</a> in the function.</p>
+<p>The “Arguments” section is created from the lines that start with <code>@param</code>. They should define each <a href="https://psyteachr.github.io/glossary/a#argument" target="_blank" class="glossary" title="A variable that provides input to a function.">argument</a> in the function.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>#' @param x A vector of the values for level 1.</span>
 <span id="cb5-2"><a href="#cb5-2"></a>#' @param y A vector of the values for level 2.</span>
 <span id="cb5-3"><a href="#cb5-3"></a>#' @param dv The text describing the DV in the output statement.</span>
@@ -361,7 +355,7 @@ Note
 <span id="cb5-5"><a href="#cb5-5"></a>#' @param level2 The text describing level 2 in the output statement.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="return-value" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="return-value">
 <span class="header-section-number">4.1.3</span> Return Value</h3>
-<p>The line starting with <code>@return</code> creates the “Value” section. This tells the user what kind of <a class="glossary" target="_blank" title="A word that identifies and stores the value of some data for later use." href="https://psyteachr.github.io/glossary/o#object">object</a> is returned from the function. The line <code>@export</code> tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.</p>
+<p>The line starting with <code>@return</code> creates the “Value” section. This tells the user what kind of <a href="https://psyteachr.github.io/glossary/o#object" target="_blank" class="glossary" title="A word that identifies and stores the value of some data for later use.">object</a> is returned from the function. The line <code>@export</code> tells the package that this is a function you want others to be able to use; if you omit this, the function will only be available internally to your package.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource roxygen number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>#' @return A character string.</span>
 <span id="cb6-2"><a href="#cb6-2"></a>#' @export</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="examples" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="examples">
@@ -381,12 +375,12 @@ Note
 </section></section><section id="helper-functions" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="helper-functions">
 <span class="header-section-number">4.2</span> Helper Functions</h2>
 <p>Not everyone documents helper functions like <code>round0</code>, but I think it’s good practice. Repeat the steps above with <code>round0</code>, but omit the line with <code>@export</code>. Annoyingly, non-exported functions can’t have examples, so you can also delete those. Try to do this yourself before you look at the answer below, but have a look at the help file for <code>round</code> for inspiration.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Documentation for <code>round0</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
@@ -465,7 +459,7 @@ Writing apa_t_pair.Rd
 Writing demopkg-package.Rd
 Writing round0.Rd</code></pre>
 </div>
-<p>Now restart R and make sure that your <a class="glossary" target="_blank" title="A data structure that contains R objects such as variables and functions" href="https://psyteachr.github.io/glossary/e#environment">environment</a> is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.</p>
+<p>Now restart R and make sure that your <a href="https://psyteachr.github.io/glossary/e#environment" target="_blank" class="glossary" title="A data structure that contains R objects such as variables and functions">environment</a> is clear. Run the following code to load your package (Mac: cmd-shift-L, Windows: ctl-shift-L) and view the new Help documentation.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -480,75 +474,44 @@ Writing round0.Rd</code></pre>
 </section><section id="glossary" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">4.5</span> Glossary</h2>
 <div class="cell" data-layout-align="center">
-
-<table>
-<thead><tr>
-<th style="text-align:left;">
-term
-</th>
-<th style="text-align:left;">
-definition
-</th>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/a.html#argument" class="glossary" target="_blank">argument</a>
-</td>
-<td style="text-align:left;">
-A variable that provides input to a function.
-</td>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/a#argument" target="_blank">argument</a></td>
+<td style="text-align: left;">A variable that provides input to a function.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/c.html#console" class="glossary" target="_blank">console</a>
-</td>
-<td style="text-align:left;">
-The pane in RStudio where you can type in commands and view output messages.
-</td>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/c#console" target="_blank">console</a></td>
+<td style="text-align: left;">The pane in RStudio where you can type in commands and view output messages.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/e.html#environment" class="glossary" target="_blank">environment</a>
-</td>
-<td style="text-align:left;">
-A data structure that contains R objects such as variables and functions
-</td>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/e#environment" target="_blank">environment</a></td>
+<td style="text-align: left;">A data structure that contains R objects such as variables and functions</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/f.html#function" class="glossary" target="_blank">function</a>
-</td>
-<td style="text-align:left;">
-A named section of code that can be reused.
-</td>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/f#function" target="_blank">function</a></td>
+<td style="text-align: left;">A named section of code that can be reused.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/l.html#literal" class="glossary" target="_blank">literal</a>
-</td>
-<td style="text-align:left;">
-The actual character being typed, not the special meaning it has to code.
-</td>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/l#literal" target="_blank">literal</a></td>
+<td style="text-align: left;">The actual character being typed, not the special meaning it has to code.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/m.html#markdown" class="glossary" target="_blank">markdown</a>
-</td>
-<td style="text-align:left;">
-A way to specify formatting, such as headers, paragraphs, lists, bolding, and links.
-</td>
+<tr class="even">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/m#markdown" target="_blank">markdown</a></td>
+<td style="text-align: left;">A way to specify formatting, such as headers, paragraphs, lists, bolding, and links.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/o.html#object" class="glossary" target="_blank">object</a>
-</td>
-<td style="text-align:left;">
-A word that identifies and stores the value of some data for later use.
-</td>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://psyteachr.github.io/glossary/o#object" target="_blank">object</a></td>
+<td style="text-align: left;">A word that identifies and stores the value of some data for later use.</td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </section><section id="further-resources" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="further-resources">
 <span class="header-section-number">4.6</span> Further Resources</h2>
@@ -564,24 +527,24 @@ A word that identifies and stores the value of some data for later use.
 </ol>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
-<div id="ref-happy-git" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-happy-git" class="csl-entry" role="listitem">
 Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
 </div>
-<div id="ref-debruine2004" class="csl-entry" role="doc-biblioentry">
+<div id="ref-debruine2004" class="csl-entry" role="listitem">
 DeBruine, L. M. (2004). Facial resemblance increases the attractiveness of same-sex faces more than other-sex faces. <em>Proceedings of the Royal Society of London B</em>, <em>271</em>, 2085–2090. <a href="https://doi.org/10.1098/rspb.2004.2824">https://doi.org/10.1098/rspb.2004.2824</a>
 </div>
-<div id="ref-knuth84" class="csl-entry" role="doc-biblioentry">
+<div id="ref-knuth84" class="csl-entry" role="listitem">
 Knuth, D. E. (1984). Literate programming. <em>Comput. J.</em>, <em>27</em>(2), 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>
 </div>
-<div id="ref-r-packages" class="csl-entry" role="doc-biblioentry">
+<div id="ref-r-packages" class="csl-entry" role="listitem">
 Wickham, H. (2015). <em>R packages: Organize, test, document, and share your code</em>. "O’Reilly Media, Inc.". <a href="https://r-pkgs.org/">https://r-pkgs.org/</a>
 </div>
-<div id="ref-advanced-r" class="csl-entry" role="doc-biblioentry">
+<div id="ref-advanced-r" class="csl-entry" role="listitem">
 Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
-</section></main><!-- /main --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+</section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -767,7 +730,7 @@ window.onload = function() {
     solveme[i].onkeyup = solveme_func;
     solveme[i].onchange = solveme_func;
 
-    $(solveme[i]).after(" <span class='webex-icon'></span>");
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
   }
 
   /* set up radiogroups */
@@ -780,7 +743,7 @@ window.onload = function() {
   var selects = document.getElementsByClassName("webex-select");
   for (var i = 0; i < selects.length; i++) {
     selects[i].onchange = select_func;
-    $(selects[i]).after(" <span class='webex-icon'></span>");
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
   }
 
   update_total_correct();
@@ -955,9 +918,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1022,6 +999,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1074,6 +1137,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">CC-BY 2022, Lisa DeBruine</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
 <li class="nav-item compact">

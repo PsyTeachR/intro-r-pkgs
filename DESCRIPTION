@@ -29,6 +29,5 @@ Imports:
     glossary,
     demopkg
 Remotes:
-    psyteachr/glossary,
     debruine/demopkg
 
