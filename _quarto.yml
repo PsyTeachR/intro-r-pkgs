@@ -18,7 +18,7 @@ book:
   #     theme: clean
   #     openSidebar: false
   repo-url: https://github.com/psyteachr/intro-r-pkgs/
-  repo-branch: master
+  repo-branch: main
   repo-actions: [edit, issue, source]
 #  downloads: [pdf, epub]
   sharing: [twitter, facebook, linkedin]
