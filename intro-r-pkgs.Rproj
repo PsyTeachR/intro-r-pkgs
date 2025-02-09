@@ -1,4 +1,5 @@
 Version: 1.0
+ProjectId: a8fe9dc5-c4a9-4470-9a39-19c330f6987d
 
 RestoreWorkspace: No
 SaveWorkspace: No
@@ -16,4 +17,5 @@ AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
 LineEndingConversion: Posix
 
-BuildType: Website
+BuildType: Makefile
+MakefilePath: ~/rproj/psyteachr/intro-r-pkgs

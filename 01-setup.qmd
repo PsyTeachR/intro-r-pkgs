@@ -6,7 +6,10 @@ Create a package project and edit the default files. We'll start using the most 
 
 Today we'll be using the following `r glossary("package", "packages")`, so install them if necessary:
 
-```{r install, eval = FALSE, filename="Packages required for this chapter"}
+```{r}
+#| label: install
+#| eval: false 
+#| filename: "Packages required for this chapter"
 
 library(usethis)
 library(devtools)
@@ -16,7 +19,9 @@ You may need to download some other files to allow you to compile packages if yo
 
 Additionally, you may need to install LaTeX to make PDF versions of the code documentation. The tinytex package is usually the easiest way to do this.
 
-```{r, eval = FALSE, filename="run in the console"}
+```{r}
+#| eval: false 
+#| filename: "Run in the console"
 install.packages("tinytex")
 tinytex::install_tinytex()
 ```
@@ -26,7 +31,10 @@ tinytex::install_tinytex()
 
 Use the following command to create the framework for a new package called `demopkg`. Set the path `r glossary("argument")` to the path where you want to save your package. The last section of the path should be the name of the package: `demopkg`.
 
-```{r create-package, eval = FALSE, filename="run in the console"}
+```{r}
+#| label: create-package
+#| eval: false 
+#| filename: "Run in the console"
 usethis::create_package(path = "~/rproj/demopkg")
 ```
 
@@ -38,27 +46,27 @@ You'll see the following output, and a new RStudio `r glossary("project")` will 
 
 ::: {.cell-output}
 ```
-✔ Creating '/Users/lisad/rproj/demopkg/'
-✔ Setting active project to '/Users/lisad/rproj/demopkg'
-✔ Creating 'R/'
-✔ Writing 'DESCRIPTION'
+✔ Creating /Users/debruine/rproj/demopkg/.
+✔ Setting active project to "/Users/debruine/rproj/demopkg".
+✔ Creating R/.
+✔ Writing DESCRIPTION.
 Package: demopkg
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R (parsed):
-    * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+    * First Last <first.last@example.com> [aut, cre]
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
-✔ Writing 'NAMESPACE'
-✔ Writing 'demopkg.Rproj'
-✔ Adding '^demopkg\\.Rproj$' to '.Rbuildignore'
-✔ Adding '.Rproj.user' to '.gitignore'
-✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
-✔ Opening '/Users/lisad/rproj/demopkg/' in new RStudio session
+RoxygenNote: 7.3.2
+✔ Writing NAMESPACE.
+✔ Writing demopkg.Rproj.
+✔ Adding "^demopkg\\.Rproj$" to .Rbuildignore.
+✔ Adding ".Rproj.user" to .gitignore.
+✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
+✔ Opening /Users/debruine/rproj/demopkg/ in new RStudio session.
 ✔ Setting active project to '<no active project>'
 ```
 :::
@@ -68,7 +76,7 @@ RoxygenNote: 7.2.0
 
 Open the `DESCRIPTION` file. It should look like this:
 
-```{yaml, filename = "DESCRIPTION"}
+```{verbatim, lang="yaml"}
 Package: demopkg
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
@@ -84,7 +92,7 @@ RoxygenNote: 7.2.0
 
 Change the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your [ORCiD](https://orcid.org/).
 
-```{yaml, filename = "DESCRIPTION"}
+```{verbatim, lang="yaml"}
 Authors@R: c(
     person(given = "Lisa",
            family = "DeBruine",
@@ -100,9 +108,9 @@ Authors@R: c(
 
 Also add the date like this. The date is used to create an automatic citation for your package.
 
-```{yaml, filename = "DESCRIPTION"}
+```{verbatim, lang="yaml"}
 Package: demopkg
-Date: 2022-10-05
+Date: 2025-02-10
 ```
 
 
@@ -110,7 +118,10 @@ Date: 2022-10-05
 
 Make sure you've saved any changes to the `DESCRIPTION` file first, as adding a license will modify that file. Add a license using one of the following options:
 
-```{r license, eval = FALSE, filename="run one in the console"}
+```{r}
+#| label: license
+#| eval: false
+#| filename: "Run one in the console"
 
 # more common for study or data packages
 usethis::use_ccby_license() # reusable with citation
@@ -127,7 +138,10 @@ See <https://choosealicense.com> for more details and other options.
 
 Use the following code to set up a `r glossary("README")` document that will explain how to install and use your package.
 
-```{r readme, eval = FALSE, filename="run in the console"}
+```{r}
+#| label: readme
+#| eval: false 
+#| filename: "Run in the console"
 usethis::use_readme_rmd() 
 ```
 
@@ -171,14 +185,17 @@ No man pages found in package  ‘demopkg’
 
 Now you should be able to see `demopkg` in your Packages tab, load it with the `library()` function, and get a citation.
 
-```{r, filename="run in the console"}
+```{r}
+#| filename: "Run in the console"
 citation("demopkg")
 ```
 
 
 ## Glossary
 
-```{r, echo = FALSE, results='asis'}
+```{r}
+#| echo: false 
+#| results: 'asis'
 glossary_table()
 ```
 

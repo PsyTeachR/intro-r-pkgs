@@ -90,7 +90,7 @@ test_that("defaults", {
 })
 ```
 
-That particular example was `r glossary("non-significant", "significance")`. Let's add a version that does show a significant difference and make sure the text changes appropriately.
+That particular example was `r glossary("significant", "non-significant")`. Let's add a version that does show a significant difference and make sure the text changes appropriately.
 
 
 ```{r, filename="tests/testthat/apa_t_pair.R"}
@@ -104,7 +104,7 @@ test_that("defaults-sig", {
 })
 ```
 
-No let's change the `r glossary("default values")` for the DV and labels.
+Now let's change the `r glossary("default value", "default values")` for the DV and labels.
 
 ```{r, filename="tests/testthat/apa_t_pair.R"}
 test_that("non-defaults", {

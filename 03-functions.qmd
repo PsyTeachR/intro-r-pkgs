@@ -4,7 +4,8 @@
 
 Learn to write custom functions and include them in your package.
 
-```{r, filename="Packages required for this chapter"}
+```{r}
+#| filename: "Packages required for this chapter"
 
 library(usethis)  # for setting up data sets in a package
 library(glue)     # for text joining

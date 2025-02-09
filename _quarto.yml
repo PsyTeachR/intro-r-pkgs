@@ -30,10 +30,8 @@ book:
     right:
       - icon: github
         href: https://github.com/psyteachr/intro-r-pkgs
-      - icon: mastodon
-        href: "https://tech.lgbt/@debruine"
-      - icon: twitter
-        href: https://twitter.com/psyteachr
+      - text: "![](images/logos/bsky.svg){height='1em'}"
+        href: https://bsky.app/debruine
   chapters:
   - index.qmd
   - 01-setup.qmd
