@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.6.40">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Coding Club: Creating an R Package - 1&nbsp; Setting up</title>
+<title>1&nbsp; Setting up – Coding Club: Creating an R Package</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,6 +55,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -87,18 +88,24 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dece3bd051e391dd7205a6b15f93dc59.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-ed04999718f06b735b1f8009dce43b94.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-cb97644403151f9ae48114683db8a059.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-2ca7f65af4c63d4d888e83c5681099da.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -107,8 +114,10 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
 
@@ -116,7 +125,9 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
-</script><link rel="stylesheet" href="include/psyteachr.css">
+</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/psyteachr.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/style.css">
 </head>
@@ -124,41 +135,41 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-setup.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-setup.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setting up</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Coding Club: Creating an R Package</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -237,9 +248,9 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -254,7 +265,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
@@ -271,7 +282,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#install-the-package" id="toc-install-the-package" class="nav-link" data-scroll-target="#install-the-package"><span class="header-section-number">1.2</span> Install the package</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">1.3</span> Glossary</a></li>
   <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="header-section-number">1.4</span> Further Practice</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/01-setup.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/01-setup.qmd" class="toc-action">View source</a></p></div></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/01-setup.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/01-setup.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -288,9 +299,10 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
+
 </header><p><a href="https://youtu.be/XiM4jFJ6ocY">Recording</a></p>
 <p>Create a package project and edit the default files. We’ll start using the most helpful package, usethis.</p>
-<p>Today we’ll be using the following <a class="glossary" target="_blank" title="A group of R functions." href="https://psyteachr.github.io/glossary/p#package">packages</a>, so install them if necessary:</p>
+<p>Today we’ll be using the following <a href="https://psyteachr.github.io/glossary/p#package" target="_blank" class="glossary" title="A group of R functions.">packages</a>, so install them if necessary:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -305,7 +317,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>run in the console</strong></pre>
+<pre><strong>Run in the console</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">install.packages</span>(<span class="st">"tinytex"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -313,11 +325,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </div>
 <section id="create-your-r-package" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="create-your-r-package">
 <span class="header-section-number">1.1</span> Create your R package</h2>
-<p>Use the following command to create the framework for a new package called <code>demopkg</code>. Set the path <a class="glossary" target="_blank" title="A variable that provides input to a function." href="https://psyteachr.github.io/glossary/a#argument">argument</a> to the path where you want to save your package. The last section of the path should be the name of the package: <code>demopkg</code>.</p>
+<p>Use the following command to create the framework for a new package called <code>demopkg</code>. Set the path <a href="https://psyteachr.github.io/glossary/a#argument" target="_blank" class="glossary" title="A variable that provides input to a function.">argument</a> to the path where you want to save your package. The last section of the path should be the name of the package: <code>demopkg</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>run in the console</strong></pre>
+<pre><strong>Run in the console</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="at">path =</span> <span class="st">"~/rproj/demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -335,40 +347,35 @@ Warning
 <p>Package names can only be letters, numbers, and full stops.</p>
 </div>
 </div>
-<p>You’ll see the following output, and a new RStudio <a class="glossary" target="_blank" title="A way to organise related files in RStudio" href="https://psyteachr.github.io/glossary/p#project">project</a> will open up. You can close the old window now and just work in this project.</p>
+<p>You’ll see the following output, and a new RStudio <a href="https://psyteachr.github.io/glossary/p#project" target="_blank" class="glossary" title="A way to organise related files in RStudio">project</a> will open up. You can close the old window now and just work in this project.</p>
 <div class="cell-output">
-<pre><code>✔ Creating '/Users/lisad/rproj/demopkg/'
-✔ Setting active project to '/Users/lisad/rproj/demopkg'
-✔ Creating 'R/'
-✔ Writing 'DESCRIPTION'
+<pre><code>✔ Creating /Users/debruine/rproj/demopkg/.
+✔ Setting active project to "/Users/debruine/rproj/demopkg".
+✔ Creating R/.
+✔ Writing DESCRIPTION.
 Package: demopkg
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R (parsed):
-    * First Last &lt;first.last@example.com&gt; [aut, cre] (YOUR-ORCID-ID)
+    * First Last &lt;first.last@example.com&gt; [aut, cre]
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
-✔ Writing 'NAMESPACE'
-✔ Writing 'demopkg.Rproj'
-✔ Adding '^demopkg\\.Rproj$' to '.Rbuildignore'
-✔ Adding '.Rproj.user' to '.gitignore'
-✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
-✔ Opening '/Users/lisad/rproj/demopkg/' in new RStudio session
+RoxygenNote: 7.3.2
+✔ Writing NAMESPACE.
+✔ Writing demopkg.Rproj.
+✔ Adding "^demopkg\\.Rproj$" to .Rbuildignore.
+✔ Adding ".Rproj.user" to .gitignore.
+✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
+✔ Opening /Users/debruine/rproj/demopkg/ in new RStudio session.
 ✔ Setting active project to '&lt;no active project&gt;'</code></pre>
 </div>
 <section id="edit-the-description-file" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="edit-the-description-file">
 <span class="header-section-number">1.1.1</span> Edit the DESCRIPTION file</h3>
 <p>Open the <code>DESCRIPTION</code> file. It should look like this:</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>DESCRIPTION</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">Title</span><span class="kw">:</span><span class="at"> What the Package Does (One Line, Title Case)</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="fu">Version</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.0.0.9000</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> </span></span>
@@ -379,15 +386,8 @@ RoxygenNote: 7.2.0
 <span id="cb5-9"><a href="#cb5-9"></a><span class="fu">Encoding</span><span class="kw">:</span><span class="at"> UTF-8</span></span>
 <span id="cb5-10"><a href="#cb5-10"></a><span class="fu">Roxygen</span><span class="kw">:</span><span class="at"> list(markdown = TRUE)</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="fu">RoxygenNote</span><span class="kw">:</span><span class="at"> </span><span class="fl">7.2.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
 <p>Change the title, authors, and description to your own information. If your package has multiple authors, add them as a vector like this. You can also add your <a href="https://orcid.org/">ORCiD</a>.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>DESCRIPTION</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> c(</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> c(</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="at">    person(given = "Lisa",</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="at">           family = "DeBruine",</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="at">           role = c("aut", "cre"),</span></span>
@@ -398,25 +398,16 @@ RoxygenNote: 7.2.0
 <span id="cb6-9"><a href="#cb6-9"></a><span class="at">           role = c("aut"),</span></span>
 <span id="cb6-10"><a href="#cb6-10"></a><span class="at">           email = "person@gmail.com",</span></span>
 <span id="cb6-11"><a href="#cb6-11"></a><span class="at">           comment = c(ORCID = "0000-0000-0000-000X")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
 <p>Also add the date like this. The date is used to create an automatic citation for your package.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>DESCRIPTION</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">Date</span><span class="kw">:</span><span class="at"> 2022-10-05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">Package</span><span class="kw">:</span><span class="at"> demopkg</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">Date</span><span class="kw">:</span><span class="at"> 2025-02-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="create-a-license" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="create-a-license">
 <span class="header-section-number">1.1.2</span> Create a LICENSE</h3>
 <p>Make sure you’ve saved any changes to the <code>DESCRIPTION</code> file first, as adding a license will modify that file. Add a license using one of the following options:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>run one in the console</strong></pre>
+<pre><strong>Run one in the console</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># more common for study or data packages</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>usethis<span class="sc">::</span><span class="fu">use_ccby_license</span>() <span class="co"># reusable with citation</span></span>
@@ -430,20 +421,20 @@ RoxygenNote: 7.2.0
 <p>See <a href="https://choosealicense.com" class="uri">https://choosealicense.com</a> for more details and other options.</p>
 </section><section id="create-a-readme" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="create-a-readme">
 <span class="header-section-number">1.1.3</span> Create a README</h3>
-<p>Use the following code to set up a <a class="glossary" target="_blank" title="A text file in the base directory of a project that describes the project." href="https://psyteachr.github.io/glossary/r#readme">README</a> document that will explain how to install and use your package.</p>
+<p>Use the following code to set up a <a href="https://psyteachr.github.io/glossary/r#readme" target="_blank" class="glossary" title="A text file in the base directory of a project that describes the project.">README</a> document that will explain how to install and use your package.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>run in the console</strong></pre>
+<pre><strong>Run in the console</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>usethis<span class="sc">::</span><span class="fu">use_readme_rmd</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>We’ll eventually put this on <a class="glossary" target="_blank" title="A cloud-based service for storing and sharing your version controlled files." href="https://psyteachr.github.io/glossary/g#github">github</a>, so change the installation instructions to the following (change <code>yourusername</code> to your github username).</p>
+<p>We’ll eventually put this on <a href="https://psyteachr.github.io/glossary/g#github" target="_blank" class="glossary" title="A cloud-based service for storing and sharing your version controlled files.">github</a>, so change the installation instructions to the following (change <code>yourusername</code> to your github username).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a>You can install demopkg from <span class="co">[</span><span class="ot">GitHub</span><span class="co">](https://github.com)</span> with:</span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="in">```{r}</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"yourusername/demopkg"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="in">devtools::install_github("yourusername/demopkg")</span></span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Delete the example for now.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -459,7 +450,7 @@ Warning
 <p>Make sure you knit your README.Rmd file when you update it and never edit the README.md file (that’s just for github).</p>
 </div>
 </div>
-<p>We’ll make a full-featured pkgdown website in <a href="07-pkgdown.html"><span>Chapter&nbsp;7</span></a>, so we don’t need too many details here.</p>
+<p>We’ll make a full-featured pkgdown website in <a href="07-pkgdown.html" class="quarto-xref"><span>Chapter 7</span></a>, so we don’t need too many details here.</p>
 </section></section><section id="install-the-package" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="install-the-package">
 <span class="header-section-number">1.2</span> Install the package</h2>
 <p>This package doesn’t do much yet, but you can install it. Go to the Build tab of the upper right pane and click the install button (or type <code><a href="https://devtools.r-lib.org/reference/install.html">devtools::install()</a></code> in the console). You should get some output that looks like this:</p>
@@ -480,7 +471,7 @@ No man pages found in package  ‘demopkg’
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>run in the console</strong></pre>
+<pre><strong>Run in the console</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">citation</span>(<span class="st">"demopkg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -488,7 +479,9 @@ No man pages found in package  ‘demopkg’
 <pre><code>To cite package 'demopkg' in publications use:
 
   DeBruine L (2022). _demopkg: Data and analysis from DeBruine (2004)_.
-  R package version 0.0.0.9000, &lt;https://github.com/debruine/demopkg&gt;.
+  R package version 0.0.0.9000, commit
+  5c7dacb5a298b68a45bf5e6afbad1d84f5497052,
+  &lt;https://github.com/debruine/demopkg&gt;.
 
 A BibTeX entry for LaTeX users is
 
@@ -496,7 +489,7 @@ A BibTeX entry for LaTeX users is
     title = {demopkg: Data and analysis from DeBruine (2004)},
     author = {Lisa DeBruine},
     year = {2022},
-    note = {R package version 0.0.0.9000},
+    note = {R package version 0.0.0.9000, commit 5c7dacb5a298b68a45bf5e6afbad1d84f5497052},
     url = {https://github.com/debruine/demopkg},
   }</code></pre>
 </div>
@@ -504,56 +497,31 @@ A BibTeX entry for LaTeX users is
 </section><section id="glossary" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">1.3</span> Glossary</h2>
 <div class="cell" data-layout-align="center">
-
-<table>
-<thead><tr>
-<th style="text-align:left;">
-term
-</th>
-<th style="text-align:left;">
-definition
-</th>
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/a.html#argument" class="glossary" target="_blank">argument</a>
-</td>
-<td style="text-align:left;">
-A variable that provides input to a function.
-</td>
+<tr class="odd">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/a#argument' target='_blank'&gt;argument&lt;/a&gt;</td>
+<td style="text-align: left;">A variable that provides input to a function.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/g.html#github" class="glossary" target="_blank">github</a>
-</td>
-<td style="text-align:left;">
-A cloud-based service for storing and sharing your version controlled files.
-</td>
+<tr class="even">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/g#github' target='_blank'&gt;github&lt;/a&gt;</td>
+<td style="text-align: left;">A cloud-based service for storing and sharing your version controlled files.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/p.html#package" class="glossary" target="_blank">package</a>
-</td>
-<td style="text-align:left;">
-A group of R functions.
-</td>
+<tr class="odd">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/p#package' target='_blank'&gt;package&lt;/a&gt;</td>
+<td style="text-align: left;">A group of R functions.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/p.html#project" class="glossary" target="_blank">project</a>
-</td>
-<td style="text-align:left;">
-A way to organise related files in RStudio
-</td>
+<tr class="even">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/p#project' target='_blank'&gt;project&lt;/a&gt;</td>
+<td style="text-align: left;">A way to organise related files in RStudio</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/r.html#readme" class="glossary" target="_blank">readme</a>
-</td>
-<td style="text-align:left;">
-A text file in the base directory of a project that describes the project.
-</td>
+<tr class="odd">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/r#readme' target='_blank'&gt;readme&lt;/a&gt;</td>
+<td style="text-align: left;">A text file in the base directory of a project that describes the project.</td>
 </tr>
 </tbody>
 </table>
@@ -565,7 +533,7 @@ A text file in the base directory of a project that describes the project.
 </ol>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-happy-git" class="csl-entry" role="listitem">
 Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
 </div>
@@ -582,7 +550,7 @@ Wickham, H. (2015). <em>R packages: Organize, test, document, and share your cod
 Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
-</section></main><!-- /main --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+</section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -768,7 +736,7 @@ window.onload = function() {
     solveme[i].onkeyup = solveme_func;
     solveme[i].onchange = solveme_func;
 
-    $(solveme[i]).after(" <span class='webex-icon'></span>");
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
   }
 
   /* set up radiogroups */
@@ -781,7 +749,7 @@ window.onload = function() {
   var selects = document.getElementsByClassName("webex-select");
   for (var i = 0; i < selects.length; i++) {
     selects[i].onchange = select_func;
-    $(selects[i]).after(" <span class='webex-icon'></span>");
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
   }
 
   update_total_correct();
@@ -857,6 +825,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -923,13 +918,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -964,18 +961,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1007,11 +993,48 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1021,8 +1044,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1034,7 +1066,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1078,6 +1232,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1103,6 +1258,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1162,22 +1343,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
+      <a href="./index.html" class="pagination-link" aria-label="Overview">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02-data.html" class="pagination-link">
+      <a href="./02-data.html" class="pagination-link" aria-label="Adding Data">
         <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Adding Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">CC-BY 2022, Lisa DeBruine</div>   
+    <div class="nav-footer-left">
+<p>CC-BY 2022, Lisa DeBruine</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/01-setup.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/01-setup.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
 <li class="nav-item compact">
@@ -1186,17 +1369,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </i> 
     </a>
   </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://tech.lgbt/@debruine">
-      <i class="bi bi-mastodon" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/psyteachr">
-      <i class="bi bi-twitter" role="img">
-</i> 
-    </a>
+    <li class="nav-item">
+    <a class="nav-link" href="https://bsky.app/debruine">
+<p><img src="images/logos/bsky.svg" style="height:1em"></p>
+</a>
   </li>  
 </ul>
 </div>

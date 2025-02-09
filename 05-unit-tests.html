@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.6.40">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Coding Club: Creating an R Package - 5&nbsp; Unit Tests</title>
+<title>5&nbsp; Unit Tests – Coding Club: Creating an R Package</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -55,6 +55,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -87,18 +88,24 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dece3bd051e391dd7205a6b15f93dc59.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-ed04999718f06b735b1f8009dce43b94.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-cb97644403151f9ae48114683db8a059.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-2ca7f65af4c63d4d888e83c5681099da.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -107,8 +114,10 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
 
@@ -116,7 +125,9 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
-</script><link rel="stylesheet" href="include/psyteachr.css">
+</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/psyteachr.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/style.css">
 </head>
@@ -124,41 +135,41 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-unit-tests.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-unit-tests.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unit Tests</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Coding Club: Creating an R Package</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/psyteachr/intro-r-pkgs/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-              <i class="bi bi-bi-linkedin pe-1"></i>
+              <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
@@ -237,9 +248,9 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -254,7 +265,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
@@ -268,7 +279,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">5.6</span> Glossary</a></li>
   <li><a href="#further-resources" id="toc-further-resources" class="nav-link" data-scroll-target="#further-resources"><span class="header-section-number">5.7</span> Further Resources</a></li>
   <li><a href="#further-practice" id="toc-further-practice" class="nav-link" data-scroll-target="#further-practice"><span class="header-section-number">5.8</span> Further Practice</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/05-unit-tests.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/05-unit-tests.qmd" class="toc-action">View source</a></p></div></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/05-unit-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/05-unit-tests.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -285,6 +296,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
+
 </header><p><a href="https://youtu.be/nGLur5zwLPY">Recording</a></p>
 <p>Write unit tests for your custom functions using testthat.</p>
 <div class="cell" data-layout-align="center" data-messages="false">
@@ -295,30 +307,6 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(usethis)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(testthat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'testthat'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:readr':
-
-    edition_get, local_edition</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:purrr':
-
-    is_null</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:tidyr':
-
-    matches</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    matches</code></pre>
-</div>
 </div>
 <section id="set-up-testhat" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="set-up-testhat">
 <span class="header-section-number">5.1</span> Set up testhat</h2>
@@ -328,7 +316,7 @@ Attaching package: 'testthat'</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>usethis<span class="sc">::</span><span class="fu">use_testthat</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">use_testthat</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section><section id="set-up-test" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="set-up-test">
@@ -339,7 +327,7 @@ Attaching package: 'testthat'</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"apa_t_pair"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"apa_t_pair"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>A new file (<code>tests/testthat/apa_t_pair.R</code>) will open with the following text. It you run it, you should get a message saying it passed.</p>
@@ -348,12 +336,12 @@ Attaching package: 'testthat'</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">test_that</span>(<span class="st">"multiplication works"</span>, {</span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">expect_equal</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb9-3"><a href="#cb9-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">test_that</span>(<span class="st">"multiplication works"</span>, {</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">expect_equal</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 😸</code></pre>
 </div>
 </div>
 <p>Change the default label for this test. You can label these whatever you want (it <em>really</em> doesn’t matter); I usually start with “defaults” and test the most basic example to make sure the function defaults work as expected. Delete the demo code between the curly brackets.</p>
@@ -362,66 +350,66 @@ Attaching package: 'testthat'</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">test_that</span>(<span class="st">"defaults"</span>, {</span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">test_that</span>(<span class="st">"defaults"</span>, {</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>Set <code>x</code> and <code>y</code> as two small static <a class="glossary" target="_blank" title="A type of data structure that collects values with the same data type, like T/F values, numbers, or strings." href="https://psyteachr.github.io/glossary/v#vector">vectors</a> (don’t use <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> or anything that makes random numbers). Then assign the value of <code>apa_t_pair(x, y)</code> to <code>result</code> and the expected result to <code>expected</code>. Finally, use the function <code>expect_equal()</code> to compare the obtained and expected result.</p>
+<p>Set <code>x</code> and <code>y</code> as two small static <a href="https://psyteachr.github.io/glossary/v#vector" target="_blank" class="glossary" title="A type of data structure that collects values with the same data type, like T/F values, numbers, or strings.">vectors</a> (don’t use <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> or anything that makes random numbers). Then assign the value of <code>apa_t_pair(x, y)</code> to <code>result</code> and the expected result to <code>expected</code>. Finally, use the function <code>expect_equal()</code> to compare the obtained and expected result.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">test_that</span>(<span class="st">"defaults"</span>, {</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
-<span id="cb12-3"><a href="#cb12-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb12-4"><a href="#cb12-4"></a>  </span>
-<span id="cb12-5"><a href="#cb12-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y)</span>
-<span id="cb12-6"><a href="#cb12-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 3.0, SD = 1.6) and level 2 (M = 3.6, SD = 1.8). There was a non-significant difference; t(4) = -1.50, p = 0.208."</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
-<span id="cb12-8"><a href="#cb12-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">test_that</span>(<span class="st">"defaults"</span>, {</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>  </span>
+<span id="cb7-5"><a href="#cb7-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 3.0, SD = 1.6) and level 2 (M = 3.6, SD = 1.8). There was a non-significant difference; t(4) = -1.50, p = 0.208."</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 😸</code></pre>
 </div>
 </div>
-<p>That particular example was <a class="glossary" target="_blank" title="" href="https://psyteachr.github.io/glossary/n#non-significant">significance</a>. Let’s add a version that does show a significant difference and make sure the text changes appropriately.</p>
+<p>That particular example was <a href="https://psyteachr.github.io/glossary/s#significant" target="_blank" class="glossary" title="The conclusion when the p-value is less than the critical alpha.">non-significant</a>. Let’s add a version that does show a significant difference and make sure the text changes appropriately.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">test_that</span>(<span class="st">"defaults-sig"</span>, {</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb14-4"><a href="#cb14-4"></a>  </span>
-<span id="cb14-5"><a href="#cb14-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y)</span>
-<span id="cb14-6"><a href="#cb14-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 1.6, SD = 0.9) and level 2 (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.20, p = 0.033."</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
-<span id="cb14-8"><a href="#cb14-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">test_that</span>(<span class="st">"defaults-sig"</span>, {</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  </span>
+<span id="cb9-5"><a href="#cb9-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the DV between level 1 (M = 1.6, SD = 0.9) and level 2 (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.20, p = 0.033."</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🌈</code></pre>
+<pre><code>Test passed 😸</code></pre>
 </div>
 </div>
-<p>No let’s change the <a class="glossary" target="_blank" title="" href="https://psyteachr.github.io/glossary/d#default-values">default values</a> for the DV and labels.</p>
+<p>Now let’s change the <a href="https://psyteachr.github.io/glossary/d#default-value" target="_blank" class="glossary" title="A value that a function uses for an argument if it is skipped.">default values</a> for the DV and labels.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">test_that</span>(<span class="st">"non-defaults"</span>, {</span>
-<span id="cb16-2"><a href="#cb16-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>)</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb16-4"><a href="#cb16-4"></a>  </span>
-<span id="cb16-5"><a href="#cb16-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y, <span class="at">dv =</span> <span class="st">"the score"</span>, <span class="st">"Group A"</span>, <span class="st">"Group B"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the score between Group A (M = 1.6, SD = 0.9) and Group B (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.20, p = 0.033."</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
-<span id="cb16-8"><a href="#cb16-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">test_that</span>(<span class="st">"non-defaults"</span>, {</span>
+<span id="cb11-2"><a href="#cb11-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>  </span>
+<span id="cb11-5"><a href="#cb11-5"></a>  result <span class="ot">&lt;-</span> <span class="fu">apa_t_pair</span>(x, y, <span class="at">dv =</span> <span class="st">"the score"</span>, <span class="st">"Group A"</span>, <span class="st">"Group B"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a>  expected <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare the score between Group A (M = 1.6, SD = 0.9) and Group B (M = 4.2, SD = 1.6). There was a significant difference; t(4) = -3.20, p = 0.033."</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">expect_equal</span>(result, expected)</span>
+<span id="cb11-8"><a href="#cb11-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 😀</code></pre>
 </div>
 </div>
 </section><section id="test-driven-development" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="test-driven-development">
@@ -429,8 +417,8 @@ Attaching package: 'testthat'</code></pre>
 <p>You can use tests to help you develop your package. First, think of something you want to add or change. Then write a test that checks if your function is doing that new thing. It will, of course, fail, but then your task is to alter the function code until the test passes.</p>
 <p>For example, it would be nice to give a custom error message if x and y are identical, since this is almost always a mistake and you can’t calculate any test statistics.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">apa_t_pair</span>(x, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">apa_t_pair</span>(x, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A paired-samples t-test was conducted to compare the DV between level 1 (M = 1.8, SD = 1.3) and level 2 (M = 1.8, SD = 1.3). There was a NAsignificant difference; t(4) = NaN, p = NaN.</code></pre>
 </div>
@@ -454,20 +442,20 @@ Warning
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">test_that</span>(<span class="st">"same x and y"</span>, {</span>
-<span id="cb20-2"><a href="#cb20-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
-<span id="cb20-3"><a href="#cb20-3"></a>  </span>
-<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">expect_error</span>( <span class="fu">apa_t_pair</span>(x, x), </span>
-<span id="cb20-5"><a href="#cb20-5"></a>                <span class="at">regexp =</span> <span class="st">"x and y cannot be identical"</span>,</span>
-<span id="cb20-6"><a href="#cb20-6"></a>                <span class="at">fixed =</span> <span class="cn">TRUE</span> )</span>
-<span id="cb20-7"><a href="#cb20-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">test_that</span>(<span class="st">"same x and y"</span>, {</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  </span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">expect_error</span>( <span class="fu">apa_t_pair</span>(x, x), </span>
+<span id="cb15-5"><a href="#cb15-5"></a>                <span class="at">regexp =</span> <span class="st">"x and y cannot be identical"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>                <span class="at">fixed =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb15-7"><a href="#cb15-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `reporter$stop_if_needed()`:
+<pre><code>Error:
 ! Test failed</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>── Failure ('&lt;text&gt;:5:3'): same x and y ────────────────────────────────────────
+<pre><code>── Failure: same x and y ───────────────────────────────────────────────────────
 `apa_t_pair(x, x)` did not throw an error.</code></pre>
 </div>
 </div>
@@ -490,31 +478,31 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>R/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, </span>
-<span id="cb23-2"><a href="#cb23-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>, </span>
-<span id="cb23-3"><a href="#cb23-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>, </span>
-<span id="cb23-4"><a href="#cb23-4"></a>                       <span class="at">level2 =</span> <span class="st">"level 2"</span>) {</span>
-<span id="cb23-5"><a href="#cb23-5"></a>  <span class="co"># warn about identical values</span></span>
-<span id="cb23-6"><a href="#cb23-6"></a>  <span class="cf">if</span> (<span class="fu">all</span>(x <span class="sc">==</span> y)) {</span>
-<span id="cb23-7"><a href="#cb23-7"></a>    <span class="fu">stop</span>(<span class="st">"x and y cannot be identical"</span>)</span>
-<span id="cb23-8"><a href="#cb23-8"></a>  }</span>
-<span id="cb23-9"><a href="#cb23-9"></a>  </span>
-<span id="cb23-10"><a href="#cb23-10"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-11"><a href="#cb23-11"></a>  </span>
-<span id="cb23-12"><a href="#cb23-12"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
-<span id="cb23-13"><a href="#cb23-13"></a>  </span>
-<span id="cb23-14"><a href="#cb23-14"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
-<span id="cb23-15"><a href="#cb23-15"></a>    template,</span>
-<span id="cb23-16"><a href="#cb23-16"></a>    <span class="at">mean1   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(x), <span class="dv">1</span>), </span>
-<span id="cb23-17"><a href="#cb23-17"></a>    <span class="at">sd1     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(x), <span class="dv">1</span>),</span>
-<span id="cb23-18"><a href="#cb23-18"></a>    <span class="at">mean2   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(y), <span class="dv">1</span>),</span>
-<span id="cb23-19"><a href="#cb23-19"></a>    <span class="at">sd2     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(y), <span class="dv">1</span>),</span>
-<span id="cb23-20"><a href="#cb23-20"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
-<span id="cb23-21"><a href="#cb23-21"></a>    <span class="at">df      =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>parameter, <span class="dv">0</span>),</span>
-<span id="cb23-22"><a href="#cb23-22"></a>    <span class="at">t_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
-<span id="cb23-23"><a href="#cb23-23"></a>    <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
-<span id="cb23-24"><a href="#cb23-24"></a>  )</span>
-<span id="cb23-25"><a href="#cb23-25"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>apa_t_pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, </span>
+<span id="cb18-2"><a href="#cb18-2"></a>                       <span class="at">dv =</span> <span class="st">"the DV"</span>, </span>
+<span id="cb18-3"><a href="#cb18-3"></a>                       <span class="at">level1 =</span> <span class="st">"level 1"</span>, </span>
+<span id="cb18-4"><a href="#cb18-4"></a>                       <span class="at">level2 =</span> <span class="st">"level 2"</span>) {</span>
+<span id="cb18-5"><a href="#cb18-5"></a>  <span class="co"># warn about identical values</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>  <span class="cf">if</span> (<span class="fu">all</span>(x <span class="sc">==</span> y)) {</span>
+<span id="cb18-7"><a href="#cb18-7"></a>    <span class="fu">stop</span>(<span class="st">"x and y cannot be identical"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8"></a>  }</span>
+<span id="cb18-9"><a href="#cb18-9"></a>  </span>
+<span id="cb18-10"><a href="#cb18-10"></a>  t_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-11"><a href="#cb18-11"></a>  </span>
+<span id="cb18-12"><a href="#cb18-12"></a>  template <span class="ot">&lt;-</span> <span class="st">"A paired-samples t-test was conducted to compare {dv} between {level1} (M = {mean1}, SD = {sd1}) and {level2} (M = {mean2}, SD = {sd2}). There was a {non}significant difference; t({df}) = {t_value}, p = {p_value}."</span></span>
+<span id="cb18-13"><a href="#cb18-13"></a>  </span>
+<span id="cb18-14"><a href="#cb18-14"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb18-15"><a href="#cb18-15"></a>    template,</span>
+<span id="cb18-16"><a href="#cb18-16"></a>    <span class="at">mean1   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(x), <span class="dv">1</span>), </span>
+<span id="cb18-17"><a href="#cb18-17"></a>    <span class="at">sd1     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(x), <span class="dv">1</span>),</span>
+<span id="cb18-18"><a href="#cb18-18"></a>    <span class="at">mean2   =</span> <span class="fu">round0</span>(<span class="fu">mean</span>(y), <span class="dv">1</span>),</span>
+<span id="cb18-19"><a href="#cb18-19"></a>    <span class="at">sd2     =</span> <span class="fu">round0</span>(<span class="fu">sd</span>(y), <span class="dv">1</span>),</span>
+<span id="cb18-20"><a href="#cb18-20"></a>    <span class="at">non     =</span> <span class="fu">ifelse</span>(t_results<span class="sc">$</span>p.value <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">""</span>, <span class="st">"non-"</span>),</span>
+<span id="cb18-21"><a href="#cb18-21"></a>    <span class="at">df      =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>parameter, <span class="dv">0</span>),</span>
+<span id="cb18-22"><a href="#cb18-22"></a>    <span class="at">t_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb18-23"><a href="#cb18-23"></a>    <span class="at">p_value =</span> <span class="fu">round0</span>(t_results<span class="sc">$</span>p.value, <span class="dv">3</span>)</span>
+<span id="cb18-24"><a href="#cb18-24"></a>  )</span>
+<span id="cb18-25"><a href="#cb18-25"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Now the test should pass.</p>
@@ -523,19 +511,19 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/apa_t_pair.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">test_that</span>(<span class="st">"same x and y"</span>, {</span>
-<span id="cb24-2"><a href="#cb24-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
-<span id="cb24-3"><a href="#cb24-3"></a>  </span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">expect_error</span>( <span class="fu">apa_t_pair</span>(x, x), </span>
-<span id="cb24-5"><a href="#cb24-5"></a>                <span class="at">regexp =</span> <span class="st">"x and y cannot be identical"</span>,</span>
-<span id="cb24-6"><a href="#cb24-6"></a>                <span class="at">fixed =</span> <span class="cn">TRUE</span> )</span>
-<span id="cb24-7"><a href="#cb24-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">test_that</span>(<span class="st">"same x and y"</span>, {</span>
+<span id="cb19-2"><a href="#cb19-2"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
+<span id="cb19-3"><a href="#cb19-3"></a>  </span>
+<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">expect_error</span>( <span class="fu">apa_t_pair</span>(x, x), </span>
+<span id="cb19-5"><a href="#cb19-5"></a>                <span class="at">regexp =</span> <span class="st">"x and y cannot be identical"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6"></a>                <span class="at">fixed =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb19-7"><a href="#cb19-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
+<pre><code>Test passed 🥳</code></pre>
 </div>
 </div>
-<p>Now that we have 4 tests for this function, we can run them all by clicking on <strong><code>Run Tests</code></strong> in the upper right corner of the <a class="glossary" target="_blank" title="RStudio is arranged with four window &quot;panes&quot;." href="https://psyteachr.github.io/glossary/p#panes">source pane</a>. If all goes well, you’ll see the following in the Build tab:</p>
+<p>Now that we have 4 tests for this function, we can run them all by clicking on <strong><code>Run Tests</code></strong> in the upper right corner of the <a href="https://psyteachr.github.io/glossary/p#panes" target="_blank" class="glossary" title="RStudio is arranged with four window “panes”.">source pane</a>. If all goes well, you’ll see the following in the Build tab:</p>
 <div class="cell-output">
 <pre><code>==&gt; Testing R file using 'testthat'
 
@@ -554,7 +542,7 @@ Test complete</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Let’s check that the <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code> function can load this data set and that it has the expected dimensions. We can also check if the column <code>sex</code> is a factor.</p>
@@ -563,14 +551,14 @@ Test complete</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/self_res_att.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3"></a></span>
-<span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
-<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
-<span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
-<span id="cb28-7"><a href="#cb28-7"></a>  <span class="fu">expect_true</span>(<span class="fu">is.factor</span>(self_res_att<span class="sc">$</span>sex))</span>
-<span id="cb28-8"><a href="#cb28-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="fu">expect_true</span>(<span class="fu">is.factor</span>(self_res_att<span class="sc">$</span>sex))</span>
+<span id="cb23-8"><a href="#cb23-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section><section id="sec-multiple-tests" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="sec-multiple-tests">
@@ -596,7 +584,7 @@ Duration: 0.1 s
 <div class="code-with-filename-file">
 <pre><strong>run in the console</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>usethis<span class="sc">::</span><span class="fu">use_test</span>(<span class="st">"self_res_att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Let’s check that the <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code> function can load this data set and that it has the expected dimensions.</p>
@@ -605,58 +593,39 @@ Duration: 0.1 s
 <div class="code-with-filename-file">
 <pre><strong>tests/testthat/self_res_att.R</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
-<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
-<span id="cb31-3"><a href="#cb31-3"></a></span>
-<span id="cb31-4"><a href="#cb31-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
-<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
-<span id="cb31-6"><a href="#cb31-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
-<span id="cb31-7"><a href="#cb31-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">test_that</span>(<span class="st">"data available"</span>, {</span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">data</span>(<span class="st">"self_res_att"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3"></a></span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">expect_true</span>( <span class="fu">exists</span>(<span class="st">"self_res_att"</span>) )</span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">expect_equal</span>(<span class="fu">ncol</span>(self_res_att), <span class="dv">16</span>)</span>
+<span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(self_res_att), <span class="dv">108</span>)</span>
+<span id="cb26-7"><a href="#cb26-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section><section id="glossary" class="level2" data-number="5.6"><h2 data-number="5.6" class="anchored" data-anchor-id="glossary">
 <span class="header-section-number">5.6</span> Glossary</h2>
 <div class="cell" data-layout-align="center">
-
-<table>
-<thead><tr>
-<th style="text-align:left;">
-term
-</th>
-<th style="text-align:left;">
-definition
-</th>
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/d.html#default-values" class="glossary" target="_blank">default values</a>
-</td>
-<td style="text-align:left;">
-</td>
+<tr class="odd">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/d#default-value' target='_blank'&gt;default-value&lt;/a&gt;</td>
+<td style="text-align: left;">A value that a function uses for an argument if it is skipped.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/n.html#non-significant" class="glossary" target="_blank">non significant</a>
-</td>
-<td style="text-align:left;">
-</td>
+<tr class="even">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/p#panes' target='_blank'&gt;panes&lt;/a&gt;</td>
+<td style="text-align: left;">RStudio is arranged with four window "panes".</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/p.html#panes" class="glossary" target="_blank">panes</a>
-</td>
-<td style="text-align:left;">
-RStudio is arranged with four window “panes”.
-</td>
+<tr class="odd">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/s#significant' target='_blank'&gt;significant&lt;/a&gt;</td>
+<td style="text-align: left;">The conclusion when the p-value is less than the critical alpha.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://psyteachr.github.io/glossary/v.html#vector" class="glossary" target="_blank">vector</a>
-</td>
-<td style="text-align:left;">
-A type of data structure that collects values with the same data type, like T/F values, numbers, or strings.
-</td>
+<tr class="even">
+<td style="text-align: left;">&lt;a href='https://psyteachr.github.io/glossary/v#vector' target='_blank'&gt;vector&lt;/a&gt;</td>
+<td style="text-align: left;">A type of data structure that collects values with the same data type, like T/F values, numbers, or strings.</td>
 </tr>
 </tbody>
 </table>
@@ -678,7 +647,7 @@ A type of data structure that collects values with the same data type, like T/F 
 </ol>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-happy-git" class="csl-entry" role="listitem">
 Bryan, J., STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>. <a href="https://happygitwithr.com/">https://happygitwithr.com/</a>
 </div>
@@ -695,7 +664,7 @@ Wickham, H. (2015). <em>R packages: Organize, test, document, and share your cod
 Wickham, H. (2019). <em>Advanced <span>R</span></em>. Chapman; Hall. <a href="https://adv-r.hadley.nz">https://adv-r.hadley.nz</a>
 </div>
 </div>
-</section></main><!-- /main --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script>
+</section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -881,7 +850,7 @@ window.onload = function() {
     solveme[i].onkeyup = solveme_func;
     solveme[i].onchange = solveme_func;
 
-    $(solveme[i]).after(" <span class='webex-icon'></span>");
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
   }
 
   /* set up radiogroups */
@@ -894,7 +863,7 @@ window.onload = function() {
   var selects = document.getElementsByClassName("webex-select");
   for (var i = 0; i < selects.length; i++) {
     selects[i].onchange = select_func;
-    $(selects[i]).after(" <span class='webex-icon'></span>");
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
   }
 
   update_total_correct();
@@ -970,6 +939,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -1036,13 +1032,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1077,18 +1075,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1120,11 +1107,48 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1134,8 +1158,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1147,7 +1180,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1191,6 +1346,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1216,6 +1372,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1275,22 +1457,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./04-documentation.html" class="pagination-link">
+      <a href="./04-documentation.html" class="pagination-link" aria-label="Documentation">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documentation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./06-vignettes.html" class="pagination-link">
+      <a href="./06-vignettes.html" class="pagination-link" aria-label="Vignettes">
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Vignettes</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">CC-BY 2022, Lisa DeBruine</div>   
+    <div class="nav-footer-left">
+<p>CC-BY 2022, Lisa DeBruine</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/psyteachr/intro-r-pkgs/edit/master/05-unit-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/psyteachr/intro-r-pkgs/blob/master/05-unit-tests.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
 <li class="nav-item compact">
@@ -1299,17 +1483,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </i> 
     </a>
   </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://tech.lgbt/@debruine">
-      <i class="bi bi-mastodon" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/psyteachr">
-      <i class="bi bi-twitter" role="img">
-</i> 
-    </a>
+    <li class="nav-item">
+    <a class="nav-link" href="https://bsky.app/debruine">
+<p><img src="images/logos/bsky.svg" style="height:1em"></p>
+</a>
   </li>  
 </ul>
 </div>
