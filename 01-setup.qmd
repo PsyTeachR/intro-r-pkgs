@@ -193,9 +193,7 @@ citation("demopkg")
 
 ## Glossary
 
-```{r}
-#| echo: false 
-#| results: 'asis'
+```{r, echo = FALSE}
 glossary_table()
 ```
 

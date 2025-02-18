@@ -283,7 +283,7 @@ You should also be able to see the documentation in the Help pane.
 
 ## Glossary
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo = FALSE}
 glossary_table()
 ```
 

@@ -273,7 +273,7 @@ test_that("data available", {
 
 ## Glossary
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo = FALSE}
 glossary_table()
 ```
 

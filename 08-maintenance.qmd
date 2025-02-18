@@ -242,7 +242,7 @@ You'll get a note like this.
 
 ## Glossary
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo = FALSE}
 glossary_table()
 ```
 

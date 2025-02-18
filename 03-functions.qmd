@@ -400,7 +400,7 @@ demopkg:::round0(1, 3)
 
 ## Glossary
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo = FALSE}
 glossary_table()
 ```
 

@@ -195,7 +195,7 @@ Next week, we'll learn how to create a website for your package that displays th
 
 ## Glossary
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo = FALSE}
 glossary_table()
 ```
 

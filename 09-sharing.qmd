@@ -267,7 +267,7 @@ Now, whenever you push changes to your repository, a script will rebuild your pk
 
 ## Glossary
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo = FALSE}
 glossary_table()
 ```
 
